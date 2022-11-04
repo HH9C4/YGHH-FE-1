@@ -8,6 +8,8 @@ export const nhinstance = axios.create({
     headers: {},
 });
 
+//
+
 //헤더 있는 인스턴스
 export const hInstance = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
