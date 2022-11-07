@@ -20,54 +20,79 @@ export const hInstance = axios.create({
 });
 
 
-export const loginApis = {
+export const membersApis = {
+
     //로그인
-    loginAX: (loginInfo) => nhinstance.post(`/auth/login`, loginInfo),
+    loginAX: (code) => nhinstance.get(`/auth/kakao/callback?code=${code}`, {
+    }),
+
     //로그아웃
     logoutAX: () => hInstance.delete(`/api/logout`,),
-    //회원가입
-    joinAX: (joinInfo) => nhinstance.post(`/auth/signup`, joinInfo),
-
-    //회원가입 이메일 중복 체크
-    // loginEmailCheckAX: (email) => nhinstance.post(`/auth/idCheck`, email),
-
-    //회원가입 이메일, 닉네임 중복 체크
-    loginCheckAX: (userinfo) => nhinstance.post(`${userinfo.url}`, userinfo.data),
-
     //게시글 삭제
     getDeletePostAX: (id) => nhinstance.delete(`/api/posts/${id}`),
 
-    //마이페이지 계정 수정 페이지
-    putUserInfoAX: (userinfo) => nhinstance.put("/my/update", userinfo),
+    // //마이페이지 계정 수정 페이지
+    // putUserInfoAX: (userinfo) => nhinstance.put("/my/update", userinfo),
 };
 
 export const commentApis = {
-    ///api/{postId}/comment
+
     //댓글 작성
-    commentAddAX: (commentInfo) => hInstance.post(`/api/${commentInfo.id}/comment`, commentInfo.comment),
+    commentAddAX: (commentInfo) => hInstance.post(`/api/comments/${commentInfo}`, commentInfo),
 
     //댓글 삭제
-    //명세서 /api/comment/{commetId}
-    commentDeletePostAX: (id) => hInstance.delete(`/api/comment/${id}`)
+    commentDeletePostAX: (id) => hInstance.delete(`/api/comments/${id}`)
 };
 
 export const contentsApis = {
-    //컨텐츠 작성
+
+    //게시글 작성
     insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 
-    //컨텐츠 전체 불러오기
-    getContentAX: (contentInfo) => nhinstance.get(`/api/posts`),
+    //게시글 수정
+    updateContentAX: (contentInfo) => hInstance.put(`/api/posts,${contentInfo}`, contentInfo),
 
-    //컨텐츠 상세 불러오기
-    ///api/posts/{postId}
-    getContentDetailAX: (contentInfo) => nhinstance.get(`/api/posts/${contentInfo}`),
+    //게시글 삭제
+    deleteContentAX: (postId) => hInstance.delete(`/api/posts/${postId}`),
 
-    //컨텐츠 삭제
-    deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
+    //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
+    ContentHotAX: (contentInfo) => hInstance.get(`/api/posts/${contentInfo}/${contentInfo}`),
 
-    //컨텐츠 수정
-    updateContentAX: (obj) => hInstance.post(`/api/posts/${obj.id}`, obj.contentInfo),
+    //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
+    ContentNewAX: (contentInfo) => hInstance.get(`/api/posts/${contentInfo}/${contentInfo}`),
 
-    //마이페이지
-    mypageAX: () => hInstance.get(`/api/myPage`),
+    //게시글 카테고리별 조회(contentInfo안에 ✅gu / 🙉category가 객체로 들어감)
+    ContentCategoryAX: (contentInfo) => hInstance.get(`/api/posts/${contentInfo}/${contentInfo}`),
+
+    //게시글 상세 조회
+    getContentDetailAX: (postId) => hInstance.get(`/api/posts/${postId}`),
+
+    //검색
+    getSearchAX: (searchword) => hInstance.get(`/api/posts/${searchword}`),
+
+    //게시글 좋아요
+    postlikesAX: (postId) => hInstance.get(`/api/posts/likes/${postId}`),
+
+    //마이페이지 내가 작성한 글
+    getmypageAX: () => hInstance.get(`/api/myposts`),
+
+    //마이페이지 북마크
+    mypageMarkedAX: () => hInstance.get(`/api/bookmarks`),
+
+    // (👎미정)마이페이지 좋아요
+    // mypageLikedAX: () => hInstance.get(`/api/bookmarks`),
+
+    //북마크
+    bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),
+
+    //북마크 취소
+    bookMarkOffAX: (gu) => hInstance.delete(`/api/bookmarks/${gu}`),
+
+    //좋아요
+    likesAX: (postId) => hInstance.post(`/api/likes/${postId}`),
+
+    //좋아요 취소
+    cancelLikesAX: (postId) => hInstance.delete(`/api/likes/${postId}`),
+
 };
+

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { contentsApis, commentApis } from "../../apis/apiInstance"
+import { contentsApis, commentApis } from "../../api/instance"
 
 
 

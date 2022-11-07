@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import membersSlice from "../modules/membersSlice";
-import contentsSlice from "../modules/contentsSlice";
+import membersSlice from "../modules/memberSlice"
+import contentsSlice from "../modules/contentsSlice"
 
 const store = configureStore({
     reducer: {
-        membersSlice,
+        // membersSlice,
         contentsSlice,
     },
     //배포 모드일때 리덕스 데브툴 사용 안함
