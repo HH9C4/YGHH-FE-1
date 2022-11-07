@@ -24,7 +24,7 @@ const Text = (props) => {
     bg: bg,
     color: color,
   }
-
+  //
   if (is_float) {
     return (
       <React.Fragment>
