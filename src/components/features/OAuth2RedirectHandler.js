@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import { __kakaoLogin } from "../../redux/modules/memberSlice"
 import Loading from './Loading';
 
+
+
 const OAuth2RedirectHandler = () => {
     const dispatch = useDispatch();
     // 인가코드

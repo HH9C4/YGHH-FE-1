@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from 'axios';
 import { contentsApis, commentApis } from "../../api/instance"
 
 
@@ -16,20 +17,16 @@ export const __insertContent = createAsyncThunk(
         }
     }
 )
-//댓글 작성
+//댓글 작성 
 export const __insertComment = createAsyncThunk(
     "contents/__insertComment",
-
     async (payload, thunkAPI) => {
         try {
             const res = await commentApis.commentAddAX(payload)
-            const obj = {
-                comment: payload.comment,
-                data: res.data,
+            // axios.post("http://localhost:3001/comments", payload);
+            if (res.status === 201) {
+                return thunkAPI.fulfillWithValue(payload);
             }
-
-            return thunkAPI.fulfillWithValue(obj);
-
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -41,10 +38,13 @@ export const __deleteComment = createAsyncThunk(
     "contents/__deleteComment",
     async (payload, thunkAPI) => {
         try {
-            const res = await commentApis.commentDeletePostAX(payload)
+            console.log("댓글 삭제 페이로드", payload);
+
+            // const res = await commentApis.commentDeletePostAX(payload)
+            axios.post("http://localhost:3001/comments", payload);
             const obj = {
                 delCommentId: payload,
-                data: res.data,
+                // data: res.data,
             }
             return thunkAPI.fulfillWithValue(obj);
         } catch (error) {
@@ -71,7 +71,8 @@ export const __getContentDetail = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const res = await contentsApis.getContentDetailAX(payload)
-            return thunkAPI.fulfillWithValue(res.data);
+            console.log("상세조회 리스폰스 값", res);
+            // return thunkAPI.fulfillWithValue(res.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -147,9 +148,7 @@ export const contentsSlice = createSlice({
     extraReducers: {
         //__댓글 작성
         [__insertComment.fulfilled]: (state, action) => {
-            if (action.payload.data.status === 200) {
-                state.comments.push(action.payload.comment)
-            }
+            state.comments.push(action.payload)
         },
         [__insertComment.rejected]: (state, action) => {
             state.error = action.payload;
@@ -200,7 +199,7 @@ export const contentsSlice = createSlice({
         [__getContentDetail.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.content = action.payload;
-            state.comments = action.payload.comments;
+            // state.comments = action.payload.comments;
         },
         [__getContentDetail.rejected]: (state, action) => {
             state.isLoading = false;
@@ -220,7 +219,7 @@ export const contentsSlice = createSlice({
         [__deleteContent.fulfilled]: (state, action) => {
             state.isLoading = false; // 
 
-            if (action.payload.data.status === 200) {
+            if (action.payload.data.status === "OK") {
                 state.contents.splice(action.payload.delContentId, 1)
                 window.location.replace("/mypage")
             }

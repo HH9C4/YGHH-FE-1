@@ -23,9 +23,10 @@ export const hInstance = axios.create({
 export const membersApis = {
 
     //로그인
-    loginAX: (code) => nhinstance.get(`/auth/kakao/callback?code=${code}`, {
+    loginAX: (code) => nhinstance.get(`/user/kakao/callback?code=${code}`, {
     }),
-
+    // loginAX: (code) => nhinstance.post(`/auth/kakao/callback?code=${code}`, {
+    // }),
     //로그아웃
     logoutAX: () => hInstance.delete(`/api/logout`,),
     //게시글 삭제

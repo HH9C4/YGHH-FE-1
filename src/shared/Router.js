@@ -24,8 +24,9 @@ const Router = () => {
                 <Route path="/write" element={<Write />} />
                 <Route path="/mypage/:id" element={<Mypage />} />
                 <Route path="/detail/:id" element={<Detail />} />
+
                 {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
-                <Route path="/oauth/callback/kakao" element={<OAuth2RedirectHandler />} />
+                <Route path="/user/kakao/callback" element={<OAuth2RedirectHandler />} />
 
             </Routes>
         </BrowserRouter>

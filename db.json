@@ -1,0 +1,35 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "commentLevel": "0",
+      "comment": {
+        "comment": "하하하"
+      },
+      "id": 1
+    },
+    {
+      "commentLevel": "0",
+      "comment": {
+        "comment": "댓글 테스트3"
+      },
+      "id": 2
+    },
+    {
+      "commentLevel": "0",
+      "comment": {
+        "comment": "ㄹㄹㄹ"
+      },
+      "id": 3
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

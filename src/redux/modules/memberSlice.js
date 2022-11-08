@@ -1,16 +1,24 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { membersApis } from "../../api/instance"
+import axios from 'axios';
 // import { delCookie } from "../../cookie/cookie"
 
 
 export const __kakaoLogin = (code) => {
     return function (dispatch, getState) {
-        membersApis.loginAX()
+        console.log(code, "카카오 코드")
+
+        // membersApis.loginAX(code)
+        axios.get(`http://43.201.116.82/user/kakao/callback?code=${code}`)
             .then((res) => {
                 console.log("넘어온 토큰값", res); // 토큰이 넘어올 것임
-                const Access_Token = res.data.accessToken;
+                const Access_Token = res.headers.access_token;
                 localStorage.setItem("token", Access_Token);
-                // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
+                localStorage.setItem("nickName", res.data.accountName);
+                localStorage.setItem("profileImage", res.profileImage);
+                localStorage.setItem("ageRange", res.ageRange);
+                localStorage.setItem("email", res.email);
+                // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
                 window.location.replace("/")
             })
             .catch((error) => {
@@ -18,7 +26,6 @@ export const __kakaoLogin = (code) => {
                 window.alert("로그인에 실패하였습니다.");
                 // 로그인 실패하면 로그인 화면으로 돌려보냄
                 window.location.replace("/login");
-
             })
     }
 };

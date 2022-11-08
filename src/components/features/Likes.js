@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import {
     LikeOutlined,
-    DislikeOutlined,
     LikeFilled,
-    DislikeFilled,
 } from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { contentsApis } from "../../api/instance"
 
+
+
 function LikeDislikes(props) {
+
+    //유즈 셀렉터로 츄르 뽈스 가져오셈
+
     const { id } = useParams();
-    const [Likes, setLikes] = useState(0);
+    // const [Likes, setLikes] = useState(0);
     const [LikeAction, setLikeAction] = useState('');
 
     const onLike = (id) => {
         if (LikeAction === '') {
             contentsApis.likesAX(id).then((response) => {
                 if (response.data.msg === "success Likes!") {
-                    setLikes(Likes + 1);
+                    // setLikes(Likes + 1);
                     setLikeAction('liked');
                 } else {
                     alert('Like를 올리지 못했습니다.');
@@ -26,7 +29,7 @@ function LikeDislikes(props) {
             });
         } else {
             contentsApis.cancelLikesAX(id).then((response) => {
-                setLikes(Likes - 1);
+                // setLikes(Likes - 1);
                 setLikeAction('');
             });
         }
@@ -54,13 +57,14 @@ function LikeDislikes(props) {
         <div>
             <span key="comment-basic-like">
                 <div title="Like">
+                    {/* isLiked로 구분 */}
                     {LikeAction === '' ? (
                         <LikeOutlined onClick={onLike} />
                     ) : (
                         <LikeFilled onClick={onLike} />
                     )}
                 </div>
-                <span style={{ paddingLeft: '4px', cursor: 'auto' }}> {Likes}</span>
+                {/* <span style={{ paddingLeft: '4px', cursor: 'auto' }}> {}</span> */}
             </span>
         </div>
     );

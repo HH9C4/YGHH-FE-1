@@ -6,11 +6,11 @@ import { useLocation } from 'react-router-dom'
 
 const KakaoLogin = () => {
     const REST_API_KEY = "a8c29f43cc985001f5fcd08bcbd9bbac"
-    const REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao"
+    const REDIRECT_URI = "http://localhost:3000/user/kakao/callback"
     const location = useLocation();
-    const navigate = useNavigate();
+
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-    const KAKAO_CODE = location.search.split('=')[1];
+
 
     //⭐️TOKEN 저장
     // const getKakaoToken = () => {
@@ -39,6 +39,7 @@ const KakaoLogin = () => {
 
     return (
         <div>
+            {/* <a id="kakao-login-btn" onClick={handleLogin}> */}
             <a id="kakao-login-btn" onClick={handleLogin}>
                 <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
                     alt="카카오 로그인 버튼" />
