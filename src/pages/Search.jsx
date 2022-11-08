@@ -40,6 +40,7 @@ const Search = () => {
     </>
   )
 }
+
 export default Search
 
 const Flex = styled.div`
