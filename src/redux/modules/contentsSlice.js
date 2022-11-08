@@ -1,24 +1,24 @@
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { contentsApis, commentApis } from "../../api/instance"
 
-
-
 //게시글 작성
 export const __insertContent = createAsyncThunk(
-    "contents/__insertContent",
-    async (payload, thunkAPI) => {
-        try {
-            const res = await contentsApis.insertContentAX(payload)
+  "contents/__insertContent",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.insertContentAX(payload)
 
-            return thunkAPI.fulfillWithValue(res.data);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.response)//.data);
-        }
+      return thunkAPI.fulfillWithValue(res.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response) //.data);
     }
+  }
 )
 //댓글 작성 
 export const __insertComment = createAsyncThunk(
+
     "contents/__insertComment",
     async (payload, thunkAPI) => {
         try {
@@ -31,10 +31,12 @@ export const __insertComment = createAsyncThunk(
             return thunkAPI.rejectWithValue(error);
         }
     }
+  }
 )
 
 //댓글 삭제
 export const __deleteComment = createAsyncThunk(
+
     "contents/__deleteComment",
     async (payload, thunkAPI) => {
         try {
@@ -51,22 +53,24 @@ export const __deleteComment = createAsyncThunk(
             return thunkAPI.rejectWithValue(error);
         }
     }
+  }
 )
 
 // 게시글 전체조회
 export const __getContent = createAsyncThunk(
-    "contents/__getContent",
-    async (payload, thunkAPI) => {
-        try {
-            const res = await contentsApis.getContentAX(payload)
-            return thunkAPI.fulfillWithValue(res.data);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
+  "contents/__getContent",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.getContentAX(payload)
+      return thunkAPI.fulfillWithValue(res.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
     }
+  }
 )
 //게시글 상세조회
 export const __getContentDetail = createAsyncThunk(
+
     "contents/__getContentDetail",
     async (payload, thunkAPI) => {
         try {
@@ -76,67 +80,64 @@ export const __getContentDetail = createAsyncThunk(
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
+
     }
+  }
 )
 //게시글 수정
 export const __updataContent = createAsyncThunk(
-    "contents/__updataContent",
-    async (payload, thunkAPI) => {
-        try {
+  "contents/__updataContent",
+  async (payload, thunkAPI) => {
+    try {
+      await contentsApis
+        .updateContentAX(payload)
+        .then((res) => {
+          if (res.data.status === 200) {
+            alert("글수정 성공")
+            window.location.replace(`/detail/${payload.id}`)
+          }
+        })
+        .catch((error) => {
+          console.log("error", error)
+        })
 
-            await contentsApis.updateContentAX(payload)
-                .then((res) => {
-                    if (res.data.status === 200) {
-                        alert("글수정 성공");
-                        window.location.replace(`/detail/${payload.id}`);
-                    }
-
-                })
-                .catch((error) => {
-                    console.log("error", error);
-                })
-
-            // return thunkAPI.fulfillWithValue(obj);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
+      // return thunkAPI.fulfillWithValue(obj);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
     }
+  }
 )
 //게시글 삭제
 export const __deleteContent = createAsyncThunk(
-    "contents/__deleteContent",
-    async (payload, thunkAPI) => {
-        try {
-            const res = await contentsApis.deleteContentAX(payload)
-            const obj = {
-                delContentId: payload,
-                data: res.data,
-            }
-            return thunkAPI.fulfillWithValue(obj);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
+  "contents/__deleteContent",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.deleteContentAX(payload)
+      const obj = {
+        delContentId: payload,
+        data: res.data,
+      }
+      return thunkAPI.fulfillWithValue(obj)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
     }
+  }
 )
 
 export const __mypage = createAsyncThunk(
-    "contents/__mypage",
-    async (payload, thunkAPI) => {
-        try {
-            const res = await contentsApis.mypageAX();
-            return thunkAPI.fulfillWithValue(res.data);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error);
-        }
+  "contents/__mypage",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.mypageAX()
+      return thunkAPI.fulfillWithValue(res.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
     }
+  }
 )
 
-
-
-
-
-
 export const contentsSlice = createSlice({
+
     name: "contents",
     initialState: {
         contents: [],
@@ -218,25 +219,22 @@ export const contentsSlice = createSlice({
         },
         [__deleteContent.fulfilled]: (state, action) => {
             state.isLoading = false; // 
-
             if (action.payload.data.status === "OK") {
                 state.contents.splice(action.payload.delContentId, 1)
                 window.location.replace("/mypage")
             }
-
-        },
-        [__deleteContent.rejected]: (state, action) => {
-            state.isLoading = false; // 
-            state.error = action.payload; // 
-        },
-        //__mypage
-        [__mypage.fulfilled]: (state, action) => {
-            state.mypage = action.payload;
-        },
-        [__mypage.rejected]: (state, action) => {
-            state.error = action.payload;
-        },
-    }
-});
-
-export default contentsSlice.reducer;
+           },
+    [__deleteContent.rejected]: (state, action) => {
+      state.isLoading = false //
+      state.error = action.payload //
+    },
+    //__mypage
+    [__mypage.fulfilled]: (state, action) => {
+      state.mypage = action.payload
+    },
+    [__mypage.rejected]: (state, action) => {
+      state.error = action.payload
+    },
+  },
+})
+export default contentsSlice.reducer
