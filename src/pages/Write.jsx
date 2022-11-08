@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react"
+import Form from "../components/features/Form"
 
 const Write = () => {
-    return (
-        <div>Write</div>
-    )
+  return <Form />
 }
 
 export default Write
