@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 
 
 const KakaoLogin = () => {
-    const REST_API_KEY = "20c8b3740eb485b607e3163774c9b7f3"
+    const REST_API_KEY = "a8c29f43cc985001f5fcd08bcbd9bbac"
     const REDIRECT_URI = "http://localhost:3000/oauth/callback/kakao"
     const location = useLocation();
     const navigate = useNavigate();
