@@ -11,6 +11,7 @@ import DetailPost from "../components/features/DetailPost"
 const Search = () => {
   const posts = useSelector((store) => store.search.search)
   const dispatch = useDispatch()
+  const [sort, setSort] = useState("new")
   const [search, setSearch, searchHandle] = useInput()
   //   const gu = useParams()
   const navigate = useNavigate()
@@ -26,6 +27,12 @@ const Search = () => {
     navigate(`/search/${search.keyword}/${params.sort}`)
     dispatch(__getSearch(obj))
   }
+  function onSort(id) {
+    console.log(id)
+    navigate(`/search/${search.keyword}/${id}`)
+    dispatch(__getSearch(obj))
+  }
+
   useEffect(() => {
     dispatch(__getSearch(obj))
   }, [dispatch])
@@ -36,7 +43,11 @@ const Search = () => {
         <Flex>
           <input
             name="keyword"
-            defaultValue={params.searchWord ? params.keyword : search.keyword}
+            defaultValue={
+              params.searchWord !== undefined
+                ? params.searchWord
+                : search.keyword
+            }
             value={search.keyword}
             onChange={searchHandle}
             placeholder="검색어를 입력해주세요."
@@ -45,14 +56,10 @@ const Search = () => {
         </Flex>
       </Flex>
       <div>
-        <button onClick={() => navigate(`/search/${params.keyword}/new`)}>
-          최근
-        </button>
-        <button onClick={() => navigate(`/search/${params.keyword}/hot`)}>
-          인기있는
-        </button>
+        <button onClick={() => onSort("new")}>최근</button>
+        <button onClick={() => onSort("hot")}>인기있는</button>
       </div>
-      <DetailPost posts={posts} />
+      <Post posts={posts} />
     </>
   )
 }
