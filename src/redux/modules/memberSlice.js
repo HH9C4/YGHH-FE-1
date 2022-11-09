@@ -6,18 +6,17 @@ import axios from 'axios';
 
 export const __kakaoLogin = (code) => {
     return function (dispatch, getState) {
-        console.log(code, "카카오 코드")
-
         // membersApis.loginAX(code)
-        axios.get(`http://43.201.116.82/user/kakao/callback?code=${code}`)
+        axios.get(`http://54.180.151.168/user/kakao/callback?code=${code}`)
             .then((res) => {
-                console.log("넘어온 토큰값", res); // 토큰이 넘어올 것임
+                console.log("넘어온 값", res); // 토큰이 넘어올 것임
                 const Access_Token = res.headers.access_token;
                 localStorage.setItem("token", Access_Token);
-                localStorage.setItem("nickName", res.data.accountName);
-                localStorage.setItem("profileImage", res.profileImage);
-                localStorage.setItem("ageRange", res.ageRange);
-                localStorage.setItem("email", res.email);
+                localStorage.setItem("nickName", res.data.data.accountName);
+                localStorage.setItem("profileImage", res.data.data.profileImage);
+                localStorage.setItem("ageRange", res.data.data.ageRange);
+                localStorage.setItem("email", res.data.data.email);
+                localStorage.setItem("gender", res.data.data.gender);
                 // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
                 window.location.replace("/")
             })
