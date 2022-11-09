@@ -8,37 +8,40 @@ const Comment = ({ data }) => {
     const dispatch = useDispatch();
     const { id } = useParams()
 
+    console.log("디테일 프롭스 to 코멘트:", data);
 
     const onDeleteButton = (id) => {
         dispatch(__deleteComment(id))
         // alert("삭제하시겠습니까?")
         // window.location.replace(`/detail/${Id}`)
     };
-    const commentDetail = useSelector((state) => state.contentsSlice.content);
-    console.log(commentDetail);
 
-    // return (
-    //     <>
-    //         {
-    //             data !== undefined &&
-    //             data.map((item) => {
-    //                 <div>
-    //                     <div key={item.comments.commentId}>
-    //                         <div>
-    //                             <div>item.comments.accountName</div>
-    //                             <div>item.comments.createdAt</div>
-    //                             <div>item.gu</div>
-    //                         </div>
-    //                         <div>
-    //                             <button onClick={onDeleteButton}>삭제</button>
-    //                         </div>
-    //                         <div>{item.comments.comment}</div>
-    //                     </div>
-    //                 </div>
-    //             })
-    //         }
-    //     </>
-    // )
+
+    return (
+        <>
+            {
+                data.commentList !== undefined &&
+                data.commentList.map((item) => {
+                    return (
+                        <div key={item.commentId}>
+                            <div>
+                                <div>
+                                    {console.log("아이템 개별값", item)}
+                                    <div>{item.accountName}</div>
+                                    <div>{item.createdAt}</div>
+                                    {/* <div>{data.content.gu}</div> */}
+                                </div>
+                                <div>
+                                    <button onClick={onDeleteButton}>삭제</button>
+                                </div>
+                                <div>{item.comment}</div>
+                            </div>
+                        </div>
+                    )
+                })
+            }
+        </>
+    )
 
 }
 
