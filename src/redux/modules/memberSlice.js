@@ -5,13 +5,11 @@ import axios from "axios"
 
 export const __kakaoLogin = (code) => {
   return function (dispatch, getState) {
-    console.log(code, "카카오 코드")
-
     // membersApis.loginAX(code)
     axios
       .get(`http://54.180.151.168/user/kakao/callback?code=${code}`)
       .then((res) => {
-        console.log("넘어온 토큰값", res) // 토큰이 넘어올 것임
+        console.log("넘어온 값", res) // 토큰이 넘어올 것임
         const Access_Token = res.headers.access_token
         localStorage.setItem("token", Access_Token)
         localStorage.setItem("nickName", res.data.data.accountName)

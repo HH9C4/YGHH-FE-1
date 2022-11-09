@@ -20,8 +20,11 @@ export const __insertComment = createAsyncThunk(
   "contents/__insertComment",
   async (payload, thunkAPI) => {
     try {
+      console.log("로컬스토리지 테스트", localStorage.getItem("token"))
+      console.log("댓글 작성 페이로드", payload)
       const res = await commentApis.commentAddAX(payload)
-      // axios.post("http://localhost:3001/comments", payload);
+      console.log("댓글 작성 응답값", res)
+
       if (res.status === 201) {
         return thunkAPI.fulfillWithValue(payload)
       }
@@ -37,7 +40,6 @@ export const __deleteComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log("댓글 삭제 페이로드", payload)
-
       // const res = await commentApis.commentDeletePostAX(payload)
       axios.post("http://localhost:3001/comments", payload)
       const obj = {
@@ -70,8 +72,8 @@ export const __getContentDetail = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.getContentDetailAX(payload)
-      console.log("상세조회 리스폰스 값", res)
-      // return thunkAPI.fulfillWithValue(res.data);
+      console.log("상세조회 response : ")
+      return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -161,6 +163,11 @@ export const contentsSlice = createSlice({
       state.error = action.payload //
     },
 
+    [__deleteComment.rejected]: (state, action) => {
+      state.isLoading = false //
+      state.error = action.payload //
+    },
+
     //__게시글 작성
     [__insertContent.fulfilled]: (state, action) => {
       if (action.payload.status === 200) {
@@ -188,7 +195,7 @@ export const contentsSlice = createSlice({
     },
     [__getContentDetail.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.content = action.payload
+      state.content = action.payload.data
       // state.comments = action.payload.comments;
     },
     [__getContentDetail.rejected]: (state, action) => {

@@ -1,5 +1,4 @@
 import axios from "axios"
-import { getCookie } from "../cookie/cookie"
 
 //헤더 없는 인스턴스
 export const nhInstance = axios.create({
@@ -33,7 +32,10 @@ export const membersApis = {
 export const commentApis = {
   //댓글 작성
   commentAddAX: (commentInfo) =>
-    hInstance.post(`/api/comments/${commentInfo}`, commentInfo),
+    hInstance.post(
+      `/api/comments/${commentInfo.commentLevel}`,
+      commentInfo.comment
+    ),
 
   //댓글 삭제
   commentDeletePostAX: (id) => hInstance.delete(`/api/comments/${id}`),
