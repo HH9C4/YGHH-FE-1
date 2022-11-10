@@ -5,26 +5,34 @@ import { __getContentDetail, __deleteContent } from '../../redux/modules/content
 
 const DetailPost = ({ data }) => {
 
-    // const postDetail = useSelector((state) => state.content.content);
     const dispatch = useDispatch();
     const { id } = useParams()
     console.log("디테일 프롭스 to 디테일포스트:", data);
 
+
     // 게시글 삭제 버튼
-    const onPostDelete = (payload) => {
-        dispatch(__deleteContent(payload));
+    const onPostDelete = (id) => {
+        console.log("파람스", id);
+        dispatch(__deleteContent(id));
     };
+
+    //삭제 버튼 작성자 확인
+    const checkOwner = {
+        'nickName': localStorage.getItem("nickName")
+    }
+
+
 
     return (
         <>
             {
-
                 <div>
                     <div>
                         {/* 포스트 전체 컨테이너 */}
                         <div>
                             {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
                             <div>
+                                {/* 좋아요 컴포넌트 들어가야함 */}
                                 ❤️{data.likeCount}
                             </div>
                             <div>
@@ -34,7 +42,8 @@ const DetailPost = ({ data }) => {
                                 💬{/* 댓글 수 표시할 곳 */}
                             </div>
                             <div>
-                                <button>수정</button><button onClick={onPostDelete}>삭제</button>
+                                {checkOwner.nickName === data.accountName ? (<button>수정</button>) : ''}
+                                {checkOwner.nickName === data.accountName ? (<button onClick={(() => { onPostDelete(data.postId) })}>삭제</button>) : ''}
                             </div>
                         </div>
                         <img src={data.imageUrl}
@@ -50,10 +59,9 @@ const DetailPost = ({ data }) => {
                             </div>
                             <div>{data.gu}</div>
                         </div>
-                        <div>질문 버튼 들어갈 곳</div>
+                        <div>태그 들어갈 곳</div>
                     </div>
                 </div>
-
             }
         </>
     )
