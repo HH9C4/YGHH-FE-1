@@ -1,10 +1,10 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit"
 import { membersApis } from "../../api/instance"
-import axios from 'axios';
+import axios from "axios"
 // import { delCookie } from "../../cookie/cookie"
 
-
 export const __kakaoLogin = (code) => {
+
     return function (dispatch, getState) {
         // membersApis.loginAX(code)
         axios.get(`http://43.201.82.55:8080/user/kakao/callback?code=${code}`)
@@ -59,4 +59,3 @@ export const __kakaoLogin = (code) => {
 //         }
 //     }
 // )
-
