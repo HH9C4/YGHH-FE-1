@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom"
 import { getCookie } from "../cookie/cookie"
 import Post from "../components/features/Post"
 import { __getContent } from "../redux/modules/contentsSlice"
+import Floating from "../components/elements/Floating"
 
 const List = () => {
   const [gu, setGu] = useState("")
@@ -21,7 +22,7 @@ const List = () => {
 
   useEffect(() => {
     dispatch(__getContent(obj))
-  }, [dispatch])
+  }, [params])
 
   return (
     <>
@@ -73,10 +74,10 @@ const List = () => {
         </button>
       </div>
 
-      {/* <Post posts={contents} /> */}
+      <Post posts={contents} />
+      <Floating />
     </>
   )
 }
 
 export default List
-

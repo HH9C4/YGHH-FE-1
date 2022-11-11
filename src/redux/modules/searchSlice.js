@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import contentsApis from "../../api/instance"
+import { contentsApis } from "../../api/instance"
 
 const initialState = {
   search: [],
@@ -11,10 +11,11 @@ const initialState = {
 
 export const __getSearch = createAsyncThunk(
   "contents/getSearch",
-  async (searchword, thunkAPI) => {
+  async (obj, thunkAPI) => {
     try {
-      const res = await contentsApis.searchAX(searchword)
-      return thunkAPI.fulfillWithValue(res.data)
+      console.log(obj)
+      const res = await contentsApis.searchAX(obj)
+      return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       alert(error.response.data.msg)
       return thunkAPI.rejectWithValue(error)
@@ -47,7 +48,7 @@ export const searchSlice = createSlice({
       state.isLoading = false
       state.isSuccess = false
       console.log("action.payload", action.payload)
-      state.search = action.payload.data
+      state.search = action.payload
     },
     [__getSearch.rejected]: (state, action) => {
       state.isLoading = false

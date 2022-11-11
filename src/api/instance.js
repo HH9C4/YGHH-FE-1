@@ -12,51 +12,61 @@ export const nhInstance = axios.create({
 export const hInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    "Access_Token":
-      localStorage.getItem("token") === undefined ? "" : localStorage.getItem("token"),
+    Access_Token:
+      localStorage.getItem("token") === undefined
+        ? ""
+        : localStorage.getItem("token"),
   },
   withCredentials: true,
 })
 
-
 export const membersApis = {
   //로그인
-  loginAX: (code) => nhInstance.get(`/user/kakao/callback?code=${code}`, {
-  }),
+  loginAX: (code) => nhInstance.get(`/user/kakao/callback?code=${code}`, {}),
   // loginAX: (code) => nhinstance.post(`/auth/kakao/callback?code=${code}`, {
   // }),
   //로그아웃
-  logoutAX: () => hInstance.delete(`/api/logout`,),
-};
+  logoutAX: () => hInstance.delete(`/api/logout`),
+}
 
 export const commentApis = {
   //댓글 작성
-  commentAddAX: (commentInfo) => hInstance.post(`/api/comments/${commentInfo.commentLevel}`, commentInfo.comment),
+
+  commentAddAX: (commentInfo) => hInstance.post(`/api/comments/${commentInfo.commentLevel}`, commentInfo),
+
 
   //댓글 삭제
-  commentDeletePostAX: (id) => hInstance.delete(`/api/comments/${id}`)
-};
+  commentDeletePostAX: (id) => hInstance.delete(`/api/comments/${id}`),
+}
 
 export const contentsApis = {
-
   //게시글 작성
   insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 
   //게시글 수정
-  updateContentAX: (obj) =>
-    hInstance.post(`/api/posts/${obj.id}`, obj.contentInfo),
+  updateContentAX: (payload) =>
+    hInstance.put(`/api/posts/${payload.id}`, payload.obj),
+
+  //컨텐츠 삭제
+  deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
+
 
   //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
   getContentAX: (obj) =>
-    hInstance.get(
-      `/api/posts
-  ?gu=${obj.gu}&sort=${obj.sort}`,
-      obj.contentInfo
-    ),
-
+    hInstance.get(`/api/posts`, {
+      params: { gu: obj.gu, sort: obj.sort },
+    }),
+  // {
+  //   let decode = decodeURI(decodeURIComponent(obj.gu))
+  //   hInstance.get(`/api/posts?gu=${decode}&sort=${obj.sort}`)
+  // },
   //검색
-  searchAX: (searchword) => hInstance.get(`api/posts/${searchword}`),
+
+  searchAX: (obj) =>
+    hInstance.get(`api/posts/search`, {
+      params: { searchWord: obj.searchWord, sort: obj.sort },
+    }),
 
   //핫태그
   hotTagAX: (gu) => hInstance.get(`/api/posts/${gu}/hottest`),
@@ -71,10 +81,10 @@ export const contentsApis = {
   getmypageAX: () => hInstance.get(`/api/myposts`),
 
   //마이페이지 북마크
-  mypageMarkedAX: () => hInstance.get(`/api/bookmarks`),
+  mypageMarkedAX: () => hInstance.get(`/api/mybookmarks`),
 
-  // (👎미정)마이페이지 좋아요
-  // mypageLikedAX: () => hInstance.get(`/api/bookmarks`),
+  //   (👎미정)마이페이지 좋아요
+  mypageLikedAX: () => hInstance.get(`/api/mylikes`),
 
   //북마크
   bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),
@@ -83,13 +93,14 @@ export const contentsApis = {
   bookMarkOffAX: (gu) => hInstance.delete(`/api/bookmarks/${gu}`),
 
   //좋아요
-  likesAX: (postId) => hInstance.post(`/api/likes/${postId}`),
+  likesAX: (postInfo) => hInstance.post(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
 
   //좋아요 취소
-  cancelLikesAX: (postId) => hInstance.delete(`/api/likes/${postId}`),
+
+  cancelLikesAX: (postInfo) => hInstance.delete(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
 
 
 };
 
-export default { hInstance, nhInstance }
 
+export default { hInstance, nhInstance }

@@ -6,12 +6,12 @@ import Spinner from "../../assets/spinner.gif"
 //스피너를 통해 로딩 중이라는 것을 보여주기 위한 목적.
 
 export default () => {
-    return (
-        <Background>
-            <LoadingText>잠시만 기다려 주세요.</LoadingText>
-            <img src={Spinner} alt="로딩중" width="5%" />
-        </Background>
-    );
+  return (
+    <Background>
+      <LoadingText>잠시만 기다려 주세요.</LoadingText>
+      <img src={Spinner} alt="로딩중" width="5%" />
+    </Background>
+  );
 };
 
 export const Background = styled.div`
