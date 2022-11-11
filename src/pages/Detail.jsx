@@ -79,12 +79,15 @@ const Detail = () => {
   const onAddCommentButtonHandler = (event) => {
     event.preventDefault()
     const obj = {
-      commentLevel: contentId.id,
+      //코멘트 레벨을 스트링 1
+      //url 마지막 주소값이 포스트 아이디
+      commentLevel: String(contentData.postId),
       comment: comment.comment,
     }
     if (comment.comment.trim() === "") {
       return alert("댓글을 입력하여 주십시오.")
     }
+    console.log(obj)
     dispatch(__insertComment(obj))
     setComment({
       comment: "",

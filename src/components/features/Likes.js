@@ -1,33 +1,38 @@
-import React, { useEffect, useState } from "react"
 
-import { useParams } from "react-router-dom"
-import Axios from "axios"
+import React, { useEffect, useState } from 'react';
+import {
+    LikeOutlined,
+    LikeFilled,
+} from '@ant-design/icons';
+import Axios from 'axios';
 import { contentsApis } from "../../api/instance"
 
-function LikeDislikes(props) {
-  //유즈 셀렉터로 츄르 뽈스 가져오셈
+function Likes({ data, level }) {
 
-  const { id } = useParams()
-  // const [Likes, setLikes] = useState(0);
-  const [LikeAction, setLikeAction] = useState("")
+    console.log("좋아요 level", level);
+    console.log("data ", data);
+    //유즈 셀렉터로 츄르 뽈스 가져오셈
 
-  const onLike = (id) => {
-    if (LikeAction === "") {
-      contentsApis.likesAX(id).then((response) => {
-        if (response.data.msg === "success Likes!") {
-          // setLikes(Likes + 1);
-          setLikeAction("liked")
-        } else {
-          alert("Like를 올리지 못했습니다.")
+    // const [Likes, setLikes] = useState(0);
+    const [LikeAction, setLikeAction] = useState('');
+
+    const onLike = () => {
+
+        const obj = {
+            contentId: data,
+            level: level,
         }
-      })
-    } else {
-      contentsApis.cancelLikesAX(id).then((response) => {
-        // setLikes(Likes - 1);
-        setLikeAction("")
-      })
-    }
-  }
+
+        if (LikeAction === '') {
+            contentsApis.likesAX(obj).then((response) => {
+                console.log("좋아요 리스폰스값", response);
+                setLikeAction('liked')
+            });
+        } else {
+            contentsApis.cancelLikesAX(obj).then((response) => {
+                setLikeAction('');
+            });
+
 
   // useEffect((id) => {
   //     contentsApis.likesAX(id).then((response) => {
@@ -47,21 +52,25 @@ function LikeDislikes(props) {
   //     });
   // }, []);
 
-  return (
-    <div>
-      <span key="comment-basic-like">
-        <div title="Like">
-          {/* isLiked로 구분 */}
-          {LikeAction === "" ? (
-            <button onClick={onLike}>❤️</button>
-          ) : (
-            <button onClick={onLike}>안</button>
-          )}
+
+    return (
+
+        <div>
+            <span key="comment-basic-like">
+                <div title="Like">
+                    {/* isLiked로 구분 */}
+                    {LikeAction === '' ?
+                        (<LikeOutlined onClick={onLike} />)
+                        :
+                        (<LikeFilled onClick={onLike} />)
+                    }
+                </div>
+                {/* <span style={{ paddingLeft: '4px', cursor: 'auto' }}> {}</span> */}
+            </span>
         </div>
-        {/* <span style={{ paddingLeft: '4px', cursor: 'auto' }}> {}</span> */}
-      </span>
-    </div>
-  )
+
+    );
 }
 
-export default LikeDislikes
+export default Likes;
+
