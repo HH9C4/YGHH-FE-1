@@ -32,8 +32,8 @@ export const membersApis = {
 export const commentApis = {
   //댓글 작성
 
-  commentAddAX: (commentInfo) => hInstance.post(`/api/comments/${commentInfo.commentLevel}`, commentInfo),
-
+  commentAddAX: (commentInfo) =>
+    hInstance.post(`/api/comments/${commentInfo.commentLevel}`, commentInfo),
 
   //댓글 삭제
   commentDeletePostAX: (id) => hInstance.delete(`/api/comments/${id}`),
@@ -48,8 +48,8 @@ export const contentsApis = {
     hInstance.put(`/api/posts/${payload.id}`, payload.obj),
 
   //컨텐츠 삭제
-  deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
-
+  deleteContentAX: (contentInfo) =>
+    hInstance.delete(`/api/posts/${contentInfo}`),
 
   //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
@@ -86,6 +86,9 @@ export const contentsApis = {
   //   (👎미정)마이페이지 좋아요
   mypageLikedAX: () => hInstance.get(`/api/mylikes`),
 
+  // 마이페이지 알림탭
+  mypageNoticeAX: () => hInstance.get(`api/alarm`),
+
   //북마크
   bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),
 
@@ -93,14 +96,17 @@ export const contentsApis = {
   bookMarkOffAX: (gu) => hInstance.delete(`/api/bookmarks/${gu}`),
 
   //좋아요
-  likesAX: (postInfo) => hInstance.post(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
+  likesAX: (postInfo) =>
+    hInstance.post(
+      `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
+    ),
 
   //좋아요 취소
 
-  cancelLikesAX: (postInfo) => hInstance.delete(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
-
-
-};
-
+  cancelLikesAX: (postInfo) =>
+    hInstance.delete(
+      `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
+    ),
+}
 
 export default { hInstance, nhInstance }

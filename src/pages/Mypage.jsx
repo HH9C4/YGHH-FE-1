@@ -1,15 +1,16 @@
 import React from "react"
-import Alarm from "../components/mypage/Alarm"
+// import Alarm from "../components/mypage/Alarm"
 import MyLikes from "../components/mypage/MyLikes"
-import MyPosts from "../components/mypage/Mypost"
+import MyNotice from "../components/mypage/MyNotice"
+import Mypost from "../components/mypage/Mypost"
 
 const Mypage = () => {
   return (
     <>
       <div>Mypage</div>
 
-      <Alarm />
-      <MyPosts />
+      <MyNotice />
+      <Mypost />
       <MyLikes />
     </>
   )
