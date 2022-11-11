@@ -44,8 +44,8 @@ export const contentsApis = {
   insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 
   //게시글 수정
-  updateContentAX: (obj) =>
-    hInstance.post(`/api/posts/${obj.id}`, obj.contentInfo),
+  updateContentAX: (payload) =>
+    hInstance.put(`/api/posts/${payload.id}`, payload.obj),
 
   //컨텐츠 삭제
   deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
@@ -62,6 +62,7 @@ export const contentsApis = {
   //   hInstance.get(`/api/posts?gu=${decode}&sort=${obj.sort}`)
   // },
   //검색
+
   searchAX: (obj) =>
     hInstance.get(`api/posts/search`, {
       params: { searchWord: obj.searchWord, sort: obj.sort },
@@ -80,10 +81,10 @@ export const contentsApis = {
   getmypageAX: () => hInstance.get(`/api/myposts`),
 
   //마이페이지 북마크
-  mypageMarkedAX: () => hInstance.get(`/api/bookmarks`),
+  mypageMarkedAX: () => hInstance.get(`/api/mybookmarks`),
 
-  // (👎미정)마이페이지 좋아요
-  // mypageLikedAX: () => hInstance.get(`/api/bookmarks`),
+  //   (👎미정)마이페이지 좋아요
+  mypageLikedAX: () => hInstance.get(`/api/mylikes`),
 
   //북마크
   bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),

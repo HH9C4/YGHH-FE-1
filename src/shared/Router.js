@@ -18,7 +18,8 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/list/:gu/:sort" element={<List />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/write" element={<Write />} />
+        <Route path="/write/:gu" element={<Write />} />
+        <Route path="/write/:gu/:id" element={<Write />} />
         <Route path="/search/:searchWord/:sort" element={<Search />} />
         <Route path="/hottest/:gu" element={<HotTag />} />
         <Route path="/mypage/:id" element={<Mypage />} />
