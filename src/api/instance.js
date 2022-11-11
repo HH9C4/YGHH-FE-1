@@ -31,11 +31,9 @@ export const membersApis = {
 
 export const commentApis = {
   //댓글 작성
-  commentAddAX: (commentInfo) =>
-    hInstance.post(
-      `/api/comments/${commentInfo.commentLevel}`,
-      commentInfo.comment
-    ),
+
+  commentAddAX: (commentInfo) => hInstance.post(`/api/comments/${commentInfo.commentLevel}`, commentInfo),
+
 
   //댓글 삭제
   commentDeletePostAX: (id) => hInstance.delete(`/api/comments/${id}`),
@@ -48,6 +46,10 @@ export const contentsApis = {
   //게시글 수정
   updateContentAX: (obj) =>
     hInstance.post(`/api/posts/${obj.id}`, obj.contentInfo),
+
+  //컨텐츠 삭제
+  deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
+
 
   //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
@@ -90,10 +92,14 @@ export const contentsApis = {
   bookMarkOffAX: (gu) => hInstance.delete(`/api/bookmarks/${gu}`),
 
   //좋아요
-  likesAX: (postId) => hInstance.post(`/api/likes/${postId}`),
+  likesAX: (postInfo) => hInstance.post(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
 
   //좋아요 취소
-  cancelLikesAX: (postId) => hInstance.delete(`/api/likes/${postId}`),
-}
+
+  cancelLikesAX: (postInfo) => hInstance.delete(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
+
+
+};
+
 
 export default { hInstance, nhInstance }
