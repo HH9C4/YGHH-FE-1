@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
 import { contentsApis, commentApis } from "../../api/instance"
+import { current } from '@reduxjs/toolkit';
 
 //게시글 작성
 export const __insertContent = createAsyncThunk(
@@ -21,13 +22,12 @@ export const __insertComment = createAsyncThunk(
     "contents/__insertComment",
     async (payload, thunkAPI) => {
         try {
-            console.log("로컬스토리지 테스트", localStorage.getItem("token"));
-            console.log("댓글 작성 페이로드", payload);
             const res = await commentApis.commentAddAX(payload)
+
             console.log("댓글 작성 응답값", res);
 
-            if (res.status === 201) {
-                return thunkAPI.fulfillWithValue(payload);
+            if (res.data.status === "200 OK") {
+                return thunkAPI.fulfillWithValue(res.data.data);
             }
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -42,13 +42,8 @@ export const __deleteComment = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             console.log("댓글 삭제 페이로드", payload);
-            // const res = await commentApis.commentDeletePostAX(payload)
-            axios.post("http://localhost:3001/comments", payload);
-            const obj = {
-                delCommentId: payload,
-                // data: res.data,
-            }
-            return thunkAPI.fulfillWithValue(obj);
+            const res = await commentApis.commentDeletePostAX(payload)
+            return thunkAPI.fulfillWithValue(payload);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
         }
@@ -74,7 +69,6 @@ export const __getContentDetail = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             const res = await contentsApis.getContentDetailAX(payload)
-            console.log("상세조회 response : ");
             return thunkAPI.fulfillWithValue(res.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error);
@@ -109,12 +103,14 @@ export const __deleteContent = createAsyncThunk(
     "contents/__deleteContent",
     async (payload, thunkAPI) => {
         try {
+            console.log(payload, "삭제 페이로드");
             const res = await contentsApis.deleteContentAX(payload)
-            const obj = {
-                delContentId: payload,
-                data: res.data,
-            }
-            return thunkAPI.fulfillWithValue(obj)
+            // const obj = {
+            //     delContentId: payload,
+            //     data: res.data,
+            // }
+            console.log(res, "리스폰스");
+            return thunkAPI.fulfillWithValue(payload)
         } catch (error) {
             return thunkAPI.rejectWithValue(error)
         }
@@ -139,13 +135,15 @@ export const contentsSlice = createSlice({
     initialState: {
         contents: [],
         content: {},
+        commentList: [],
     },
     reducers: {
     },
     extraReducers: {
         //__댓글 작성
         [__insertComment.fulfilled]: (state, action) => {
-            state.comments.push(action.payload)
+            console.log("댓글 액션 페이로드 값", action.payload);
+            state.content.commentList.push(action.payload)
         },
         [__insertComment.rejected]: (state, action) => {
             state.error = action.payload;
@@ -156,10 +154,8 @@ export const contentsSlice = createSlice({
         },
         [__deleteComment.fulfilled]: (state, action) => {
             state.isLoading = false; // 
-            if (action.payload.data.status === 200) {
-                state.comments = state.comments.splice(action.payload.delCommentId, 1)
-            }
-
+            // state.content.commentList.commentId = state.content.commentList.commentId.splice(action.payload, 1)
+            state.content.commentList = state.content.commentList.filter((comment) => comment.commentId !== action.payload)
         },
 
         [__deleteComment.rejected]: (state, action) => {
@@ -216,7 +212,7 @@ export const contentsSlice = createSlice({
         [__deleteContent.fulfilled]: (state, action) => {
             state.isLoading = false; // 
             if (action.payload.data.status === "OK") {
-                state.contents.splice(action.payload.delContentId, 1)
+                state.contents.splice(action.payload, 1)
                 window.location.replace("/mypage")
             }
         },

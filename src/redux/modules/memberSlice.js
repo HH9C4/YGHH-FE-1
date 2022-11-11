@@ -7,7 +7,7 @@ import axios from 'axios';
 export const __kakaoLogin = (code) => {
     return function (dispatch, getState) {
         // membersApis.loginAX(code)
-        axios.get(`http://54.180.151.168/user/kakao/callback?code=${code}`)
+        axios.get(`http://43.201.82.55:8080/user/kakao/callback?code=${code}`)
             .then((res) => {
                 console.log("넘어온 값", res); // 토큰이 넘어올 것임
                 const Access_Token = res.headers.access_token;
@@ -24,7 +24,7 @@ export const __kakaoLogin = (code) => {
                 console.log("소셜로그인 에러", error);
                 window.alert("로그인에 실패하였습니다.");
                 // 로그인 실패하면 로그인 화면으로 돌려보냄
-                window.location.replace("/login");
+                // window.location.replace("/login");
             })
     }
 };

@@ -3,33 +3,34 @@ import {
     LikeOutlined,
     LikeFilled,
 } from '@ant-design/icons';
-import { useParams } from 'react-router-dom';
 import Axios from 'axios';
 import { contentsApis } from "../../api/instance"
 
 
 
-function LikeDislikes(props) {
+function Likes({ data, level }) {
 
+    console.log("좋아요 level", level);
+    console.log("data ", data);
     //유즈 셀렉터로 츄르 뽈스 가져오셈
 
-    const { id } = useParams();
     // const [Likes, setLikes] = useState(0);
     const [LikeAction, setLikeAction] = useState('');
 
-    const onLike = (id) => {
+    const onLike = () => {
+
+        const obj = {
+            contentId: data,
+            level: level,
+        }
+
         if (LikeAction === '') {
-            contentsApis.likesAX(id).then((response) => {
-                if (response.data.msg === "success Likes!") {
-                    // setLikes(Likes + 1);
-                    setLikeAction('liked');
-                } else {
-                    alert('Like를 올리지 못했습니다.');
-                }
+            contentsApis.likesAX(obj).then((response) => {
+                console.log("좋아요 리스폰스값", response);
+                setLikeAction('liked')
             });
         } else {
-            contentsApis.cancelLikesAX(id).then((response) => {
-                // setLikes(Likes - 1);
+            contentsApis.cancelLikesAX(obj).then((response) => {
                 setLikeAction('');
             });
         }
@@ -54,20 +55,22 @@ function LikeDislikes(props) {
     // }, []);
 
     return (
+
         <div>
             <span key="comment-basic-like">
                 <div title="Like">
                     {/* isLiked로 구분 */}
-                    {LikeAction === '' ? (
-                        <LikeOutlined onClick={onLike} />
-                    ) : (
-                        <LikeFilled onClick={onLike} />
-                    )}
+                    {LikeAction === '' ?
+                        (<LikeOutlined onClick={onLike} />)
+                        :
+                        (<LikeFilled onClick={onLike} />)
+                    }
                 </div>
                 {/* <span style={{ paddingLeft: '4px', cursor: 'auto' }}> {}</span> */}
             </span>
         </div>
+
     );
 }
 
-export default LikeDislikes;
+export default Likes;

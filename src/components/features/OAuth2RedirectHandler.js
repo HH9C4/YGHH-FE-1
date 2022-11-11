@@ -10,8 +10,6 @@ const OAuth2RedirectHandler = () => {
     const dispatch = useDispatch();
     // 인가코드
     let code = new URL(window.location.href).searchParams.get("code");
-    console.log("인가코드 잘 들어왔나", code);
-
     useEffect(async () => {
         await dispatch(__kakaoLogin(code));
     }, []);
