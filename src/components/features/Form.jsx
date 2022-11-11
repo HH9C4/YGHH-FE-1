@@ -1,25 +1,31 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { __insertContent } from "../../redux/modules/contentsSlice"
+import {
+  __insertContent,
+  __updataContent,
+  __getContentDetail,
+} from "../../redux/modules/contentsSlice"
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 
 const Editor = () => {
   //커스텀 훅 사용
   const [postInput, setPostInput, postInputHandle] = useInput({
-    postTitle: "",
-    postTag: [""],
-    postContent: "",
+    tag: "",
+    content: "",
   })
-
+  const param = useParams("")
   const [tag, setTag] = useState("")
 
   const { isSuccess, error } = useSelector((state) => state)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const id = param.id
 
+  const state = useLocation()
+  const data = state.state
   //뒤로가기
   const goback = () => {
     window.history.back()
@@ -37,21 +43,52 @@ const Editor = () => {
     //폼 데이터 관리
     if (files.length > 0) {
       files.forEach((file) => {
-        formData.append("file", file)
+        formData.append("imageList", file)
       })
     } else {
-      formData.append("file", null)
     }
 
     let obj = {
-      postContent: postInput.contents,
-      postTag: [postInput.tag],
+      gu: param.gu,
+      content: postInput.content,
+      tag: postInput.tag,
     }
 
-    formData.append("contents", JSON.stringify(obj))
+    // formData.append("contents", JSON.stringify(obj))
+    formData.append(
+      "contents",
+      new Blob([JSON.stringify(obj)], { type: "application/json" })
+    )
     dispatch(__insertContent(formData))
   }
 
+  const onEdit = (e) => {
+    e.preventDefault()
+    const formData = new FormData()
+    if (files.length > 0) {
+      files.forEach((file) => {
+        formData.append("imageList", file)
+      })
+    } else {
+    }
+    let obj = {
+      gu: param.gu,
+      content: postInput.content,
+      tag: postInput.tag,
+      deleteUrl: [],
+    }
+    formData.append(
+      "contents",
+      new Blob([JSON.stringify(obj)], { type: "application/json" })
+    )
+    let editObj = {
+      obj: formData,
+      id: id,
+    }
+    dispatch(__updataContent(editObj))
+  }
+
+  console.log()
   useEffect(() => {
     if (isSuccess) {
       navigate("/")
@@ -60,6 +97,9 @@ const Editor = () => {
     }
   }, [isSuccess, error, navigate])
 
+  useEffect(() => {
+    console.log(files)
+  }, [files])
   return (
     <>
       <input
@@ -81,29 +121,39 @@ const Editor = () => {
         >
           사진 추가하기
         </button>
-        {fileUrls.map((value) => {
-          return <img src={value ? value : ""} alt="image" />
-        })}
+        {id !== undefined
+          ? data.imageUrl.map((img) => {
+              return <img src={img} />
+            })
+          : fileUrls.map((value) => {
+              return <img src={value ? value : ""} alt="image" />
+            })}
       </label>
       <input
+        defaultValue={data !== null ? data.tag : postInput.tag || ""}
         type="text"
         maxLength="20"
-        value={postInput.tag || ""}
+        // value={postInput.tag || ""}
         name="tag"
         onChange={postInputHandle}
         placeholder="태그를 입력하세요"
       />
       <input
-        value={postInput.contents || ""}
-        name="contents"
+        defaultValue={data !== null ? data.content : postInput.contents || ""}
+        // value={postInput.content || ""}
+        name="content"
         onChange={postInputHandle}
         placeholder="내용을 입력하세요"
       />
       <button onClick={goback} size="medium">
         취소하기
       </button>
-      <button onClick={onPost} color="reverse" size="medium">
-        등록하기
+      <button
+        onClick={id !== undefined ? onEdit : onPost}
+        color="reverse"
+        size="medium"
+      >
+        {id !== undefined ? "수정하기" : "등록하기"}
       </button>
     </>
   )

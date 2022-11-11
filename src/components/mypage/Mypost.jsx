@@ -3,35 +3,20 @@ import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux"
 import useInput from "../hooks/useInput"
 import Post from "../components/features/Post"
-import { __getSearch } from "../redux/modules/searchSlice"
 import { useNavigate, useParams } from "react-router-dom"
 import DetailPost from "../components/features/DetailPost"
+import { __getMyContent } from "../../redux/modules/contentsSlice"
 // import { useParams } from "react-router-dom"
 
-const Search = () => {
+const MyPosts = () => {
   const posts = useSelector((store) => store.search.search)
   const dispatch = useDispatch()
-  const [sort, setSort] = useState("new")
-  const [search, setSearch, searchHandle] = useInput()
   //   const gu = useParams()
   const navigate = useNavigate()
   const params = useParams()
-  let obj = {
-    searchWord: params.searchWord,
-    sort: params.sort,
-  }
-
-  const onSearch = (e) => {
-    e.preventDefault()
-    navigate(`/search/${search.keyword}/${params.sort}`)
-  }
-  function onSort(id) {
-    console.log(id)
-    navigate(`/search/${params.searchWord}/${id}`)
-  }
 
   useEffect(() => {
-    dispatch(__getSearch(obj))
+    dispatch(__getMyContent())
   }, [params])
   return (
     <>
@@ -61,7 +46,7 @@ const Search = () => {
   )
 }
 
-export default Search
+export default MyPosts
 
 const Flex = styled.div`
   display: flex;
