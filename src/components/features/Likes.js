@@ -8,31 +8,29 @@ import { contentsApis } from "../../api/instance"
 
 
 
-function Likes({ postID }) {
+function Likes({ data, level }) {
 
+    console.log("좋아요 level", level);
+    console.log("data ", data);
     //유즈 셀렉터로 츄르 뽈스 가져오셈
 
     // const [Likes, setLikes] = useState(0);
     const [LikeAction, setLikeAction] = useState('');
 
     const onLike = () => {
+
         const obj = {
-            contentId: postID.postId,
-            liketLevel: {
-                liketLevel: "1",
-            }
+            contentId: data,
+            level: level,
         }
 
         if (LikeAction === '') {
             contentsApis.likesAX(obj).then((response) => {
                 console.log("좋아요 리스폰스값", response);
-                setLikeAction('liked');
-                if (response.data.msg === "success Likes!") {
-
-                }
+                setLikeAction('liked')
             });
         } else {
-            contentsApis.cancelLikesAX(postID.postId).then((response) => {
+            contentsApis.cancelLikesAX(obj).then((response) => {
                 setLikeAction('');
             });
         }

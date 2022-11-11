@@ -24,7 +24,7 @@ export const __kakaoLogin = (code) => {
                 console.log("소셜로그인 에러", error);
                 window.alert("로그인에 실패하였습니다.");
                 // 로그인 실패하면 로그인 화면으로 돌려보냄
-                window.location.replace("/login");
+                // window.location.replace("/login");
             })
     }
 };

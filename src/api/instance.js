@@ -87,10 +87,10 @@ export const contentsApis = {
   bookMarkOffAX: (gu) => hInstance.delete(`/api/bookmarks/${gu}`),
 
   //좋아요
-  likesAX: (postInfo) => hInstance.post(`/api/likes/${postInfo.contentId}`, postInfo.likeLevel),
+  likesAX: (postInfo) => hInstance.post(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
 
   //좋아요 취소
-  cancelLikesAX: (postId) => hInstance.delete(`/api/likes/${postId}`),
+  cancelLikesAX: (postInfo) => hInstance.delete(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
 
 
 };

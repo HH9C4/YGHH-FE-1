@@ -25,6 +25,8 @@ const Comment = ({ data }) => {
         'nickName': localStorage.getItem("nickName")
 
     }
+    //댓글 삭제 요청을 위한 level 변수 생성 
+    const level = 2;
 
     return (
         <>
@@ -43,7 +45,7 @@ const Comment = ({ data }) => {
                                     {checkOwner.nickName === item.accountName ? (<button onClick={(() => { onDeleteButton(item.commentId) })}>삭제</button>) : ''}
                                 </div>
                                 <div>{item.comment}</div>
-                                <Likes postID={data}></Likes>
+                                <Likes data={item.commentId} level={level}></Likes>
                             </div>
                         </div>
                     )

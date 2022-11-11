@@ -11,9 +11,9 @@ const DetailPost = ({ data }) => {
 
 
     // 게시글 삭제 버튼
-    const onPostDelete = (id) => {
-        console.log("파람스", id);
-        dispatch(__deleteContent(id));
+    const onPostDelete = (postId) => {
+        console.log("파람스", postId);
+        dispatch(__deleteContent(postId));
     };
 
     //삭제 버튼 작성자 확인
@@ -21,9 +21,8 @@ const DetailPost = ({ data }) => {
         'nickName': localStorage.getItem("nickName")
     }
 
-
-
     return (
+
         <>
             {
                 <div>
