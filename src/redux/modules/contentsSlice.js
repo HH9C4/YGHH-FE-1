@@ -8,7 +8,8 @@ export const __insertContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.insertContentAX(payload)
-
+      window.alert("게시글이 등록되었습니다.")
+      window.location.replace(`/list/${res.data.gu}/new`)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response) //.data);
@@ -57,9 +58,9 @@ export const __deleteComment = createAsyncThunk(
 export const __getContent = createAsyncThunk(
   "contents/__getContent",
   async (payload, thunkAPI) => {
+    console.log("axios 이전", payload)
     try {
       const res = await contentsApis.getContentAX(payload)
-      console.log("thunk저장", res.data.data)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -72,7 +73,6 @@ export const __getContentDetail = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.getContentDetailAX(payload)
-      console.log("상세조회 response : ")
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -88,7 +88,7 @@ export const __updataContent = createAsyncThunk(
         .updateContentAX(payload)
         .then((res) => {
           if (res.data.status === 200) {
-            alert("글수정 성공")
+            window.alert("게시글 수정이 완료되었습니다.")
             window.location.replace(`/detail/${payload.id}`)
           }
         })
@@ -130,7 +130,6 @@ export const __mypage = createAsyncThunk(
     }
   }
 )
-
 export const contentsSlice = createSlice({
   name: "contents",
   initialState: {

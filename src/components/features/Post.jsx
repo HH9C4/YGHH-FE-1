@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
+import { useParams, useNavigate, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import {
   __getContentDetail,
@@ -10,10 +10,13 @@ const DetailPost = ({ posts }) => {
   // const postDetail = useSelector((state) => state.content.content);
   const dispatch = useDispatch()
   const { id } = useParams()
-
+  const navigate = useNavigate()
   // 게시글 삭제 버튼
-  const onPostDelete = (payload) => {
-    dispatch(__deleteContent(payload))
+  const onPostDelete = (id) => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      dispatch(__deleteContent(id))
+      window.alert("게시글이 삭제되었습니다.")
+    }
   }
 
   return (
@@ -30,16 +33,70 @@ const DetailPost = ({ posts }) => {
                   <div>👀{data.views}</div>
                   <div>💬{/* 댓글 수 표시할 곳 */}</div>
                   <div>
-                    <button>수정</button>
-                    <button onClick={onPostDelete}>삭제</button>
+                    <button
+                      onClick={() =>
+                        navigate(`/write/${data.gu}/${data.postId}`, {
+                          state: data,
+                        })
+                      }
+                    >
+                      수정
+                    </button>
+                    <button onClick={() => onPostDelete(data.postId)}>
+                      삭제
+                    </button>
                   </div>
                 </div>
-                <img
-                  src={data.imageUrl}
-                  style={{
-                    display: data.imageUrl !== undefined ? "block" : "none",
-                  }}
-                />
+                <div>
+                  {data.imageUrl.map((img) => {
+                    return (
+                      <img
+                        src={img}
+                        style={{
+                          display:
+                            data.imageUrl !== undefined ? "block" : "none",
+                        }}
+                      />
+                    )
+                  })}
+                </div>
+                <div>
+                  <button
+                    onClick={() =>
+                      navigate(`/search/${data.tag.split(" ")[0]}/new`)
+                    }
+                  >
+                    {data.tag.split(" ")[0]}
+                  </button>
+                  <button
+                    onClick={() =>
+                      navigate(`/search/${data.tag.split(" ")[1]}/new`)
+                    }
+                  >
+                    {data.tag.split(" ")[1]}
+                  </button>
+                  <button
+                    onClick={() =>
+                      navigate(`/search/${data.tag.split(" ")[2]}/new`)
+                    }
+                  >
+                    {data.tag.split(" ")[2]}
+                  </button>
+                  <button
+                    onClick={() =>
+                      navigate(`/search/${data.tag.split(" ")[3]}/new`)
+                    }
+                  >
+                    {data.tag.split(" ")[3]}
+                  </button>
+                  <button
+                    onClick={() =>
+                      navigate(`/search/${data.tag.split(" ")[4]}/new`)
+                    }
+                  >
+                    {data.tag.split(" ")[4]}
+                  </button>
+                </div>
                 <div>{data.content}</div>
                 <div>
                   <div>{data.accountName}</div>
