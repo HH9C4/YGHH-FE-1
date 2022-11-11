@@ -5,6 +5,7 @@ import {
   __getContentDetail,
   __deleteContent,
 } from "../../redux/modules/contentsSlice"
+import Likes from "../features/Likes"
 
 const DetailPost = ({ data }) => {
   const dispatch = useDispatch()
@@ -22,6 +23,8 @@ const DetailPost = ({ data }) => {
     nickName: localStorage.getItem("nickName"),
   }
 
+  const level = 1
+
   return (
     <>
       {
@@ -31,7 +34,8 @@ const DetailPost = ({ data }) => {
             <div>
               {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
               <div>
-                {/* 좋아요 컴포넌트 들어가야함 */}
+                {/* 머지용 커밋 */}
+                <Likes data={data.postId} level={level}></Likes>
                 ❤️{data.likeCount}
               </div>
               <div>👀{data.views}</div>
