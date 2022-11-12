@@ -46,7 +46,7 @@ const Mynotice = () => {
                       margin: "0 0 10px 0",
                     }}
                   >
-                    {cmt.content}...에 새 댓글이 달렸습니다.
+                    {cmt.content}에 새 댓글이 달렸습니다.
                   </div>
                   <div>
                     {cmt.accountName} | {cmt.comment}

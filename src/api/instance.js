@@ -12,7 +12,7 @@ export const nhInstance = axios.create({
 export const hInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    Access_Token:
+    Authorization:
       localStorage.getItem("token") === undefined
         ? ""
         : localStorage.getItem("token"),
