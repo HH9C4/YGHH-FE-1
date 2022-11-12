@@ -4,29 +4,40 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { getCookie } from "../cookie/cookie"
 import Post from "../components/features/Post"
-import { __getContent } from "../redux/modules/contentsSlice"
+import { __getContent, __activateBookmark, __deactivateBookmark } from "../redux/modules/contentsSlice"
 import Floating from "../components/elements/Floating"
 
 const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)
+
   const params = useParams()
   console.log(params)
+  console.log("리스트 셀렉터 값 : ", contents);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
   let obj = {
     gu: params.gu,
     sort: params.sort,
   }
-
   useEffect(() => {
     dispatch(__getContent(obj))
   }, [params])
 
+  //북마크 활성화 함수
+  const bookMarkOn = () => {
+    dispatch(__activateBookmark(params.gu));
+  }
+  //북마크 비활성화 함수
+  const bookMarkOff = (gu) => {
+    dispatch(__deactivateBookmark(gu));
+  }
+
   return (
     <>
       <div>지금</div>
+      {/* 북마크 토글러 함수 실행 */}
+      <button onClick={() => bookMarkOff(params.gu)}>⭐️</button>
       <select
         name="gu"
         defaultValue={params.gu}

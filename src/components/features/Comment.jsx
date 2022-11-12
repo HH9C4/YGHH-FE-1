@@ -45,7 +45,7 @@ const Comment = ({ data }) => {
                                     {checkOwner.nickName === item.accountName ? (<button onClick={(() => { onDeleteButton(item.commentId) })}>삭제</button>) : ''}
                                 </div>
                                 <div>{item.comment}</div>
-                                <Likes data={item.commentId} level={level}></Likes>
+                                <Likes data={item.commentId} level={level} isLiked={item.isLiked}></Likes>
                             </div>
                         </div>
                     )

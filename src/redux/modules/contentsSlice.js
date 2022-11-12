@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 import { contentsApis, commentApis } from "../../api/instance"
 import { current } from "@reduxjs/toolkit"
+import { act } from 'react-dom/test-utils'
 
 //게시글 작성
 export const __insertContent = createAsyncThunk(
@@ -48,6 +49,84 @@ export const __deleteComment = createAsyncThunk(
     }
   }
 )
+
+//좋아요 활성화
+export const __activateLike = createAsyncThunk(
+  "contents/__activateLike",
+  async (payload, thunkAPI) => {
+    console.log("좋아요 페이로드", payload);
+    try {
+      const res = contentsApis.likesAX(payload).then((res) => {
+        console.log("좋아요 활성화 리스폰스값", res)
+      })
+      return thunkAPI.fulfillWithValue(payload)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//좋아요 비활성화
+export const __deactivateLike = createAsyncThunk(
+  "contents/__deactivateLike",
+  async (payload, thunkAPI) => {
+    try {
+      const res = contentsApis.cancelLikesAX(payload).then((res) => {
+        console.log("좋아요 비활성화 리스폰스값", res)
+      })
+      return thunkAPI.fulfillWithValue(payload)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//북마크 반환
+export const __returnBookmark = createAsyncThunk(
+  "contents/__returnBookmark",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.returnBookMarkAX()
+      console.log("북마크 반환 리스폰스값", res)
+      console.log("북마크  리스폰스값", res.data)
+
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//북마크 활성화
+export const __activateBookmark = createAsyncThunk(
+  "contents/__activateBookmark",
+  async (payload, thunkAPI) => {
+    try {
+      const res = contentsApis.bookMarkAX(payload).then((res) => {
+        console.log("북마크 활성화 리스폰스값", res)
+      })
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+//북마크 비활성화
+export const __deactivateBookmark = createAsyncThunk(
+  "contents/__deactivateBookmark",
+  async (payload, thunkAPI) => {
+    try {
+      const res = contentsApis.bookMarkOffAX(payload).then((res) => {
+        console.log("북마크 비활성화 리스폰스값", res)
+      })
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+
 
 // 게시글 전체조회
 export const __getContent = createAsyncThunk(
@@ -103,12 +182,19 @@ export const __deleteContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       console.log(payload, "삭제 페이로드")
-      const res = await contentsApis.deleteContentAX(payload)
+      if (window.confirm("게시글을 삭제하시겠습니까?")) {
+        const res = await contentsApis.deleteContentAX(payload)
+        window.location.replace(`/list/${res.data.data}/new`)
+      }
+      // const res = await contentsApis.deleteContentAX(payload)
       // const obj = {
       //     delContentId: payload,
       //     data: res.data,
       // }
-      console.log(res, "리스폰스")
+      // console.log("삭제 리스폰스 값 : ", res);
+      // if (window.confirm("게시글을 삭제하시겠습니까?")) {
+      //   window.location.replace(`/list/${res.data.data}`)
+      // }
       return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -154,11 +240,6 @@ export const contentsSlice = createSlice({
         (comment) => comment.commentId !== action.payload
       )
     },
-
-    [__deleteComment.rejected]: (state, action) => {
-      state.isLoading = false //
-      state.error = action.payload //
-    },
     // 게시글 상세 조회
     [__getContentDetail.pending]: (state) => {
       state.isLoading = true
@@ -172,16 +253,94 @@ export const contentsSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
+
+    [__deleteComment.rejected]: (state, action) => {
+      state.isLoading = false //
+      state.error = action.payload //
+    },
+    // 좋아요 활성화
+    [__activateLike.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__activateLike.fulfilled]: (state, action) => {
+      // console.log("state.content 상태", current(state.content));
+      // console.log("좋아요 액션 페이로드", action.payload);
+
+      state.isLoading = false
+      state.content.isLiked = action.payload.isLiked
+      // state.content.likeCount = action.payload.likeCount
+
+    },
+    [__activateLike.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    //좋아요 비활성화
+    [__deactivateLike.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__deactivateLike.fulfilled]: (state, action) => {
+      state.isLoading = false
+      // console.log("비활성화 state.content 상태", current(state.content));
+      // console.log("비활성화 좋아요 액션 페이로드", action.payload);
+      state.content.isLiked = action.payload.isLiked
+      // state.content.likeCount = action.payload.count
+    },
+    [__deactivateLike.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    // 북마크 활성화
+    [__activateBookmark.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__activateBookmark.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.contents.content = action.payload
+    },
+    [__activateBookmark.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    // 북마크 비활성화
+    [__deactivateBookmark.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__deactivateBookmark.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.contents.content = action.payload
+    },
+    [__deactivateBookmark.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    // 북마크 반환
+    [__returnBookmark.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__returnBookmark.fulfilled]: (state, action) => {
+      console.log("반환 페이로드", action.payload);
+      state.isLoading = false
+      action.payload.map((item) => {
+        state.contents.push(item)
+      })
+    },
+    [__returnBookmark.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
     //게시글 삭제
     [__deleteContent.pending]: (state) => {
       state.isLoading = true //
     },
     [__deleteContent.fulfilled]: (state, action) => {
       state.isLoading = false //
-      if (action.payload.data.status === "OK") {
-        state.contents.splice(action.payload, 1)
-        window.location.replace("/mypage")
-      }
+      // state.contents = state.contents.filter(
+      //   (item) => item.postId !== action.payload
+      // )
+      // console.log(current(state));
+      // state.contents.splice(action.payload, 1)
+
     },
     [__deleteContent.rejected]: (state, action) => {
       state.isLoading = false //

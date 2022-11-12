@@ -8,6 +8,7 @@ import Mypage from "../pages/Mypage"
 import Search from "../pages/Search"
 import Write from "../pages/Write"
 import HotTag from "../components/features/HotTag"
+import BookMark from '../pages/BookMark'
 import OAuth2RedirectHandler from "../components/features/OAuth2RedirectHandler"
 
 const Router = () => {
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="/hottest/:gu" element={<HotTag />} />
         <Route path="/mypage/:id" element={<Mypage />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/bookmark" element={<BookMark />} />
 
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
         <Route

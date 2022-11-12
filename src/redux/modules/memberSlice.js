@@ -10,8 +10,8 @@ export const __kakaoLogin = (code) => {
       .get(`http://43.201.82.55:8080/user/kakao/callback?code=${code}`)
       .then((res) => {
         console.log("넘어온 값", res) // 토큰이 넘어올 것임
-        const Access_Token = res.headers.access_token
-        localStorage.setItem("token", Access_Token)
+        const Access_Token = res.headers.authorization
+        localStorage.setItem("Authorization", Access_Token)
         localStorage.setItem("nickName", res.data.data.accountName)
         localStorage.setItem("profileImage", res.data.data.profileImage)
         localStorage.setItem("ageRange", res.data.data.ageRange)

@@ -19,6 +19,9 @@ const DetailPost = ({ posts }) => {
     }
   }
 
+  const checkOwner = {
+    nickName: localStorage.getItem("nickName"),
+  }
   return (
     <>
       {posts.map((data) => {
@@ -33,18 +36,23 @@ const DetailPost = ({ posts }) => {
                   <div>👀{data.views}</div>
                   <div>💬{/* 댓글 수 표시할 곳 */}</div>
                   <div>
-                    <button
-                      onClick={() =>
+
+                    {checkOwner.nickName === data.accountName ? (
+                      <button onClick={() =>
                         navigate(`/write/${data.gu}/${data.postId}`, {
                           state: data,
                         })
-                      }
-                    >
-                      수정
-                    </button>
-                    <button onClick={() => onPostDelete(data.postId)}>
-                      삭제
-                    </button>
+                      }>수정</button>
+                    ) : (
+                      ""
+                    )}
+                    {checkOwner.nickName === data.accountName ? (
+                      <button onClick={() => {
+                        onPostDelete(data.postId)
+                      }}>삭제</button>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
                 <div>

@@ -7,32 +7,9 @@ import { useLocation } from 'react-router-dom'
 const KakaoLogin = () => {
     const REST_API_KEY = "a8c29f43cc985001f5fcd08bcbd9bbac"
     const REDIRECT_URI = "http://localhost:3000/user/kakao/callback"
-    const location = useLocation();
 
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-
-    //⭐️TOKEN 저장
-    // const getKakaoToken = () => {
-    //     fetch(`https:/kauth.kakao.com/oauth/token`, {
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //         body: `grant_type=authorization_code&client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&code=${KAKAO_CODE}`,
-    //     })
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             if (data.access_token) {
-    //                 localStorage.setItem('token', data.access_token);
-    //             } else {
-    //                 navigate('/');
-    //             }
-    //         });
-    // }
-    // useEffect(() => {
-    //     if (!location.search) return;
-    //     getKakaoToken();
-    //     console.log(KAKAO_CODE);
-    // }, []);
     const handleLogin = () => {
         window.location.href = KAKAO_AUTH_URL;
     }
