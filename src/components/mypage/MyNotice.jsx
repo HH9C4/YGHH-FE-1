@@ -28,7 +28,11 @@ const Mynotice = () => {
           return (
             <>
               {/* <div>{cmt.commentId}</div> */}
-              <div onClick={onTab} style={{ display: tab ? "flex" : "block" }}>
+              <div
+                key="cmt.commentId"
+                onClick={onTab}
+                style={{ display: tab ? "flex" : "block" }}
+              >
                 <div
                   style={{
                     backgroundColor: "#eee",
