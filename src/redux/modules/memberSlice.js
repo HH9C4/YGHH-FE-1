@@ -36,7 +36,7 @@ export const __logout = createAsyncThunk(
     try {
       const res = await membersApis.logoutAX(payload)
       if (res.data.status === "200 OK") {
-        console.log("로그아웃 res 값", res);
+        console.log("로그아웃 res 값", res)
         localStorage.removeItem("Authorization")
         localStorage.removeItem("nickName")
         localStorage.removeItem("profileImage")
@@ -47,7 +47,7 @@ export const __logout = createAsyncThunk(
       }
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error);
+      return thunkAPI.rejectWithValue(error)
     }
   }
 )

@@ -11,7 +11,7 @@ export const __insertContent = createAsyncThunk(
     try {
       const res = await contentsApis.insertContentAX(payload)
       window.alert("게시글이 등록되었습니다.")
-      window.location.replace(`/list/${res.data.gu}/new`)
+      window.location.replace(`/list/${res.data.data.gu}/new`)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response) //.data);
@@ -164,20 +164,12 @@ export const __updataContent = createAsyncThunk(
   "contents/__updataContent",
   async (payload, thunkAPI) => {
     try {
-      await contentsApis
-        .updateContentAX(payload)
-        .then((res) => {
-          if (res.data.status === 200) {
-            window.alert("게시글 수정이 완료되었습니다.")
-            window.location.replace(`/detail/${payload.id}`)
-          }
-        })
-        .catch((error) => {
-          console.log("error", error)
-        })
+      const res = await contentsApis.updateContentAX(payload)
 
-      // return thunkAPI.fulfillWithValue(obj);
+      window.alert("게시글 수정이 완료되었습니다.")
+      window.location.replace(`/detail/${payload.id}`)
     } catch (error) {
+      // return thunkAPI.fulfillWithValue(obj);
       return thunkAPI.rejectWithValue(error)
     }
   }
