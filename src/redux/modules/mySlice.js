@@ -41,7 +41,7 @@ export const __getMyLikes = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await contentsApis.mypageLikedAX()
-      // console.log("mylikes", res)
+      console.log("mylikes", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
