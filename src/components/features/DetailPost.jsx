@@ -31,18 +31,17 @@ const DetailPost = ({ data }) => {
   return (
     <>
       {
-        <div>
+        <div >
           <div>
             {/* 포스트 전체 컨테이너 */}
             <div>
               {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
               <div>
-                {/* 머지용 커밋 */}
                 <Likes data={data.postId} level={level} isLiked={data.isLiked} count={data.likeCount}></Likes>
                 ❤️{data.likeCount === undefined ? 0 : data.likeCount}
               </div>
               <div>👀{data.views}</div>
-              <div>💬{/* 댓글 수 표시할 곳 */}</div>
+              <div>💬{data.commentCount}</div>
               <div>
                 {checkOwner.nickName === data.accountName ? (
                   <button>수정</button>

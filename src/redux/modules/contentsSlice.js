@@ -27,7 +27,7 @@ export const __insertComment = createAsyncThunk(
 
       console.log("댓글 작성 응답값", res)
 
-      if (res.data.status === "200 OK") {
+      if (res.data.status === "201 CREATED") {
         return thunkAPI.fulfillWithValue(res.data.data)
       }
     } catch (error) {
@@ -59,7 +59,12 @@ export const __activateLike = createAsyncThunk(
       const res = contentsApis.likesAX(payload).then((res) => {
         console.log("좋아요 활성화 리스폰스값", res)
       })
-      return thunkAPI.fulfillWithValue(payload)
+
+      const obj = {
+        level: payload.level,
+        data: res.data.data,
+      }
+      return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -74,7 +79,7 @@ export const __deactivateLike = createAsyncThunk(
       const res = contentsApis.cancelLikesAX(payload).then((res) => {
         console.log("좋아요 비활성화 리스폰스값", res)
       })
-      return thunkAPI.fulfillWithValue(payload)
+      return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -135,7 +140,8 @@ export const __getContent = createAsyncThunk(
     console.log("axios 이전", payload)
     try {
       const res = await contentsApis.getContentAX(payload)
-      return thunkAPI.fulfillWithValue(res.data.data)
+      console.log("전체 res값", res);
+      return thunkAPI.fulfillWithValue(res.data.data.postList)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -147,7 +153,7 @@ export const __getContentDetail = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.getContentDetailAX(payload)
-      return thunkAPI.fulfillWithValue(res.data)
+      return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -225,6 +231,9 @@ export const contentsSlice = createSlice({
     [__insertComment.fulfilled]: (state, action) => {
       console.log("댓글 액션 페이로드 값", action.payload)
       state.content.commentList.push(action.payload)
+      // action.payload.map((item) => {
+      //   state.content.commentList.push(item)
+      // })
     },
     [__insertComment.rejected]: (state, action) => {
       state.error = action.payload
@@ -246,7 +255,7 @@ export const contentsSlice = createSlice({
     },
     [__getContentDetail.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.content = action.payload.data
+      state.content = action.payload
       // state.comments = action.payload.comments;
     },
     [__getContentDetail.rejected]: (state, action) => {
@@ -265,10 +274,8 @@ export const contentsSlice = createSlice({
     [__activateLike.fulfilled]: (state, action) => {
       // console.log("state.content 상태", current(state.content));
       // console.log("좋아요 액션 페이로드", action.payload);
-
       state.isLoading = false
-      state.content.isLiked = action.payload.isLiked
-      // state.content.likeCount = action.payload.likeCount
+      state.content.isLiked = action.payload
 
     },
     [__activateLike.rejected]: (state, action) => {

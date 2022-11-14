@@ -70,10 +70,10 @@ const List = () => {
         <option value={"중구"}>중구붐비</option>
       </select>
       <div>
-        {getCookie("accountName")}
+        {localStorage.getItem("nickName")}
         <span>님</span>
       </div>
-      <img src={getCookie("accountImg")}></img>
+      <img src={localStorage.getItem("profileImage")}></img>
 
       <div>
         <button onClick={() => navigate(`/list/${params.gu}/new`)}>최근</button>

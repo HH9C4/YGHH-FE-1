@@ -29,32 +29,25 @@ export const __kakaoLogin = (code) => {
   }
 }
 
-// //로그아웃 Thunk
-// export const __logout = createAsyncThunk(
-//     "members/__logout",
-//     async (payload, thunkAPI) => {
-//         try {
-//             loginApis.logoutAX()
-//                 .then((res) => {
-//                     if (res.data.status === 200) {
-//                         delCookie("Access_Token")
-//                         delCookie("nickname")
-//                         alert("로그아웃 되었습니다")
-//                         window.location.replace("/")
-//                     }
-//                 })
-//                 .catch((error) => {
-//                     if (error.response.data.status === 400) {
-//                         delCookie("Access_Token")
-//                         delCookie("nickname")
-//                         alert("로그아웃 되었습니다")
-//                         window.location.replace("/")
-//                     }
-
-//                 })
-
-//         } catch (error) {
-//             return thunkAPI.rejectWithValue(error);
-//         }
-//     }
-// )
+//로그아웃 Thunk
+export const __logout = createAsyncThunk(
+  "members/__logout",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await membersApis.logoutAX(payload)
+      if (res.data.status === "200 OK") {
+        console.log("로그아웃 res 값", res);
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("nickName")
+        localStorage.removeItem("profileImage")
+        localStorage.removeItem("ageRange")
+        localStorage.removeItem("email")
+        localStorage.removeItem("gender")
+        window.location.replace("/")
+      }
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+)
