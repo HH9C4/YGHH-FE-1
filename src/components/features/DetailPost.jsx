@@ -11,11 +11,13 @@ const DetailPost = ({ data }) => {
   const dispatch = useDispatch()
   const { id } = useParams()
   console.log("디테일 프롭스 to 디테일포스트:", data)
-
   // 게시글 삭제 버튼
   const onPostDelete = (postId) => {
-    console.log("파람스", postId)
-    dispatch(__deleteContent(postId))
+    const obj = {
+      postId: postId,
+      gu: data.gu,
+    }
+    dispatch(__deleteContent(obj))
   }
 
   //삭제 버튼 작성자 확인
@@ -25,21 +27,21 @@ const DetailPost = ({ data }) => {
 
   const level = 1
 
+
   return (
     <>
       {
-        <div>
+        <div >
           <div>
             {/* 포스트 전체 컨테이너 */}
             <div>
               {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
               <div>
-                {/* 머지용 커밋 */}
-                <Likes data={data.postId} level={level}></Likes>
-                ❤️{data.likeCount}
+                <Likes data={data.postId} level={level} isLiked={data.isLiked} count={data.likeCount}></Likes>
+                ❤️{data.likeCount === undefined ? 0 : data.likeCount}
               </div>
               <div>👀{data.views}</div>
-              <div>💬{/* 댓글 수 표시할 곳 */}</div>
+              <div>💬{data.commentCount}</div>
               <div>
                 {checkOwner.nickName === data.accountName ? (
                   <button>수정</button>

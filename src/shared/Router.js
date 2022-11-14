@@ -8,7 +8,9 @@ import Mypage from "../pages/Mypage"
 import Search from "../pages/Search"
 import Write from "../pages/Write"
 import HotTag from "../components/features/HotTag"
-import OAuth2RedirectHandler from "../components/features/OAuth2RedirectHandler"
+import BookMark from '../pages/BookMark'
+import OAuth2LoginHandler from "../components/Login/OAuth2LoginHandler"
+import OAuth2LogoutHandler from '../components/Login/OAuth2LogoutHandler'
 
 const Router = () => {
   return (
@@ -24,11 +26,16 @@ const Router = () => {
         <Route path="/hottest/:gu" element={<HotTag />} />
         <Route path="/mypage/:id" element={<Mypage />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/bookmark" element={<BookMark />} />
 
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
         <Route
           path="/user/kakao/callback"
-          element={<OAuth2RedirectHandler />}
+          element={<OAuth2LoginHandler />}
+        />
+        <Route
+          path="/user/kakao/logout/callback"
+          element={<OAuth2LogoutHandler />}
         />
       </Routes>
     </BrowserRouter>

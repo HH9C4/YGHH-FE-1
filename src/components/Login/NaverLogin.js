@@ -57,15 +57,15 @@ const NaverLogin = ({ setGetToken, setUserInfo }) => {
     }
 
     const getToken = () => {
-        const token = window.location.href.split('=')[1].split('&')[0]
-        console.log("토큰임", token);
+        const Navertoken = window.location.href.split('=')[1].split('&')[0]
+        console.log("토큰임", Navertoken);
 
         // 이후 로컬 스토리지 또는 state에 저장하여 사용하자!   
         // localStorage.setItem('access_token', token)
         // setGetToken(token)
 
         //  이후 로컬 스토리지 또는 state에 저장하여 사용하자!   
-        setCookie('access_token', token)
+        setCookie('access_token', Navertoken)
         console.log("토큰값임", getCookie('access_token'));
     }
 
