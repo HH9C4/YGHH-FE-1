@@ -13,9 +13,9 @@ export const hInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
     Authorization:
-      localStorage.getItem("token") === undefined
+      localStorage.getItem("Authorization") === undefined
         ? ""
-        : localStorage.getItem("token"),
+        : localStorage.getItem("Authorization"),
   },
   withCredentials: true,
 })
@@ -48,8 +48,7 @@ export const contentsApis = {
     hInstance.put(`/api/posts/${payload.id}`, payload.obj),
 
   //컨텐츠 삭제
-  deleteContentAX: (contentInfo) =>
-    hInstance.delete(`/api/posts/${contentInfo}`),
+  deleteContentAX: (data) => hInstance.delete(`/api/posts/${data.postId}`),
 
   //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
@@ -80,9 +79,6 @@ export const contentsApis = {
   //마이페이지 내가 작성한 글
   getmypageAX: () => hInstance.get(`/api/myposts`),
 
-  //마이페이지 북마크
-  mypageMarkedAX: () => hInstance.get(`/api/mybookmarks`),
-
   //   (👎미정)마이페이지 좋아요
   mypageLikedAX: () => hInstance.get(`/api/mylikes`),
 
@@ -91,6 +87,9 @@ export const contentsApis = {
 
   //북마크
   bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),
+
+  //북마크 반환
+  returnBookMarkAX: () => hInstance.get(`api/mybookmarks`),
 
   //북마크 취소
   bookMarkOffAX: (gu) => hInstance.delete(`/api/bookmarks/${gu}`),

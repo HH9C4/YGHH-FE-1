@@ -1,6 +1,6 @@
 import React from 'react'
-import KakaoLogin from '../components/features/KakaoLogin';
-import NaverLogin from '../components/features/NaverLogin'
+import KakaoLogin from '../components/Login/KakaoLogin';
+import NaverLogin from "../components/Login/NaverLogin"
 import { useLocation } from 'react-router-dom';
 
 

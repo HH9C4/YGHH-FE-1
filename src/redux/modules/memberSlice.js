@@ -10,8 +10,8 @@ export const __kakaoLogin = (code) => {
       .get(`http://43.201.82.55:8080/user/kakao/callback?code=${code}`)
       .then((res) => {
         console.log("넘어온 값", res) // 토큰이 넘어올 것임
-        const Authorization = res.headers.authorization
-        localStorage.setItem("token", Authorization)
+        const Access_Token = res.headers.authorization
+        localStorage.setItem("Authorization", Access_Token)
         localStorage.setItem("nickName", res.data.data.accountName)
         localStorage.setItem("profileImage", res.data.data.profileImage)
         localStorage.setItem("ageRange", res.data.data.ageRange)
@@ -29,32 +29,25 @@ export const __kakaoLogin = (code) => {
   }
 }
 
-// //로그아웃 Thunk
-// export const __logout = createAsyncThunk(
-//     "members/__logout",
-//     async (payload, thunkAPI) => {
-//         try {
-//             loginApis.logoutAX()
-//                 .then((res) => {
-//                     if (res.data.status === 200) {
-//                         delCookie("Access_Token")
-//                         delCookie("nickname")
-//                         alert("로그아웃 되었습니다")
-//                         window.location.replace("/")
-//                     }
-//                 })
-//                 .catch((error) => {
-//                     if (error.response.data.status === 400) {
-//                         delCookie("Access_Token")
-//                         delCookie("nickname")
-//                         alert("로그아웃 되었습니다")
-//                         window.location.replace("/")
-//                     }
-
-//                 })
-
-//         } catch (error) {
-//             return thunkAPI.rejectWithValue(error);
-//         }
-//     }
-// )
+//로그아웃 Thunk
+export const __logout = createAsyncThunk(
+  "members/__logout",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await membersApis.logoutAX(payload)
+      if (res.data.status === "200 OK") {
+        console.log("로그아웃 res 값", res)
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("nickName")
+        localStorage.removeItem("profileImage")
+        localStorage.removeItem("ageRange")
+        localStorage.removeItem("email")
+        localStorage.removeItem("gender")
+        window.location.replace("/")
+      }
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
