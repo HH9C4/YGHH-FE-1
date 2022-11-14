@@ -12,13 +12,24 @@ export const nhInstance = axios.create({
 export const hInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    Access_Token:
-      localStorage.getItem("token") === undefined
+    Authorization:
+      localStorage.getItem("Authorization") === undefined
         ? ""
-        : localStorage.getItem("token"),
+        : localStorage.getItem("Authorization"),
   },
   withCredentials: true,
 })
+// //헤더 있는 인스턴스
+// export const hInstance = axios.create({
+//   baseURL: process.env.REACT_APP_API_URL,
+//   headers: {
+//     Access_Token:
+//       localStorage.getItem("token") === undefined
+//         ? ""
+//         : localStorage.getItem("token"),
+//   },
+//   withCredentials: true,
+// })
 
 export const membersApis = {
   //로그인
@@ -48,7 +59,7 @@ export const contentsApis = {
     hInstance.put(`/api/posts/${payload.id}`, payload.obj),
 
   //컨텐츠 삭제
-  deleteContentAX: (contentInfo) => hInstance.delete(`/api/posts/${contentInfo}`),
+  deleteContentAX: (data) => hInstance.delete(`/api/posts/${data.postId}`),
 
 
   //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
@@ -80,14 +91,14 @@ export const contentsApis = {
   //마이페이지 내가 작성한 글
   getmypageAX: () => hInstance.get(`/api/myposts`),
 
-  //마이페이지 북마크
-  mypageMarkedAX: () => hInstance.get(`/api/mybookmarks`),
-
   //   (👎미정)마이페이지 좋아요
   mypageLikedAX: () => hInstance.get(`/api/mylikes`),
 
   //북마크
   bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),
+
+  //북마크 반환
+  returnBookMarkAX: () => hInstance.get(`api/mybookmarks`),
 
   //북마크 취소
   bookMarkOffAX: (gu) => hInstance.delete(`/api/bookmarks/${gu}`),
@@ -96,10 +107,7 @@ export const contentsApis = {
   likesAX: (postInfo) => hInstance.post(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
 
   //좋아요 취소
-
   cancelLikesAX: (postInfo) => hInstance.delete(`/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`),
-
-
 };
 
 

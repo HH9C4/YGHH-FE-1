@@ -63,7 +63,7 @@ const Detail = () => {
   //GET 요청 디스패치
   useEffect(() => {
     dispatch(__getContentDetail(id))
-  }, [])
+  }, [dispatch, id, contentData.isLiked])
 
   const [comment, setComment] = useState({})
 

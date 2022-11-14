@@ -6,7 +6,7 @@ import Loading from './Loading';
 
 
 
-const OAuth2RedirectHandler = () => {
+const OAuth2LoginHandler = () => {
     const dispatch = useDispatch();
     // 인가코드
     let code = new URL(window.location.href).searchParams.get("code");
@@ -17,4 +17,4 @@ const OAuth2RedirectHandler = () => {
     return <Loading />;
 }
 
-export default OAuth2RedirectHandler
+export default OAuth2LoginHandler
