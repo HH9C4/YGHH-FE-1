@@ -11,9 +11,6 @@ const Comment = ({ data }) => {
 
     //좋아요에 content ID를 넘기기 위해 변수 생성
 
-
-    console.log("디테일 프롭스 to 코멘트:", data);
-
     const onDeleteButton = (id) => {
         dispatch(__deleteComment(id))
         // alert("삭제하시겠습니까?")
@@ -45,7 +42,8 @@ const Comment = ({ data }) => {
                                     {checkOwner.nickName === item.accountName ? (<button onClick={(() => { onDeleteButton(item.commentId) })}>삭제</button>) : ''}
                                 </div>
                                 <div>{item.comment}</div>
-                                <Likes data={item.commentId} level={level} isLiked={item.isLiked}></Likes>
+                                <Likes data={item.commentId} level={level} isLiked={item.isLiked} itemId={item.commentId}></Likes>
+
                             </div>
                         </div>
                     )
