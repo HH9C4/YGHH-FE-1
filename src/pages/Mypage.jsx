@@ -12,6 +12,12 @@ const Mypage = () => {
   const userGender = localStorage.getItem("gender")
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
+  const REST_API_KEY = "a8c29f43cc985001f5fcd08bcbd9bbac"
+  const LOGOUTREDIRECT_URI = "http://localhost:3000/user/kakao/logout/callback"
+  const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
+  const handleLogout = () => {
+    window.location.href = KAKAO_LOGOUT_URL
+  }
   return (
     <>
       <h1>마이페이지</h1>
@@ -31,7 +37,7 @@ const Mypage = () => {
           </Flex>
           <Flex>
             <button>프로필 수정</button>
-            <button>로그아웃</button>
+            <button onClick={handleLogout}>로그아웃</button>
           </Flex>
         </div>
       </Flex>
