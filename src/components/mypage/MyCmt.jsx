@@ -11,26 +11,36 @@ const MyCmt = (cmt) => {
   return (
     <>
       {/* <div>{cmt.commentId}</div> */}
-      <div onClick={onTab} style={{ display: tab ? "flex" : "block" }}>
+
+      <div
+        onClick={onTab}
+        style={{
+          backgroundColor: "#eee",
+          borderRadius: "10px",
+          width: "500px",
+          height: "80px",
+          margin: "10px",
+          padding: "20px",
+          display: "flex",
+        }}
+      >
         <div
           style={{
-            backgroundColor: "#eee",
-            borderRadius: "10px",
-            width: "500px",
-            height: "80px",
-            margin: "10px",
-            padding: "20px",
+            color: "#999",
+            fontSize: "0.8rem",
+            margin: "0 0 10px 0",
           }}
         >
           <div
             style={{
-              color: "#999",
-              fontSize: "0.8rem",
-              margin: "0 0 10px 0",
+              display: tab && cmt.checked ? "block" : "none",
+              backgroundColor: "red",
+              width: "8px",
+              height: "8px",
+              borderRadius: "8px",
             }}
-          >
-            {cmt.cmt.content}에 새 댓글이 달렸습니다.
-          </div>
+          ></div>
+          {cmt.cmt.content}에 새 댓글이 달렸습니다.
           <div>
             {cmt.cmt.accountName} | {cmt.cmt.comment}
           </div>
@@ -47,3 +57,5 @@ const MyCmt = (cmt) => {
 }
 
 export default MyCmt
+
+//
