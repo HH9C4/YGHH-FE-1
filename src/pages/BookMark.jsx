@@ -7,7 +7,7 @@ const BookMark = () => {
 
     //페이지 안에서 전부 해결
     const dispatch = useDispatch();
-    const bookmarkData = useSelector((state) => state.contents.contents)
+    const bookmarkData = useSelector((state) => state.contents.bookmark)
 
     console.log("북마크데이터", bookmarkData);
     //GET 요청 디스패치

@@ -8,9 +8,10 @@ import {
 import Likes from "../features/Likes"
 
 const DetailPost = ({ data }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const { id } = useParams()
-  console.log("디테일 프롭스 to 디테일포스트:", data)
+
   // 게시글 삭제 버튼
   const onPostDelete = (postId) => {
     const obj = {
@@ -77,7 +78,17 @@ const DetailPost = ({ data }) => {
               </div>
               <div>{data.gu}</div>
             </div>
-            <div>태그 들어갈 곳</div>
+            <div>
+              <div>
+                <button
+                  onClick={() =>
+                    navigate(`/search/${data.tag}/new`)
+                  }
+                >
+                  {data.tag}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       }

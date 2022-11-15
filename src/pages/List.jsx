@@ -10,10 +10,12 @@ import Floating from "../components/elements/Floating"
 const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)
+  const { bookmark } = useSelector((state) => state.contents)
 
   const params = useParams()
   console.log(params)
-  console.log("리스트 셀렉터 값 : ", contents);
+  console.log("리스트 컨텐츠 값 : ", contents);
+  console.log("리스트 북마크 값 : ", bookmark);
   const dispatch = useDispatch()
   const navigate = useNavigate()
   let obj = {
@@ -37,7 +39,10 @@ const List = () => {
     <>
       <div>지금</div>
       {/* 북마크 토글러 함수 실행 */}
-      <button onClick={() => bookMarkOff(params.gu)}>⭐️</button>
+      {
+        bookmark ? <button onClick={() => bookMarkOff(params.gu)}>⭐️</button> :
+          <button onClick={() => bookMarkOn(params.gu)}>☆</button>
+      }
       <select
         name="gu"
         defaultValue={params.gu}

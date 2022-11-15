@@ -57,7 +57,7 @@ const Detail = () => {
 
   //셀렉터로 상세조회 데이터 전부 불러오기
   const contentData = useSelector((state) => state.contents.content)
-  console.log("상세조회 데이터 셀렉터임", contentData)
+
   const { id } = useParams()
 
   //GET 요청 디스패치
