@@ -68,7 +68,7 @@ export const contentsApis = {
 
   searchAX: (obj) =>
     hInstance.get(`api/posts/search`, {
-      params: { searchWord: obj.searchWord, sort: obj.sort },
+      params: { type: obj.type, searchWord: obj.searchWord, sort: obj.sort },
     }),
 
   //핫태그

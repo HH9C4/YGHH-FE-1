@@ -102,33 +102,43 @@ const Editor = () => {
   }, [files])
   return (
     <>
-      <input
-        style={{ display: "none" }}
-        accept="image/*"
-        id="imgFile"
-        name="imgFile"
-        type="file"
-        multiple
-        onChange={uploadHandle}
-        ref={imgRef}
-      />
+      <div>
+        <input
+          style={{ display: "none" }}
+          accept="image/*"
+          id="imgFile"
+          name="imgFile"
+          type="file"
+          multiple
+          onChange={uploadHandle}
+          ref={imgRef}
+        />
 
-      <label for="imgFile">
-        <button
-          onClick={() => {
-            imgRef.current.click()
-          }}
-        >
-          사진 추가하기
-        </button>
-        {id !== undefined
-          ? data.imageUrl.map((img) => {
-              return <img src={img} />
-            })
-          : fileUrls.map((value) => {
-              return <img src={value ? value : ""} alt="image" />
-            })}
-      </label>
+        <label for="imgFile">
+          <button
+            onClick={() => {
+              imgRef.current.click()
+            }}
+          >
+            사진 추가하기
+          </button>
+          <div className="overflow-x-auto flex flex-row flex-nowrap">
+            {id !== undefined
+              ? data.imageUrl.map((img) => {
+                  return <img className="w-64 h-64 object-cover" src={img} />
+                })
+              : fileUrls.map((value) => {
+                  return (
+                    <img
+                      className="w-64 h-64 object-cover"
+                      src={value ? value : ""}
+                      alt="image"
+                    />
+                  )
+                })}
+          </div>
+        </label>
+      </div>
       <input
         defaultValue={data !== null ? data.tag : postInput.tag || ""}
         type="text"

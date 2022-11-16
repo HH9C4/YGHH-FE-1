@@ -74,7 +74,7 @@ const List = () => {
         <option value={"성북구"}>성북붐비</option>
         <option value={"송파구"}>송파붐비</option>
         <option value={"양천구"}>양천붐비</option>
-        <option value={"양천구"}>영등포붐비</option>
+        <option value={"영등포구"}>영등포붐비</option>
         <option value={"용산구"}>용산붐비</option>
         <option value={"은평구"}>은평붐비</option>
         <option value={"종로구"}>종로붐비</option>

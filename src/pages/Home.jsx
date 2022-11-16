@@ -7,7 +7,7 @@ const Home = () => {
   const KAKAO_CODE = location.search.split("=")[1]
 
   return (
-    <div className="bg-red text-purple-600">
+    <div>
       Home입니다
       <FindAddress>asdas</FindAddress>
     </div>
