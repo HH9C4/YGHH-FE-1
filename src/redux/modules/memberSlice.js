@@ -17,6 +17,7 @@ export const __kakaoLogin = (code) => {
         localStorage.setItem("ageRange", res.data.data.ageRange)
         localStorage.setItem("email", res.data.data.email)
         localStorage.setItem("gender", res.data.data.gender)
+        localStorage.setItem("site", "kakao")
         // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
         window.location.replace("/")
       })
@@ -30,11 +31,11 @@ export const __kakaoLogin = (code) => {
 }
 
 //로그아웃 Thunk
-export const __logout = createAsyncThunk(
-  "members/__logout",
+export const __kakaoLogout = createAsyncThunk(
+  "members/__kakaoLogout",
   async (payload, thunkAPI) => {
     try {
-      const res = await membersApis.logoutAX(payload)
+      const res = await membersApis.kakaologoutAX(payload)
       if (res.data.status === "200 OK") {
         console.log("로그아웃 res 값", res)
         localStorage.removeItem("Authorization")
@@ -43,9 +44,57 @@ export const __logout = createAsyncThunk(
         localStorage.removeItem("ageRange")
         localStorage.removeItem("email")
         localStorage.removeItem("gender")
+        localStorage.removeItem("site")
         window.location.replace("/")
       }
       return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//
+export const __naverLogout = createAsyncThunk(
+  "members/__naverLogout",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await membersApis.kakaologoutAX(payload)
+      if (res.data.status === "200 OK") {
+        console.log("로그아웃 res 값", res)
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("nickName")
+        localStorage.removeItem("profileImage")
+        localStorage.removeItem("ageRange")
+        localStorage.removeItem("email")
+        localStorage.removeItem("gender")
+        localStorage.removeItem("site")
+        window.location.replace("/")
+      }
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//네이버 로그인
+export const __naverLogin = createAsyncThunk(
+  "members/__naverLogin",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await membersApis.naverloginAX(payload)
+      console.log("넘어온 값", res) // 토큰이 넘어올 것임
+      const Access_Token = res.headers.authorization
+      localStorage.setItem("Authorization", Access_Token)
+      localStorage.setItem("nickName", res.data.data.accountName)
+      localStorage.setItem("profileImage", res.data.data.profileImage)
+      localStorage.setItem("ageRange", res.data.data.ageRange)
+      localStorage.setItem("email", res.data.data.email)
+      localStorage.setItem("gender", res.data.data.gender)
+      localStorage.setItem("site", "naver")
+      // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
+      window.location.replace("/")
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
