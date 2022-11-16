@@ -34,8 +34,12 @@ export const __deleteComment = createAsyncThunk(
   "contents/__deleteComment",
   async (payload, thunkAPI) => {
     try {
-      const res = await commentApis.commentDeletePostAX(payload)
-      return thunkAPI.fulfillWithValue(payload)
+      // const res = await commentApis.commentDeletePostAX(payload)
+      if (window.confirm("작성하신 댓글을 삭제하시겠습니까?")) {
+        const res = await commentApis.commentDeletePostAX(payload)
+        return thunkAPI.fulfillWithValue(payload)
+      }
+      // return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
