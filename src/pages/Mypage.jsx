@@ -12,7 +12,7 @@ const Mypage = () => {
   const userGender = localStorage.getItem("gender")
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
-  const REST_API_KEY = "a8c29f43cc985001f5fcd08bcbd9bbac"
+  const REST_API_KEY = "5be5552cd6fd58fe7ce5082934d4b18a"
   const LOGOUTREDIRECT_URI = "http://localhost:3000/user/kakao/logout/callback"
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
   const handleLogout = () => {

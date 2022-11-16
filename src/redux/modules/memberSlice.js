@@ -7,7 +7,7 @@ export const __kakaoLogin = (code) => {
   return function (dispatch, getState) {
     // membersApis.loginAX(code)
     axios
-      .get(`http://43.201.82.55:8080/user/kakao/callback?code=${code}`)
+      .get(`http://43.201.82.55:8080/user/signin/kakao?code=${code}`)
       .then((res) => {
         console.log("넘어온 값", res) // 토큰이 넘어올 것임
         const Access_Token = res.headers.authorization

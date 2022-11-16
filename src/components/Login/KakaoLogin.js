@@ -4,7 +4,7 @@ import { useEffect } from "react"
 
 const KakaoLogin = () => {
   const dispatch = useDispatch()
-  const REST_API_KEY = "a8c29f43cc985001f5fcd08bcbd9bbac"
+  const REST_API_KEY = "5be5552cd6fd58fe7ce5082934d4b18a"
   const REDIRECT_URI = "http://localhost:3000/user/kakao/callback"
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
 
