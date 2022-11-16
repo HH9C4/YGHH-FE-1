@@ -27,7 +27,10 @@ export const membersApis = {
   kakaologoutAX: () => hInstance.delete(`/api/logout`),
 
   //네이버 로그인
-  naverloginAX: (loginData) => nhInstance.get(`/user/signin/naver?code=${loginData.code}&state=${loginData.state}`),
+  naverloginAX: (loginData) =>
+    nhInstance.get(
+      `/user/signin/naver?code=${loginData.code}&state=${loginData.state}`
+    ),
 }
 
 export const commentApis = {
@@ -85,6 +88,10 @@ export const contentsApis = {
 
   // 마이페이지 알림탭
   mypageNoticeAX: () => hInstance.get(`api/alarm`),
+
+  // 마이페이지 알림탭
+  mypageNoticeConfirmAX: (commentId) =>
+    hInstance.post(`api/alarm/${commentId}`),
 
   //북마크
   bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),

@@ -51,7 +51,7 @@ const Editor = () => {
     let obj = {
       gu: param.gu,
       content: postInput.content,
-      tag: postInput.tag,
+      tagList: [postInput.tag],
     }
 
     // formData.append("contents", JSON.stringify(obj))

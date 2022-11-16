@@ -28,7 +28,10 @@ const Mypage = () => {
 
   return (
     <>
-      <h1>마이페이지</h1>
+      <header className="text-gray-100 bg-blue-500 text-center p-5 align-middle">
+        <h1>마이페이지</h1>
+      </header>
+
       <Flex>
         <div>
           <img

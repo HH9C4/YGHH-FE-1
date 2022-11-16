@@ -84,27 +84,18 @@ const Post = ({ posts }) => {
                     })}
                   </div>
                   <div>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[0]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[0]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[1]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[1]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[2]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[2]}
-                    </button>
+                    {data.tagList !== (undefined || null) &&
+                      data.tagList.map((postTag) => {
+                        return (
+                          <button
+                            onClick={() =>
+                              navigate(`/search/${postTag.substring(1)}/new`)
+                            }
+                          >
+                            {postTag}
+                          </button>
+                        )
+                      })}
                   </div>
                   <div onClick={() => navigate(`/detail/${data.postId}`)}>
                     {data.content}

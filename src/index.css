@@ -1,4 +1,6 @@
-/* ./src/index.css */
+/* index.css 또는 루트 파일에 포함되는 css 파일 */
+/* 특이하게도 @import 가 아닌 @tailwind 키워드로 모듈을 불러옵니다! */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
