@@ -60,11 +60,11 @@ export const __naverLogin = createAsyncThunk(
       console.log("넘어온 값", res) // 토큰이 넘어올 것임
       const Access_Token = res.headers.authorization
       localStorage.setItem("Authorization", Access_Token)
-      localStorage.setItem("별명", res.data.data.accountName)
-      localStorage.setItem("프로필이미지", res.data.data.profileImage)
-      localStorage.setItem("연령대", res.data.data.ageRange)
-      localStorage.setItem("이메일", res.data.data.email)
-      localStorage.setItem("성별", res.data.data.gender)
+      localStorage.setItem("nickName", res.data.data.accountName)
+      localStorage.setItem("profileImage", res.data.data.profileImage)
+      localStorage.setItem("ageRange", res.data.data.ageRange)
+      localStorage.setItem("email", res.data.data.email)
+      localStorage.setItem("gender", res.data.data.gender)
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       window.location.replace("/")
     } catch (error) {

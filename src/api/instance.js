@@ -28,6 +28,8 @@ export const membersApis = {
 
   //네이버 로그인
   naverloginAX: (loginData) => nhInstance.get(`/user/signin/naver?code=${loginData.code}&state=${loginData.state}`),
+  //네이버 로그아웃
+  naverlogoutAX: () => hInstance.delete(`/api/logout`),
 }
 
 export const commentApis = {
