@@ -12,6 +12,8 @@ import BookMark from '../pages/BookMark'
 import OAuth2LoginHandler from "../components/Login/OAuth2LoginHandler"
 import OAuth2LogoutHandler from '../components/Login/OAuth2LogoutHandler'
 import OAuthNaverLogin from '../components/Login/OAuthNaverLogin'
+import FindAddress from '../components/features/FindAddress'
+import Landing from '../pages/Landing'
 
 const Router = () => {
   return (
@@ -28,7 +30,8 @@ const Router = () => {
         <Route path="/mypage/" element={<Mypage />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/bookmark" element={<BookMark />} />
-
+        <Route path="/address" element={<FindAddress />} />
+        <Route path="/landing" element={<Landing />} />
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
         {/* 카카오 */}
         <Route
