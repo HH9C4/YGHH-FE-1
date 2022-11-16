@@ -18,7 +18,7 @@ export const __kakaoLogin = (code) => {
         localStorage.setItem("email", res.data.data.email)
         localStorage.setItem("gender", res.data.data.gender)
         // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
-        // window.location.replace("/")
+        window.location.replace("/")
       })
       .catch((error) => {
         console.log("소셜로그인 에러", error)
@@ -66,7 +66,7 @@ export const __naverLogin = createAsyncThunk(
       localStorage.setItem("이메일", res.data.data.email)
       localStorage.setItem("성별", res.data.data.gender)
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
-      // window.location.replace("/")
+      window.location.replace("/")
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
