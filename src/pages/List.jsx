@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react"
 import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { getCookie } from "../cookie/cookie"
 import Post from "../components/features/Post"
 import {
   __getContent,
