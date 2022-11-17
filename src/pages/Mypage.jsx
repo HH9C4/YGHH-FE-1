@@ -1,6 +1,7 @@
 import React from "react"
-import { useDispatch } from 'react-redux'
+import { useDispatch } from "react-redux"
 import styled from "styled-components"
+import { Tabs } from "flowbite-react"
 // import Alarm from "../components/mypage/Alarm"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
@@ -8,13 +9,15 @@ import Mypost from "../components/mypage/Mypost"
 import { __naverLogout } from "../redux/modules/memberSlice"
 
 const Mypage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+  // 마이페이지 대시보드 정보 꺼내기
   const userImg = localStorage.getItem("profileImage")
   const userNm = localStorage.getItem("nickName")
   const userAge = localStorage.getItem("ageRange")
   const userGender = localStorage.getItem("gender")
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
+  //로그아웃
   const REST_API_KEY = "5be5552cd6fd58fe7ce5082934d4b18a"
   const LOGOUTREDIRECT_URI = "http://localhost:3000/user/kakao/logout/callback"
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
@@ -24,8 +27,8 @@ const Mypage = () => {
     } else {
       dispatch(__naverLogout())
     }
+    // 탭 구현 //
   }
-
 
   return (
     <>
@@ -50,9 +53,17 @@ const Mypage = () => {
           </Flex>
         </div>
       </Flex>
-      <MyNotice />
-      <Mypost />
-      <MyLikes />
+      <Tabs.Group aria-label="Pills" style="pills">
+        <Tabs.Item className="bg-gray-700" active={true} title="내 알림">
+          <MyNotice />
+        </Tabs.Item>
+        <Tabs.Item title="내 글">
+          <Mypost />
+        </Tabs.Item>
+        <Tabs.Item title="내 좋아요">
+          <MyLikes />
+        </Tabs.Item>
+      </Tabs.Group>
     </>
   )
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import { Carousel } from "flowbite-react"
 import {
   __getContentDetail,
   __deleteContent,
@@ -70,41 +71,35 @@ const Post = ({ posts }) => {
                       )}
                     </div>
                   </div>
-                  <div onClick={() => navigate(`/detail/${data.postId}`)}>
-                    {data.imageUrl.map((img) => {
-                      return (
-                        <img
-                          src={img}
-                          style={{
-                            display:
-                              data.imageUrl !== undefined ? "block" : "none",
-                          }}
-                        />
-                      )
-                    })}
+                  <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+                    <Carousel>
+                      {data.imageUrl.map((img) => {
+                        return (
+                          <img
+                            onClick={() => navigate(`/detail/${data.postId}`)}
+                            src={img}
+                            style={{
+                              display:
+                                data.imageUrl !== undefined ? "block" : "none",
+                            }}
+                          />
+                        )
+                      })}
+                    </Carousel>
                   </div>
                   <div>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[0]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[0]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[1]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[1]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[2]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[2]}
-                    </button>
+                    {data.tagList !== (undefined || null) &&
+                      data.tagList.map((postTag) => {
+                        return (
+                          <button
+                            onClick={() =>
+                              navigate(`/search/${postTag.substring(1)}/new`)
+                            }
+                          >
+                            {postTag}
+                          </button>
+                        )
+                      })}
                   </div>
                   <div onClick={() => navigate(`/detail/${data.postId}`)}>
                     {data.content}

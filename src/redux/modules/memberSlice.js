@@ -30,7 +30,7 @@ export const __kakaoLogout = createAsyncThunk(
   "members/__kakaoLogout",
   async (payload, thunkAPI) => {
     try {
-      const res = await membersApis.kakaologoutAX(payload)
+      const res = await membersApis.logoutAX(payload)
       if (res.data.status === "200 OK") {
         console.log("로그아웃 res 값", res)
         localStorage.removeItem("Authorization")
@@ -39,7 +39,7 @@ export const __kakaoLogout = createAsyncThunk(
         localStorage.removeItem("ageRange")
         localStorage.removeItem("email")
         localStorage.removeItem("gender")
-        localStorage.removeItem("site", "kakao")
+        localStorage.removeItem("site")
         window.location.replace("/")
       }
     } catch (error) {
@@ -47,6 +47,31 @@ export const __kakaoLogout = createAsyncThunk(
     }
   }
 )
+
+//
+export const __naverLogout = createAsyncThunk(
+  "members/__naverLogout",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await membersApis.logoutAX(payload)
+      if (res.data.status === "200 OK") {
+        console.log("로그아웃 res 값", res)
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("nickName")
+        localStorage.removeItem("profileImage")
+        localStorage.removeItem("ageRange")
+        localStorage.removeItem("email")
+        localStorage.removeItem("gender")
+        localStorage.removeItem("site")
+        window.location.replace("/")
+      }
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
 //네이버 로그인
 export const __naverLogin = createAsyncThunk(
   "members/__naverLogin",
@@ -65,29 +90,6 @@ export const __naverLogin = createAsyncThunk(
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       window.location.replace("/")
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error)
-    }
-  }
-)
-//네이버 로그아웃 Thunk
-export const __naverLogout = createAsyncThunk(
-  "members/__naverLogout",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await membersApis.naverlogoutAX(payload)
-      if (res.data.status === "200 OK") {
-        console.log("로그아웃 res 값", res)
-        localStorage.removeItem("Authorization")
-        localStorage.removeItem("nickName")
-        localStorage.removeItem("profileImage")
-        localStorage.removeItem("ageRange")
-        localStorage.removeItem("email")
-        localStorage.removeItem("gender")
-        localStorage.removeItem("site")
-        window.location.replace("/")
-        alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
-      }
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
