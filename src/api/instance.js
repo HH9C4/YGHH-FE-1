@@ -21,12 +21,15 @@ export const hInstance = axios.create({
 })
 
 export const membersApis = {
-  //로그인
-  loginAX: (code) => nhInstance.get(`/user/kakao/callback?code=${code}`, {}),
-  // loginAX: (code) => nhinstance.post(`/auth/kakao/callback?code=${code}`, {
-  // }),
-  //로그아웃
-  logoutAX: () => hInstance.delete(`/api/logout`),
+  //카카오 로그인
+  kakaologinAX: (code) => nhInstance.get(`/user/signin/kakao?code=${code}`),
+  //카카오 로그아웃
+  kakaologoutAX: () => hInstance.delete(`/api/logout`),
+
+  //네이버 로그인
+  naverloginAX: (loginData) => nhInstance.get(`/user/signin/naver?code=${loginData.code}&state=${loginData.state}`),
+  //네이버 로그아웃
+  naverlogoutAX: () => hInstance.delete(`/api/logout`),
 }
 
 export const commentApis = {
