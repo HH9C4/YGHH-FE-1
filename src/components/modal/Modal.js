@@ -1,10 +1,17 @@
-import React from 'react'
+//Modal.js
 
-const Modal = () => {
-    return (
-        //여기서 populationInfo 임포트 할꺼임
-        <div>Modal</div>
-    )
+import React from "react"
+import styled from "styled-components"
+import SelectGu from "../features/SelectGu"
+
+const Modal = (props) => {
+  return (
+    <div>
+      <div>
+        <SelectGu setModalOn={props.setModalOn} />
+      </div>
+    </div>
+  )
 }
 
 export default Modal
