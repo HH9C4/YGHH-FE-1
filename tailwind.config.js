@@ -21,6 +21,7 @@ module.exports = {
       bblp: "#F6EFFF",
       bby: "#FFEC8A",
       bbo: "#FF7A00",
+      bbpink: "#ff6fb5",
       bbb: "#222222",
       bbg: "#666666",
     },
