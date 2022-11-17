@@ -40,7 +40,7 @@ const List = () => {
 
   return (
     <>
-      <div>지금</div>
+      <div className="ml-2 font-normal text-sm">지금</div>
       {/* 북마크 토글러 함수 실행 */}
       {bookmark ? (
         <button onClick={() => bookMarkOff(params.gu)}>⭐️</button>
@@ -48,6 +48,7 @@ const List = () => {
         <button onClick={() => bookMarkOn(params.gu)}>☆</button>
       )}
       <select
+        className='font-bold text-xl'
         name="gu"
         defaultValue={params.gu}
         onChange={(e) => {

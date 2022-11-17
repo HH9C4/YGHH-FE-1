@@ -28,6 +28,8 @@ const FindAddress = () => {
             const gu = userSearched[1];
             navigate(`/landing`)
             // window.location.replace(`/list/${gu}/new`)
+        } else {
+            alert("현재는 서울지역만 서비스하고 있어요 ㅠ.ㅠ")
         }
     }
 
