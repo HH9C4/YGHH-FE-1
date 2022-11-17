@@ -7,7 +7,6 @@ import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
 import { __naverLogout } from "../redux/modules/memberSlice"
-import { __naverLogout } from "../redux/modules/memberSlice"
 
 const Mypage = () => {
   const dispatch = useDispatch()
