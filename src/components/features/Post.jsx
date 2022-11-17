@@ -18,7 +18,7 @@ const Post = ({ posts }) => {
     // if (window.confirm("정말 삭제하시겠습니까?")) {
     //   dispatch(__deleteContent(id))
     //   window.alert("게시글이 삭제되었습니다.")
-    // }
+    // } //
     const obj = {
       postId: id,
       gu: gu,
