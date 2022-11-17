@@ -7,6 +7,7 @@ import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
 import { __naverLogout } from "../redux/modules/memberSlice"
+import { __naverLogout } from "../redux/modules/memberSlice"
 
 const Mypage = () => {
   const dispatch = useDispatch()
@@ -33,7 +34,6 @@ const Mypage = () => {
   return (
     <>
       <h1>마이페이지</h1>
-
       <Flex>
         <div>
           <img
@@ -74,29 +74,3 @@ export default Mypage
 const Flex = styled.div`
   display: flex;
 `
-// <div id="myTabContent">
-//       <div
-//         class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800"
-//         id="notice"
-//         role="tabpanel"
-//         aria-labelledby="-tab"
-//       >
-//         <MyNotice />
-//       </div>
-//       <div
-//         class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800"
-//         id="post"
-//         role="tabpanel"
-//         aria-labelledby="post-tab"
-//       >
-//         <MyLikes />
-//       </div>
-//       <div
-//         class="hidden p-4 bg-gray-50 rounded-lg dark:bg-gray-800"
-//         id="like"
-//         role="tabpanel"
-//         aria-labelledby="like-tab"
-//       >
-//         <Mypost />
-//       </div>
-//     </div>

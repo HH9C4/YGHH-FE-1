@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import DaumPostcode from 'react-daum-postcode';
 
 
 
 const FindAddress = () => {
-    const [visible, setVisible] = useState(false); // 우편번호 컴포넌트의 노출여부 상태
 
+    const navigate = useNavigate();
     const handleComplete = (data) => {
         let fullAddress = data.address;
         let extraAddress = '';
@@ -17,28 +17,24 @@ const FindAddress = () => {
             }
             if (data.buildingName !== '') {
                 extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+
             }
             fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
+        const userSearched = fullAddress.split(' ', 2)
 
-        console.log(fullAddress);  // e.g. '서울 성동구 왕십리로2길 20 (성수동1가)'
-        setVisible(true)
-    }
-
-    const toggleBox = () => {
-        setVisible(!visible)
+        if (userSearched[0] === "서울" &&
+            userSearched[1].substring(userSearched[1].length - 1, userSearched[1].length) === "구") {
+            const gu = userSearched[1];
+            navigate(`/landing`)
+            // window.location.replace(`/list/${gu}/new`)
+        }
     }
 
     return (
         <>
-            <div>
-                <button onClick={toggleBox}>주소 검색하실 분</button>
-            </div>
-            {
-                visible ? <DaumPostcode
-                    onComplete={handleComplete}
-                /> : ""
-            }
+            <DaumPostcode onComplete={handleComplete} />
+
             {/* <DaumPostcode
             onComplete={handleComplete}/> */}
         </>

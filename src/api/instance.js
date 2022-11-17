@@ -23,8 +23,8 @@ export const hInstance = axios.create({
 export const membersApis = {
   //카카오 로그인
   kakaologinAX: (code) => nhInstance.get(`/user/signin/kakao?code=${code}`),
-  //카카오 로그아웃
-  kakaologoutAX: () => hInstance.delete(`/api/logout`),
+  //로그아웃 서버통신
+  logoutAX: () => hInstance.delete(`/api/logout`),
 
   //네이버 로그인
   naverloginAX: (loginData) =>
@@ -89,7 +89,7 @@ export const contentsApis = {
   // 마이페이지 알림탭
   mypageNoticeAX: () => hInstance.get(`api/alarm`),
 
-  // 마이페이지 알림탭
+  // 마이페이지 알림 확인완료
   mypageNoticeConfirmAX: (commentId) =>
     hInstance.post(`api/alarm/${commentId}`),
 
