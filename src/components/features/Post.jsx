@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useParams, useNavigate, Navigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
+import { Carousel } from "flowbite-react"
 import {
   __getContentDetail,
   __deleteContent,
@@ -12,7 +13,6 @@ const Post = ({ posts }) => {
   const { id } = useParams()
   const navigate = useNavigate()
 
-
   // 게시글 삭제 버튼
   const onPostDelete = (id, gu) => {
     // if (window.confirm("정말 삭제하시겠습니까?")) {
@@ -23,7 +23,7 @@ const Post = ({ posts }) => {
       postId: id,
       gu: gu,
     }
-    console.log("포스트 페지", obj);
+    console.log("포스트 페지", obj)
     dispatch(__deleteContent(obj))
   }
 
@@ -32,90 +32,78 @@ const Post = ({ posts }) => {
   }
   return (
     <>
-      {
-        posts !== undefined &&
+      {posts !== undefined &&
         posts.map((data) => {
           if (posts.length !== 0)
             return (
-              <div key={data.postId}>
+              <div key={String(data.postId) + Math.random()}>
                 <div>
                   {/* 포스트 전체 컨테이너 */}
                   <div>
                     {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
                     <div>❤️{data.likeCount}</div>
                     <div>👀{data.views}</div>
-                    <div>💬{/* 댓글 수 표시할 곳 */}</div>
+                    <div>💬{data.commentCount}</div>
                     <div>
-
                       {checkOwner.nickName === data.accountName ? (
-                        <button onClick={() =>
-                          navigate(`/write/${data.gu}/${data.postId}`, {
-                            state: data,
-                          })
-                        }>수정</button>
+                        <button
+                          onClick={() =>
+                            navigate(`/write/${data.gu}/${data.postId}`, {
+                              state: data,
+                            })
+                          }
+                        >
+                          수정
+                        </button>
                       ) : (
                         ""
                       )}
                       {checkOwner.nickName === data.accountName ? (
-                        <button onClick={() => {
-                          onPostDelete(data.postId, data.gu)
-                        }}>삭제</button>
+                        <button
+                          onClick={() => {
+                            onPostDelete(data.postId, data.gu)
+                          }}
+                        >
+                          삭제
+                        </button>
                       ) : (
                         ""
                       )}
                     </div>
                   </div>
-                  <div>
-                    {data.imageUrl.map((img) => {
-                      return (
-                        <img
-                          src={img}
-                          style={{
-                            display:
-                              data.imageUrl !== undefined ? "block" : "none",
-                          }}
-                        />
-                      )
-                    })}
+                  <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+                    <Carousel>
+                      {data.imageUrl.map((img) => {
+                        return (
+                          <img
+                            onClick={() => navigate(`/detail/${data.postId}`)}
+                            src={img}
+                            style={{
+                              display:
+                                data.imageUrl !== undefined ? "block" : "none",
+                            }}
+                          />
+                        )
+                      })}
+                    </Carousel>
                   </div>
                   <div>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[0]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[0]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[1]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[1]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[2]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[2]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[3]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[3]}
-                    </button>
-                    <button
-                      onClick={() =>
-                        navigate(`/search/${data.tag.split(" ")[4]}/new`)
-                      }
-                    >
-                      {data.tag.split(" ")[4]}
-                    </button>
+                    {data.tagList !== (undefined || null) &&
+                      data.tagList.map((postTag) => {
+                        return (
+                          <button
+                            onClick={() =>
+                              navigate(`/search/${postTag.substring(1)}/new`)
+                            }
+                          >
+                            {postTag}
+                          </button>
+                        )
+                      })}
                   </div>
-                  <div>{data.content}</div>
+                  <div onClick={() => navigate(`/detail/${data.postId}`)}>
+                    {data.content}
+                  </div>
                   <div>
                     <div>{data.accountName}</div>
                     <div>
@@ -125,7 +113,7 @@ const Post = ({ posts }) => {
                     </div>
                     <div>{data.gu}</div>
                   </div>
-                  <div>질문 버튼 들어갈 곳</div>
+                  <div>태그 자리</div>
                 </div>
               </div>
             )

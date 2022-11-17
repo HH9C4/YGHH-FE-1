@@ -1,9 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios"
 import { contentsApis, commentApis } from "../../api/instance"
-import { current } from "@reduxjs/toolkit"
-import { act } from 'react-dom/test-utils'
-
 //게시글 작성
 export const __insertContent = createAsyncThunk(
   "contents/__insertContent",
@@ -24,9 +20,6 @@ export const __insertComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await commentApis.commentAddAX(payload)
-
-      console.log("댓글 작성 응답값", res)
-
       if (res.data.status === "201 CREATED") {
         return thunkAPI.fulfillWithValue(res.data.data)
       }
@@ -41,29 +34,71 @@ export const __deleteComment = createAsyncThunk(
   "contents/__deleteComment",
   async (payload, thunkAPI) => {
     try {
-      console.log("댓글 삭제 페이로드", payload)
-      const res = await commentApis.commentDeletePostAX(payload)
-      return thunkAPI.fulfillWithValue(payload)
+      // const res = await commentApis.commentDeletePostAX(payload)
+      if (window.confirm("작성하신 댓글을 삭제하시겠습니까?")) {
+        const res = await commentApis.commentDeletePostAX(payload)
+        return thunkAPI.fulfillWithValue(payload)
+      }
+      // return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
   }
 )
 
-//좋아요 활성화
+// try {
+//   const res = await contentsApis.returnBookMarkAX()
+//   console.log("북마크 반환 리스폰스값", res)
+//   console.log("북마크  리스폰스값", res.data)
+
+//   return thunkAPI.fulfillWithValue(res.data.data)
+// } catch (error) {
+//   return thunkAPI.rejectWithValue(error)
+// }
+
+//게시글 좋아요 활성화
 export const __activateLike = createAsyncThunk(
   "contents/__activateLike",
   async (payload, thunkAPI) => {
-    console.log("좋아요 페이로드", payload);
-    try {
-      const res = contentsApis.likesAX(payload).then((res) => {
-        console.log("좋아요 활성화 리스폰스값", res)
-      })
 
+    try {
+      const res = await contentsApis.likesAX(payload)
+      // const obj = {
+      //   level: payload.level,
+      //   data: res.data.data,
+      // }
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//게시글 좋아요 비활성화
+export const __deactivateLike = createAsyncThunk(
+  "contents/__deactivateLike",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.cancelLikesAX(payload)
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//댓글 좋아요 활성화
+export const __activateCommentLike = createAsyncThunk(
+  "contents/__activateCommentLike",
+  async (payload, thunkAPI) => {
+
+    try {
+      const res = await contentsApis.likesAX(payload)
       const obj = {
-        level: payload.level,
-        data: res.data.data,
+        commentId: payload.itemId,
+        isLiked: res.data.data.isLiked,
       }
+
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -71,15 +106,17 @@ export const __activateLike = createAsyncThunk(
   }
 )
 
-//좋아요 비활성화
-export const __deactivateLike = createAsyncThunk(
-  "contents/__deactivateLike",
+//댓글 좋아요 비활성화
+export const __deactivateCommentLike = createAsyncThunk(
+  "contents/__deactivateCommentLike",
   async (payload, thunkAPI) => {
     try {
-      const res = contentsApis.cancelLikesAX(payload).then((res) => {
-        console.log("좋아요 비활성화 리스폰스값", res)
-      })
-      return thunkAPI.fulfillWithValue(res.data.data)
+      const res = await contentsApis.cancelLikesAX(payload)
+      const obj = {
+        commentId: payload.itemId,
+        isLiked: res.data.data.isLiked,
+      }
+      return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -92,9 +129,6 @@ export const __returnBookmark = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.returnBookMarkAX()
-      console.log("북마크 반환 리스폰스값", res)
-      console.log("북마크  리스폰스값", res.data)
-
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -107,9 +141,7 @@ export const __activateBookmark = createAsyncThunk(
   "contents/__activateBookmark",
   async (payload, thunkAPI) => {
     try {
-      const res = contentsApis.bookMarkAX(payload).then((res) => {
-        console.log("북마크 활성화 리스폰스값", res)
-      })
+      const res = await contentsApis.bookMarkAX(payload)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -121,9 +153,7 @@ export const __deactivateBookmark = createAsyncThunk(
   "contents/__deactivateBookmark",
   async (payload, thunkAPI) => {
     try {
-      const res = contentsApis.bookMarkOffAX(payload).then((res) => {
-        console.log("북마크 비활성화 리스폰스값", res)
-      })
+      const res = await contentsApis.bookMarkOffAX(payload)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -137,11 +167,11 @@ export const __deactivateBookmark = createAsyncThunk(
 export const __getContent = createAsyncThunk(
   "contents/__getContent",
   async (payload, thunkAPI) => {
-    console.log("axios 이전", payload)
+
     try {
       const res = await contentsApis.getContentAX(payload)
-      console.log("전체 res값", res);
-      return thunkAPI.fulfillWithValue(res.data.data.postList)
+
+      return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -179,7 +209,7 @@ export const __deleteContent = createAsyncThunk(
   "contents/__deleteContent",
   async (payload, thunkAPI) => {
     try {
-      console.log(payload, "삭제 페이로드")
+
       if (window.confirm("게시글을 삭제하시겠습니까?")) {
         const res = await contentsApis.deleteContentAX(payload)
         window.location.replace(`/list/${res.data.data}/new`)
@@ -216,27 +246,23 @@ export const contentsSlice = createSlice({
   initialState: {
     contents: [],
     content: {},
+    bookmark: [],
   },
   reducers: {},
   extraReducers: {
     //__댓글 작성
     [__insertComment.fulfilled]: (state, action) => {
-      console.log("댓글 액션 페이로드 값", action.payload)
       state.content.commentList.push(action.payload)
-      // action.payload.map((item) => {
-      //   state.content.commentList.push(item)
-      // })
     },
     [__insertComment.rejected]: (state, action) => {
       state.error = action.payload
     },
     //댓글 삭제
     [__deleteComment.pending]: (state) => {
-      state.isLoading = true //
+      state.isLoading = true
     },
     [__deleteComment.fulfilled]: (state, action) => {
-      state.isLoading = false //
-      // state.content.commentList.commentId = state.content.commentList.commentId.splice(action.payload, 1)
+      state.isLoading = false
       state.content.commentList = state.content.commentList.filter(
         (comment) => comment.commentId !== action.payload
       )
@@ -248,7 +274,7 @@ export const contentsSlice = createSlice({
     [__getContentDetail.fulfilled]: (state, action) => {
       state.isLoading = false
       state.content = action.payload
-      // state.comments = action.payload.comments;
+
     },
     [__getContentDetail.rejected]: (state, action) => {
       state.isLoading = false
@@ -259,33 +285,67 @@ export const contentsSlice = createSlice({
       state.isLoading = false //
       state.error = action.payload //
     },
-    // 좋아요 활성화
+    // 게시글 좋아요 활성화
     [__activateLike.pending]: (state) => {
       state.isLoading = true
     },
     [__activateLike.fulfilled]: (state, action) => {
-      // console.log("state.content 상태", current(state.content));
-      // console.log("좋아요 액션 페이로드", action.payload);
       state.isLoading = false
-      state.content.isLiked = action.payload
+      state.content.isLiked = action.payload.isLiked
+      state.content.likeCount = action.payload.likeCount
 
     },
     [__activateLike.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
-    //좋아요 비활성화
+    //게시글 좋아요 비활성화
     [__deactivateLike.pending]: (state) => {
       state.isLoading = true
     },
     [__deactivateLike.fulfilled]: (state, action) => {
       state.isLoading = false
-      // console.log("비활성화 state.content 상태", current(state.content));
-      // console.log("비활성화 좋아요 액션 페이로드", action.payload);
       state.content.isLiked = action.payload.isLiked
-      // state.content.likeCount = action.payload.count
+      state.content.likeCount = action.payload.likeCount
     },
     [__deactivateLike.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    // 댓글 좋아요 활성화
+    [__activateCommentLike.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__activateCommentLike.fulfilled]: (state, action) => {
+      state.isLoading = false
+      const indexID = state.content.commentList.findIndex((id) => {
+        if (id.commentId === action.payload.commentId) {
+          return true;
+        }
+        return false;
+      });
+      state.content.commentList[indexID].isLiked = action.payload.isLiked
+
+    },
+    [__activateCommentLike.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    //댓글 좋아요 비활성화
+    [__deactivateCommentLike.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__deactivateCommentLike.fulfilled]: (state, action) => {
+      state.isLoading = false
+      const indexID = state.content.commentList.findIndex((id) => {
+        if (id.commentId === action.payload.commentId) {
+          return true;
+        }
+        return false;
+      });
+      state.content.commentList[indexID].isLiked = action.payload.isLiked
+    },
+    [__deactivateCommentLike.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
@@ -295,7 +355,7 @@ export const contentsSlice = createSlice({
     },
     [__activateBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.contents.content = action.payload
+      state.bookmark = action.payload.bookmarked
     },
     [__activateBookmark.rejected]: (state, action) => {
       state.isLoading = false
@@ -307,7 +367,7 @@ export const contentsSlice = createSlice({
     },
     [__deactivateBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.contents.content = action.payload
+      state.bookmark = action.payload.bookmarked
     },
     [__deactivateBookmark.rejected]: (state, action) => {
       state.isLoading = false
@@ -318,10 +378,9 @@ export const contentsSlice = createSlice({
       state.isLoading = true
     },
     [__returnBookmark.fulfilled]: (state, action) => {
-      console.log("반환 페이로드", action.payload);
       state.isLoading = false
       action.payload.map((item) => {
-        state.contents.push(item)
+        state.bookmark.push(item)
       })
     },
     [__returnBookmark.rejected]: (state, action) => {
@@ -334,12 +393,6 @@ export const contentsSlice = createSlice({
     },
     [__deleteContent.fulfilled]: (state, action) => {
       state.isLoading = false //
-      // state.contents = state.contents.filter(
-      //   (item) => item.postId !== action.payload
-      // )
-      // console.log(current(state));
-      // state.contents.splice(action.payload, 1)
-
     },
     [__deleteContent.rejected]: (state, action) => {
       state.isLoading = false //
@@ -354,13 +407,14 @@ export const contentsSlice = createSlice({
     [__insertContent.rejected]: (state, action) => {
       state.error = action.payload
     },
-    //__게시글 조회
+    //__게시글 전체 조회
     [__getContent.pending]: (state) => {
       state.isLoading = true
     },
     [__getContent.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.contents = action.payload
+      state.contents = action.payload.postList
+      state.bookmark = action.payload.isBookmarked
     },
     [__getContent.rejected]: (state, action) => {
       state.isLoading = false

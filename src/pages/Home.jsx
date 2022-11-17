@@ -1,18 +1,27 @@
-import React from 'react'
-import { useLocation } from 'react-router-dom';
-import Likes from '../components/features/Likes';
-
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import SelectGu from "../components/features/SelectGu"
 const Home = () => {
-    const location = useLocation();
-    const KAKAO_CODE = location.search.split('=')[1];
+  const navigate = useNavigate()
 
+  //1
+  return (
+    <>
+      <div style={{ margin: "auto", textAlgin: "center" }}>
+        <h1>원하는 장소 직접 찾아보기</h1>
 
-    return (
-        <div>Home입니다
-            {/* <h3>{KAKAO_CODE}</h3> */}
-
-        </div>
-    )
+        <button onClick={() => navigate(`/address`)}>장소 검색</button>
+      </div>
+      <div>
+        <h2>
+          원하는 장소가
+          <br />
+          어느 구인지 이미 아시나요?
+        </h2>
+        <SelectGu />
+      </div>
+    </>
+  )
 }
 
 export default Home

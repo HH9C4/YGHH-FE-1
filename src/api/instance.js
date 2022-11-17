@@ -21,12 +21,16 @@ export const hInstance = axios.create({
 })
 
 export const membersApis = {
-  //로그인
-  loginAX: (code) => nhInstance.get(`/user/kakao/callback?code=${code}`, {}),
-  // loginAX: (code) => nhinstance.post(`/auth/kakao/callback?code=${code}`, {
-  // }),
-  //로그아웃
+  //카카오 로그인
+  kakaologinAX: (code) => nhInstance.get(`/user/signin/kakao?code=${code}`),
+  //로그아웃 서버통신
   logoutAX: () => hInstance.delete(`/api/logout`),
+
+  //네이버 로그인
+  naverloginAX: (loginData) =>
+    nhInstance.get(
+      `/user/signin/naver?code=${loginData.code}&state=${loginData.state}`
+    ),
 }
 
 export const commentApis = {
@@ -64,7 +68,7 @@ export const contentsApis = {
 
   searchAX: (obj) =>
     hInstance.get(`api/posts/search`, {
-      params: { searchWord: obj.searchWord, sort: obj.sort },
+      params: { type: obj.type, searchWord: obj.searchWord, sort: obj.sort },
     }),
 
   //핫태그
@@ -84,6 +88,10 @@ export const contentsApis = {
 
   // 마이페이지 알림탭
   mypageNoticeAX: () => hInstance.get(`api/alarm`),
+
+  // 마이페이지 알림 확인완료
+  mypageNoticeConfirmAX: (commentId) =>
+    hInstance.post(`api/alarm/${commentId}`),
 
   //북마크
   bookMarkAX: (gu) => hInstance.post(`/api/bookmarks/${gu}`),

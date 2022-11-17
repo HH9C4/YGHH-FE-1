@@ -2,18 +2,23 @@ import React, { useRef, useState, useEffect } from "react"
 import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { getCookie } from "../cookie/cookie"
 import Post from "../components/features/Post"
-import { __getContent, __activateBookmark, __deactivateBookmark } from "../redux/modules/contentsSlice"
+import {
+  __getContent,
+  __activateBookmark,
+  __deactivateBookmark,
+} from "../redux/modules/contentsSlice"
 import Floating from "../components/elements/Floating"
 
 const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)
+  const { bookmark } = useSelector((state) => state.contents)
 
   const params = useParams()
   console.log(params)
-  console.log("리스트 셀렉터 값 : ", contents);
+  console.log("리스트 컨텐츠 값 : ", contents)
+  console.log("리스트 북마크 값 : ", bookmark)
   const dispatch = useDispatch()
   const navigate = useNavigate()
   let obj = {
@@ -26,18 +31,22 @@ const List = () => {
 
   //북마크 활성화 함수
   const bookMarkOn = () => {
-    dispatch(__activateBookmark(params.gu));
+    dispatch(__activateBookmark(params.gu))
   }
   //북마크 비활성화 함수
   const bookMarkOff = (gu) => {
-    dispatch(__deactivateBookmark(gu));
+    dispatch(__deactivateBookmark(gu))
   }
 
   return (
     <>
       <div>지금</div>
       {/* 북마크 토글러 함수 실행 */}
-      <button onClick={() => bookMarkOff(params.gu)}>⭐️</button>
+      {bookmark ? (
+        <button onClick={() => bookMarkOff(params.gu)}>⭐️</button>
+      ) : (
+        <button onClick={() => bookMarkOn(params.gu)}>☆</button>
+      )}
       <select
         name="gu"
         defaultValue={params.gu}
@@ -57,6 +66,7 @@ const List = () => {
         <option value={"노원구"}>노원붐비</option>
         <option value={"도봉구"}>도봉붐비</option>
         <option value={"동대문구"}>동대문붐비</option>
+        <option value={"동작구"}>동작붐비</option>
         <option value={"마포구"}>마포붐비</option>
         <option value={"서대문구"}>서대문붐비</option>
         <option value={"서초구"}>서초붐비</option>
@@ -64,10 +74,12 @@ const List = () => {
         <option value={"성북구"}>성북붐비</option>
         <option value={"송파구"}>송파붐비</option>
         <option value={"양천구"}>양천붐비</option>
+        <option value={"영등포구"}>영등포붐비</option>
         <option value={"용산구"}>용산붐비</option>
         <option value={"은평구"}>은평붐비</option>
         <option value={"종로구"}>종로붐비</option>
         <option value={"중구"}>중구붐비</option>
+        <option value={"중랑구"}>중랑붐비</option>
       </select>
       <div>
         {localStorage.getItem("nickName")}

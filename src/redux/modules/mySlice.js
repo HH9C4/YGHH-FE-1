@@ -21,13 +21,26 @@ export const __getMyNotice = createAsyncThunk(
     }
   }
 )
+// 마이페이지 내 게시글 새댓글 확인완료
+export const __postMyNotice = createAsyncThunk(
+  "contents/mypageNoticeConfirmAX",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.mypageNoticeConfirmAX(payload)
+      console.log("mynoticeConfirm", res)
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
 // 마이페이지 내가 작성한 게시글 조회
 export const __getMyContent = createAsyncThunk(
   "contents/__getMyContent",
   async (_, thunkAPI) => {
     try {
       const res = await contentsApis.getmypageAX()
-      // console.log("myposts", res)
+      console.log("myposts", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -41,7 +54,7 @@ export const __getMyLikes = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await contentsApis.mypageLikedAX()
-      // console.log("mylikes", res)
+      console.log("mylikes", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)

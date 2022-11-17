@@ -17,6 +17,7 @@ const Search = () => {
   const navigate = useNavigate()
   const params = useParams()
   let obj = {
+    type: 0,
     searchWord: params.searchWord,
     sort: params.sort,
   }

@@ -8,9 +8,12 @@ import Mypage from "../pages/Mypage"
 import Search from "../pages/Search"
 import Write from "../pages/Write"
 import HotTag from "../components/features/HotTag"
-import BookMark from '../pages/BookMark'
+import BookMark from "../pages/BookMark"
 import OAuth2LoginHandler from "../components/Login/OAuth2LoginHandler"
-import OAuth2LogoutHandler from '../components/Login/OAuth2LogoutHandler'
+import OAuth2LogoutHandler from "../components/Login/OAuth2LogoutHandler"
+import OAuthNaverLogin from "../components/Login/OAuthNaverLogin"
+import FindAddress from "../components/features/FindAddress"
+import Landing from "../pages/Landing"
 
 const Router = () => {
   return (
@@ -22,21 +25,22 @@ const Router = () => {
         <Route path="/search" element={<Search />} />
         <Route path="/write/:gu" element={<Write />} />
         <Route path="/write/:gu/:id" element={<Write />} />
-        <Route path="/search/:searchWord/:sort" element={<Search />} />
+        <Route path="/search/:type/:searchWord/:sort" element={<Search />} />
         <Route path="/hottest/:gu" element={<HotTag />} />
-        <Route path="/mypage/" element={<Mypage />} />
+        <Route path="/mypage" element={<Mypage />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/bookmark" element={<BookMark />} />
-
+        <Route path="/address" element={<FindAddress />} />
+        <Route path="/landing" element={<Landing />} />
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
-        <Route
-          path="/user/kakao/callback"
-          element={<OAuth2LoginHandler />}
-        />
+        {/* 카카오 */}
+        <Route path="/user/kakao/callback" element={<OAuth2LoginHandler />} />
         <Route
           path="/user/kakao/logout/callback"
           element={<OAuth2LogoutHandler />}
         />
+        {/* 네이버 */}
+        <Route path="/user/naver/callback" element={<OAuthNaverLogin />} />
       </Routes>
     </BrowserRouter>
   )
