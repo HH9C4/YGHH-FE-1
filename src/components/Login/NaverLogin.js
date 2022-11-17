@@ -1,6 +1,6 @@
 import naverLogin from "../../assets/img/naverLogin.png"
 import { NAVER_AUTH_URL } from '../../api/loginKeys';
-
+import naverLogin2 from "../../assets/img/naverLogin2.png"
 const NaverLogin = ({ setGetToken, setUserInfo }) => {
 
 
@@ -8,7 +8,7 @@ const NaverLogin = ({ setGetToken, setUserInfo }) => {
         window.location.href = NAVER_AUTH_URL;
     }
     return (
-        <img type="button" onClick={handleLogin} src={naverLogin}></img>
+        <img type="button" onClick={handleLogin} src={naverLogin2}></img>
     )
 }
 
