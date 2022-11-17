@@ -27,7 +27,7 @@ const Mypage = () => {
     } else {
       dispatch(__naverLogout())
     }
-    // 탭 구현
+    // 탭 구현 //
   }
 
   return (
