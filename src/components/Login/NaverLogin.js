@@ -14,43 +14,9 @@ const NaverLogin = ({ setGetToken, setUserInfo }) => {
 
     const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${NAVER_CLIENT_ID}&redirect_uri=${NAVER_CALLBACK_URL}&state=state
   `;
-
-    // const initializeNaverLogin = () => {
-    //     const naverLogin = new naver.LoginWithNaverId({
-    //         clientId: NAVER_CLIENT_ID,
-    //         callbackUrl: NAVER_CALLBACK_URL,
-    //         // 팝업창으로 로그인을 진행할 것인지?           
-    //         isPopup: false,
-    //         // 버튼 타입 ( 색상, 타입, 크기 변경 가능 )
-    //         loginButton: { color: 'green', type: 3, height: 54, width: "222px" },
-    //         callbackHandle: true,
-    //     })
-    //     naverLogin.init()
-    //     naverLogin.logout();
-    // }
-
-    // useEffect(() => {
-    //     initializeNaverLogin()
-    // }, [])
     const handleLogin = () => {
         window.location.href = NAVER_AUTH_URL;
     }
-    // const state = new URL(window.location.href).searchParams.get("state");
-    // const code = new URL(window.location.href).searchParams.get("code");
-    // const loginData = {
-    //     code: code,
-    //     state: state,
-    // }
-    // console.log("코드 값임", loginData.code);
-    // console.log("스테이츠 값임", loginData.state);
-
-    // dispatch(__naverLogin(loginData))
-
-
-
-    // const naverLogout = () => {
-    //     localStorage.removeItem("com.naver.nid.access_token");
-    // };
     return (
         <StNaverLogin onClick={handleLogin}>네이버 로그인</StNaverLogin>
     )

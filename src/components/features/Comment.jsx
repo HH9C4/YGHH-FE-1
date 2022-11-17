@@ -19,7 +19,6 @@ const Comment = ({ data }) => {
   //삭제 버튼 작성자 확인
   const checkOwner = {
     'nickName': localStorage.getItem("nickName")
-
   }
   //댓글 삭제 요청을 위한 level 변수 생성 
   const level = 2;
