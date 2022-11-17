@@ -71,7 +71,7 @@ const Post = ({ posts }) => {
                       )}
                     </div>
                   </div>
-                  <div className="h-56 sm:h-64 xl:h-80 2xl:h-96">
+                  <div className="w-[276px] h-[276px]">
                     <Carousel>
                       {data.imageUrl.map((img) => {
                         return (
@@ -93,7 +93,7 @@ const Post = ({ posts }) => {
                         return (
                           <button
                             onClick={() =>
-                              navigate(`/search/${postTag.substring(1)}/new`)
+                              navigate(`/search/1/${postTag.substring(1)}/new`)
                             }
                           >
                             {postTag}
