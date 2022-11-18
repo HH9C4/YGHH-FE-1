@@ -129,7 +129,7 @@ const Post = ({ posts }) => {
                         data.tagList.map((postTag) => {
                           return (
                             <button
-                              className="w-15 h-8 mr-2 mb-2 text-bb22 rounded px-[9px] bg-bby text-xs "
+                              className="w-15 h-8 mr-2 mb-2 text-bb22 rounded px-[9px] bg-bbyellow text-xs "
                               onClick={() =>
                                 navigate(
                                   `/search/1/${postTag.substring(1)}/new`
