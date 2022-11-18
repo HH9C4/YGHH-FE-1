@@ -181,8 +181,10 @@ export const __getContent = createAsyncThunk(
 export const __getContentDetail = createAsyncThunk(
   "contents/__getContentDetail",
   async (payload, thunkAPI) => {
+    console.log("상세조회 payload", payload);
     try {
       const res = await contentsApis.getContentDetailAX(payload)
+      console.log("상세조회 res", res);
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -195,7 +197,6 @@ export const __updataContent = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.updateContentAX(payload)
-
       window.alert("게시글 수정이 완료되었습니다.")
       window.location.replace(`/detail/${payload.id}`)
     } catch (error) {

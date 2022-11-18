@@ -15,6 +15,7 @@ import SelectGu from "../components/features/SelectGu"
 import Portal from "../components/modal/Portal"
 import Layout from "../components/layout/Layout"
 
+
 const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)

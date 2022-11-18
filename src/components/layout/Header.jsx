@@ -3,7 +3,7 @@ import React from "react"
 const Header = () => {
   return (
     <>
-      <div className="flex justify-end items-center">
+      <div className="flex justify-end items-center h-[50px]">
         <div>
           {localStorage.getItem("nickName")}
           <span>님</span>
