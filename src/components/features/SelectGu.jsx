@@ -74,7 +74,6 @@ const SelectGu = () => {
         <button className=' w-[100px] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shadow-md ' onClick={() => navigate(`/list/중랑구/new`)}>중랑구
         </button>
       </div>
-
     </div>
   )
 }

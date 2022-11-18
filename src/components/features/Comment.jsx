@@ -41,7 +41,6 @@ const Comment = ({ data }) => {
                 </div>
                 <div>{item.comment}</div>
                 <Likes data={item.commentId} level={level} isLiked={item.isLiked} itemId={item.commentId}></Likes>
-
               </div>
             </div>
           )
