@@ -17,13 +17,16 @@ module.exports = {
       silver: "#ecebff",
       "bubble-gum": "#ff77e9",
       bermuda: "#78dcca",
-      bbp: "#9853F0",
-      bblp: "#F6EFFF",
-      bby: "#FFEC8A",
-      bbo: "#FF7A00",
-      bbpink: "#ff6fb5",
-      bbb: "#222222",
-      bbg: "#666666",
+      bbpurple: "#9853F0",
+      bbLpurple: "#F6EFFF",
+      bbyellow: "#FFEC8A",
+      bbpink: "#FF6FB5",
+      bb22: "#222222",
+      bb66: "#666666",
+      bb88: "#888888",
+      bbBB: "#BBBBBB",
+      bbfb: "#FBFBFB",
+
     },
     extend: {
       fontFamily: {

@@ -7,11 +7,9 @@ const Home = () => {
 
   //1
   return (
+
     <Layout>
       <div className='w-[375px] '>
-        {/* <div className='mt-[64px] ml-[65px] mr-[65px] '>
-        <h1 className='text-[24px] leading-[21px] font-[Pretendard] font-bold'>원하는 장소 직접 찾아보기</h1>
-      </div> */}
         <h1 className='pt-[64px] mx-[65px] text-[24px] text-center leading-[21px] font-bold'>원하는 장소 직접 찾아보기</h1>
         <button className='mx-[26px] mt-[24px] text-[14px] border-2 w-[330px] h-[48px] rounded-[90px] text-white bg-bbpink'
           onClick={() => navigate(`/address`)}>
@@ -29,5 +27,4 @@ const Home = () => {
     </Layout>
   )
 }
-//커밋용
 export default Home

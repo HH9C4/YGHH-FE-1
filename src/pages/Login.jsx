@@ -1,9 +1,9 @@
 import React from "react"
+import Layout from "../components/layout/Layout"
 import KakaoLogin from "../components/Login/KakaoLogin"
 import NaverLogin from "../components/Login/NaverLogin"
 import Layout from "../components/layout/Layout"
 const Login = () => {
-
   return (
     <Layout>
       <div className='w-[375px]'>

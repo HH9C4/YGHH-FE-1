@@ -1,10 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import DaumPostcode from 'react-daum-postcode';
-
-
+import React, { useEffect, useState, useRef } from "react"
+import { useNavigate } from "react-router-dom"
+import DaumPostcode from "react-daum-postcode"
 
 const FindAddress = () => {
+
 
     const navigate = useNavigate();
     const handleComplete = (data) => {
@@ -29,19 +28,21 @@ const FindAddress = () => {
             navigate(`/landing`)
             // window.location.replace(`/list/${gu}/new`)
         } else {
-            alert("현재는 서울지역만 서비스하고 있어요 ㅠ.ㅠ")
+            alert("현재는 서울지역만 서비스하고 있어요 😢")
             navigate(`/address`)
         }
+
     }
+  }
 
-    return (
-        <>
-            <DaumPostcode onComplete={handleComplete} />
+  return (
+    <>
+      <DaumPostcode onComplete={handleComplete} />
 
-            {/* <DaumPostcode
+      {/* <DaumPostcode
             onComplete={handleComplete}/> */}
-        </>
-    );
-};
+    </>
+  )
+}
 
 export default FindAddress
