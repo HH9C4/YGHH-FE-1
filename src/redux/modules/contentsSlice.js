@@ -91,6 +91,7 @@ export const __activateCommentLike = createAsyncThunk(
       const obj = {
         commentId: payload.itemId,
         isLiked: res.data.data.isLiked,
+        likeCount: res.data.data.likeCount,
       }
 
       return thunkAPI.fulfillWithValue(obj)
@@ -109,6 +110,7 @@ export const __deactivateCommentLike = createAsyncThunk(
       const obj = {
         commentId: payload.itemId,
         isLiked: res.data.data.isLiked,
+        likeCount: res.data.data.likeCount,
       }
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
@@ -317,6 +319,8 @@ export const contentsSlice = createSlice({
         return false
       })
       state.content.commentList[indexID].isLiked = action.payload.isLiked
+      state.content.commentList[indexID].likeCount = action.payload.likeCount
+
     },
     [__activateCommentLike.rejected]: (state, action) => {
       state.isLoading = false
@@ -335,6 +339,7 @@ export const contentsSlice = createSlice({
         return false
       })
       state.content.commentList[indexID].isLiked = action.payload.isLiked
+      state.content.commentList[indexID].likeCount = action.payload.likeCount
     },
     [__deactivateCommentLike.rejected]: (state, action) => {
       state.isLoading = false

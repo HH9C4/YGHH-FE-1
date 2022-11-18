@@ -112,15 +112,26 @@ const Detail = () => {
       </div>
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
       <DetailPost data={contentData}></DetailPost>
-      <input
-        placeholder="댓글을 입력해주세요."
-        value={comment.comment}
-        name="comment"
-        type="text"
-        onChange={onChangeInputHandler}
-        maxLength={100}
-      ></input>
-      <button onClick={onAddCommentButtonHandler}>전송</button>
+
+
+
+
+      <div className='w-[324px] h-[56px] mx-[24px] my-[24px] rounded-[8px] px-[26px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-white flex justify-between items-center'>
+        <input
+          className='
+        placeholder:text-[14px] placeholder:font-medium leading-10 text-[14px] text-bb22
+        '
+          placeholder="댓글을 입력해주세요."
+          value={comment.comment}
+          name="comment"
+          type="text"
+          onChange={onChangeInputHandler}
+          maxLength={100}
+        />
+        <button
+          className='text-bbpink text-[14px] w-[25px] h-[16px] font-bold  '
+          onClick={onAddCommentButtonHandler}>게시</button>
+      </div>
 
       {/* 코멘트 컴포넌트 호출 및 셀렉터 값 Props로 넘기기 */}
       <Comment data={contentData}></Comment>
