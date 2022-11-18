@@ -52,13 +52,13 @@ const Detail = () => {
 
   // console.log(data);
 
-  const contentId = useParams()
   const dispatch = useDispatch("")
 
   //셀렉터로 상세조회 데이터 전부 불러오기
   const contentData = useSelector((state) => state.contents.content)
 
   const { id } = useParams()
+  console.log("상세조회", contentData);
 
   //GET 요청 디스패치
   useEffect(() => {
