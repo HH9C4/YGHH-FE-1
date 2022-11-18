@@ -9,7 +9,7 @@ const Header = () => {
           <span>님</span>
         </div>
         <img
-          className="m-3 rounded-full w-[40px] h-[40px]"
+          className="m-3 object-cover rounded-full w-[40px] h-[40px]"
           src={localStorage.getItem("profileImage")}
         ></img>
       </div>
