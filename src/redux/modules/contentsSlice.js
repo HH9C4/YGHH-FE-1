@@ -14,6 +14,7 @@ export const __insertContent = createAsyncThunk(
     }
   }
 )
+
 //댓글 작성
 export const __insertComment = createAsyncThunk(
   "contents/__insertComment",
@@ -46,15 +47,6 @@ export const __deleteComment = createAsyncThunk(
   }
 )
 
-// try {
-//   const res = await contentsApis.returnBookMarkAX()
-//   console.log("북마크 반환 리스폰스값", res)
-//   console.log("북마크  리스폰스값", res.data)
-
-//   return thunkAPI.fulfillWithValue(res.data.data)
-// } catch (error) {
-//   return thunkAPI.rejectWithValue(error)
-// }
 
 //게시글 좋아요 활성화
 export const __activateLike = createAsyncThunk(
