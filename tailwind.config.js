@@ -20,9 +20,12 @@ module.exports = {
       bbp: "#9853F0",
       bblp: "#F6EFFF",
       bby: "#FFEC8A",
-      bbo: "#FF7A00",
-      bbb: "#222222",
-      bbg: "#666666",
+      bbpink: "#FF6FB5",
+      bb22: "#222222",
+      bb66: "#666666",
+      bb88: "#888888",
+      bbBB: "#BBBBBB",
+      bbfb: "#FBFBFB",
     },
     extend: {
       fontFamily: {

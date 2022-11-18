@@ -2,7 +2,7 @@ import React from "react"
 import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import kakaoLogin from "../../assets/img/kakaoLogin.png"
-import { KAKAO_AUTH_URL } from '../../api/loginKeys'
+import { KAKAO_AUTH_URL } from "../../api/loginKeys"
 
 const KakaoLogin = () => {
   const dispatch = useDispatch()

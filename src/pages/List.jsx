@@ -13,19 +13,18 @@ import Floating from "../components/elements/Floating"
 import { setSelectionRange } from "@testing-library/user-event/dist/utils"
 import SelectGu from "../components/features/SelectGu"
 import Portal from "../components/modal/Portal"
+import Layout from "../components/layout/Layout"
 
 const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)
   const { bookmark } = useSelector((state) => state.contents)
-
+  const { isLiked } = useSelector((state) => state.contents.content)
+  console.log("isLiked", isLiked)
   const params = useParams()
-  console.log(params)
-  console.log("리스트 컨텐츠 값 : ", contents)
-  console.log("리스트 북마크 값 : ", bookmark)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const [select, setSelect] = useState("false")
+  const [select, setSelect] = useState(false)
   const onSelect = () => {
     setSelect(!select)
   }
@@ -33,9 +32,10 @@ const List = () => {
     gu: params.gu,
     sort: params.sort,
   }
+
   useEffect(() => {
     dispatch(__getContent(obj))
-  }, [params])
+  }, [params, isLiked])
 
   //북마크 활성화 함수
   const bookMarkOn = () => {
@@ -47,8 +47,8 @@ const List = () => {
   }
 
   return (
-    <>
-      <div className="mt-8 ml-[25px] mr-[26px]">
+    <Layout>
+      <div className="pt-8 ml-[25px] mr-[26px]">
         <div>
           <div className=" font-normal ml-1 text-sm">지금</div>
           <div className="flex flex-row justify-between items-center">
@@ -63,6 +63,7 @@ const List = () => {
               {bookmark ? (
                 <button onClick={() => bookMarkOff(params.gu)}>
                   <svg
+                    className="active:animate-ping"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -134,35 +135,68 @@ const List = () => {
       </div>
       <div className="w-[375px] overflow-x-auto ">
         <div className="flex felx-nowrap h-12 mt-6 mb-4 pl-6">
-          <button className="shrink-0 shadow-md text-[14px] font-medium bg-white text-bbb active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
             전체
           </button>
-          <button className="shrink-0 shadow-md text-[14px] font-medium bg-white text-bbb active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
             공유
           </button>
-          <button className="shrink-0 shadow-md text-[14px] font-medium bg-white text-bbb active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
             질문
           </button>
-          <button className="shrink-0 shadow-md text-[14px] font-medium bg-white text-bbb active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
             맛집
           </button>
-          <button className="shrink-0 shadow-md text-[14px] font-medium bg-white text-bbb active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
             일상
           </button>
         </div>
       </div>
-      <div>
-        <button onClick={() => navigate(`/list/${params.gu}/new`)}>최근</button>
-        <button onClick={() => navigate(`/list/${params.gu}/hot`)}>
-          인기있는
-        </button>
-        <button onClick={() => navigate(`/hottest/${params.gu}`)}>
+      <div className="flex justify-between mx-[26px] text-sm">
+        <div>
+          {params.sort === "new" ? (
+            <button
+              className="mr-3 font-bold text-bb22"
+              onClick={() => navigate(`/list/${params.gu}/new`)}
+            >
+              최신순
+            </button>
+          ) : (
+            <button
+              className="text-bb88 font-medium mr-3"
+              onClick={() => navigate(`/list/${params.gu}/new`)}
+            >
+              최신순
+            </button>
+          )}
+          |
+          {params.sort === "new" ? (
+            <button
+              className="text-bb88 font-medium ml-3"
+              onClick={() => navigate(`/list/${params.gu}/hot`)}
+            >
+              인기순
+            </button>
+          ) : (
+            <button
+              className="text-bb22 font-bold ml-3"
+              onClick={() => navigate(`/list/${params.gu}/hot`)}
+            >
+              인기순
+            </button>
+          )}
+        </div>
+        <button
+          className="text-[#ff3535] font-bold"
+          onClick={() => navigate(`/hottest/${params.gu}`)}
+        >
           🔥HOT-TAG 20
         </button>
       </div>
-      <Post posts={contents} />
-      <Floating />
-    </>
+      <div className="mx-[26px] mt-4">
+        <Post posts={contents} />
+      </div>
+    </Layout>
   )
 }
 
