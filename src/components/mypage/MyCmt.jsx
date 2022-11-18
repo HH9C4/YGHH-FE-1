@@ -35,13 +35,9 @@ const MyCmt = (cmt) => {
       >
         <div style={{ display: cmt.cmt.checked ? "none" : "block" }}>
           <div
+            className="bg-bbo w-2 h-2 rounded-full mr-5 animate-ping"
             style={{
               display: tab ? "none" : "block",
-              backgroundColor: "red",
-              width: "8px",
-              height: "8px",
-              borderRadius: "8px",
-              marginRight: "20px",
             }}
           ></div>
         </div>
