@@ -19,6 +19,7 @@ const FindAddress = () => {
     emphTextColor: "#9853F0", //강조 글자색
     outlineColor: "#F6EFFF", //테두리
   }
+
   const postCodeStyle = {
     display: "block",
     position: "relative",
@@ -32,9 +33,7 @@ const FindAddress = () => {
   const handleComplete = (data) => {
     let fullAddress = data.address
     let extraAddress = ""
-    new DaumPostcode({
-      theme: themeObj,
-    }).open()
+
 
     if (data.addressType === "R") {
       if (data.bname !== "") {
@@ -50,10 +49,10 @@ const FindAddress = () => {
 
     if (
       userSearched[0] === "서울"
-      //   userSearched[1].substring(
-      //     userSearched[1].length - 1,
-      //     userSearched[1].length
-      //   ) === "구"
+      // userSearched[1].substring(
+      //   userSearched[1].length - 1,
+      //   userSearched[1].length
+      // ) === "구"
     ) {
       setAddress(fullAddress)
       setToggle(!toggle)
@@ -67,6 +66,7 @@ const FindAddress = () => {
     setToggle(!toggle)
     window.location.reload(`/address`)
   }
+
   return (
     <>
       <DaumPostcode
