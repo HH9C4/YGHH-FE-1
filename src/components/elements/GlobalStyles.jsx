@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react"
 
 const GlobalStyles = () => {
-    return (
-        <div>GlobalStyles</div>
-    )
+  return <div>GlobalStyles</div>
 }
 
 export default GlobalStyles
