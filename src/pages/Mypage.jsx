@@ -7,6 +7,7 @@ import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
 import { __naverLogout } from "../redux/modules/memberSlice"
+import Layout from "../components/layout/Layout"
 
 const Mypage = () => {
   const dispatch = useDispatch()
@@ -31,7 +32,7 @@ const Mypage = () => {
   }
 
   return (
-    <>
+    <Layout>
       <h1>마이페이지</h1>
       <Flex>
         <div>
@@ -54,7 +55,7 @@ const Mypage = () => {
         </div>
       </Flex>
       <Tabs.Group aria-label="Pills" style="pills">
-        <Tabs.Item className="bg-gray-700" active={true} title="내 알림">
+        <Tabs.Item className="bg-bbpurple" active={true} title="내 알림">
           <MyNotice />
         </Tabs.Item>
         <Tabs.Item title="내 글">
@@ -64,7 +65,7 @@ const Mypage = () => {
           <MyLikes />
         </Tabs.Item>
       </Tabs.Group>
-    </>
+    </Layout>
   )
 }
 

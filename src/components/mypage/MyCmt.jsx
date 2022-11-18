@@ -35,7 +35,7 @@ const MyCmt = (cmt) => {
       >
         <div style={{ display: cmt.cmt.checked ? "none" : "block" }}>
           <div
-            className="bg-bbo w-2 h-2 rounded-full mr-5 animate-ping"
+            className="bg-bbpink w-2 h-2 rounded-full mr-5 hover:animate-ping"
             style={{
               display: tab ? "none" : "block",
             }}
