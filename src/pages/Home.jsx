@@ -24,8 +24,9 @@ const Home = () => {
           <br />
           어느 구인지 이미 아시나요?
         </h2>
-
-        <SelectGu />
+        <div className="px-6">
+          <SelectGu />
+        </div>
       </div>
     </Layout>
   )

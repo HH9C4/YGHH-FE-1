@@ -2,8 +2,9 @@
 const colors = require("tailwindcss/colors")
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{html,js,jsx,ts,tsx}",
     "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
+    "./node_modules/tw-elements/dist/js/**/*.js",
   ],
   theme: {
     colors: {
@@ -26,7 +27,6 @@ module.exports = {
       bb88: "#888888",
       bbBB: "#BBBBBB",
       bbfb: "#FBFBFB",
-
     },
     extend: {
       fontFamily: {

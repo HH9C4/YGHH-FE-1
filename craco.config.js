@@ -10,6 +10,7 @@ module.exports = {
         require("@tailwindcss/typography"),
         require("tailwindcss-children"),
         require("flowbite/plugin"),
+        require("tw-elements/dist/plugin"),
       ],
     },
   },

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 const SelectGu = () => {
   const navigate = useNavigate()
   return (
-    <div className="px-[24px] pt-[24px] w-[375px]">
+    <div className="px-auto pt-[24px] w-full">
       <div className="flex flex-row justify-between mb-3">
         <button
           className=" w-[100px] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)]  "
