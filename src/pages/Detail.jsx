@@ -8,6 +8,8 @@ import {
 import DetailPost from "../components/features/DetailPost"
 import Comment from "../components/features/Comment"
 import { useEffect } from "react"
+import Layout from "../components/layout/Layout"
+import { useNavigate } from 'react-router-dom'
 
 //yarn add react-xml-parser 로 json 파싱 도와주는 친구임
 
@@ -50,10 +52,10 @@ const Detail = () => {
   //     fetchData();
   // }, []);
 
-  // console.log(data);
+
 
   const dispatch = useDispatch("")
-
+  const navigate = useNavigate();
   //셀렉터로 상세조회 데이터 전부 불러오기
   const contentData = useSelector((state) => state.contents.content)
 
@@ -92,29 +94,48 @@ const Detail = () => {
     setComment({
       comment: "",
     })
-    // window.location.replace(`/detail/${Id}`)
+  }
+  //뒤로가기 버튼
+  const goback = () => {
+    window.history.back()
   }
 
   return (
-    <div>
-      <div>Navbar 들어갈 곳</div>
-
+    <Layout>
+      <div className='pt-[32px] pl-[25px] flex items-center'>
+        <svg
+          onClick={goback}
+          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1.001 1.001 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" fill="#231F20" />
+        </svg>
+        <p className='pl-[98px] pr-[146px] text-[18px] font-bold'>게시물 상세</p>
+      </div>
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
       <DetailPost data={contentData}></DetailPost>
 
-      <input
-        placeholder="댓글을 입력해주세요."
-        value={comment.comment}
-        name="comment"
-        type="text"
-        onChange={onChangeInputHandler}
-        maxLength={100}
-      ></input>
-      <button onClick={onAddCommentButtonHandler}>전송</button>
+
+
+
+      <div className='w-[324px] h-[56px] mx-[24px] my-[24px] rounded-[8px] px-[26px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-white flex justify-between items-center'>
+        <input
+          className='
+        placeholder:text-[14px] placeholder:font-medium leading-10 text-[14px] text-bb22
+        '
+          placeholder="댓글을 입력해주세요."
+          value={comment.comment}
+          name="comment"
+          type="text"
+          onChange={onChangeInputHandler}
+          maxLength={100}
+        />
+        <button
+          className='text-bbpink text-[14px] w-[25px] h-[16px] font-bold  '
+          onClick={onAddCommentButtonHandler}>게시</button>
+      </div>
 
       {/* 코멘트 컴포넌트 호출 및 셀렉터 값 Props로 넘기기 */}
       <Comment data={contentData}></Comment>
-    </div>
+    </Layout>
   )
 }
 
