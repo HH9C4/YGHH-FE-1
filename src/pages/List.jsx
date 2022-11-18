@@ -14,6 +14,7 @@ import { setSelectionRange } from "@testing-library/user-event/dist/utils"
 import SelectGu from "../components/features/SelectGu"
 import Portal from "../components/modal/Portal"
 
+
 const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)
