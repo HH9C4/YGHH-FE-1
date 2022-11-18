@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react"
-import { useParams, useNavigate, Navigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import React from "react"
+import { useParams, useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import { Carousel } from "flowbite-react"
 import {
   __getContentDetail,
@@ -9,25 +9,20 @@ import {
 import Likes from "./Likes"
 
 const Post = ({ posts }) => {
-  // const postDetail = useSelector((state) => state.content.content);
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
 
   // 게시글 삭제 버튼
   const onPostDelete = (id, gu) => {
-    // if (window.confirm("정말 삭제하시겠습니까?")) {
-    //   dispatch(__deleteContent(id))
-    //   window.alert("게시글이 삭제되었습니다.")
-    // } //
     const obj = {
       postId: id,
       gu: gu,
     }
-    console.log("포스트 페지", obj)
     dispatch(__deleteContent(obj))
   }
 
+  //삭제 버튼 작성자 확인
   const checkOwner = {
     nickName: localStorage.getItem("nickName"),
   }
@@ -93,6 +88,7 @@ const Post = ({ posts }) => {
                           {data.imageUrl.map((img) => {
                             return (
                               <img
+                                key={img}
                                 onClick={() =>
                                   navigate(`/detail/${data.postId}`)
                                 }
@@ -129,6 +125,7 @@ const Post = ({ posts }) => {
                         data.tagList.map((postTag) => {
                           return (
                             <button
+                              key={postTag}
                               className="w-15 h-8 mr-2 mb-2 text-bb22 rounded px-[9px] bg-bbyellow text-xs "
                               onClick={() =>
                                 navigate(
