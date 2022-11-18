@@ -67,6 +67,7 @@ export const __activateLike = createAsyncThunk(
       //   level: payload.level,
       //   data: res.data.data,
       // }
+      console.log("좋아요 리스폰", res);
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -80,6 +81,7 @@ export const __deactivateLike = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.cancelLikesAX(payload)
+      console.log("좋아요 리스폰", res);
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)

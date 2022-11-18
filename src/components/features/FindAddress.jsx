@@ -4,6 +4,17 @@ import DaumPostcode from "react-daum-postcode"
 
 const FindAddress = () => {
 
+    const postCodeStyle = {
+        bgColor: "#F6EFFF", //바탕 배경색
+        searchBgColor: "#9853F0", //검색창 배경색
+        contentBgColor: "#FFFFFF", //본문 배경색(검색결과,결과없음,첫화면,검색서제스트)
+        pageBgColor: "#FFFFFF", //페이지 배경색
+        textColor: "#222222", //기본 글자색
+        queryTextColor: "#FFFFFF", //검색창 글자색
+        postcodeTextColor: "#FF6FB5", //우편번호 글자색
+        emphTextColor: "#9853F0", //강조 글자색
+        outlineColor: "#F6EFFF" //테두리
+    }
 
     const navigate = useNavigate();
     const handleComplete = (data) => {
@@ -33,16 +44,15 @@ const FindAddress = () => {
         }
 
     }
-  }
 
-  return (
-    <>
-      <DaumPostcode onComplete={handleComplete} />
 
-      {/* <DaumPostcode
-            onComplete={handleComplete}/> */}
-    </>
-  )
+    return (
+
+        <DaumPostcode
+            style={postCodeStyle}
+            onComplete={handleComplete} />
+
+    )
 }
 
 export default FindAddress
