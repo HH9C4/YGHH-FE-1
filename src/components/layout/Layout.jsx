@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <div className="bg-bblp pb-[52px] max-w-[750px] h-full min-h-[100vh]">
+      <div className="bg-bbLpurple pb-[52px] max-w-[750px] h-full min-h-[100vh]">
         {children}
       </div>
       <footer />

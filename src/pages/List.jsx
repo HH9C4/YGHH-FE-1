@@ -15,13 +15,13 @@ import SelectGu from "../components/features/SelectGu"
 import Portal from "../components/modal/Portal"
 import Layout from "../components/layout/Layout"
 
-
 const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)
   const { bookmark } = useSelector((state) => state.contents)
+  const { likeId } = useSelector((state) => state.contents.content)
   const { isLiked } = useSelector((state) => state.contents.content)
-  console.log("isLiked", isLiked)
+  console.log("isLiked", likeId)
   const params = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -36,7 +36,7 @@ const List = () => {
 
   useEffect(() => {
     dispatch(__getContent(obj))
-  }, [params, isLiked])
+  }, [params, likeId, isLiked])
 
   //북마크 활성화 함수
   const bookMarkOn = () => {
@@ -51,7 +51,7 @@ const List = () => {
     <Layout>
       <div className="pt-8 ml-[25px] mr-[26px]">
         <div>
-          <div className=" font-normal ml-1 text-sm">지금</div>
+          <div className=" font-normal text-sm">지금</div>
           <div className="flex flex-row justify-between items-center">
             <div className="flex">
               <h1 className="font-bold text-xl">
@@ -134,21 +134,21 @@ const List = () => {
           </div>
         </div>
       </div>
-      <div className="w-[375px] overflow-x-auto ">
+      <div className="overflow-x-auto ">
         <div className="flex felx-nowrap h-12 mt-6 mb-4 pl-6">
-          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3">
             전체
           </button>
-          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3">
             공유
           </button>
-          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3">
             질문
           </button>
-          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3">
             맛집
           </button>
-          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbp active:text-white w-20 h-10 rounded-full mr-3">
+          <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3">
             일상
           </button>
         </div>
