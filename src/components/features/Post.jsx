@@ -1,7 +1,6 @@
 import React from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { Carousel } from "flowbite-react"
 import {
   __getContentDetail,
   __deleteContent,
@@ -81,26 +80,30 @@ const Post = ({ posts }) => {
                         )}
                       </div>
                     </div>
-                    {data.imageUrl !== undefined &&
-                    data.imageUrl.length !== 0 ? (
-                      <div className="w-[276px] h-[276px] mx-auto mt-4">
-                        <Carousel>
-                          {data.imageUrl.map((img) => {
-                            return (
-                              <img
-                                key={img}
-                                onClick={() =>
-                                  navigate(`/detail/${data.postId}`)
-                                }
-                                src={img}
-                              />
-                            )
-                          })}
-                        </Carousel>
-                      </div>
-                    ) : (
-                      ""
-                    )}
+                    <div>
+                      {data.imageUrl && data.imageUrl.length !== 0 ? (
+                        <>
+                          <div className="">
+                            <div className="flex flex-row overflow-x-auto w-[276px] h-[276px] mx-auto mt-4">
+                              {data.imageUrl.map((img) => {
+                                return (
+                                  <img
+                                    className="shrink-0 object-cover"
+                                    key={img}
+                                    onClick={() =>
+                                      navigate(`/detail/${data.postId}`)
+                                    }
+                                    src={img}
+                                  />
+                                )
+                              })}
+                            </div>
+                          </div>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </div>
 
                     {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
                     <div className="mt-6 flex items-center">

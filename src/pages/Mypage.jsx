@@ -1,7 +1,6 @@
 import React from "react"
 import { useDispatch } from "react-redux"
 import styled from "styled-components"
-import { Tabs } from "flowbite-react"
 // import Alarm from "../components/mypage/Alarm"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
@@ -54,17 +53,9 @@ const Mypage = () => {
           </Flex>
         </div>
       </Flex>
-      <Tabs.Group aria-label="Pills" style="pills">
-        <Tabs.Item className="bg-bbpurple" active={true} title="내 알림">
-          <MyNotice />
-        </Tabs.Item>
-        <Tabs.Item title="내 글">
-          <Mypost />
-        </Tabs.Item>
-        <Tabs.Item title="내 좋아요">
-          <MyLikes />
-        </Tabs.Item>
-      </Tabs.Group>
+      <MyNotice />
+      <Mypost />
+      <MyLikes />
     </Layout>
   )
 }

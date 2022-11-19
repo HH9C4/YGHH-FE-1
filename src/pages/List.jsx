@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Post from "../components/features/Post"
-import { Modal } from "flowbite-react"
 import {
   __getContent,
   __activateBookmark,

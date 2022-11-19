@@ -1,7 +1,6 @@
 import React from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { Carousel } from "flowbite-react"
 import {
   __getContentDetail,
   __deleteContent,
@@ -73,20 +72,23 @@ const DetailPost = ({ data }) => {
               )}
             </div>
           </div>
-          {data.imageUrl !== undefined && data.imageUrl.length !== 0 ? (
-            <div className="w-[276px] h-[276px] mx-auto mt-4">
-              <Carousel>
-                {data.imageUrl.map((img) => {
-                  return (
-                    <img
-                      key={img}
-                      onClick={() => navigate(`/detail/${data.postId}`)}
-                      src={img}
-                    />
-                  )
-                })}
-              </Carousel>
-            </div>
+          {data.imageUrl && data.imageUrl.length !== 0 ? (
+            <>
+              <div className="">
+                <div className="flex flex-row overflow-x-auto w-[276px] h-[276px] mx-auto mt-4">
+                  {data.imageUrl.map((img) => {
+                    return (
+                      <img
+                        className="shrink-0 object-cover"
+                        key={img}
+                        onClick={() => navigate(`/detail/${data.postId}`)}
+                        src={img}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+            </>
           ) : (
             ""
           )}
