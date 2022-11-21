@@ -47,7 +47,7 @@ const Text = (props) => {
 Text.defaultProps = {
   text: false,
   children: null,
-  _onClick: () => {},
+  _onClick: () => { },
   is_float: false,
   margin: false,
   width: "49%",

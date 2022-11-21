@@ -29,52 +29,57 @@ const Comment = ({ data }) => {
         data.commentList.map((item) => {
           return (
             <div
-              className="w-[324px] py-6 px-[26px] mx-[25px] mb-6
-              shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-white rounded-[8px]"
+              className="w-full px-[24px]
+             shrink-0 border-t-[0.5px] border-bbBB 
+             shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] 
+             last-of-type:rounded-b-md  bg-white pb-6"
               key={item.commentId}
             >
-              <div className="flex justify-between mb-6">
+              <div className="flex justify-between pt-[24px] mb-[8px] ">
                 <div className="flex items-center">
                   <img
-                    className="w-[32px] h-[32px] rounded-full"
+                    className="w-[20px] h-[20px]  rounded-full"
                     src={item.profileImage}
                   />
-                  <p className="w-[76px]  text-[14px] pl-[8px] text-left font-bold ">
+                  <p className=" text-[12px] pl-[3px] text-left font-bold ">
                     {item.accountName}
                   </p>
                 </div>
 
-                <div className="">
-                  {checkOwner.nickName === item.accountName ? (
+                <div className="flex justify-center items-center">
+                  <Likes
+                    data={item.commentId}
+                    level={level}
+                    isLiked={item.isLiked}
+                    itemId={item.commentId}
+                  />
+                  <p className="text-[12px] h-[14px] font-semibold ml-1">
+                    {item.likeCount}
+                  </p>
+                </div>
+              </div>
+              <div className="break-all mb-[8px] text-[12px]">
+                {item.comment}
+              </div>
+              <div className="text-[11px] text-bb66 flex">
+                <p>{item.createdAt}</p>
+                <p className="mx-2">|</p>
+                <p className="">{data.gu}</p>
+                {checkOwner.nickName === item.accountName ? (
+                  <>
+                    <p className="mx-2 text-bb66">|</p>
                     <button
-                      className="w-[25px] text-[14px] font-medium "
+                      className=" text-[11px] font-medium text-bb22 "
                       onClick={() => {
                         onDeleteButton(item.commentId)
                       }}
                     >
                       삭제
                     </button>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              </div>
-              <div className="flex mb-6">
-                <Likes
-                  data={item.commentId}
-                  level={level}
-                  isLiked={item.isLiked}
-                  itemId={item.commentId}
-                ></Likes>
-                <p className="text-[18px] font-semibold ml-1">
-                  {item.likeCount}
-                </p>
-              </div>
-              <div className="break-all  mb-8 text-[14px]">{item.comment}</div>
-              <div className=" mb-2 text-[13px] text-bbBB flex">
-                <p>{item.createdAt}</p>
-                <p className="mx-[12px]">|</p>
-                <p className="w-[70px]">{data.gu}</p>
+                  </>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           )
