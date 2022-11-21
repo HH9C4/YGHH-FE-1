@@ -19,6 +19,7 @@
     "react-scripts": "5.0.1",
     "react-xml-parser": "^1.1.8",
     "redux": "^4.2.0",
+    "source-map-loader": "^4.0.1",
     "styled-components": "^5.3.6",
     "tw-elements": "^1.0.0-alpha12",
     "web-vitals": "^2.1.4"

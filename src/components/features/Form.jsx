@@ -84,7 +84,11 @@ const Form = () => {
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
-        <Category postInput={postInput} postInputHandle={postInputHandle} />
+        <Category
+          data={data}
+          postInput={postInput}
+          postInputHandle={postInputHandle}
+        />
         <div className="pr-[26px]">
           <p className="text-sm text-bb22 font-medium">
             이미지를 업로드해주세요. (선택, 최대 10장)
