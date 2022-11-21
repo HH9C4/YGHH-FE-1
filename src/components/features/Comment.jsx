@@ -54,8 +54,6 @@ const Comment = ({ data }) => {
                 <p>{item.createdAt}</p>
                 <p className='mx-2'>|</p>
                 <p className=''>{data.gu}</p>
-
-
                 {checkOwner.nickName === item.accountName ?
                   (<>
                     <p className='mx-2 text-bb66'>|</p>
@@ -64,10 +62,7 @@ const Comment = ({ data }) => {
                       onClick={(() => { onDeleteButton(item.commentId) })}>삭제</button>
                   </>
                   ) : ''}
-
-
               </div>
-
             </div>
           )
         })
