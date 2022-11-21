@@ -29,7 +29,7 @@ const Landing = ({ data, onClose }) => {
         </button>
         <div className='bg-white mt-[12px] pt-2.5 w-[330px] h-[46px] text-sm font-semibold text-center'>{data}</div>
         <button
-          onClick={() => window.location.replace(`/list/${gu[1]}/new`)}
+          onClick={() => window.location.replace(`/list/${gu[1]}/all/new`)}
           className='mx-[26px] mt-[24px] text-[20px] w-[330px] h-[48px]  text-white bg-bbpink'>선택한 지역 커뮤니티 바로가기</button>
         <button
           onClick={() => window.location.replace(`/info/${gu[1]}`)}
