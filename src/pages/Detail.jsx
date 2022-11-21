@@ -60,7 +60,7 @@ const Detail = () => {
 
   return (
     <Layout>
-      <div className="pt-[32px] pl-[25px] my-[32px] flex items-center ">
+      <div className="pt-[32px] pl-[25px] mb-[32px] flex items-center ">
         <svg
           onClick={goback}
           width="24"
@@ -74,9 +74,6 @@ const Detail = () => {
             fill="#231F20"
           />
         </svg>
-        <p className="pl-[98px] pr-[146px] text-[18px] font-bold">
-          게시물 상세
-        </p>
       </div>
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}

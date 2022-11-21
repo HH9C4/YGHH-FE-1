@@ -32,7 +32,7 @@ const Comment = ({ data }) => {
               className="w-full px-[24px]
              shrink-0 border-t-[0.5px] border-bbBB 
              shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] 
-             last-of-type:rounded-b-md  bg-white pb-6"
+             last-of-type:rounded-b-md last-of-type:mb-8 bg-white pb-6"
               key={item.commentId}
             >
               <div className="flex justify-between pt-[24px] mb-[8px] ">
