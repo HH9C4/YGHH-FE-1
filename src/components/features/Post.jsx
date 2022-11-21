@@ -46,10 +46,10 @@ const Post = ({ posts }) => {
                                   <img
                                     className="shrink-0 w-[100%] h-[280px] object-cover"
                                     key={img}
+                                    src={img}
                                     onClick={() =>
                                       navigate(`/detail/${data.postId}`)
                                     }
-                                    src={img}
                                   />
                                 )
                               })}

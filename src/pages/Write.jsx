@@ -1,10 +1,13 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Form from "../components/features/Form"
+import UpdateForm from "../components/features/UpdateForm"
 import Layout from "../components/layout/Layout"
 
 const Write = () => {
   const navigate = useNavigate()
+  const params = useParams
+  const state = useLocation()
   return (
     <Layout>
       <div className="flex pt-6 ml-[25px] mb-8">
@@ -27,7 +30,7 @@ const Write = () => {
         </button>
         <h1 className="text-bb22 font-bold text-lg">새 게시물 작성</h1>
       </div>
-      <Form />
+      {params.id !== undefined ? <UpdateForm data={state.state} /> : <Form />}
     </Layout>
   )
 }
