@@ -44,7 +44,7 @@ const Button = (props) => {
 
 Button.defaultProps = {
   text: false,
-  _onClick: () => {},
+  _onClick: () => { },
   children: null,
   margin: 0,
   padding: "12px 0px",

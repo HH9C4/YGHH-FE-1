@@ -30,7 +30,7 @@ const DetailPost = ({ data }) => {
 
   return (
     <>
-      <div className="mx-6 bg-white p-6 mb-6 rounded-md shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
+      <div className="mx-6 bg-white p-6  rounded-t-md shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
         <div>
           <div className="flex justify-between items-center">
             <div className="flex items-center">

@@ -82,7 +82,7 @@ const Post = ({ posts }) => {
                       </div>
                     </div>
                     {data.imageUrl !== undefined &&
-                    data.imageUrl.length !== 0 ? (
+                      data.imageUrl.length !== 0 ? (
                       <div className="w-[276px] h-[276px] mx-auto mt-4">
                         <Carousel>
                           {data.imageUrl.map((img) => {

@@ -11,49 +11,8 @@ import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from 'react-router-dom'
 
-//yarn add react-xml-parser 로 json 파싱 도와주는 친구임
 
 const Detail = () => {
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
-  // const URL = "http://openapi.seoul.go.kr:8088/sample/json/citydata/1/5/광화문·덕수궁";
-
-  // //파싱 해주는 함수
-  // function parseStr(dataSet) {
-  //     const dataArr = new XMLParser().parseFromString(dataSet).children;
-  //     console.log("파싱한 결과값", dataArr);
-  // }
-
-  // const fetchData = async () => {
-  //     try {
-  //         setError(null);
-  //         setData(null);
-  //         setLoading(true);
-
-  //         const response = await axios.get(URL, {
-  //             params: {
-  //                 serviceKey: process.env.REACT_APP_API_LIVE_SEOUL,
-  //                 numOfRows: 1,
-  //                 pageNo: 10
-  //             }
-  //         });
-  //         console.log("파싱 전, XML타입의 서울시 Response", response);
-  //         // setData(response.data);
-  //         parseStr(response.data);
-  //     } catch (e) {
-  //         setError(e);
-  //     }
-  //     setLoading(false);
-  // };
-
-  // useEffect(() => {
-  //     fetchData();
-  // }, []);
-
-
-
   const dispatch = useDispatch("")
   const navigate = useNavigate();
   //셀렉터로 상세조회 데이터 전부 불러오기
@@ -102,7 +61,7 @@ const Detail = () => {
 
   return (
     <Layout>
-      <div className='pt-[32px] pl-[25px] flex items-center'>
+      <div className='pt-[32px] pl-[25px] my-[32px] flex items-center '>
         <svg
           onClick={goback}
           width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,16 +70,17 @@ const Detail = () => {
         <p className='pl-[98px] pr-[146px] text-[18px] font-bold'>게시물 상세</p>
       </div>
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
-      <DetailPost data={contentData}></DetailPost>
-
-
-
-
-      <div className='w-[324px] h-[56px] mx-[24px] my-[24px] rounded-[8px] px-[26px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-white flex justify-between items-center'>
+      {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
+      <div className="px-2">
+        <DetailPost data={contentData}></DetailPost>
+      </div>
+      <div
+        className="fixed flex items-center h-14 w-full mx-auto bottom-0 rounded-[5px] px-[12px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple
+      "
+      >
         <input
-          className='
-        placeholder:text-[14px] placeholder:font-medium leading-10 text-[14px] text-bb22
-        '
+          className="placeholder:text-[14px] rounded-md placeholder:font-medium leading-10 text-[14px] text-bb22
+        outline-0 pl-2 h-10 w-full ml-5 "
           placeholder="댓글을 입력해주세요."
           value={comment.comment}
           name="comment"
@@ -129,12 +89,16 @@ const Detail = () => {
           maxLength={100}
         />
         <button
-          className='text-bbpink text-[14px] w-[25px] h-[16px] font-bold  '
-          onClick={onAddCommentButtonHandler}>게시</button>
+          className="text-bbpink text-[14px] w-12 ml-2 mr-4 font-bold"
+          onClick={onAddCommentButtonHandler}
+        >
+          게시
+        </button>
       </div>
-
       {/* 코멘트 컴포넌트 호출 및 셀렉터 값 Props로 넘기기 */}
-      <Comment data={contentData}></Comment>
+      <div className='px-8'>
+        <Comment data={contentData}></Comment>
+      </div>
     </Layout>
   )
 }

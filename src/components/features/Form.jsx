@@ -139,22 +139,22 @@ const Editor = () => {
             <div className="flex">
               {id !== undefined
                 ? data.imageUrl.map((img) => {
-                    return (
-                      <img
-                        className="w-[100px] h-[100px] rounded-md my-3 mr-3 shrink-0 object-cover"
-                        src={img}
-                      />
-                    )
-                  })
+                  return (
+                    <img
+                      className="w-[100px] h-[100px] rounded-md my-3 mr-3 shrink-0 object-cover"
+                      src={img}
+                    />
+                  )
+                })
                 : fileUrls.map((value) => {
-                    return (
-                      <img
-                        className="w-[100px] h-[100px] rounded-md my-3 mr-3 shrink-0 object-cover"
-                        src={value ? value : ""}
-                        alt="image"
-                      />
-                    )
-                  })}
+                  return (
+                    <img
+                      className="w-[100px] h-[100px] rounded-md my-3 mr-3 shrink-0 object-cover"
+                      src={value ? value : ""}
+                      alt="image"
+                    />
+                  )
+                })}
             </div>
           </div>
         </label>
