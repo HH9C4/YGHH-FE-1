@@ -7,13 +7,14 @@ export const __insertContent = createAsyncThunk(
     try {
       const res = await contentsApis.insertContentAX(payload)
       window.alert("게시글이 등록되었습니다.")
-      window.location.replace(`/list/${res.data.data.gu}/new`)
+      window.location.replace(`/list/${res.data.data.gu}/all/new`)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response) //.data);
     }
   }
 )
+
 //댓글 작성
 export const __insertComment = createAsyncThunk(
   "contents/__insertComment",
@@ -45,16 +46,6 @@ export const __deleteComment = createAsyncThunk(
     }
   }
 )
-
-// try {
-//   const res = await contentsApis.returnBookMarkAX()
-//   console.log("북마크 반환 리스폰스값", res)
-//   console.log("북마크  리스폰스값", res.data)
-
-//   return thunkAPI.fulfillWithValue(res.data.data)
-// } catch (error) {
-//   return thunkAPI.rejectWithValue(error)
-// }
 
 //게시글 좋아요 활성화
 export const __activateLike = createAsyncThunk(
@@ -99,6 +90,7 @@ export const __activateCommentLike = createAsyncThunk(
       const obj = {
         commentId: payload.itemId,
         isLiked: res.data.data.isLiked,
+        likeCount: res.data.data.likeCount,
       }
 
       return thunkAPI.fulfillWithValue(obj)
@@ -117,6 +109,7 @@ export const __deactivateCommentLike = createAsyncThunk(
       const obj = {
         commentId: payload.itemId,
         isLiked: res.data.data.isLiked,
+        likeCount: res.data.data.likeCount,
       }
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
@@ -211,7 +204,7 @@ export const __deleteContent = createAsyncThunk(
     try {
       if (window.confirm("게시글을 삭제하시겠습니까?")) {
         const res = await contentsApis.deleteContentAX(payload)
-        window.location.replace(`/list/${res.data.data}/new`)
+        window.location.replace(`/list/${res.data.data}/all/new`)
       }
       // const res = await contentsApis.deleteContentAX(payload)
       // const obj = {
@@ -325,6 +318,7 @@ export const contentsSlice = createSlice({
         return false
       })
       state.content.commentList[indexID].isLiked = action.payload.isLiked
+      state.content.commentList[indexID].likeCount = action.payload.likeCount
     },
     [__activateCommentLike.rejected]: (state, action) => {
       state.isLoading = false
@@ -343,6 +337,7 @@ export const contentsSlice = createSlice({
         return false
       })
       state.content.commentList[indexID].isLiked = action.payload.isLiked
+      state.content.commentList[indexID].likeCount = action.payload.likeCount
     },
     [__deactivateCommentLike.rejected]: (state, action) => {
       state.isLoading = false

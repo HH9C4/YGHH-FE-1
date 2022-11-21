@@ -106,32 +106,32 @@ const EditForm = () => {
     const handleAddImages = (e) => {
       if (previewFiles.length + [...e.target.files].length > MAX_IMG_LENGTH)
         return setOpenImageNumberAlert(true)
-      ;[...e.target.files].map(async (item) => {
-        if (item.size > MAX_IMG_SIZE) return setOpenImageAlert(true)
-        if (
-          !IMAGE_TYPE.includes(
-            item.name.split(".")[item.name.split(".").length - 1].toLowerCase()
-          )
-        )
-          return setOpenImageFileAlert(true)
+          ;[...e.target.files].map(async (item) => {
+            if (item.size > MAX_IMG_SIZE) return setOpenImageAlert(true)
+            if (
+              !IMAGE_TYPE.includes(
+                item.name.split(".")[item.name.split(".").length - 1].toLowerCase()
+              )
+            )
+              return setOpenImageFileAlert(true)
 
-        const options = {
-          maxSizeMB: MAX_RESIZE,
-          maxWidthOrHeight: MAX_RESIZE_WIDTH_HEIGHT,
-          useWebWorker: true,
-        }
+            const options = {
+              maxSizeMB: MAX_RESIZE,
+              maxWidthOrHeight: MAX_RESIZE_WIDTH_HEIGHT,
+              useWebWorker: true,
+            }
 
-        try {
-          const compressedFile = await imageCompression(item, options) // 이미지 압축
-          setFiles((files) => [...files, compressedFile])
-          const reader = new FileReader()
-          reader.readAsDataURL(item)
-          reader.onload = () =>
-            setPreviewFiles((previewFiles) => [...previewFiles, reader.result])
-        } catch (error) {
-          window.alert("이미지를 불러올 수 없습니다.")
-        }
-      })
+            try {
+              const compressedFile = await imageCompression(item, options) // 이미지 압축
+              setFiles((files) => [...files, compressedFile])
+              const reader = new FileReader()
+              reader.readAsDataURL(item)
+              reader.onload = () =>
+                setPreviewFiles((previewFiles) => [...previewFiles, reader.result])
+            } catch (error) {
+              window.alert("이미지를 불러올 수 없습니다.")
+            }
+          })
     }
 
     /* 이미지 삭제 ------------------------------------------------------------------- */
@@ -452,10 +452,10 @@ const StText = styled.div`
     color: ${colors.black};
     ::placeholder {
       color: ${({ isValid }) =>
-        isValid ? `${colors.grey3}` : `${colors.red}`};
+    isValid ? `${colors.grey3}` : `${colors.red}`};
     }
     border-color: ${({ isValid }) =>
-      isValid ? `${colors.grey3}` : `${colors.red}`};
+    isValid ? `${colors.grey3}` : `${colors.red}`};
   }
 
   span {
@@ -468,7 +468,7 @@ const StText = styled.div`
 
   textarea {
     border-color: ${({ isValid }) =>
-      isValid ? `${colors.grey3}` : `${colors.red}`};
+    isValid ? `${colors.grey3}` : `${colors.red}`};
   }
 
   p {
@@ -484,10 +484,10 @@ const StPrice = styled.div`
   input {
     ::placeholder {
       color: ${({ isValid }) =>
-        isValid ? `${colors.grey3}` : `${colors.red}`};
+    isValid ? `${colors.grey3}` : `${colors.red}`};
     }
     border-color: ${({ isValid }) =>
-      isValid ? `${colors.grey3}` : `${colors.red}`};
+    isValid ? `${colors.grey3}` : `${colors.red}`};
   }
 
   span {

@@ -5,11 +5,21 @@ import styled from "styled-components"
 const Floating = () => {
   const navigate = useNavigate()
   const param = useParams()
+
+  //top 버튼
+  const handleTop = (e) => {
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }
   return (
     <>
       <Button
         className="bg-bbpink shadow-[0_0_5px_0_rgba(255,121,121,0.5)] rounded-full w-[56px] h-[56px] active:animate-ping"
-        onClick={() => navigate(`/write/${param.gu}`)}
+        onClick={() => navigate(`/write/${param.gu}`, { replace: false })}
       >
         <svg
           className="mx-auto"
@@ -32,7 +42,7 @@ const Floating = () => {
 
       <Button2
         className="bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full w-[56px] h-[56px] active:animate-ping"
-        onClick={() => navigate(`/write/${param.gu}`)}
+        onClick={handleTop}
       >
         <svg
           className="mx-auto"

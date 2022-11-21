@@ -58,7 +58,7 @@ export const contentsApis = {
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
   getContentAX: (obj) =>
     hInstance.get(`/api/posts`, {
-      params: { gu: obj.gu, sort: obj.sort },
+      params: { gu: obj.gu, sort: obj.sort, category: obj.category },
     }),
   // {
   //   let decode = decodeURI(decodeURIComponent(obj.gu))

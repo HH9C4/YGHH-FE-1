@@ -12,16 +12,17 @@ import BookMark from "../pages/BookMark"
 import OAuth2LoginHandler from "../components/Login/OAuth2LoginHandler"
 import OAuth2LogoutHandler from "../components/Login/OAuth2LogoutHandler"
 import OAuthNaverLogin from "../components/Login/OAuthNaverLogin"
-import FindAddress from "../components/features/FindAddress"
-import Landing from "../pages/Landing"
+import FindAddress from "../pages/FindAddress"
+import PopulationInfo from "../pages/PopulationInfo"
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/info" element={<PopulationInfo />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/list/:gu/:sort" element={<List />} />
+        <Route path="/list/:gu/:category/:sort" element={<List />} />
         <Route path="/search" element={<Search />} />
         <Route path="/write/:gu" element={<Write />} />
         <Route path="/write/:gu/:id" element={<Write />} />
@@ -31,7 +32,6 @@ const Router = () => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/bookmark" element={<BookMark />} />
         <Route path="/address" element={<FindAddress />} />
-        <Route path="/landing" element={<Landing />} />
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
         {/* 카카오 */}
         <Route path="/user/kakao/callback" element={<OAuth2LoginHandler />} />
