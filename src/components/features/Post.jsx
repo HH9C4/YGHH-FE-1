@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import {
@@ -6,25 +6,13 @@ import {
   __deleteContent,
 } from "../../redux/modules/contentsSlice"
 import Likes from "./Likes"
+import EditToggle from "../elements/EditToggle"
 
 const Post = ({ posts }) => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
 
-  // 게시글 삭제 버튼
-  const onPostDelete = (id, gu) => {
-    const obj = {
-      postId: id,
-      gu: gu,
-    }
-    dispatch(__deleteContent(obj))
-  }
-
-  //삭제 버튼 작성자 확인
-  const checkOwner = {
-    nickName: localStorage.getItem("nickName"),
-  }
   const level = 1
   return (
     <>
@@ -46,49 +34,17 @@ const Post = ({ posts }) => {
                         </div>
                       </div>
 
-                      <div className="text-sm text-bb22 font-normal">
-                        {checkOwner.nickName === data.accountName ? (
-                          <button
-                            className="mr-3"
-                            onClick={() =>
-                              navigate(`/write/${data.gu}/${data.postId}`, {
-                                state: data,
-                              })
-                            }
-                          >
-                            수정
-                          </button>
-                        ) : (
-                          ""
-                        )}
-                        {checkOwner.nickName === data.accountName ? (
-                          <span>|</span>
-                        ) : (
-                          ""
-                        )}
-                        {checkOwner.nickName === data.accountName ? (
-                          <button
-                            className="ml-3"
-                            onClick={() => {
-                              onPostDelete(data.postId, data.gu)
-                            }}
-                          >
-                            삭제
-                          </button>
-                        ) : (
-                          ""
-                        )}
-                      </div>
+                      <EditToggle data={data} />
                     </div>
                     <div>
                       {data.imageUrl && data.imageUrl.length !== 0 ? (
                         <>
                           <div className="">
-                            <div className="flex flex-row overflow-x-auto w-[276px] h-[276px] mx-auto mt-4">
+                            <div className="flex flex-row overflow-x-auto mx-auto mt-4">
                               {data.imageUrl.map((img) => {
                                 return (
                                   <img
-                                    className="shrink-0 object-cover"
+                                    className="shrink-0 w-[100%] h-[280px] object-cover"
                                     key={img}
                                     onClick={() =>
                                       navigate(`/detail/${data.postId}`)

@@ -17,7 +17,6 @@ const MyPosts = () => {
 
   return (
     <>
-      <div>My Likes</div>
       <Post posts={posts} />
     </>
   )

@@ -5,7 +5,7 @@ const Category = ({ postInput, postInputHandle }) => {
     <ul className=" pt-3 pb-8 flex items-center overflow-x-auto">
       <li className="flex w-full relative items-center ">
         <input
-          value={postInput.category}
+          value="공유"
           onChange={postInputHandle}
           defaultChecked
           type="radio"
@@ -22,7 +22,7 @@ const Category = ({ postInput, postInputHandle }) => {
       </li>
       <li className="flex w-full relative items-center">
         <input
-          value={postInput.category}
+          value="질문"
           onChange={postInputHandle}
           type="radio"
           id="ques"
@@ -38,7 +38,7 @@ const Category = ({ postInput, postInputHandle }) => {
       </li>
       <li className="flex w-full relative items-center ">
         <input
-          value={postInput.category}
+          value="맛집"
           onChange={postInputHandle}
           type="radio"
           id="tasty"
@@ -54,7 +54,7 @@ const Category = ({ postInput, postInputHandle }) => {
       </li>
       <li className="flex w-full relative items-center ">
         <input
-          value={postInput.category}
+          value="일상"
           onChange={postInputHandle}
           type="radio"
           id="daily"

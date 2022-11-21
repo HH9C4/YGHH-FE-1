@@ -119,9 +119,32 @@ const Detail = () => {
         </p>
       </div>
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
-      <DetailPost data={contentData}></DetailPost>
+      <div className="px-2">
+        <DetailPost data={contentData}></DetailPost>
+      </div>
+      <div
+        className="fixed flex items-center h-[56px] w-full mx-auto bottom-0 rounded-[5px] px-[12px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple 
+      "
+      >
+        <input
+          className="placeholder:text-[14px] rounded-md placeholder:font-medium leading-10 text-[14px] text-bb22
+        outline-0 pl-2 h-10 w-full ml-5"
+          placeholder="댓글을 입력해주세요."
+          value={comment.comment}
+          name="comment"
+          type="text"
+          onChange={onChangeInputHandler}
+          maxLength={100}
+        />
+        <button
+          className="text-bbpink text-[14px] w-12 ml-2 mr-4 font-bold"
+          onClick={onAddCommentButtonHandler}
+        >
+          게시
+        </button>
+      </div>
 
-      <div className="w-[324px] h-[56px] mx-[24px] my-[24px] rounded-[8px] px-[26px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-white flex justify-between items-center">
+      {/* <div className="w-[324px] h-[56px] mx-[24px] my-[24px] rounded-[8px] px-[26px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-white flex justify-between items-center">
         <input
           className="
         placeholder:text-[14px] placeholder:font-medium leading-10 text-[14px] text-bb22
@@ -139,7 +162,7 @@ const Detail = () => {
         >
           게시
         </button>
-      </div>
+      </div> */}
 
       {/* 코멘트 컴포넌트 호출 및 셀렉터 값 Props로 넘기기 */}
       <Comment data={contentData}></Comment>
