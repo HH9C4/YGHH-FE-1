@@ -13,18 +13,19 @@ import OAuth2LoginHandler from "../components/Login/OAuth2LoginHandler"
 import OAuth2LogoutHandler from "../components/Login/OAuth2LogoutHandler"
 import OAuthNaverLogin from "../components/Login/OAuthNaverLogin"
 import FindAddress from "../pages/FindAddress"
-
+import PopulationInfo from "../pages/PopulationInfo"
 
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/info" element={<PopulationInfo />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/list/:gu/:sort" element={<List />} />
+        <Route path="/list/:gu/:category/:sort" element={<List />} />
+        <Route path="/search" element={<Search />} />
         <Route path="/write/:gu" element={<Write />} />
         <Route path="/write/:gu/:id" element={<Write />} />
-        <Route path="/search" element={<Search />} />
         <Route path="/search/:type/:searchWord/:sort" element={<Search />} />
         <Route path="/hottest/:gu" element={<HotTag />} />
         <Route path="/mypage" element={<Mypage />} />

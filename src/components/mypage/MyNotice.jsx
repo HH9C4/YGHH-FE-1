@@ -17,7 +17,6 @@ const Mynotice = () => {
   }, [dispatch])
   return (
     <>
-      <div>My Notice</div>
       {cmts &&
         cmts.map((cmt) => {
           return (

@@ -19,7 +19,6 @@ const MyPosts = () => {
   }, [dispatch])
   return (
     <>
-      <div>My Posts</div>
       <Post posts={posts} />
     </>
   )

@@ -7,10 +7,10 @@ import imageCompression from "browser-image-compression"
 //imgMaxSize 압축 최대 크기 기본값1mb
 //imgMaxWidthHeight 압축 이미지 최대 width,height 기본값1920px
 const useImgUpload = (
-  limitCount = 0,
+  limitCount = 10,
   isComp = true,
-  imgMaxSize = 1,
-  imgMaxWidthHeight = 1920
+  imgMaxSize = 0.3,
+  imgMaxWidthHeight = 1280
 ) => {
   //이미지 파일 & 프리뷰URL useState
   const [imgFiles, setImgFiles] = useState([])

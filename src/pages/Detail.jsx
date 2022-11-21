@@ -9,17 +9,16 @@ import DetailPost from "../components/features/DetailPost"
 import Comment from "../components/features/Comment"
 import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
-import { useNavigate } from 'react-router-dom'
-
+import { useNavigate } from "react-router-dom"
 
 const Detail = () => {
   const dispatch = useDispatch("")
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   //셀렉터로 상세조회 데이터 전부 불러오기
   const contentData = useSelector((state) => state.contents.content)
 
   const { id } = useParams()
-  console.log("상세조회", contentData);
+  console.log("상세조회", contentData)
 
   //GET 요청 디스패치
   useEffect(() => {
@@ -61,13 +60,23 @@ const Detail = () => {
 
   return (
     <Layout>
-      <div className='pt-[32px] pl-[25px] my-[32px] flex items-center '>
+      <div className="pt-[32px] pl-[25px] my-[32px] flex items-center ">
         <svg
           onClick={goback}
-          width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1.001 1.001 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z" fill="#231F20" />
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M13.83 19a1 1 0 0 1-.78-.37l-4.83-6a1 1 0 0 1 0-1.27l5-6a1.001 1.001 0 0 1 1.54 1.28L10.29 12l4.32 5.36a1 1 0 0 1-.78 1.64z"
+            fill="#231F20"
+          />
         </svg>
-        <p className='pl-[98px] pr-[146px] text-[18px] font-bold'>게시물 상세</p>
+        <p className="pl-[98px] pr-[146px] text-[18px] font-bold">
+          게시물 상세
+        </p>
       </div>
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
       {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
@@ -96,7 +105,7 @@ const Detail = () => {
         </button>
       </div>
       {/* 코멘트 컴포넌트 호출 및 셀렉터 값 Props로 넘기기 */}
-      <div className='px-8'>
+      <div className="px-8">
         <Comment data={contentData}></Comment>
       </div>
     </Layout>

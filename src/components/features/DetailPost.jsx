@@ -1,12 +1,12 @@
 import React from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useDispatch } from "react-redux"
-import { Carousel } from "flowbite-react"
 import {
   __getContentDetail,
   __deleteContent,
 } from "../../redux/modules/contentsSlice"
 import Likes from "../features/Likes"
+import EditToggle from "../elements/EditToggle"
 
 const DetailPost = ({ data }) => {
   const navigate = useNavigate()
@@ -44,49 +44,26 @@ const DetailPost = ({ data }) => {
             </div>
 
             <div className="text-sm text-bb22 font-normal">
-              {checkOwner.nickName === data.accountName ? (
-                <button
-                  className="mr-3"
-                  onClick={() =>
-                    navigate(`/write/${data.gu}/${data.postId}`, {
-                      state: data,
-                    })
-                  }
-                >
-                  수정
-                </button>
-              ) : (
-                ""
-              )}
-              {checkOwner.nickName === data.accountName ? <span>|</span> : ""}
-              {checkOwner.nickName === data.accountName ? (
-                <button
-                  className="ml-3"
-                  onClick={() => {
-                    onPostDelete(data.postId, data.gu)
-                  }}
-                >
-                  삭제
-                </button>
-              ) : (
-                ""
-              )}
+              <EditToggle data={data} />
             </div>
           </div>
-          {data.imageUrl !== undefined && data.imageUrl.length !== 0 ? (
-            <div className="w-[276px] h-[276px] mx-auto mt-4">
-              <Carousel>
-                {data.imageUrl.map((img) => {
-                  return (
-                    <img
-                      key={img}
-                      onClick={() => navigate(`/detail/${data.postId}`)}
-                      src={img}
-                    />
-                  )
-                })}
-              </Carousel>
-            </div>
+          {data.imageUrl && data.imageUrl.length !== 0 ? (
+            <>
+              <div className="">
+                <div className="flex flex-row overflow-x-auto mt-4">
+                  {data.imageUrl.map((img) => {
+                    return (
+                      <img
+                        className="shrink-0 object-cover"
+                        key={img}
+                        onClick={() => navigate(`/detail/${data.postId}`)}
+                        src={img}
+                      />
+                    )
+                  })}
+                </div>
+              </div>
+            </>
           ) : (
             ""
           )}
