@@ -1,6 +1,9 @@
 import React from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
 const EditBtn = () => {
+  const navigate = useNavigate()
+  const param = useParams()
   return (
     <button
       className="fixed bottom-[192px] right-[30px] bg-bbpink shadow-[0_0_5px_0_rgba(255,121,121,0.5)] rounded-full w-[56px] h-[56px] active:animate-ping"
