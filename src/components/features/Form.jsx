@@ -96,7 +96,7 @@ const Form = () => {
 
           <div
             className="
-            flex flex-row flex-nowrap overflow-x-scroll"
+            flex flex-row flex-nowrap overflow-x-auto"
           >
             <label
               htmlFor="img-File"
@@ -139,14 +139,14 @@ const Form = () => {
             })}
           </div>
           <textarea
-            className="outline-0 mt-6 w-full rounded-md h-[324px] text-start p-6 text-sm text-bb22 placeholder:text-bb88 overflow-y-auto break-all"
+            className="outline-0 mt-3 w-full rounded-md h-[324px] text-start p-6 text-sm text-bb22 placeholder:text-bb88 overflow-y-auto break-all"
             defaultValue={postInput.content || ""}
             // value={postInput.content || ""}
             name="content"
             onChange={postInputHandle}
             placeholder="내용을 입력하세요"
           />
-          <div className="flex text-sm text-bb22 p-6 items-center h-14 mt-6 rounded-t-md w-full bg-white border-b border-bbBB">
+          <div className="flex text-sm text-bb22 p-6 items-center h-14 mt-1 rounded-t-md w-full bg-white border-b border-bbBB">
             <p>#</p>
             <input
               className="ml-0.5 outline-0 placeholder:text-bb88 text-sm w-full"
@@ -173,8 +173,8 @@ const Form = () => {
               </svg>
             </button>
           </div>
-          <ul>
-            {[
+          <ul className="rounded-b-md bg-white h-[240px]">
+            {/* {[
               ["Home", "/"],
               ["Team", "/"],
               ["Projects", "/"],
@@ -186,11 +186,11 @@ const Form = () => {
               >
                 <a href={url}>{title}</a>
               </li>
-            ))}
+            ))} */}
           </ul>
           <div className="flex justify-end">
             <button
-              className="w-[128px] h-10 mt-4 rounded-full bg-bbpink text-white text-sm font-medium"
+              className="w-[128px] h-10 mt-3 rounded-full bg-bbpink text-white text-sm font-medium"
               onClick={onPost}
               color="reverse"
               size="medium"
