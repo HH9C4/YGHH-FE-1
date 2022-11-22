@@ -7,12 +7,19 @@ import {
 } from "../../redux/modules/contentsSlice"
 import Likes from "./Likes"
 import EditToggle from "../elements/EditToggle"
+import Slider from "react-slick"
 
 const Post = ({ posts }) => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
-
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  }
   const level = 1
   return (
     <>
@@ -36,7 +43,7 @@ const Post = ({ posts }) => {
 
                       <EditToggle data={data} />
                     </div>
-                    <div>
+                    <Slider {...settings}>
                       {data.imageUrl && data.imageUrl.length !== 0 ? (
                         <>
                           <div className="">
@@ -59,7 +66,7 @@ const Post = ({ posts }) => {
                       ) : (
                         ""
                       )}
-                    </div>
+                    </Slider>
 
                     {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
                     <div className="mt-6 flex items-center">
