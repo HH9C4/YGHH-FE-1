@@ -56,14 +56,12 @@ const DetailPost = ({ data }) => {
                 {data.accountName}
               </div>
             </div>
-
-            <div className="text-sm text-bb22 font-normal">
+            <div className="z-20">
               <EditToggle data={data} />
             </div>
           </div>
           {data.imageUrl && data.imageUrl.length !== 0 ? (
             <>
-              {/* <div className="flex flex-row overflow-x-auto mt-4"> */}
               <Slider {...settings}>
                 {data.imageUrl.map((img) => {
                   return (
@@ -76,7 +74,6 @@ const DetailPost = ({ data }) => {
                   )
                 })}
               </Slider>
-              {/* </div> */}
             </>
           ) : (
             ""

@@ -25,7 +25,7 @@ const Post = ({ posts }) => {
     autoplaySpeen: 200,
   }
 
-  console.log("gggg", posts);
+  console.log("gggg", posts)
   const level = 1
   return (
     <>
@@ -46,32 +46,31 @@ const Post = ({ posts }) => {
                         {data.accountName}
                       </div>
                     </div>
+                    <div className="z-20">
                       <EditToggle data={data} />
+                    </div>
                   </div>
 
-                    {data.imageUrl && data.imageUrl.length !== 0 ? (
-                      <>
-                        {/* <div className="flex flex-row mx-auto mt-4"> */}
-                        <Slider {...settings}>
-                          {data.imageUrl.map((img) => {
-                            return (
-                              <img
-                                className="shrink-0 w-full h-[300px] object-cover"
-                                key={img}
-                                src={img}
-                                onClick={() =>
-                                  navigate(`/detail/${data.postId}`)
-                                }
-                              />
-                            )
-                          })}
-                        </Slider>
-                        {/* </div> */}
-                      </>
-                    ) : (
-                      ""
-                    )}
-
+                  {data.imageUrl && data.imageUrl.length !== 0 ? (
+                    <>
+                      {/* <div className="flex flex-row mx-auto mt-4"> */}
+                      <Slider {...settings}>
+                        {data.imageUrl.map((img) => {
+                          return (
+                            <img
+                              className="shrink-0 w-full h-[300px] object-cover"
+                              key={img}
+                              src={img}
+                              onClick={() => navigate(`/detail/${data.postId}`)}
+                            />
+                          )
+                        })}
+                      </Slider>
+                      {/* </div> */}
+                    </>
+                  ) : (
+                    ""
+                  )}
 
                   {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
                   <div className="mt-6 flex items-center">
@@ -99,9 +98,7 @@ const Post = ({ posts }) => {
                             key={postTag}
                             className="w-15 h-8 mr-2 mb-2 text-bb22 rounded px-[9px] bg-bbyellow text-xs "
                             onClick={() =>
-                              navigate(
-                                `/search/1/${postTag.substring(1)}/new`
-                              )
+                              navigate(`/search/1/${postTag.substring(1)}/new`)
                             }
                           >
                             {postTag}
