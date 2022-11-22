@@ -1,5 +1,7 @@
 import React from "react"
-import LineChart from "../components/charts/LineChart"
+import SpotContainer from "../components/charts/SpotContainer"
+import ImgSlick from "../components/elements/ImgSlick"
+import Layout from "../components/layout/Layout"
 
 const PopulationInfo = () => {
   return (
@@ -7,7 +9,9 @@ const PopulationInfo = () => {
     //모달로 통으로 들어갈거임
     //
     <>
-      <LineChart />
+      <Layout>
+        <SpotContainer />
+      </Layout>
     </>
   )
 }

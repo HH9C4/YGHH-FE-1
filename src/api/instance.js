@@ -20,11 +20,29 @@ export const hInstance = axios.create({
   withCredentials: true,
 })
 
+//카카오 탈퇴 인스턴스
+export const kakaoinstance = axios.create({
+  baseURL: "https://kapi.kakao.com",
+  headers: {
+    Authorization:
+      localStorage.getItem("Authorization") === undefined
+        ? ""
+        : localStorage.getItem("Authorization"),
+  },
+  withCredentials: true,
+})
+
 export const membersApis = {
+  //로컬용 테스트로그인
+  testloginAX: () => nhInstance.get("https://boombiboombi.o-r.kr/user/tester"),
+
   //카카오 로그인
   kakaologinAX: (code) => nhInstance.get(`/user/signin/kakao?code=${code}`),
   //로그아웃 서버통신
   logoutAX: () => hInstance.delete(`/api/logout`),
+
+  //카카오 연결끊기
+  kakaodeleteAX: () => kakaoinstance.post(`/v1/user/unlink`),
 
   //네이버 로그인
   naverloginAX: (loginData) =>

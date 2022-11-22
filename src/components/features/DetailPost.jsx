@@ -8,6 +8,10 @@ import {
 import Likes from "../features/Likes"
 import EditToggle from "../elements/EditToggle"
 
+import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
+
 const DetailPost = ({ data }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -26,6 +30,16 @@ const DetailPost = ({ data }) => {
     nickName: localStorage.getItem("nickName"),
   }
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeen: 200,
+  }
+
   const level = 1
 
   return (
@@ -42,27 +56,24 @@ const DetailPost = ({ data }) => {
                 {data.accountName}
               </div>
             </div>
-
-            <div className="text-sm text-bb22 font-normal">
+            <div className="z-20">
               <EditToggle data={data} />
             </div>
           </div>
           {data.imageUrl && data.imageUrl.length !== 0 ? (
             <>
-              <div className="">
-                <div className="flex flex-row overflow-x-auto mt-4">
-                  {data.imageUrl.map((img) => {
-                    return (
-                      <img
-                        className="shrink-0 object-cover"
-                        key={img}
-                        onClick={() => navigate(`/detail/${data.postId}`)}
-                        src={img}
-                      />
-                    )
-                  })}
-                </div>
-              </div>
+              <Slider {...settings}>
+                {data.imageUrl.map((img) => {
+                  return (
+                    <img
+                      className="shrink-0 w-full"
+                      key={img}
+                      onClick={() => navigate(`/detail/${data.postId}`)}
+                      src={img}
+                    />
+                  )
+                })}
+              </Slider>
             </>
           ) : (
             ""
