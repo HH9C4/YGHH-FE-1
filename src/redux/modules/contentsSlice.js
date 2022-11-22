@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { contentsApis, commentApis } from "../../api/instance"
+import { current } from '@reduxjs/toolkit'
 //게시글 작성
 export const __insertContent = createAsyncThunk(
   "contents/__insertContent",
@@ -138,12 +139,14 @@ export const __activateBookmark = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.bookMarkAX(payload)
+      console.log("북마크 활성화", res);
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
   }
 )
+
 //북마크 비활성화
 export const __deactivateBookmark = createAsyncThunk(
   "contents/__deactivateBookmark",
@@ -151,6 +154,20 @@ export const __deactivateBookmark = createAsyncThunk(
     try {
       const res = await contentsApis.bookMarkOffAX(payload)
       console.log(res, "북마크 비활성화");
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//북마크 페이지 비활성화
+export const __deactivateBookmarkPage = createAsyncThunk(
+  "contents/__deactivateBookmarkPage",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.bookMarkOffAX(payload)
+      console.log(res, "북마크 페이지 비활성화");
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -240,7 +257,7 @@ export const contentsSlice = createSlice({
   initialState: {
     contents: [],
     content: {},
-    bookmark: [],
+    bookmarks: [],
   },
   reducers: {},
   extraReducers: {
@@ -351,15 +368,8 @@ export const contentsSlice = createSlice({
     },
     [__activateBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      console.log("북마크 활성화 페이로드", action.payload);
+      state.bookmark = action.payload.bookmarked
 
-      const indexID = state.bookmark.findIndex((bookmark) => {
-        if (bookmark.gu === action.payload.gu) {
-          return true
-        }
-        return false
-      })
-      state.bookmark[indexID] = action.payload
     },
     [__activateBookmark.rejected]: (state, action) => {
       state.isLoading = false
@@ -371,15 +381,29 @@ export const contentsSlice = createSlice({
     },
     [__deactivateBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      const indexID = state.bookmark.findIndex((bookmark) => {
-        if (bookmark.gu === action.payload.gu) {
-          return true
-        }
-        return false
-      })
-      state.bookmark[indexID] = action.payload
+      state.bookmark = action.payload.bookmarked
     },
     [__deactivateBookmark.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+
+    // 북마크 페이지 비활성화
+    [__deactivateBookmarkPage.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__deactivateBookmarkPage.fulfilled]: (state, action) => {
+      state.isLoading = false
+      console.log();
+      // const indexID = state.bookmarks.findIndex((item) => {
+      //   if (item.gu === action.payload.gu) {
+      //     return true
+      //   }
+      //   return false
+      // }
+      state.bookmarks = state.bookmarks.filter((item) => item.gu !== action.payload.gu)
+    },
+    [__deactivateBookmarkPage.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
@@ -389,9 +413,8 @@ export const contentsSlice = createSlice({
     },
     [__returnBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      action.payload.map((item) => {
-        state.bookmark.push(item)
-      })
+
+      state.bookmarks = action.payload
     },
     [__returnBookmark.rejected]: (state, action) => {
       state.isLoading = false

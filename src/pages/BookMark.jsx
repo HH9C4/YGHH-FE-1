@@ -2,13 +2,13 @@ import React from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Layout from "../components/layout/Layout"
-import { __returnBookmark, __deactivateBookmark } from "../redux/modules/contentsSlice"
+import { __returnBookmark, __deactivateBookmarkPage } from "../redux/modules/contentsSlice"
 import { useNavigate } from 'react-router-dom'
 const BookMark = () => {
     //페이지 안에서 전부 해결
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const bookmarkData = useSelector((state) => state.contents.bookmark)
+    const bookmarkData = useSelector((state) => state.contents.bookmarks)
 
     console.log("북마크데이터", bookmarkData)
     //GET 요청 디스패치
@@ -18,7 +18,7 @@ const BookMark = () => {
 
     const bookMarkOff = (gu) => {
         console.log(gu);
-        dispatch(__deactivateBookmark(gu))
+        dispatch(__deactivateBookmarkPage(gu))
     }
     return (
         <Layout>
