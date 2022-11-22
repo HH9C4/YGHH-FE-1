@@ -5,8 +5,9 @@ import styled from "styled-components"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
-import { __naverLogout } from "../redux/modules/memberSlice"
+import { __naverLogout, __kakaoDelete } from "../redux/modules/memberSlice"
 import Layout from "../components/layout/Layout"
+import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 
 const Mypage = () => {
   const dispatch = useDispatch()
@@ -19,20 +20,25 @@ const Mypage = () => {
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
   //로그아웃
-  const REST_API_KEY = "5be5552cd6fd58fe7ce5082934d4b18a"
-  const LOGOUTREDIRECT_URI = "http://localhost:3000/user/kakao/logout/callback"
-  const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
+  // const REST_API_KEY = "5be5552cd6fd58fe7ce5082934d4b18a"
+  // const LOGOUTREDIRECT_URI = "http://localhost:3000/user/kakao/logout/callback"
+  const LOGOUTREDIRECT_URI = "https://boombiboombi.vercel.app/user/kakao/logout/callback"
+  const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
   const handleLogout = () => {
     if (localStorage.getItem("site") === "kakao") {
-      window.location.href = KAKAO_LOGOUT_URL
+      window.location.href = KAKAO_LOGOUT_URL;
     } else {
       dispatch(__naverLogout())
     }
-    // 탭 구현 //
+  }
+
+  const deleteAccount = () => {
+    dispatch(__kakaoDelete())
   }
 
   return (
     <Layout>
+      <button onClick={deleteAccount}>카카오 탈퇴</button>
       <div className="flex items-end pt-8 ml-[25px] mr-[26px] mb-10">
         <div>
           <img

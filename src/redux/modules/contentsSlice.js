@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { contentsApis, commentApis } from "../../api/instance"
+import { current } from '@reduxjs/toolkit'
 //게시글 작성
 export const __insertContent = createAsyncThunk(
   "contents/__insertContent",
@@ -118,12 +119,13 @@ export const __deactivateCommentLike = createAsyncThunk(
   }
 )
 
-//북마크 반환
+//북마크 조회
 export const __returnBookmark = createAsyncThunk(
   "contents/__returnBookmark",
   async (payload, thunkAPI) => {
     try {
-      const res = await contentsApis.returnBookMarkAX()
+      const res = await contentsApis.returnBookMarkAX(payload)
+      console.log("조회 북마크", res);
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -137,18 +139,35 @@ export const __activateBookmark = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.bookMarkAX(payload)
+      console.log("북마크 활성화", res);
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
   }
 )
+
 //북마크 비활성화
 export const __deactivateBookmark = createAsyncThunk(
   "contents/__deactivateBookmark",
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.bookMarkOffAX(payload)
+      console.log(res, "북마크 비활성화");
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//북마크 페이지 비활성화
+export const __deactivateBookmarkPage = createAsyncThunk(
+  "contents/__deactivateBookmarkPage",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.bookMarkOffAX(payload)
+      console.log(res, "북마크 페이지 비활성화");
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -238,7 +257,7 @@ export const contentsSlice = createSlice({
   initialState: {
     contents: [],
     content: {},
-    bookmark: [],
+    bookmarks: [],
   },
   reducers: {},
   extraReducers: {
@@ -350,6 +369,7 @@ export const contentsSlice = createSlice({
     [__activateBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
       state.bookmark = action.payload.bookmarked
+
     },
     [__activateBookmark.rejected]: (state, action) => {
       state.isLoading = false
@@ -367,15 +387,34 @@ export const contentsSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
-    // 북마크 반환
+
+    // 북마크 페이지 비활성화
+    [__deactivateBookmarkPage.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__deactivateBookmarkPage.fulfilled]: (state, action) => {
+      state.isLoading = false
+      console.log();
+      // const indexID = state.bookmarks.findIndex((item) => {
+      //   if (item.gu === action.payload.gu) {
+      //     return true
+      //   }
+      //   return false
+      // }
+      state.bookmarks = state.bookmarks.filter((item) => item.gu !== action.payload.gu)
+    },
+    [__deactivateBookmarkPage.rejected]: (state, action) => {
+      state.isLoading = false
+      state.error = action.payload
+    },
+    // 북마크 조회
     [__returnBookmark.pending]: (state) => {
       state.isLoading = true
     },
     [__returnBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      action.payload.map((item) => {
-        state.bookmark.push(item)
-      })
+
+      state.bookmarks = action.payload
     },
     [__returnBookmark.rejected]: (state, action) => {
       state.isLoading = false
