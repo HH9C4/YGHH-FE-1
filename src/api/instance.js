@@ -21,6 +21,9 @@ export const hInstance = axios.create({
 })
 
 export const membersApis = {
+  //로컬용 테스트로그인
+  testloginAX: () => nhInstance.get("https://boombiboombi.o-r.kr/user/tester"),
+
   //카카오 로그인
   kakaologinAX: (code) => nhInstance.get(`/user/signin/kakao?code=${code}`),
   //로그아웃 서버통신

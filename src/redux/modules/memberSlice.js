@@ -3,6 +3,30 @@ import { membersApis } from "../../api/instance"
 import axios from "axios"
 // import { delCookie } from "../../cookie/cookie"
 
+export const __testLogin = createAsyncThunk(
+  "members/__testLogin",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("1차 되나?")
+      const res = await membersApis.testloginAX(payload)
+      console.log("2차 되나?")
+      const Access_Token = res.headers.authorization
+      localStorage.setItem("Authorization", Access_Token)
+      localStorage.setItem("nickName", res.data.data.accountName)
+      localStorage.setItem("profileImage", res.data.data.profileImage)
+      localStorage.setItem("ageRange", res.data.data.ageRange)
+      localStorage.setItem("email", res.data.data.email)
+      localStorage.setItem("gender", res.data.data.gender)
+      localStorage.setItem("site", "kakao")
+      // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
+      alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
+      window.location.replace("/")
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
 export const __kakaoLogin = createAsyncThunk(
   "members/__kakaoLogin",
   async (payload, thunkAPI) => {
