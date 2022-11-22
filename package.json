@@ -21,9 +21,9 @@
     "react-xml-parser": "^1.1.8",
     "recharts": "^2.1.16",
     "redux": "^4.2.0",
+    "slick-carousel": "^1.8.1",
     "source-map-loader": "^4.0.1",
     "styled-components": "^5.3.6",
-    "tw-elements": "^1.0.0-alpha12",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

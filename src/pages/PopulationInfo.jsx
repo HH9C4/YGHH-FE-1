@@ -1,5 +1,6 @@
 import React from "react"
 import SpotContainer from "../components/charts/SpotContainer"
+import ImgSlick from "../components/elements/ImgSlick"
 import Layout from "../components/layout/Layout"
 
 const PopulationInfo = () => {

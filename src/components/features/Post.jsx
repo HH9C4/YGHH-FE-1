@@ -8,6 +8,8 @@ import {
 import Likes from "./Likes"
 import EditToggle from "../elements/EditToggle"
 import Slider from "react-slick"
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 const Post = ({ posts }) => {
   const dispatch = useDispatch()
@@ -19,6 +21,8 @@ const Post = ({ posts }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeen: 200,
   }
   const level = 1
   return (
@@ -43,30 +47,29 @@ const Post = ({ posts }) => {
 
                       <EditToggle data={data} />
                     </div>
-                    <Slider {...settings}>
-                      {data.imageUrl && data.imageUrl.length !== 0 ? (
-                        <>
-                          <div className="">
-                            <div className="flex flex-row overflow-x-auto mx-auto mt-4">
-                              {data.imageUrl.map((img) => {
-                                return (
-                                  <img
-                                    className="shrink-0 w-[100%] h-[280px] object-cover"
-                                    key={img}
-                                    src={img}
-                                    onClick={() =>
-                                      navigate(`/detail/${data.postId}`)
-                                    }
-                                  />
-                                )
-                              })}
-                            </div>
-                          </div>
-                        </>
-                      ) : (
-                        ""
-                      )}
-                    </Slider>
+
+                    {data.imageUrl && data.imageUrl.length !== 0 ? (
+                      <>
+                        {/* <div className="flex flex-row mx-auto mt-4"> */}
+                        <Slider {...settings}>
+                          {data.imageUrl.map((img) => {
+                            return (
+                              <img
+                                className="shrink-0 w-full h-[300px] object-cover"
+                                key={img}
+                                src={img}
+                                onClick={() =>
+                                  navigate(`/detail/${data.postId}`)
+                                }
+                              />
+                            )
+                          })}
+                        </Slider>
+                        {/* </div> */}
+                      </>
+                    ) : (
+                      ""
+                    )}
 
                     {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
                     <div className="mt-6 flex items-center">
