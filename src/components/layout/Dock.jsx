@@ -7,7 +7,7 @@ const Dock = () => {
   const gu = params.gu
   return (
     <>
-      <div className="fixed bottom-0 w-full">
+      <div className="fixed bottom-0 w-full h-[80px] bg-bbLpurple">
         <hr className="border-[0.5px] border-t-0 border-bbBB w-full" />
         <dl className="w-full h-[52px] bg-bbLpurple text-bb66 text-[10px] flex justify-evenly items-center">
           <div
