@@ -81,7 +81,7 @@ const Detail = () => {
         <DetailPost data={contentData}></DetailPost>
       </div>
       <div
-        className="fixed flex items-center h-14 w-full mx-auto bottom-0 rounded-[5px] px-[12px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple
+        className="fixed flex items-center h-14 w-full mx-auto bottom-[52px] rounded-[5px] px-[12px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple
       "
       >
         <input
