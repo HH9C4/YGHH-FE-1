@@ -5,7 +5,7 @@ const Header = () => {
   const navigate = useNavigate()
   console.log(localStorage.getItem("nickName"))
   return (
-    <div className="px-6 flex justify-between items-center h-[52px]">
+    <div className="px-6 bg-bbLpurple border-b-[0.5px] border-bbBB flex justify-between items-center h-[52px]">
       <svg
         width="145"
         height="21"
