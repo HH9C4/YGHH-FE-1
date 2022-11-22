@@ -72,6 +72,29 @@ export const __kakaoLogout = createAsyncThunk(
   }
 )
 
+//로그아웃 Thunk
+export const __kakaoDelete = createAsyncThunk(
+  "members/__kakaoDelete",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await membersApis.kakaodeleteAX()
+      // if (res.data.status === "200 OK") {
+      //   console.log("로그아웃 res 값", res)
+      //   localStorage.removeItem("Authorization")
+      //   localStorage.removeItem("nickName")
+      //   localStorage.removeItem("profileImage")
+      //   localStorage.removeItem("ageRange")
+      //   localStorage.removeItem("email")
+      //   localStorage.removeItem("gender")
+      //   localStorage.removeItem("site")
+      //   window.location.replace("/")
+      // }
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
 //
 export const __naverLogout = createAsyncThunk(
   "members/__naverLogout",
