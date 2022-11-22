@@ -5,7 +5,7 @@ import styled from "styled-components"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
-import { __naverLogout } from "../redux/modules/memberSlice"
+import { __naverLogout, __kakaoDelete } from "../redux/modules/memberSlice"
 import Layout from "../components/layout/Layout"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 
@@ -30,11 +30,15 @@ const Mypage = () => {
     } else {
       dispatch(__naverLogout())
     }
-    // 탭 구현 //
+  }
+
+  const deleteAccount = () => {
+    dispatch(__kakaoDelete())
   }
 
   return (
     <Layout>
+      <button onClick={deleteAccount}>카카오 탈퇴</button>
       <div className="flex items-end pt-8 ml-[25px] mr-[26px] mb-10">
         <div>
           <img
