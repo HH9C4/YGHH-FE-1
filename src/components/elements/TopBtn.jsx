@@ -17,7 +17,7 @@ const TopBtn = () => {
   }
   return (
     <button
-      className="fixed bottom-[120px] right-[30px] bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full w-[56px] h-[56px] active:bg-[#efefef]"
+      className="fixed bottom-[152px] right-[30px] bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full w-[56px] h-[56px] active:bg-[#efefef]"
       onClick={handleTop}
     >
       <svg
