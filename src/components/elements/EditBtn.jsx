@@ -3,7 +3,7 @@ import React from "react"
 const EditBtn = () => {
   return (
     <button
-      className="fixed top-[500px] right-[30px] bg-bbpink shadow-[0_0_5px_0_rgba(255,121,121,0.5)] rounded-full w-[56px] h-[56px] active:animate-ping"
+      className="fixed bottom-[192px] right-[30px] bg-bbpink shadow-[0_0_5px_0_rgba(255,121,121,0.5)] rounded-full w-[56px] h-[56px] active:animate-ping"
       onClick={() => navigate(`/write/${param.gu}`, { replace: false })}
     >
       <svg

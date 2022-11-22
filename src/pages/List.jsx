@@ -10,6 +10,7 @@ import {
 import SelectGu from "../components/features/SelectGu"
 
 import Layout from "../components/layout/Layout"
+import EditBtn from "../components/elements/EditBtn"
 
 const List = () => {
   const [gu, setGu] = useState("")
@@ -265,6 +266,7 @@ const List = () => {
         <div className="mx-[26px] mt-4">
           <Post posts={contents} />
         </div>
+        <EditBtn />
       </Layout>
     </div>
   )
