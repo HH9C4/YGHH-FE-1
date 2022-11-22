@@ -118,12 +118,13 @@ export const __deactivateCommentLike = createAsyncThunk(
   }
 )
 
-//북마크 반환
+//북마크 조회
 export const __returnBookmark = createAsyncThunk(
   "contents/__returnBookmark",
   async (payload, thunkAPI) => {
     try {
-      const res = await contentsApis.returnBookMarkAX()
+      const res = await contentsApis.returnBookMarkAX(payload)
+      console.log("조회 북마크", res);
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -149,6 +150,7 @@ export const __deactivateBookmark = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.bookMarkOffAX(payload)
+      console.log(res, "북마크 비활성화");
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -349,7 +351,15 @@ export const contentsSlice = createSlice({
     },
     [__activateBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.bookmark = action.payload.bookmarked
+      console.log("북마크 활성화 페이로드", action.payload);
+
+      const indexID = state.bookmark.findIndex((bookmark) => {
+        if (bookmark.gu === action.payload.gu) {
+          return true
+        }
+        return false
+      })
+      state.bookmark[indexID] = action.payload
     },
     [__activateBookmark.rejected]: (state, action) => {
       state.isLoading = false
@@ -361,13 +371,19 @@ export const contentsSlice = createSlice({
     },
     [__deactivateBookmark.fulfilled]: (state, action) => {
       state.isLoading = false
-      state.bookmark = action.payload.bookmarked
+      const indexID = state.bookmark.findIndex((bookmark) => {
+        if (bookmark.gu === action.payload.gu) {
+          return true
+        }
+        return false
+      })
+      state.bookmark[indexID] = action.payload
     },
     [__deactivateBookmark.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
     },
-    // 북마크 반환
+    // 북마크 조회
     [__returnBookmark.pending]: (state) => {
       state.isLoading = true
     },

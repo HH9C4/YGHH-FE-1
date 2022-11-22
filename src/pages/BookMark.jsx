@@ -15,8 +15,9 @@ const BookMark = () => {
     useEffect(() => {
         dispatch(__returnBookmark())
     }, [])
-    // console.log(bookmarkData[0].gu);
+
     const bookMarkOff = (gu) => {
+        console.log(gu);
         dispatch(__deactivateBookmark(gu))
     }
     return (

@@ -7,7 +7,6 @@ const Category = ({ postInput, postInputHandle }) => {
         <input
           value="공유"
           onChange={postInputHandle}
-          defaultChecked
           type="radio"
           id="share"
           name="category"
