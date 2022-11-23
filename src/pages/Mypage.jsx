@@ -24,6 +24,7 @@ const Mypage = () => {
   // const LOGOUTREDIRECT_URI = "http://localhost:3000/user/kakao/logout/callback"
   const LOGOUTREDIRECT_URI = "https://boombiboombi.vercel.app/user/kakao/logout/callback"
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
+  // const KAKAO_DELETE_URL = `https://kapi.kakao.com/v1/user/unlink`
   const handleLogout = () => {
     if (localStorage.getItem("site") === "kakao") {
       window.location.href = KAKAO_LOGOUT_URL;
@@ -32,13 +33,13 @@ const Mypage = () => {
     }
   }
 
-  const deleteAccount = () => {
-    dispatch(__kakaoDelete())
-  }
+  // const deleteAccount = () => {
+  //   window.location.href = KAKAO_DELETE_URL;
+  // }
 
   return (
     <Layout>
-      <button onClick={deleteAccount}>카카오 탈퇴</button>
+      {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}
       <div className="flex items-end pt-8 ml-[25px] mr-[26px] mb-10">
         <div>
           <img

@@ -180,9 +180,13 @@ export const __getContent = createAsyncThunk(
   "contents/__getContent",
   async (payload, thunkAPI) => {
     try {
-      const res = await contentsApis.getContentAX(payload)
 
-      return thunkAPI.fulfillWithValue(res.data.data)
+      const res = await contentsApis.getContentAX(payload)
+      const obj = {
+        payload: payload,
+        data: res.data.data
+      }
+      return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -445,8 +449,14 @@ export const contentsSlice = createSlice({
       state.isLoading = true
     },
     [__getContent.fulfilled]: (state, action) => {
+      console.log("게시글 전체조회 액션 페이로드", action.payload);
       state.isLoading = false
-      state.contents = action.payload.postList
+      if (action.payload.payload.page === 0) {
+        state.contents.splice(0)
+        state.contents.push(...action.payload.data.postList)
+      } else {
+        state.contents.push(...action.payload.data.postList)// 기존에 있던 리스트에서 뒤에 붙여줘야하기 때문에 push를 써줘야함
+      }
       state.bookmark = action.payload.isBookmarked
     },
     [__getContent.rejected]: (state, action) => {
