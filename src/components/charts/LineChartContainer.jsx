@@ -50,7 +50,7 @@ const LineChartContainer = () => {
         <Tooltip />
         <Legend />
         <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="pv" stroke="#666666" />
+        <Line type="monotone" dataKey="pv" stroke="#BBBBBB" />
       </LineChart>
     </div>
   )
