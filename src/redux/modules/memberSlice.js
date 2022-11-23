@@ -7,9 +7,7 @@ export const __testLogin = createAsyncThunk(
   "members/__testLogin",
   async (payload, thunkAPI) => {
     try {
-      console.log("1차 되나?")
       const res = await membersApis.testloginAX(payload)
-      console.log("2차 되나?")
       const Access_Token = res.headers.authorization
       localStorage.setItem("Authorization", Access_Token)
       localStorage.setItem("nickName", res.data.data.accountName)
@@ -20,7 +18,8 @@ export const __testLogin = createAsyncThunk(
       localStorage.setItem("site", "kakao")
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
-      window.location.replace("/")
+      // window.location.replace("/")
+      console.log("2차 되나?", res)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -72,12 +71,12 @@ export const __kakaoLogout = createAsyncThunk(
   }
 )
 
-//로그아웃 Thunk
+//연결끊기 Thunk
 export const __kakaoDelete = createAsyncThunk(
   "members/__kakaoDelete",
   async (payload, thunkAPI) => {
     try {
-      const res = await membersApis.kakaodeleteAX()
+      const res = await membersApis.kakaodeleteAX(payload)
       // if (res.data.status === "200 OK") {
       //   console.log("로그아웃 res 값", res)
       //   localStorage.removeItem("Authorization")
