@@ -32,6 +32,7 @@ export const __kakaoLogin = createAsyncThunk(
     try {
       const res = await membersApis.kakaologinAX(payload)
       const Access_Token = res.headers.authorization
+      console.log(res.data.data)
       localStorage.setItem("Authorization", Access_Token)
       localStorage.setItem("nickName", res.data.data.accountName)
       localStorage.setItem("profileImage", res.data.data.profileImage)

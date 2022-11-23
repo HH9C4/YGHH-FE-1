@@ -4,27 +4,48 @@ import {
   __insertContent,
   __updataContent,
   __getContentDetail,
+  insertTags,
 } from "../../redux/modules/contentsSlice"
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
-
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Category from "../elements/Category"
 
 const Form = () => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   //커스텀 훅 사용
   const [postInput, setPostInput, postInputHandle] = useInput({
     category: "",
-    tag: [],
     content: "",
   })
-  console.log(postInput.category)
   const param = useParams("")
-  // const [tag, setTag] = useState("")
+
+  //태그
+  const [tag, setTag] = useState("")
+
+  const onTagChange = (e) => {
+    setTag(e.target.value)
+  }
+  const tags = useSelector((state) => state.contents.tagList)
+  console.log("tags", tags)
+
+  // const onKeyUp = (e) => {
+  //   if (["Enter", ","].indexOf(e.key) !== -1) {
+  //     onButtonClick()
+  //   }
+  // }
+
+  const onButtonClick = () => {
+    const filtered = tag.replace(
+      /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
+      ""
+    )
+    dispatch(insertTags(filtered))
+    setTag("")
+  }
 
   const { isSuccess, error } = useSelector((state) => state)
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const state = useLocation()
   const data = state.state
@@ -51,7 +72,7 @@ const Form = () => {
       category: postInput.category,
       gu: param.gu,
       content: postInput.content,
-      tagList: [postInput.tag],
+      tagList: tags,
     }
 
     // formData.append("contents", JSON.stringify(obj))
@@ -62,25 +83,21 @@ const Form = () => {
     dispatch(__insertContent(formData))
   }
 
-  console.log()
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/")
-    } else {
-      if (error !== undefined) console.log(error)
-    }
-  }, [isSuccess, error, navigate])
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     navigate("/")
+  //   } else {
+  //     if (error !== undefined) console.log(error)
+  //   }
+  // }, [isSuccess, error, navigate])
 
   useEffect(() => {
     console.log(files)
   }, [files])
 
-  const onImg = () => {
-    imgRef.current.click()
-  }
   return (
     <>
-      <form className="pl-[25px]">
+      <form className="pl-[25px] pb-[190px]">
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
@@ -91,12 +108,12 @@ const Form = () => {
         />
         <div className="pr-[26px]">
           <p className="text-sm text-bb22 font-medium">
-            이미지를 업로드해주세요. (선택, 최대 10장)
+            이미지를 업로드해주세요. (최대 10장, )
           </p>
 
           <div
             className="
-            flex flex-row flex-nowrap overflow-x-scroll"
+            flex flex-row flex-nowrap overflow-x-auto"
           >
             <label
               htmlFor="img-File"
@@ -139,26 +156,29 @@ const Form = () => {
             })}
           </div>
           <textarea
-            className="outline-0 mt-6 w-full rounded-md h-[324px] text-start p-6 text-sm text-bb22 placeholder:text-bb88 overflow-y-auto break-all"
+            className="outline-0 mt-3 w-full rounded-md h-[324px] text-start p-6 text-sm text-bb22 placeholder:text-bb88 overflow-y-auto break-all"
             defaultValue={postInput.content || ""}
             // value={postInput.content || ""}
             name="content"
             onChange={postInputHandle}
             placeholder="내용을 입력하세요"
           />
-          <div className="flex text-sm text-bb22 p-6 items-center h-14 mt-6 rounded-t-md w-full bg-white border-b border-bbBB">
+          <div className="flex text-sm text-bb22 p-6 items-center h-14 mt-1 rounded-t-md w-full bg-white border-b border-bbBB">
             <p>#</p>
             <input
               className="ml-0.5 outline-0 placeholder:text-bb88 text-sm w-full"
-              defaultValue={data !== null ? data.tag : postInput.tag || ""}
+              value={tag}
               type="text"
               maxLength="20"
               // value={postInput.tag || ""}
               name="tag"
-              onChange={postInputHandle}
+              onChange={onTagChange}
               placeholder="태그를 입력하세요"
             />
-            <button className="w-6 h-6 rounded-full  bg-[#efefef] flex justify-center items-center">
+            <div
+              onClick={onButtonClick}
+              className="w-6 h-6 rounded-full  bg-[#efefef] flex justify-center items-center"
+            >
               <svg
                 width="12"
                 height="12"
@@ -171,10 +191,19 @@ const Form = () => {
                   fill="#222222"
                 />
               </svg>
-            </button>
+            </div>
           </div>
-          <ul>
-            {[
+          <ul className="rounded-b-md bg-white h-[240px] px-[24px] py-[16px]">
+            <div className="flex flex-wrap">
+              {tags.map((tag) => {
+                return (
+                  <div className="text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md">
+                    # {tag}
+                  </div>
+                )
+              })}
+            </div>
+            {/* {[
               ["Home", "/"],
               ["Team", "/"],
               ["Projects", "/"],
@@ -186,11 +215,11 @@ const Form = () => {
               >
                 <a href={url}>{title}</a>
               </li>
-            ))}
+            ))} */}
           </ul>
           <div className="flex justify-end">
             <button
-              className="w-[128px] h-10 mt-4 rounded-full bg-bbpink text-white text-sm font-medium"
+              className="w-[128px] h-10 mt-3 rounded-full bg-bbpink text-white text-sm font-medium"
               onClick={onPost}
               color="reverse"
               size="medium"
