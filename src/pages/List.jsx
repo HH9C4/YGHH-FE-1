@@ -37,7 +37,6 @@ const List = () => {
     dispatch(__getContent(obj));
   }, [page, params, likeId, isLiked])
 
-  //기존 유즈이펙트
   useEffect(() => {
     getItems()
   }, [getItems])
@@ -56,8 +55,7 @@ const List = () => {
   }
     , [params])
 
-  console.log("콘텐츠", contents)
-  console.log("select", select)
+
   let obj = {
     page: page,
     gu: params.gu,

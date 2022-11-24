@@ -19,21 +19,23 @@ const Landing = ({ data, onClose }) => {
   return (
     <Layout>
       <div className='w-[400px] flex flex-wrap flex-row justify-center '>
-        <p className='mt-[51px] mb-[60px] text-center font-bold'>찾고 계신 장소의 지역구를<br />
-          여기에서 검색해보세요</p>
+        <p className='mt-[64px] text-[24px]  text-center font-bold'>원하는 장소가 맞으신가요?</p>
+        <div className='bg-white mt-[24px] pt-2.5 w-[330px] h-[46px] text-[14px] font-semibold text-center rounded-[8px]'>{data}</div>
         <button
-          className="mx-[26px] text-[20px] w-[330px] h-[48px]  text-white bg-bbpink text-center"
+          className="mx-[26px] text-[14px] text-bb22 mt[12px] underline decoration-solid  w-[330px] h-[48px]  text-center"
           onClick={onClose}
         >
-          원하는 장소 다시 찾아보기
+          재검색하기
         </button>
-        <div className='bg-white mt-[12px] pt-2.5 w-[330px] h-[46px] text-sm font-semibold text-center'>{data}</div>
-        <button
-          onClick={() => window.location.replace(`/list/${gu[1]}/all/new`)}
-          className='mx-[26px] mt-[24px] text-[20px] w-[330px] h-[48px]  text-white bg-bbpink'>선택한 지역 커뮤니티 바로가기</button>
         <button
           onClick={() => window.location.replace(`/info/${gu[1]}`)}
-          className='mx-[26px] mt-[24px] text-[20px] w-[330px] h-[48px]  text-white bg-bbpink'>선택한 지역 정보 바로가기</button>
+          className='mx-[26px] mt-[56px]  text-[14px] w-[330px] h-[48px] rounded-[100px] 
+          font-semibold bg-white'>선택한 지역 정보 바로가기</button>
+        <button
+          onClick={() => window.location.replace(`/list/${gu[1]}/all/new`)}
+          className='mx-[26px] mt-[12px] text-[14px] w-[330px] h-[48px] rounded-[100px] 
+          font-semibold bg-white'>선택한 지역 커뮤니티 바로가기</button>
+
       </div>
     </Layout>
   )

@@ -71,7 +71,7 @@ const Search = () => {
                   {params.searchWord} ({posts.sizeOfList})
                 </p>
 
-                <div className='mt-6 mb-4'>
+                <div className='mt-[12px] mb-4'>
                   {params.sort === "new" ? (
                     <button
                       className="mr-3 font-bold text-bb22"
