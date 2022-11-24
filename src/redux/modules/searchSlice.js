@@ -43,6 +43,19 @@ export const __getHotTag = createAsyncThunk(
   }
 )
 
+export const __getInfo = createAsyncThunk(
+  "contents/__getInfo",
+  async (gu, thunkAPI) => {
+    try {
+      const res = await contentsApis.infoAX(gu)
+      return thunkAPI.fulfillWithValue(res.data.data)
+    } catch (error) {
+      alert(error.response.data.msg)
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
 export const searchSlice = createSlice({
   name: "search",
   initialState,
@@ -82,6 +95,19 @@ export const searchSlice = createSlice({
       state.hotTag = action.payload.data
     },
     [__getHotTag.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.error = action.payload
+    },
+    [__getInfo.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__getInfo.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.info = action.payload
+    },
+    [__getInfo.rejected]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
       state.error = action.payload

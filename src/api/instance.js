@@ -76,7 +76,12 @@ export const contentsApis = {
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
   getContentAX: (obj) =>
     hInstance.get(`/api/posts`, {
-      params: { gu: obj.gu, sort: obj.sort, category: obj.category, page: obj.page },
+      params: {
+        gu: obj.gu,
+        sort: obj.sort,
+        category: obj.category,
+        page: obj.page,
+      },
     }),
   // {
   //   let decode = decodeURI(decodeURIComponent(obj.gu))
@@ -140,6 +145,12 @@ export const contentsApis = {
     hInstance.delete(
       `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
     ),
+
+  // 지역구별 정보
+  infoAX: (gu) =>
+    hInstance.get(`api/guinfo`, {
+      params: { gu: gu },
+    }),
 }
 
 export default { hInstance, nhInstance }

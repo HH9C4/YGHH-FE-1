@@ -37,20 +37,15 @@ const LineChartContainer = () => {
     },
   ]
   return (
-    <div className="overflow-x-auto">
-      <LineChart
-        width={730}
-        height={280}
-        data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-      >
+    <div className="overflow-x-auto flex justify-center items-center bg-white rounded-md h-[184px] mt-[12px] py-[16px]">
+      <LineChart width={400} height={160} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-        <Line type="monotone" dataKey="pv" stroke="#BBBBBB" />
+        <Line type="monotone" dataKey="uv" stroke="#9853f0" />
+        <Line type="monotone" dataKey="pv" stroke="#888888" />
       </LineChart>
     </div>
   )
