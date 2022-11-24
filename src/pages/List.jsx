@@ -60,6 +60,7 @@ const List = () => {
     gu: params.gu,
     sort: params.sort,
     category: params.category,
+    page: page,
   }
 
   useEffect(() => {
