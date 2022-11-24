@@ -101,6 +101,9 @@ export const contentsApis = {
   //마이페이지 내가 작성한 글
   getmypageAX: () => hInstance.get(`/api/myposts`),
 
+  //마이페이지 수정
+  modifyAX: (data) => hInstance.put(`/api/myinfo`, data),
+
   //   (👎미정)마이페이지 좋아요
   mypageLikedAX: () => hInstance.get(`/api/mylikes`),
 
