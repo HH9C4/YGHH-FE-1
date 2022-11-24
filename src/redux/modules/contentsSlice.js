@@ -257,6 +257,26 @@ export const __mypage = createAsyncThunk(
     }
   }
 )
+
+//마이페이지 수정
+export const __mypageModify = createAsyncThunk(
+  "contents/__mypageModify",
+  async (payload, thunkAPI) => {
+    try {
+      console.log("마이페이지 수정 페이로드", payload);
+      const res = await contentsApis.modifyAX(payload)
+      console.log("마이페이지 수정 리스폰", res);
+      //나중에 리듀서로 리팩토링 예정
+      localStorage.setItem("profileImage", res.data.data.profileImage)
+      localStorage.setItem("nickName", res.data.data.accountName)
+      // window.location.replace("/mypage")
+      // return thunkAPI.fulfillWithValue(res.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
 export const contentsSlice = createSlice({
   name: "contents",
   initialState: {

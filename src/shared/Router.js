@@ -15,7 +15,7 @@ import OAuthNaverLogin from "../components/Login/OAuthNaverLogin"
 import FindAddress from "../pages/FindAddress"
 import PopulationInfo from "../pages/PopulationInfo"
 import LoginDev from "../pages/LoginDev"
-
+import Setting from '../pages/Setting'
 const Router = () => {
   return (
     <BrowserRouter>
@@ -34,6 +34,7 @@ const Router = () => {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/bookmark" element={<BookMark />} />
         <Route path="/address" element={<FindAddress />} />
+        <Route path="/setting" element={<Setting />} />
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
         {/* 카카오 */}
         <Route path="/user/kakao/callback" element={<OAuth2LoginHandler />} />
