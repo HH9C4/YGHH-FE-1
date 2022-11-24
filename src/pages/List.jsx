@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Post from "../components/features/Post"
@@ -11,6 +11,7 @@ import SelectGu from "../components/features/SelectGu"
 
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
+import { useInView } from "react-intersection-observer"
 
 const List = () => {
   const [gu, setGu] = useState("")
@@ -33,8 +34,9 @@ const List = () => {
   const [ref, inView] = useInView()
 
   /**  서버에서 아이템을 가지고 오는 함수 */
-  const getItems = useCallback(async () => { //의존하는 값(deps)들이 바뀌지 않는 한 기존 함수를 재사용할 수 있습니다.
-    dispatch(__getContent(obj));
+  const getItems = useCallback(async () => {
+    //의존하는 값(deps)들이 바뀌지 않는 한 기존 함수를 재사용할 수 있습니다.
+    dispatch(__getContent(obj))
   }, [page, params, likeId, isLiked])
 
   useEffect(() => {
@@ -44,7 +46,7 @@ const List = () => {
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView && !loading) {
-      setPage(prevState => prevState + 1)
+      setPage((prevState) => prevState + 1)
 
       // console.log("페이지",page)
     }
@@ -52,9 +54,7 @@ const List = () => {
 
   useEffect(() => {
     setPage(0)
-  }
-    , [params])
-
+  }, [params])
 
   let obj = {
     gu: params.gu,
