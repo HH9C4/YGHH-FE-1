@@ -154,7 +154,6 @@ export const __deactivateBookmark = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.bookMarkOffAX(payload)
-      console.log(res, "북마크 비활성화")
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -168,7 +167,6 @@ export const __deactivateBookmarkPage = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.bookMarkOffAX(payload)
-      console.log(res, "북마크 페이지 비활성화")
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -197,10 +195,8 @@ export const __getContent = createAsyncThunk(
 export const __getContentDetail = createAsyncThunk(
   "contents/__getContentDetail",
   async (payload, thunkAPI) => {
-    console.log("상세조회 payload", payload)
     try {
       const res = await contentsApis.getContentDetailAX(payload)
-      console.log("상세조회 res", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -230,15 +226,6 @@ export const __deleteContent = createAsyncThunk(
         const res = await contentsApis.deleteContentAX(payload)
         window.location.replace(`/list/${res.data.data}/all/new`)
       }
-      // const res = await contentsApis.deleteContentAX(payload)
-      // const obj = {
-      //     delContentId: payload,
-      //     data: res.data,
-      // }
-      // console.log("삭제 리스폰스 값 : ", res);
-      // if (window.confirm("게시글을 삭제하시겠습니까?")) {
-      //   window.location.replace(`/list/${res.data.data}`)
-      // }
       return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -427,13 +414,6 @@ export const contentsSlice = createSlice({
     },
     [__deactivateBookmarkPage.fulfilled]: (state, action) => {
       state.isLoading = false
-      console.log()
-      // const indexID = state.bookmarks.findIndex((item) => {
-      //   if (item.gu === action.payload.gu) {
-      //     return true
-      //   }
-      //   return false
-      // }
       state.bookmarks = state.bookmarks.filter(
         (item) => item.gu !== action.payload.gu
       )
@@ -480,13 +460,13 @@ export const contentsSlice = createSlice({
       state.isLoading = true
     },
     [__getContent.fulfilled]: (state, action) => {
-      console.log("게시글 전체조회 액션 페이로드", action.payload);
+
       state.isLoading = false
       if (action.payload.payload.page === 0) {
         state.contents.splice(0)
         state.contents.push(...action.payload.data.postList)
       } else {
-        state.contents.push(...action.payload.data.postList)// 기존에 있던 리스트에서 뒤에 붙여줘야하기 때문에 push를 써줘야함
+        state.contents.push(...action.payload.data.postList)
       }
       state.bookmark = action.payload.isBookmarked
     },

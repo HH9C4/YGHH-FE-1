@@ -25,7 +25,7 @@ const Post = ({ posts }) => {
     autoplaySpeen: 200,
   }
 
-  console.log("gggg", posts)
+
   const level = 1
   return (
     <>

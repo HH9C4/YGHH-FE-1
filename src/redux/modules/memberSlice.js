@@ -18,7 +18,7 @@ export const __testLogin = createAsyncThunk(
       localStorage.setItem("site", "kakao")
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
-      // window.location.replace("/")
+      window.location.replace("/")
       console.log("2차 되나?", res)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
