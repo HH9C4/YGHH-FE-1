@@ -19,6 +19,14 @@ const Mypage = () => {
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
 
+
+
+
+
+
+
+
+
   return (
     <Layout>
       {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}
@@ -99,6 +107,7 @@ const Mypage = () => {
               </li>
             </ul>
             <Mypost />
+
           </>
         ) : (
           <>
