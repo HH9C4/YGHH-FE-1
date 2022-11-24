@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react"
+import React, { useRef, useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Post from "../components/features/Post"
@@ -8,7 +8,7 @@ import {
   __deactivateBookmark,
 } from "../redux/modules/contentsSlice"
 import SelectGu from "../components/features/SelectGu"
-import { useInView } from 'react-intersection-observer'
+
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
 
@@ -57,12 +57,14 @@ const List = () => {
 
 
   let obj = {
-    page: page,
     gu: params.gu,
     sort: params.sort,
     category: params.category,
   }
 
+  useEffect(() => {
+    dispatch(__getContent(obj))
+  }, [params, likeId, isLiked])
 
   //북마크 활성화 함수
   const bookMarkOn = () => {
@@ -293,12 +295,10 @@ const List = () => {
         </div>
         <div className="mx-[26px] mt-4">
           <Post posts={contents} />
-          <div ref={ref}></div>
         </div>
         <EditBtn />
       </Layout>
     </div>
-
   )
 }
 
