@@ -4,30 +4,59 @@ import {
   __insertContent,
   __updataContent,
   __getContentDetail,
+  insertTags,
+  removeTags,
 } from "../../redux/modules/contentsSlice"
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
-
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Category from "../elements/Category"
 
-const UpdateForm = (props) => {
-  //커스텀 훅 사용
-  const [postInput, setPostInput, postInputHandle] = useInput({
-    category: "",
-    tag: [],
-    content: "",
-  })
-  console.log("프롭", props.id, props.data)
-  const param = useParams("")
-  // const [tag, setTag] = useState("")
-
-  const { isSuccess, error } = useSelector((state) => state)
+const UpdateForm = ({ data }) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const param = useParams()
+  const id = data.postId
+
   const state = useLocation()
-  const data = state.state
+  const state2 = state.state
+
+  //커스텀 훅 사용
+  const [postInput, setPostInput, postInputHandle] = useInput({
+    category: "",
+    content: "",
+  })
+
+  //태그
+  const [tag, setTag] = useState("")
+
+  const onTagChange = (e) => {
+    setTag(e.target.value)
+  }
+  const tags = useSelector((state) => state.contents.tagList)
+  console.log("tags", tags)
+
+  const onKeyUp = (e) => {
+    if ([","].indexOf(e.key) !== -1) {
+      onButtonClick()
+    }
+  }
+
+  const onButtonClick = () => {
+    const filtered = tag.replace(
+      /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
+      ""
+    )
+    if (filtered !== "") {
+      dispatch(insertTags(filtered))
+      setTag("")
+    } else {
+      alert("태그를 입력해주세요.")
+    }
+  }
+  console.log("태그추가", data.tagList.push(...tags))
+  const { isSuccess, error } = useSelector((state) => state)
 
   //이미지 업로드 훅
   const [files, fileUrls, uploadHandle] = useImgUpload(10, false, 0.3, 1000)
@@ -36,50 +65,52 @@ const UpdateForm = (props) => {
   const imgRef = useRef()
 
   //submit
-  const onPost = (e) => {
+  const onEdit = (e) => {
     e.preventDefault()
     const formData = new FormData()
-    //폼 데이터 관리
     if (files.length > 0) {
       files.forEach((file) => {
         formData.append("imageList", file)
       })
     } else {
     }
-
     let obj = {
-      category: postInput.category,
       gu: param.gu,
+      category: postInput.category,
       content: postInput.content,
-      tagList: [postInput.tag],
+      tagList: tags,
+      deleteUrl: [],
     }
-
-    // formData.append("contents", JSON.stringify(obj))
     formData.append(
       "contents",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
-    dispatch(__updataContent(formData))
-  }
-  console.log(postInput.category)
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/")
-    } else {
-      if (error !== undefined) console.log(error)
+    let editObj = {
+      obj: formData,
+      id: id,
     }
-  }, [isSuccess, error, navigate])
+    dispatch(__updataContent(editObj))
+  }
+
+  useEffect(() => {
+    dispatch(insertTags(...data.tagList))
+  }, [])
+
+  // useEffect(() => {
+  //   if (isSuccess) {
+  //     navigate("/")
+  //   } else {
+  //     if (error !== undefined) console.log(error)
+  //   }
+  // }, [isSuccess, error, navigate])
 
   useEffect(() => {
     console.log(files)
   }, [files])
 
-  const onImg = () => {
-    imgRef.current.click()
-  }
   return (
     <>
-      <form className="pl-[25px]">
+      <form className="pl-[25px] pb-[190px]">
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
@@ -90,12 +121,12 @@ const UpdateForm = (props) => {
         />
         <div className="pr-[26px]">
           <p className="text-sm text-bb22 font-medium">
-            이미지를 업로드해주세요. (선택, 최대 10장)
+            이미지를 업로드해주세요. (최대 10장, 1:1비율로 자동 조정)
           </p>
 
           <div
             className="
-            flex flex-row flex-nowrap overflow-x-scroll"
+            flex flex-row flex-nowrap overflow-x-auto"
           >
             <label
               htmlFor="img-File"
@@ -126,6 +157,14 @@ const UpdateForm = (props) => {
                 />
               </svg>
             </label>
+            {data.imageUrl.map((img) => {
+              return (
+                <img
+                  className="w-[100px] h-[100px] rounded-md my-3 mr-3 shrink-0 object-cover"
+                  src={img}
+                ></img>
+              )
+            })}
             {fileUrls.map((value) => {
               return (
                 <img
@@ -138,26 +177,30 @@ const UpdateForm = (props) => {
             })}
           </div>
           <textarea
-            className="outline-0 mt-6 w-full rounded-md h-[324px] text-start p-6 text-sm text-bb22 placeholder:text-bb88 overflow-y-auto break-all"
-            defaultValue={postInput.content || ""}
+            className="outline-0 mt-3 w-full rounded-md h-[324px] text-start p-6 text-sm text-bb22 placeholder:text-bb88 overflow-y-auto break-all"
+            defaultValue={data.content}
             // value={postInput.content || ""}
             name="content"
             onChange={postInputHandle}
             placeholder="내용을 입력하세요"
           />
-          <div className="flex text-sm text-bb22 p-6 items-center h-14 mt-6 rounded-t-md w-full bg-white border-b border-bbBB">
+          <div className="flex text-sm text-bb22 p-6 items-center h-14 mt-1 rounded-t-md w-full bg-white border-b border-bbBB">
             <p>#</p>
             <input
               className="ml-0.5 outline-0 placeholder:text-bb88 text-sm w-full"
-              defaultValue={data !== null ? data.tag : postInput.tag || ""}
+              value={tag}
               type="text"
               maxLength="20"
-              // value={postInput.tag || ""}
+              onKeyUp={onKeyUp}
               name="tag"
-              onChange={postInputHandle}
-              placeholder="태그를 입력하세요"
+              onChange={onTagChange}
+              placeholder="쉼표(,)로 태그를 추가할 수 있어요"
             />
-            <button className="w-6 h-6 rounded-full  bg-[#efefef] flex justify-center items-center">
+            <div
+              onClick={onButtonClick}
+              // onKeyUp={onKeyUp}
+              className="w-6 h-6 ml-[8px] rounded-full  bg-[#efefef] flex justify-center items-center"
+            >
               <svg
                 width="12"
                 height="12"
@@ -170,10 +213,33 @@ const UpdateForm = (props) => {
                   fill="#222222"
                 />
               </svg>
-            </button>
+            </div>
           </div>
-          <ul>
-            {[
+          <ul className="rounded-b-md bg-white h-[240px] px-[24px] py-[16px]">
+            <div className="flex flex-wrap">
+              {/* {data.tagList.map((before) => {
+                return (
+                  <div
+                    name={before}
+                    className="text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md"
+                  >
+                    {before}
+                  </div>
+                )
+              })} */}
+
+              {tags.map((tag) => {
+                return (
+                  <div
+                    name={tag}
+                    className="text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md"
+                  >
+                    # {tag}
+                  </div>
+                )
+              })}
+            </div>
+            {/* {[
               ["Home", "/"],
               ["Team", "/"],
               ["Projects", "/"],
@@ -185,12 +251,12 @@ const UpdateForm = (props) => {
               >
                 <a href={url}>{title}</a>
               </li>
-            ))}
+            ))} */}
           </ul>
           <div className="flex justify-end">
             <button
-              className="w-[128px] h-10 mt-4 rounded-full bg-bbpink text-white text-sm font-medium"
-              onClick={onPost}
+              className="w-[128px] h-10 mt-3 rounded-full bg-gradient-to-r from-bbpink to-bbpurple text-white text-sm font-medium"
+              onClick={onEdit}
               color="reverse"
               size="medium"
             >

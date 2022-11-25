@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import SpotContainer from "../components/charts/SpotContainer"
 import Layout from "../components/layout/Layout"
 import { __getInfo } from "../redux/modules/searchSlice"
-import SelectGu from "../components/features/SelectGu"
+import SelectInfo from "../components/features/SelectInfo"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
@@ -48,9 +48,11 @@ const PopulationInfo = () => {
             <div className="flex flex-row justify-between items-center">
               <div className="flex">
                 <h1 className="font-bold text-xl">
-                  {params.gu !== "중구"
+                  {params.gu !== "중구" && params.gu !== "구로구"
                     ? params.gu.substring(0, params.gu.indexOf("구"))
-                    : params.gu}
+                    : params.gu !== "구로구"
+                    ? "중구"
+                    : "구로"}
                   붐비
                 </h1>
               </div>
@@ -73,7 +75,7 @@ const PopulationInfo = () => {
                     </svg>
                     <div className="z-20 w-full h-full px-auto fixed top-[130px] left-0 bg-bbLpurple">
                       <div className="mt-3 w-[90%] max-w-[375px] mx-auto">
-                        <SelectGu />
+                        <SelectInfo />
                       </div>
                     </div>
                   </>
@@ -95,38 +97,49 @@ const PopulationInfo = () => {
             </div>
           </div>
         </div>
+
         {guInfo && (
           <>
-            <ul className="text-bb22 flex justify-between p-[16px] mt-[32px] rounded-md ml-[25px] mr-[26px] h-[84px] bg-white">
-              <li className="text-[14px] font-bold">코로나</li>
-              <li className="flex flex-col items-center">
-                <p className="text-[12px] font-medium">오늘 신규확진자 수</p>
-                <p className="text-[20px] font-semibold">{guInfo.gu_added}</p>
-              </li>
-              <li className="flex flex-col items-center">
-                <p className="text-[12px] font-medium">
-                  {guInfo.gu_nm} 누적확진자 수
-                </p>
-                <p className="text-[20px] font-semibold">
-                  {Number(guInfo.gu_confirmed) > 1000
-                    ? `${guInfo.gu_confirmed.substring(
-                        0,
-                        guInfo.gu_confirmed.length - 3
-                      )}K`
-                    : guInfo.gu_confirmed}
-                </p>
-              </li>
-            </ul>
-            {guInfo.spotInfoList.map((spot) => {
-              return (
-                <SpotContainer
-                  key={spot.gu_nm}
-                  Slider={Slider}
-                  settings={settings}
-                  spot={spot}
-                />
-              )
-            })}
+            {guInfo !== undefined ? (
+              <>
+                <ul className="text-bb22 flex justify-between p-[16px] mt-[32px] rounded-md ml-[25px] mr-[26px] h-[84px] bg-white">
+                  <li className="text-[14px] font-bold">코로나</li>
+                  <li className="flex flex-col items-center">
+                    <p className="text-[12px] font-medium">
+                      오늘 신규확진자 수
+                    </p>
+                    <p className="text-[20px] font-semibold">
+                      {guInfo.gu_added}
+                    </p>
+                  </li>
+                  <li className="flex flex-col items-center">
+                    <p className="text-[12px] font-medium">
+                      {guInfo.gu_nm} 누적확진자 수
+                    </p>
+                    <p className="text-[20px] font-semibold">
+                      {Number(guInfo.gu_confirmed) > 1000
+                        ? `${guInfo.gu_confirmed.substring(
+                            0,
+                            guInfo.gu_confirmed.length - 3
+                          )}K`
+                        : guInfo.gu_confirmed}
+                    </p>
+                  </li>
+                </ul>
+                {guInfo.spotInfoList.map((spot) => {
+                  return (
+                    <SpotContainer
+                      key={spot.gu_nm}
+                      Slider={Slider}
+                      settings={settings}
+                      spot={spot}
+                    />
+                  )
+                })}
+              </>
+            ) : (
+              <div>아직 {localStorage.getItem("gu")} 는 준비중입니다 😢</div>
+            )}
           </>
         )}
       </Layout>

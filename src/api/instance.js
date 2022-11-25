@@ -91,7 +91,12 @@ export const contentsApis = {
 
   searchAX: (obj) =>
     hInstance.get(`api/posts/search`, {
-      params: { type: obj.type, searchWord: obj.searchWord, sort: obj.sort, page: obj.page },
+      params: {
+        type: obj.type,
+        searchWord: obj.searchWord,
+        sort: obj.sort,
+        page: obj.page,
+      },
     }),
   // hInstance.get(`api/posts/search`, {
   //   params: `{ type= ${obj.type}&searchWord=${obj.searchWord}&sort= ${obj.sort}&page=${obj.page}`,
@@ -148,7 +153,7 @@ export const contentsApis = {
 
   // 지역구별 정보
   infoAX: (gu) =>
-    hInstance.get(`api/guinfo`, {
+    hInstance.get(`/api/guinfo`, {
       params: { gu: gu },
     }),
 }

@@ -35,12 +35,28 @@ const BarChartContainer = ({ spot }) => {
   }
   return (
     <div className="overflow-x-auto flex justify-center bg-white h-[128px] rounded-md mt-[12px] py-[32px]">
-      <BarChart barGap={10} width={350} height={110} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
+      <BarChart
+        margin={{ top: 15, right: 10, left: 0, bottom: -20 }}
+        barGap={10}
+        width={350}
+        height={100}
+        data={data}
+      >
+        <CartesianGrid
+          vertical={false}
+          horizontal={false}
+          strokeDasharray="3 3"
+        />
         <XAxis dataKey="name" axisLine={false} tickLine={false} />
         <YAxis axisLine={false} tickLine={false} type={"number"} />
-        <Tooltip />
-        <Legend />
+        <Tooltip style={{ fontSize: "12px" }} />
+        <Legend
+          viewBox={{ width: "300px", height: "20px" }}
+          verticalAlign="bottom"
+          height={24}
+          offset={0}
+          iconSize={10}
+        />
         <Bar
           dataKey="10대"
           label={{ position: "top", fontSize: "12px" }}

@@ -19,13 +19,32 @@ const LineChartContainer = ({ data }) => {
   return (
     <div className="overflow-x-auto flex justify-center items-center bg-white rounded-md h-[184px] mt-[12px] py-[16px]">
       <LineChart width={400} height={180} data={data}>
-        <CartesianGrid strokeDasharray="3 3" />
+        <CartesianGrid vertical={false} strokeDasharray="3 3" />
         <XAxis dataKey="name" />
-        <YAxis />
+        <YAxis
+          minTickGap={1}
+          allowDataOverflow={false}
+          width={100}
+          type="number"
+          interval="preserveStartEnd"
+          domain={[0, "dataMax + dataMin"]}
+        />
         <Tooltip />
-        <Legend />
-        <Line type="monotone" dataKey="today" stroke="#9853f0" />
-        <Line type="monotone" dataKey="last" stroke="#888888" />
+        <Legend verticalAlign="top" height={24} />
+        <Line
+          type="monotone"
+          dot={false}
+          name="오늘"
+          dataKey="today"
+          stroke="#9853f0"
+        />
+        <Line
+          type="monotone"
+          dot={false}
+          name="지난주"
+          dataKey="last"
+          stroke="#888888"
+        />
       </LineChart>
     </div>
   )

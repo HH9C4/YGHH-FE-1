@@ -1,9 +1,16 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
+import React, { useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import logo from "../../assets/img/logo.svg"
 const Header = () => {
   const navigate = useNavigate()
   console.log(localStorage.getItem("nickName"))
+  const params = useParams()
+
+  useEffect(() => {
+    if (params.gu !== "undefined") {
+      localStorage.setItem("gu", params.gu)
+    }
+  }, [params])
 
   return (
     <div className="px-6 bg-bbLpurple border-b-[0.5px] border-bbBB flex justify-between items-center h-[52px]">
