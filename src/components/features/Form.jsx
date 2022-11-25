@@ -117,7 +117,7 @@ const Form = () => {
         />
         <div className="pr-[26px]">
           <p className="text-sm text-bb22 font-medium">
-            이미지를 업로드해주세요. (최대 10장, )
+            이미지를 업로드해주세요. (최대 10장, 1:1비율로 자동 조정)
           </p>
 
           <div

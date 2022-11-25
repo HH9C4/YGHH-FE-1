@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import SelectGu from "../components/features/SelectGu"
+import SelectInfo from "../components/features/SelectInfo"
 import Layout from "../components/layout/Layout"
 const Home = () => {
   const navigate = useNavigate()
@@ -25,7 +25,7 @@ const Home = () => {
           어느 구인지 이미 아시나요?
         </h2>
         <div className="px-6">
-          <SelectGu />
+          <SelectInfo />
         </div>
       </div>
     </Layout>

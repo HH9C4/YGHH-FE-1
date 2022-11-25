@@ -66,7 +66,7 @@ const DetailPost = ({ data }) => {
                 {data.imageUrl.map((img) => {
                   return (
                     <img
-                      className="shrink-0 w-full"
+                      className="mt-[12px] shrink-0 w-full h-[300px] object-cover"
                       key={img}
                       onClick={() => navigate(`/detail/${data.postId}`)}
                       src={img}
@@ -104,11 +104,9 @@ const DetailPost = ({ data }) => {
                   <button
                     key={postTag}
                     className="w-15 h-8 mr-2 mb-2 text-bb22 rounded px-[9px] bg-bbyellow text-xs "
-                    onClick={() =>
-                      navigate(`/search/1/${postTag.substring(1)}/new`)
-                    }
+                    onClick={() => navigate(`/search/1/${postTag}/new`)}
                   >
-                    {postTag}
+                    # {postTag}
                   </button>
                 )
               })}

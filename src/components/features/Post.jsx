@@ -12,12 +12,12 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
 const Post = ({ posts }) => {
-
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
   const settings = {
     dots: true,
+
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -25,8 +25,6 @@ const Post = ({ posts }) => {
     autoplay: true,
     autoplaySpeen: 200,
   }
-
-
 
   const level = 1
   return (
@@ -54,7 +52,7 @@ const Post = ({ posts }) => {
                   </div>
 
                   {data.imageUrl && data.imageUrl.length !== 0 ? (
-                    <>
+                    <div className="mt-[12px] ">
                       {/* <div className="flex flex-row mx-auto mt-4"> */}
                       <Slider {...settings}>
                         {data.imageUrl.map((img) => {
@@ -69,22 +67,27 @@ const Post = ({ posts }) => {
                         })}
                       </Slider>
                       {/* </div> */}
-                    </>
+                    </div>
                   ) : (
                     ""
                   )}
 
                   {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
-                  <div className="mt-6 flex items-center">
-                    <Likes
-                      data={data.postId}
-                      level={level}
-                      isLiked={data.isLiked}
-                      count={data.likeCount}
 
-                    />
-                    <div className="ml-1 text-lg text-bb22 font-semibold">
-                      {data.likeCount}
+                  <div className="mt-6 flex items-center justify-between">
+                    <div className="flex items-center">
+                      <Likes
+                        data={data.postId}
+                        level={level}
+                        isLiked={data.isLiked}
+                        count={data.likeCount}
+                      />
+                      <div className="ml-1 text-lg text-bb22 font-semibold">
+                        {data.likeCount}
+                      </div>
+                    </div>
+                    <div className="w-[40px] h-[24px] border-bb22 leading-5 border-[0.5px] text-center rounded-md text-bb22 text-[14px]">
+                      {data.category}
                     </div>
                   </div>
                   <div
@@ -100,11 +103,9 @@ const Post = ({ posts }) => {
                           <button
                             key={postTag}
                             className="w-15 h-8 mr-2 mb-2 text-bb22 rounded px-[9px] bg-bbyellow text-xs "
-                            onClick={() =>
-                              navigate(`/search/1/${postTag.substring(1)}/new`)
-                            }
+                            onClick={() => navigate(`/search/1/${postTag}/new`)}
                           >
-                            {postTag}
+                            # {postTag}
                           </button>
                         )
                       })}

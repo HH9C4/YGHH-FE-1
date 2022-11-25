@@ -205,7 +205,7 @@ const SpotContainer = ({ spot, settings, Slider }) => {
                 </div>
               </div>
             </div>
-            <p className="px-[16px] py-[16px] text-bb22 text-[12px] text-center">
+            <p className="px-[16px] py-[16px] text-bb22 text-[11px] text-center">
               {spot.air_msg}
             </p>
           </section>

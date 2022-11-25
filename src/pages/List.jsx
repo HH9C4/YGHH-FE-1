@@ -27,8 +27,8 @@ const List = () => {
   const onSelect = () => {
     setSelect(!select)
   }
-  console.log("전체 콘텐츠 값", contents);
-  console.log("북마크값", bookmark);
+  console.log("전체 콘텐츠 값", contents)
+  console.log("북마크값", bookmark)
   const [page, setPage] = useState(0) //페이지수
 
   const [loading, setLoading] = useState(false)
@@ -39,7 +39,6 @@ const List = () => {
     dispatch(__getContent(obj))
     // }, [page, params, likeId, isLiked])
   }, [page, params])
-
 
   useEffect(() => {
     getItems()
@@ -64,7 +63,7 @@ const List = () => {
     category: params.category,
     page: page,
   }
-  console.log("페이지", page);
+  console.log("페이지", page)
 
   // useEffect(() => {
   //   dispatch(__getContent(obj))
@@ -94,9 +93,11 @@ const List = () => {
             <div className="flex flex-row justify-between items-center">
               <div className="flex">
                 <h1 className="font-bold text-xl">
-                  {params.gu !== "중구"
+                  {params.gu !== "중구" && params.gu !== "구로구"
                     ? params.gu.substring(0, params.gu.indexOf("구"))
-                    : params.gu}
+                    : params.gu !== "구로구"
+                    ? "중구"
+                    : "구로"}
                   붐비
                 </h1>
                 {/* 북마크 토글러 함수 실행 */}
@@ -304,7 +305,6 @@ const List = () => {
         </div>
         <EditBtn />
       </Layout>
-
     </div>
   )
 }
