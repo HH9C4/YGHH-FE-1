@@ -6,8 +6,10 @@ import Layout from "../components/layout/Layout"
 
 const Write = () => {
   const navigate = useNavigate()
-  const params = useParams
+  const params = useParams()
   const state = useLocation()
+  const data = state.state
+  console.log("콘솔", params.id)
   return (
     <Layout>
       <div className="flex pt-6 ml-[25px] mb-8">
@@ -28,9 +30,11 @@ const Write = () => {
             />
           </svg>
         </button>
-        <h1 className="text-bb22 font-bold text-lg">새 게시물 작성</h1>
+        <h1 className="text-bb22 font-bold text-lg">
+          {params.id !== undefined ? "게시글 수정" : "새 게시물 작성"}
+        </h1>
       </div>
-      {params.id !== undefined ? <UpdateForm data={state.state} /> : <Form />}
+      {params.id !== undefined ? <UpdateForm data={data} /> : <Form />}
     </Layout>
   )
 }
