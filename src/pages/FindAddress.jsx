@@ -15,11 +15,10 @@ const FindAddress = () => {
     pageBgColor: "#FFFFFF", //페이지 배경색
     textColor: "#444444", //기본 글자색
     queryTextColor: "#222222", //검색창 글자색
-    postcodeTextColor: "#FF6FB5", //우편번호 글자색
-    emphTextColor: "#9853F0", //강조 글자색
+    postcodeTextColor: "#9853F0", //우편번호 글자색
+    emphTextColor: "#6F75FF", //강조 글자색
     outlineColor: "#F6EFFF", //테두리
   }
-
   const postCodeStyle = {
     display: "block",
     position: "relative",

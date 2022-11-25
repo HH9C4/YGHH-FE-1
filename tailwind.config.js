@@ -17,7 +17,7 @@ module.exports = {
       bbpurple: "#9853F0",
       bbLpurple: "#F6EFFF",
       bbyellow: "#FFEC8A",
-      bbpink: "#FF6FB5",
+      bbpink: "#6F75FF",
       bb22: "#222222",
       bb66: "#666666",
       bb88: "#888888",
