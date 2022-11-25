@@ -144,7 +144,7 @@ const Setting = () => {
                         <p className='text-[14px] font-medium '>연결된 계정</p>
                         <div className='flex items-center'>
                             {
-                                localStorage.getItem("site" === "naver") ?
+                                localStorage.getItem("site") === "naver" ?
                                     <>
                                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M14.4 16H1.6C0.72 16 0 15.28 0 14.4V1.6C0 0.719999 0.72 0 1.6 0H14.4C15.28 0 16 0.719999 16 1.6V14.4C16 15.28 15.28 16 14.4 16Z" fill="#02C75A" />
@@ -162,7 +162,7 @@ const Setting = () => {
                                         <p className='ml-[5px] text-[14px] font-medium text-[#391B1B]'>카카오</p>
                                     </>
                             }
-                            <p type="button" className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-6
+                            <p type="button" className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-9
              shadow-[0_0_10px_0_rgba(0,0,0,0.1)] " onClick={handleLogout}>
                                 로그아웃
                             </p>

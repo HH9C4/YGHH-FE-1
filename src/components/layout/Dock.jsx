@@ -11,11 +11,15 @@ const Dock = () => {
     navigate('/login')
   }
 
+  const onInfo = () => {
+    alert("확인하려는 위치가 선택되지 않았습니다. 홈화면에서 구를 선택하여 주십시오😀")
+  }
+
   return (
     <>
       <div className="fixed bottom-0 w-full h-[80px] bg-bbLpurple">
         <hr className="border-[0.5px] border-t-0 border-bbBB w-full" />
-        <dl className="w-full h-[52px] bg-bbLpurple text-bb66 text-[10px] flex justify-evenly items-center">
+        <div className="w-full h-[52px] bg-bbLpurple text-bb66 text-[10px] flex justify-evenly items-center">
           <div
             onClick={() => navigate("/")}
             className="w-12 pt-2 pb-1 flex flex-col items-center cursor-pointer"
@@ -44,7 +48,10 @@ const Dock = () => {
             <dd className="mt-1">홈</dd>
           </div>
           <div
-            onClick={() => navigate(`/info/${gu}`)}
+            onClick={() =>
+              gu === null || undefined ?
+                onInfo() :
+                navigate(`/info/${gu}`)}
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
             <dt>
@@ -176,7 +183,7 @@ const Dock = () => {
             </dt>
             <dd className="mt-0.5">마이페이지</dd>
           </div>
-        </dl>
+        </div>
       </div>
     </>
   )
