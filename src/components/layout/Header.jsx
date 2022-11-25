@@ -7,7 +7,7 @@ const Header = () => {
   const params = useParams()
 
   useEffect(() => {
-    if (params.gu !== "undefined") {
+    if (params.gu !== undefined && params.gu !== "undefined") {
       localStorage.setItem("gu", params.gu)
     }
   }, [params])
