@@ -91,8 +91,13 @@ export const contentsApis = {
 
   searchAX: (obj) =>
     hInstance.get(`api/posts/search`, {
-      params: { type: obj.type, searchWord: obj.searchWord, sort: obj.sort },
+      params: { type: obj.type, searchWord: obj.searchWord, sort: obj.sort, page: obj.page },
     }),
+  // hInstance.get(`api/posts/search`, {
+  //   params: `{ type= ${obj.type}&searchWord=${obj.searchWord}&sort= ${obj.sort}&page=${obj.page}`,
+  // }),
+  // hInstance.get(`api/posts/search?type=${obj.type}&searchWord=${obj.searchWord}&sort= ${obj.sort}&page=${obj.page}`,
+  // ),
 
   //핫태그
   hotTagAX: (gu) => hInstance.get(`/api/posts/${gu}/hottest`),
@@ -130,14 +135,14 @@ export const contentsApis = {
 
   //좋아요
   likesAX: (postInfo) =>
-    hInstance.post(
+    hInstance.put(
       `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
     ),
 
   //좋아요 취소
 
   cancelLikesAX: (postInfo) =>
-    hInstance.delete(
+    hInstance.put(
       `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
     ),
 

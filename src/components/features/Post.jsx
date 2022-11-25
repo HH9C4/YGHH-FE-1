@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {
   __getContentDetail,
   __deleteContent,
@@ -12,6 +12,7 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
 const Post = ({ posts }) => {
+
   const dispatch = useDispatch()
   const { id } = useParams()
   const navigate = useNavigate()
@@ -25,7 +26,8 @@ const Post = ({ posts }) => {
     autoplaySpeen: 200,
   }
 
-  console.log("gggg", posts)
+
+
   const level = 1
   return (
     <>
@@ -79,6 +81,7 @@ const Post = ({ posts }) => {
                       level={level}
                       isLiked={data.isLiked}
                       count={data.likeCount}
+
                     />
                     <div className="ml-1 text-lg text-bb22 font-semibold">
                       {data.likeCount}

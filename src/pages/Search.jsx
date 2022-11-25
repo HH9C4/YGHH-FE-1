@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useRef, useState, useEffect, useCallback } from "react"
 import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux"
 import useInput from "../hooks/useInput"
@@ -7,23 +7,58 @@ import { __getSearch } from "../redux/modules/searchSlice"
 import { useNavigate, useParams } from "react-router-dom"
 import DetailPost from "../components/features/DetailPost"
 import Layout from '../components/layout/Layout'
+import { useInView } from 'react-intersection-observer'
 // import { useParams } from "react-router-dom"
 
 const Search = () => {
   const posts = useSelector((store) => store.search.search)
+  const size = useSelector((store) => store.search.size)
+  console.log("스토어에서 가져온 값", posts);
+  console.log("스토어에서 가져온 사이즈", size);
   const dispatch = useDispatch()
   const [sort, setSort] = useState("new")
   const [search, setSearch, searchHandle] = useInput()
   //   const gu = useParams()
   const navigate = useNavigate()
   const params = useParams()
+
+
+  const [page, setPage] = useState(0) //페이지수
+  // const [size, setSize] = useState([]) //리스트수
+  const [loading, setLoading] = useState(false)
+  // console.log("page",page)
+  const [ref, inView] = useInView()
+
+  /**  서버에서 아이템을 가지고 오는 함수 */
+  const getItems = useCallback(async () => { //의존하는 값(deps)들이 바뀌지 않는 한 기존 함수를 재사용할 수 있습니다.
+    dispatch(__getSearch(obj))
+  }, [page, params])
+
+  useEffect(() => {
+    getItems()
+  }, [getItems])
+
+  useEffect(() => {
+    // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
+    if (inView && !loading) {
+      setPage(prevState => prevState + 1)
+
+      // console.log("페이지",page)
+    }
+  }, [inView, loading])
+
+  useEffect(() => {
+    setPage(0)
+  }
+    , [params])
+
   let obj = {
     type: 0,
     searchWord: params.searchWord,
     sort: params.sort,
+    page: page,
   }
-  console.log("포스트 어캄", posts);
-  console.log(" 어캄", posts.postList);
+
   const onSearch = (e) => {
     e.preventDefault()
     navigate(`/search/0/${search.keyword}/${params.sort}`)
@@ -33,9 +68,7 @@ const Search = () => {
     navigate(`/search/0/${params.searchWord}/${id}`)
   }
 
-  useEffect(() => {
-    dispatch(__getSearch(obj))
-  }, [params])
+
   return (
     <>
       {/* <div>안녕하세요</div> */}
@@ -68,7 +101,8 @@ const Search = () => {
             params.searchWord !== undefined && posts.length !== 0 ?
               <div>
                 <p className='flex items-end text-bbpurple text-lg font-bold mt-10'>
-                  {params.searchWord} ({posts.sizeOfList})
+                  {params.searchWord}
+                  ({size})
                 </p>
 
                 <div className='mt-[12px] mb-4'>
@@ -107,17 +141,12 @@ const Search = () => {
               </div>
               : ""
           }
-          <Post posts={posts.postList} />
+          <Post posts={posts} />
+          <div ref={ref}></div>
         </div>
       </Layout>
-
-
     </>
   )
 }
 
 export default Search
-
-const Flex = styled.div`
-  display: flex;
-`

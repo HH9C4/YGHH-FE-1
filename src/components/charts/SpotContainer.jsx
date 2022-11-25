@@ -3,6 +3,131 @@ import BarChartContainer from "./BarChartContainer"
 import LineChartContainer from "./LineChartContainer"
 
 const SpotContainer = ({ spot, settings, Slider }) => {
+  const hour = spot.hour
+
+  const data = [
+    {
+      name: "0",
+      today: hour.todayPopByHour.T0,
+      last: hour.lastPopByHour.L0,
+    },
+    {
+      name: "1",
+      today: hour.todayPopByHour.T1,
+      last: hour.lastPopByHour.L1,
+    },
+    {
+      name: "2",
+      today: hour.todayPopByHour.T2,
+      last: hour.lastPopByHour.L2,
+    },
+    {
+      name: "3",
+      today: hour.todayPopByHour.T3,
+      last: hour.lastPopByHour.L3,
+    },
+    {
+      name: "4",
+      today: hour.todayPopByHour.T4,
+      last: hour.lastPopByHour.L4,
+    },
+    {
+      name: "5",
+      today: hour.todayPopByHour.T5,
+      last: hour.lastPopByHour.L5,
+    },
+    {
+      name: "6",
+      today: hour.todayPopByHour.T6,
+      last: hour.lastPopByHour.L6,
+    },
+    {
+      name: "7",
+      today: hour.todayPopByHour.T7,
+      last: hour.lastPopByHour.L7,
+    },
+    {
+      name: "8",
+      today: hour.todayPopByHour.T8,
+      last: hour.lastPopByHour.L8,
+    },
+    {
+      name: "9",
+      today: hour.todayPopByHour.T9,
+      last: hour.lastPopByHour.L9,
+    },
+    {
+      name: "10",
+      today: hour.todayPopByHour.T10,
+      last: hour.lastPopByHour.L10,
+    },
+    {
+      name: "11",
+      today: hour.todayPopByHour.T11,
+      last: hour.lastPopByHour.L11,
+    },
+    {
+      name: "12",
+      today: hour.todayPopByHour.T12,
+      last: hour.lastPopByHour.L12,
+    },
+    {
+      name: "13",
+      today: hour.todayPopByHour.T13,
+      last: hour.lastPopByHour.L13,
+    },
+    {
+      name: "14",
+      today: hour.todayPopByHour.T14,
+      last: hour.lastPopByHour.L14,
+    },
+    {
+      name: "15",
+      today: hour.todayPopByHour.T15,
+      last: hour.lastPopByHour.L15,
+    },
+    {
+      name: "16",
+      today: hour.todayPopByHour.T16,
+      last: hour.lastPopByHour.L16,
+    },
+    {
+      name: "17",
+      today: hour.todayPopByHour.T17,
+      last: hour.lastPopByHour.L17,
+    },
+    {
+      name: "18",
+      today: hour.todayPopByHour.T18,
+      last: hour.lastPopByHour.L18,
+    },
+    {
+      name: "19",
+      today: hour.todayPopByHour.T19,
+      last: hour.lastPopByHour.L19,
+    },
+    {
+      name: "20",
+      today: hour.todayPopByHour.T20,
+      last: hour.lastPopByHour.L20,
+    },
+    {
+      name: "21",
+      today: hour.todayPopByHour.T21,
+      last: hour.lastPopByHour.L21,
+    },
+    {
+      name: "22",
+      today: hour.todayPopByHour.T22,
+      last: hour.lastPopByHour.L22,
+    },
+    {
+      name: "23",
+      today: hour.todayPopByHour.T23,
+      last: hour.lastPopByHour.L23,
+    },
+  ]
+
   return (
     <div>
       <article className="mt-[40px] last-of-type:mb-[40px] ml-[25px] mr-[26px]">
@@ -126,8 +251,8 @@ const SpotContainer = ({ spot, settings, Slider }) => {
           </li>
         </ul>
 
-        <BarChartContainer />
-        <LineChartContainer />
+        <BarChartContainer spot={spot} />
+        <LineChartContainer data={data} />
       </article>
     </div>
   )
