@@ -4,7 +4,13 @@ import { useNavigate, useParams } from "react-router-dom"
 const Dock = () => {
   const params = useParams()
   const navigate = useNavigate()
-  const gu = params.gu
+  const gu = localStorage.getItem("gu")
+
+  const toLogin = () => {
+    alert('로그인이 필요한 서비스입니다🥲')
+    navigate('/login')
+  }
+
   return (
     <>
       <div className="fixed bottom-0 w-full h-[80px] bg-bbLpurple">
@@ -73,7 +79,11 @@ const Dock = () => {
             <dd className="mt-1">정보</dd>
           </div>
           <div
-            onClick={() => navigate(`/list/${gu}/all/new`)}
+            onClick={() =>
+              localStorage.getItem('nickName') ?
+                navigate(`/list/${gu}/all/new`) :
+                toLogin()
+            }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
             <dt>
@@ -108,7 +118,11 @@ const Dock = () => {
             <dd className="mt-1">커뮤니티</dd>
           </div>
           <div
-            onClick={() => navigate(`/bookmark`)}
+            onClick={() =>
+              localStorage.getItem('nickName') ?
+                navigate(`/bookmark`) :
+                toLogin()
+            }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
             <dt>
@@ -135,7 +149,11 @@ const Dock = () => {
             <dd className="mt-1">북마크</dd>
           </div>
           <div
-            onClick={() => navigate(`/mypage`)}
+            onClick={() =>
+              localStorage.getItem('nickName') ?
+                navigate(`/mypage`) :
+                toLogin()
+            }
             className="w-12 pt-2 pb-2 flex flex-col items-center"
           >
             <dt>
