@@ -8,7 +8,8 @@ const SelectGu = () => {
       <div className="flex flex-row justify-between mb-3">
         <button
           className=" w-[100px] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)]  "
-          onClick={() => navigate(`/list/강남구/all/new`)}
+          onClick={() => navigate(`/list/강남구/all/new`)
+          }
         >
           강남구
         </button>

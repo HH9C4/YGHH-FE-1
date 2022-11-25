@@ -37,7 +37,7 @@ const SelectGuInfo = () => {
           <button
             className=" w-[100px] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)]  "
             onClick={
-              locoalstorage.getItem("location") === "list"
+              localStorage.getItem("location") === "list"
                 ? () => navigate(list)
                 : () => navigate(info)
             }
