@@ -120,6 +120,7 @@ const PopulationInfo = () => {
             {guInfo.spotInfoList.map((spot) => {
               return (
                 <SpotContainer
+                  key={spot.gu_nm}
                   Slider={Slider}
                   settings={settings}
                   spot={spot}

@@ -1,12 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { contentsApis } from "../../api/instance"
+import { current } from "@reduxjs/toolkit"
 
 const initialState = {
   search: [],
   hotTag: [],
   isLoading: false,
   error: null,
+  before: [],
+  now: [],
 }
 
 export const __getSearch = createAsyncThunk(

@@ -5,6 +5,7 @@ import {
   __updataContent,
   __getContentDetail,
   insertTags,
+  removeTags,
 } from "../../redux/modules/contentsSlice"
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
@@ -30,19 +31,27 @@ const Form = () => {
   const tags = useSelector((state) => state.contents.tagList)
   console.log("tags", tags)
 
-  // const onKeyUp = (e) => {
-  //   if (["Enter", ","].indexOf(e.key) !== -1) {
-  //     onButtonClick()
-  //   }
-  // }
+  const onRemove = (tag) => {
+    dispatch(removeTags(tag))
+  }
+
+  const onKeyUp = (e) => {
+    if ([","].indexOf(e.key) !== -1) {
+      onButtonClick()
+    }
+  }
 
   const onButtonClick = () => {
     const filtered = tag.replace(
       /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
       ""
     )
-    dispatch(insertTags(filtered))
-    setTag("")
+    if (filtered !== "") {
+      dispatch(insertTags(filtered))
+      setTag("")
+    } else {
+      alert("태그를 입력해주세요.")
+    }
   }
 
   const { isSuccess, error } = useSelector((state) => state)
@@ -170,14 +179,15 @@ const Form = () => {
               value={tag}
               type="text"
               maxLength="20"
-              // value={postInput.tag || ""}
+              onKeyUp={onKeyUp}
               name="tag"
               onChange={onTagChange}
-              placeholder="태그를 입력하세요"
+              placeholder="쉼표(,)로 태그를 추가할 수 있어요"
             />
             <div
               onClick={onButtonClick}
-              className="w-6 h-6 rounded-full  bg-[#efefef] flex justify-center items-center"
+              // onKeyUp={onKeyUp}
+              className="w-6 h-6 ml-[8px] rounded-full  bg-[#efefef] flex justify-center items-center"
             >
               <svg
                 width="12"
@@ -197,7 +207,11 @@ const Form = () => {
             <div className="flex flex-wrap">
               {tags.map((tag) => {
                 return (
-                  <div className="text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md">
+                  <div
+                    name={tag}
+                    onClick={() => onRemove(tag)}
+                    className="text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md"
+                  >
                     # {tag}
                   </div>
                 )
@@ -219,7 +233,7 @@ const Form = () => {
           </ul>
           <div className="flex justify-end">
             <button
-              className="w-[128px] h-10 mt-3 rounded-full bg-bbpink text-white text-sm font-medium"
+              className="w-[128px] h-10 mt-3 rounded-full bg-gradient-to-r from-bbpink to-bbpurple text-white text-sm font-medium"
               onClick={onPost}
               color="reverse"
               size="medium"
