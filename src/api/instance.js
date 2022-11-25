@@ -135,14 +135,14 @@ export const contentsApis = {
 
   //좋아요
   likesAX: (postInfo) =>
-    hInstance.post(
+    hInstance.put(
       `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
     ),
 
   //좋아요 취소
 
   cancelLikesAX: (postInfo) =>
-    hInstance.delete(
+    hInstance.put(
       `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
     ),
 

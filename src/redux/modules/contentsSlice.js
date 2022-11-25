@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
 import { contentsApis, commentApis } from "../../api/instance"
 import { current } from "@reduxjs/toolkit"
+import { act } from 'react-dom/test-utils'
 
 //게시글 작성
 export const __insertContent = createAsyncThunk(
@@ -49,16 +50,19 @@ export const __deleteComment = createAsyncThunk(
   }
 )
 
+
 //게시글 좋아요 활성화
 export const __activateLike = createAsyncThunk(
   "contents/__activateLike",
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.likesAX(payload)
+      console.log("게시글 좋아요 페이로드", payload);
       const obj = {
         id: payload.contentId,
         data: res.data.data,
       }
+      console.log("게시글 좋아요", obj);
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -75,6 +79,7 @@ export const __deactivateLike = createAsyncThunk(
       const obj = {
         id: payload.contentId,
         data: res.data.data,
+        count: payload.count,
       }
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
@@ -183,8 +188,10 @@ export const __getContent = createAsyncThunk(
       const res = await contentsApis.getContentAX(payload)
       const obj = {
         payload: payload,
-        data: res.data.data
+        data: res.data.data,
+        isBookmarked: res.data.isBookmarked,
       }
+      console.log("전체조회 받아온값", res);
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -322,10 +329,19 @@ export const contentsSlice = createSlice({
     },
     [__activateLike.fulfilled]: (state, action) => {
       state.isLoading = false
-      console.log(action.payload)
+      console.log("좋아요 리듀서 안, 페이로드", action.payload)
+      console.log("커렌트", current(state))
       state.content.likeId = action.payload.id
       state.content.isLiked = action.payload.data.isLiked
       state.content.likeCount = action.payload.data.likeCount
+      const indexID = state.contents.findIndex((item) => {
+        if (item.postId === action.payload.id) {
+          return true
+        }
+        return false
+      })
+      state.contents[indexID].isLiked = action.payload.data.isLiked
+      state.contents[indexID].likeCount = action.payload.data.likeCount
     },
     [__activateLike.rejected]: (state, action) => {
       state.isLoading = false
@@ -340,6 +356,14 @@ export const contentsSlice = createSlice({
       state.content.likeId = action.payload.id
       state.content.isLiked = action.payload.data.isLiked
       state.content.likeCount = action.payload.data.likeCount
+      const indexID = state.contents.findIndex((item) => {
+        if (item.postId === action.payload.id) {
+          return true
+        }
+        return false
+      })
+      state.contents[indexID].isLiked = action.payload.data.isLiked
+      state.contents[indexID].likeCount = action.payload.data.likeCount
     },
     [__deactivateLike.rejected]: (state, action) => {
       state.isLoading = false
@@ -462,13 +486,14 @@ export const contentsSlice = createSlice({
     [__getContent.fulfilled]: (state, action) => {
 
       state.isLoading = false
+      console.log("리듀서", action.payload);
       if (action.payload.payload.page === 0) {
         state.contents.splice(0)
         state.contents.push(...action.payload.data.postList)
       } else {
         state.contents.push(...action.payload.data.postList)
       }
-      state.bookmark = action.payload.isBookmarked
+      state.bookmark = action.payload.data.isBookmarked
     },
     [__getContent.rejected]: (state, action) => {
       state.isLoading = false

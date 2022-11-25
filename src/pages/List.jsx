@@ -17,8 +17,9 @@ const List = () => {
   const [gu, setGu] = useState("")
   const { contents } = useSelector((state) => state.contents)
   const { bookmark } = useSelector((state) => state.contents)
-  const { likeId } = useSelector((state) => state.contents.content)
-  const { isLiked } = useSelector((state) => state.contents.content)
+  // const { likeId } = useSelector((state) => state.contents.content)
+  // const { isLiked } = useSelector((state) => state.contents.content)
+
   const params = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -26,18 +27,19 @@ const List = () => {
   const onSelect = () => {
     setSelect(!select)
   }
-
+  console.log("전체 콘텐츠 값", contents);
+  console.log("북마크값", bookmark);
   const [page, setPage] = useState(0) //페이지수
-  // const [size, setSize] = useState([]) //리스트수
+
   const [loading, setLoading] = useState(false)
-  // console.log("page",page)
   const [ref, inView] = useInView()
 
   /**  서버에서 아이템을 가지고 오는 함수 */
   const getItems = useCallback(async () => {
-    //의존하는 값(deps)들이 바뀌지 않는 한 기존 함수를 재사용할 수 있습니다.
     dispatch(__getContent(obj))
-  }, [page, params, likeId, isLiked])
+    // }, [page, params, likeId, isLiked])
+  }, [page, params])
+
 
   useEffect(() => {
     getItems()
@@ -62,10 +64,12 @@ const List = () => {
     category: params.category,
     page: page,
   }
+  console.log("페이지", page);
 
-  useEffect(() => {
-    dispatch(__getContent(obj))
-  }, [params, likeId, isLiked])
+  // useEffect(() => {
+  //   dispatch(__getContent(obj))
+
+  //   }, [params, likeId, isLiked, page])
 
   //북마크 활성화 함수
   const bookMarkOn = () => {
@@ -296,9 +300,11 @@ const List = () => {
         </div>
         <div className="mx-[26px] mt-4">
           <Post posts={contents} />
+          <div ref={ref}></div>
         </div>
         <EditBtn />
       </Layout>
+
     </div>
   )
 }

@@ -102,7 +102,7 @@ const Search = () => {
               <div>
                 <p className='flex items-end text-bbpurple text-lg font-bold mt-10'>
                   {params.searchWord}
-                  {/* ({size}) */}
+                  ({size})
                 </p>
 
                 <div className='mt-[12px] mb-4'>

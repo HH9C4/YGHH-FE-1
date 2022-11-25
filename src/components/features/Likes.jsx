@@ -8,7 +8,7 @@ import {
   __deactivateLike,
 } from "../../redux/modules/contentsSlice"
 
-function Likes({ data, level, isLiked, itemId }) {
+function Likes({ data, level, isLiked, itemId, count }) {
   const dispatch = useDispatch()
 
   const onLike = () => {
@@ -17,6 +17,7 @@ function Likes({ data, level, isLiked, itemId }) {
       level: level,
       isLiked: !isLiked,
       itemId: itemId,
+      count: count,
     }
     if (!isLiked && level === 1) {
       dispatch(__activateLike(obj))
@@ -36,7 +37,7 @@ function Likes({ data, level, isLiked, itemId }) {
       <span key="comment-basic-like">
         <div title="Like">
           {/* isLiked로 구분 */}
-          <button className="active:animate-ping" onClick={onLike}>
+          <div className="active:animate-ping" onClick={onLike}>
 
             {
               level === 1 ? (
@@ -97,7 +98,7 @@ function Likes({ data, level, isLiked, itemId }) {
 
 
             }
-          </button>
+          </div>
         </div>
       </span>
     </div>
