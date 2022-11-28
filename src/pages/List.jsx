@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import Post from "../components/features/Post"
+import Post from "../components/list/Post"
 import {
   __getContent,
   __activateBookmark,

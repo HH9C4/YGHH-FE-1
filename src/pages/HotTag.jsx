@@ -1,8 +1,7 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import styled from "styled-components"
-import __getContent from "../../redux/modules/contentsSlice"
+import __getContent from "../redux/modules/contentsSlice"
 
 const HotTag = () => {
   const navigate = useNavigate()
@@ -16,11 +15,11 @@ const HotTag = () => {
   }
   return (
     <>
-      <Flex>
+      <div className="flex">
         <h1>{param.gu.length > 2 ? param.gu.slice(0, -1) : param.gu}붐비</h1>
         <div>🔥HOT-TAG 20</div>
-      </Flex>
-      <Flex>
+      </div>
+      <div className="flex">
         {hotTag &&
           hotTag.map((hot) => {
             if (hot.length !== 0)
@@ -30,13 +29,9 @@ const HotTag = () => {
                 </button>
               )
           })}
-      </Flex>
+      </div>
     </>
   )
 }
 
 export default HotTag
-
-const Flex = styled.div`
-  display: flex;
-`
