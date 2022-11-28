@@ -1,7 +1,7 @@
 import React from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import Form from "../components/features/Form"
-import UpdateForm from "../components/features/UpdateForm"
+import Form from "../components/form/Form"
+import UpdateForm from "../components/form/UpdateForm"
 import Layout from "../components/layout/Layout"
 
 const Write = () => {

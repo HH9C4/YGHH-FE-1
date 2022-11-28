@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
 import { contentsApis, commentApis } from "../../api/instance"
 import { current } from "@reduxjs/toolkit"
-import { act } from 'react-dom/test-utils'
+import { act } from "react-dom/test-utils"
 
 //게시글 작성
 export const __insertContent = createAsyncThunk(
@@ -50,19 +50,18 @@ export const __deleteComment = createAsyncThunk(
   }
 )
 
-
 //게시글 좋아요 활성화
 export const __activateLike = createAsyncThunk(
   "contents/__activateLike",
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.likesAX(payload)
-      console.log("게시글 좋아요 페이로드", payload);
+      console.log("게시글 좋아요 페이로드", payload)
       const obj = {
         id: payload.contentId,
         data: res.data.data,
       }
-      console.log("게시글 좋아요", obj);
+      console.log("게시글 좋아요", obj)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -184,14 +183,13 @@ export const __getContent = createAsyncThunk(
   "contents/__getContent",
   async (payload, thunkAPI) => {
     try {
-
       const res = await contentsApis.getContentAX(payload)
       const obj = {
         payload: payload,
         data: res.data.data,
         isBookmarked: res.data.isBookmarked,
       }
-      console.log("전체조회 받아온값", res);
+      console.log("전체조회 받아온값", res)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -257,12 +255,14 @@ export const __mypageModify = createAsyncThunk(
   "contents/__mypageModify",
   async (payload, thunkAPI) => {
     try {
-      console.log("마이페이지 수정 페이로드", payload);
+      console.log("마이페이지 수정 페이로드", payload)
       const res = await contentsApis.modifyAX(payload)
-      console.log("마이페이지 수정 리스폰", res);
+      console.log("마이페이지 수정 리스폰", res)
       //나중에 리듀서로 리팩토링 예정
       localStorage.setItem("profileImage", res.data.data.profileImage)
       localStorage.setItem("nickName", res.data.data.accountName)
+      window.alert("프로필 수정이 완료되었습니다.")
+      window.location.replace("/mypage")
       // window.location.replace("/mypage")
       // return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
@@ -484,9 +484,8 @@ export const contentsSlice = createSlice({
       state.isLoading = true
     },
     [__getContent.fulfilled]: (state, action) => {
-
       state.isLoading = false
-      console.log("리듀서", action.payload);
+      console.log("리듀서", action.payload)
       if (action.payload.payload.page === 0) {
         state.contents.splice(0)
         state.contents.push(...action.payload.data.postList)

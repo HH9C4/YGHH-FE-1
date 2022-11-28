@@ -3,7 +3,6 @@ import kakaoLogin from "../../assets/img/kakaoLogin.png"
 import { KAKAO_AUTH_URL } from "../../api/loginKeys"
 
 const KakaoLogin = () => {
-
   const handleLogin = () => {
     window.location.href = KAKAO_AUTH_URL
   }

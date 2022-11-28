@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect } from "react"
-import styled from "styled-components"
 import { useSelector, useDispatch } from "react-redux"
-import Post from "../features/Post"
+import Post from "../list/Post"
 import { useNavigate, useParams } from "react-router-dom"
 import { __getMyLikes } from "../../redux/modules/mySlice"
 // import { useParams } from "react-router-dom"
@@ -23,7 +22,3 @@ const MyPosts = () => {
 }
 
 export default MyPosts
-
-const Flex = styled.div`
-  display: flex;
-`

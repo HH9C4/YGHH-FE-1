@@ -7,8 +7,8 @@ const Dock = () => {
   const gu = localStorage.getItem("gu")
 
   const toLogin = () => {
-    alert('로그인이 필요한 서비스입니다🥲')
-    navigate('/login')
+    alert("로그인이 필요한 서비스입니다🥲")
+    navigate("/login")
   }
 
   return (
@@ -80,9 +80,9 @@ const Dock = () => {
           </div>
           <div
             onClick={() =>
-              localStorage.getItem('nickName') ?
-                navigate(`/list/${gu}/all/new`) :
-                toLogin()
+              localStorage.getItem("nickName")
+                ? navigate(`/list/${gu}/all/new`)
+                : toLogin()
             }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
@@ -119,9 +119,9 @@ const Dock = () => {
           </div>
           <div
             onClick={() =>
-              localStorage.getItem('nickName') ?
-                navigate(`/bookmark`) :
-                toLogin()
+              localStorage.getItem("nickName")
+                ? navigate(`/bookmark`)
+                : toLogin()
             }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
@@ -150,9 +150,7 @@ const Dock = () => {
           </div>
           <div
             onClick={() =>
-              localStorage.getItem('nickName') ?
-                navigate(`/mypage`) :
-                toLogin()
+              localStorage.getItem("nickName") ? navigate(`/mypage`) : toLogin()
             }
             className="w-12 pt-2 pb-2 flex flex-col items-center"
           >
