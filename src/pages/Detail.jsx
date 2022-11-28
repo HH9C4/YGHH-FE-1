@@ -5,8 +5,8 @@ import {
   __insertComment,
   __getContentDetail,
 } from "../redux/modules/contentsSlice"
-import DetailPost from "../components/features/DetailPost"
-import Comment from "../components/features/Comment"
+import DetailPost from "../components/post/DetailPost"
+import Comment from "../components/post/Comment"
 import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from "react-router-dom"

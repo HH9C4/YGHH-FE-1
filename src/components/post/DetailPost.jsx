@@ -5,7 +5,7 @@ import {
   __getContentDetail,
   __deleteContent,
 } from "../../redux/modules/contentsSlice"
-import Likes from "../features/Likes"
+import Likes from "./Likes"
 import EditToggle from "../elements/EditToggle"
 
 import Slider from "react-slick"

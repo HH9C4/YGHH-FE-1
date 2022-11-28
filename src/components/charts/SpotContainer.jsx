@@ -5,129 +5,202 @@ import LineChartContainer from "./LineChartContainer"
 const SpotContainer = ({ spot, settings, Slider }) => {
   const hour = spot.hour
 
-  const data = [
+  const todayData = [
     {
-      name: "0",
-      today: hour.todayPopByHour.T0,
-      last: hour.lastPopByHour.L0,
+      x: "0",
+      y: hour.todayPopByHour.T0,
     },
     {
-      name: "1",
-      today: hour.todayPopByHour.T1,
-      last: hour.lastPopByHour.L1,
+      x: "1",
+      y: hour.todayPopByHour.T1,
     },
     {
-      name: "2",
-      today: hour.todayPopByHour.T2,
-      last: hour.lastPopByHour.L2,
+      x: "2",
+      y: hour.todayPopByHour.T2,
     },
     {
-      name: "3",
-      today: hour.todayPopByHour.T3,
-      last: hour.lastPopByHour.L3,
+      x: "3",
+      y: hour.todayPopByHour.T3,
     },
     {
-      name: "4",
-      today: hour.todayPopByHour.T4,
-      last: hour.lastPopByHour.L4,
+      x: "4",
+      y: hour.todayPopByHour.T4,
     },
     {
-      name: "5",
-      today: hour.todayPopByHour.T5,
-      last: hour.lastPopByHour.L5,
+      x: "5",
+      y: hour.todayPopByHour.T5,
     },
     {
-      name: "6",
-      today: hour.todayPopByHour.T6,
-      last: hour.lastPopByHour.L6,
+      x: "6",
+      y: hour.todayPopByHour.T6,
     },
     {
-      name: "7",
-      today: hour.todayPopByHour.T7,
-      last: hour.lastPopByHour.L7,
+      x: "7",
+      y: hour.todayPopByHour.T7,
     },
     {
-      name: "8",
-      today: hour.todayPopByHour.T8,
-      last: hour.lastPopByHour.L8,
+      x: "8",
+      y: hour.todayPopByHour.T8,
     },
     {
-      name: "9",
-      today: hour.todayPopByHour.T9,
-      last: hour.lastPopByHour.L9,
+      x: "9",
+      y: hour.todayPopByHour.T9,
     },
     {
-      name: "10",
-      today: hour.todayPopByHour.T10,
-      last: hour.lastPopByHour.L10,
+      x: "10",
+      y: hour.todayPopByHour.T10,
     },
     {
-      name: "11",
-      today: hour.todayPopByHour.T11,
-      last: hour.lastPopByHour.L11,
+      x: "11",
+      y: hour.todayPopByHour.T11,
     },
     {
-      name: "12",
-      today: hour.todayPopByHour.T12,
-      last: hour.lastPopByHour.L12,
+      x: "12",
+      y: hour.todayPopByHour.T12,
     },
     {
-      name: "13",
-      today: hour.todayPopByHour.T13,
-      last: hour.lastPopByHour.L13,
+      x: "13",
+      y: hour.todayPopByHour.T13,
     },
     {
-      name: "14",
-      today: hour.todayPopByHour.T14,
-      last: hour.lastPopByHour.L14,
+      x: "14",
+      y: hour.todayPopByHour.T14,
     },
     {
-      name: "15",
-      today: hour.todayPopByHour.T15,
-      last: hour.lastPopByHour.L15,
+      x: "15",
+      y: hour.todayPopByHour.T15,
     },
     {
-      name: "16",
-      today: hour.todayPopByHour.T16,
-      last: hour.lastPopByHour.L16,
+      x: "16",
+      y: hour.todayPopByHour.T16,
     },
     {
-      name: "17",
-      today: hour.todayPopByHour.T17,
-      last: hour.lastPopByHour.L17,
+      x: "17",
+      y: hour.todayPopByHour.T17,
     },
     {
-      name: "18",
-      today: hour.todayPopByHour.T18,
-      last: hour.lastPopByHour.L18,
+      x: "18",
+      y: hour.todayPopByHour.T18,
     },
     {
-      name: "19",
-      today: hour.todayPopByHour.T19,
-      last: hour.lastPopByHour.L19,
+      x: "19",
+      y: hour.todayPopByHour.T19,
     },
     {
-      name: "20",
-      today: hour.todayPopByHour.T20,
-      last: hour.lastPopByHour.L20,
+      x: "20",
+      y: hour.todayPopByHour.T20,
     },
     {
-      name: "21",
-      today: hour.todayPopByHour.T21,
-      last: hour.lastPopByHour.L21,
+      x: "21",
+      y: hour.todayPopByHour.T21,
     },
     {
-      name: "22",
-      today: hour.todayPopByHour.T22,
-      last: hour.lastPopByHour.L22,
+      x: "22",
+      y: hour.todayPopByHour.T22,
     },
     {
-      name: "23",
-      today: hour.todayPopByHour.T23,
-      last: hour.lastPopByHour.L23,
+      x: "23",
+      y: hour.todayPopByHour.T23,
     },
   ]
-
+  const lastData = [
+    {
+      x: "0",
+      y: hour.lastPopByHour.L0,
+    },
+    {
+      x: "1",
+      y: hour.lastPopByHour.L1,
+    },
+    {
+      x: "2",
+      y: hour.lastPopByHour.L2,
+    },
+    {
+      x: "3",
+      y: hour.lastPopByHour.L3,
+    },
+    {
+      x: "4",
+      y: hour.lastPopByHour.L4,
+    },
+    {
+      x: "5",
+      y: hour.lastPopByHour.L5,
+    },
+    {
+      x: "6",
+      y: hour.lastPopByHour.L6,
+    },
+    {
+      x: "7",
+      y: hour.lastPopByHour.L7,
+    },
+    {
+      x: "8",
+      y: hour.lastPopByHour.L8,
+    },
+    {
+      x: "9",
+      y: hour.lastPopByHour.L9,
+    },
+    {
+      x: "10",
+      y: hour.lastPopByHour.L10,
+    },
+    {
+      x: "11",
+      y: hour.lastPopByHour.L11,
+    },
+    {
+      x: "12",
+      y: hour.lastPopByHour.L12,
+    },
+    {
+      x: "13",
+      y: hour.lastPopByHour.L13,
+    },
+    {
+      x: "14",
+      y: hour.lastPopByHour.L14,
+    },
+    {
+      x: "15",
+      y: hour.lastPopByHour.L15,
+    },
+    {
+      x: "16",
+      y: hour.lastPopByHour.L16,
+    },
+    {
+      x: "17",
+      y: hour.lastPopByHour.L17,
+    },
+    {
+      x: "18",
+      y: hour.lastPopByHour.L18,
+    },
+    {
+      x: "19",
+      y: hour.lastPopByHour.L19,
+    },
+    {
+      x: "20",
+      y: hour.lastPopByHour.L20,
+    },
+    {
+      x: "21",
+      y: hour.lastPopByHour.L21,
+    },
+    {
+      x: "22",
+      y: hour.lastPopByHour.L22,
+    },
+    {
+      x: "23",
+      y: hour.lastPopByHour.L23,
+    },
+  ]
   return (
     <div>
       <article className="mt-[40px] last-of-type:mb-[40px] ml-[25px] mr-[26px]">
@@ -252,7 +325,7 @@ const SpotContainer = ({ spot, settings, Slider }) => {
         </ul>
 
         <BarChartContainer spot={spot} />
-        <LineChartContainer data={data} />
+        <LineChartContainer today={todayData} last={lastData} />
       </article>
     </div>
   )
