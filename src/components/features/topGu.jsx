@@ -1,5 +1,7 @@
 import React from "react"
-import { useParams } from "react-router-dom"
+import { useParams } from 'react-router-dom'
+import { bookMarkOff, bookMarkOn } from "../../redux/modules/contentsSlice"
+
 
 const topGu = () => {
   const params = useParams()
