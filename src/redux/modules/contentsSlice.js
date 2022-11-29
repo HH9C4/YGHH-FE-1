@@ -13,7 +13,7 @@ export const __insertContent = createAsyncThunk(
       window.location.replace(`/list/${res.data.data.gu}/all/new`)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response) //.data);
+      return thunkAPI.rejectWithValue(error.response.message) //.data);
     }
   }
 )

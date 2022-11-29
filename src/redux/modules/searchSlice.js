@@ -36,6 +36,7 @@ export const __getSearch = createAsyncThunk(
 export const __getHotTag = createAsyncThunk(
   "contents/getHotTag",
   async (gu, thunkAPI) => {
+    console.log("받았나?", gu)
     try {
       const res = await contentsApis.hotTagAX(gu)
       return thunkAPI.fulfillWithValue(res.data)
@@ -60,6 +61,20 @@ export const __getInfo = createAsyncThunk(
         window.location.replace("/login")
       }
       return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
+//게시글 작성 시 태그 가져오기
+export const __getGuTag = createAsyncThunk(
+  "contents/__getGuTag",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.getGuTags(payload)
+      console.log("gettag res", res.data)
+      return thunkAPI.fulfillWithValue(res.data)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.message)
     }
   }
 )
@@ -92,7 +107,7 @@ export const searchSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload
     },
-
+    //핫태그 페이지
     [__getHotTag.pending]: (state) => {
       state.isLoading = true
     },
@@ -107,6 +122,7 @@ export const searchSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload
     },
+    //정보 페이지
     [__getInfo.pending]: (state) => {
       state.isLoading = true
     },
@@ -116,6 +132,21 @@ export const searchSlice = createSlice({
       state.info = action.payload
     },
     [__getInfo.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.error = action.payload
+    },
+    //__게시글 태그 목록 겟
+
+    [__getGuTag.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__getGuTag.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.tags = action.payload
+    },
+    [__getGuTag.rejected]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
       state.error = action.payload
