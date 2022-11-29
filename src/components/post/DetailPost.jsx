@@ -1,6 +1,6 @@
 import React from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import {
   __getContentDetail,
   __deleteContent,
@@ -12,10 +12,10 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const DetailPost = ({ data }) => {
+const DetailPost = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
+  const data = useSelector((state) => state.contents.content)
   // 게시글 삭제 버튼
   const onPostDelete = (postId) => {
     const obj = {

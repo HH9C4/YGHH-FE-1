@@ -18,7 +18,6 @@ const Detail = () => {
   const contentData = useSelector((state) => state.contents.content)
 
   const { id } = useParams()
-  console.log("상세조회", contentData)
 
   //GET 요청 디스패치
   useEffect(() => {
@@ -76,7 +75,7 @@ const Detail = () => {
         </svg>
       </div>
       <div className="px-2">
-        <DetailPost data={contentData}></DetailPost>
+        <DetailPost></DetailPost>
       </div>
       <div
         className="fixed flex items-center h-14 w-full mx-auto bottom-[80px] rounded-[5px] px-[12px] shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple
@@ -101,7 +100,7 @@ const Detail = () => {
       </div>
       {/* 코멘트 컴포넌트 호출 및 셀렉터 값 Props로 넘기기 */}
       <div className="px-8">
-        <Comment data={contentData}></Comment>
+        <Comment></Comment>
       </div>
     </Layout>
   )

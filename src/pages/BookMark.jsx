@@ -13,8 +13,6 @@ const BookMark = () => {
   const dispatch = useDispatch()
   const bookmarkData = useSelector((state) => state.contents.bookmarks)
 
-  console.log("북마크데이터", bookmarkData)
-  //GET 요청 디스패치
   useEffect(() => {
     dispatch(__returnBookmark())
   }, [])
