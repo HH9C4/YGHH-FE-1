@@ -11,6 +11,9 @@ import {
 function Likes({ data, level, isLiked, itemId, count }) {
   const dispatch = useDispatch()
 
+  //셀렉터 호출 
+
+
   const onLike = () => {
     const obj = {
       contentId: data,
@@ -19,6 +22,7 @@ function Likes({ data, level, isLiked, itemId, count }) {
       itemId: itemId,
       count: count,
     }
+    //게시글 좋아요 
     if (!isLiked && level === 1) {
       dispatch(__activateLike(obj))
     } else if (isLiked && level === 1) {
