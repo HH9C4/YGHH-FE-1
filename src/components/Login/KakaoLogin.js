@@ -7,7 +7,7 @@ const KakaoLogin = () => {
     window.location.href = KAKAO_AUTH_URL
   }
 
-  return <img type="button" onClick={handleLogin} src={kakaoLogin}></img>
+  return <img className='w-[320px] ' type="button" onClick={handleLogin} src={kakaoLogin}></img>
 }
 
 export default KakaoLogin

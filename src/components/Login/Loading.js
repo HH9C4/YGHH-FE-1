@@ -6,7 +6,7 @@ import Spinner from "../../assets/spinner.gif"
 
 export default () => {
   return (
-    <div className="absolute w-full h-[100vh] top-0 left-0 bg-[#ffffb7] z-20 flex flex-column items-center justify-center">
+    <div className="absolute w-full h-[100vh] top-0 left-0 bg-[#ffffff] z-20 flex flex-column items-center justify-center">
       <p className="text-[14px] text-center">잠시만 기다려 주세요.</p>
       <img src={Spinner} alt="로딩중" width="5%" />
     </div>

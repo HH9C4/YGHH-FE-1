@@ -8,17 +8,13 @@ import {
   __deactivateBookmark,
 } from "../redux/modules/contentsSlice"
 import SelectGu from "../components/features/SelectGu"
-
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
 import { useInView } from "react-intersection-observer"
 
 const List = () => {
   const [gu, setGu] = useState("")
-  const { contents } = useSelector((state) => state.contents)
   const { bookmark } = useSelector((state) => state.contents)
-  // const { likeId } = useSelector((state) => state.contents.content)
-  // const { isLiked } = useSelector((state) => state.contents.content)
 
   const params = useParams()
   const dispatch = useDispatch()
@@ -27,8 +23,7 @@ const List = () => {
   const onSelect = () => {
     setSelect(!select)
   }
-  console.log("전체 콘텐츠 값", contents)
-  console.log("북마크값", bookmark)
+
   const [page, setPage] = useState(0) //페이지수
 
   const [loading, setLoading] = useState(false)
@@ -37,7 +32,6 @@ const List = () => {
   /**  서버에서 아이템을 가지고 오는 함수 */
   const getItems = useCallback(async () => {
     dispatch(__getContent(obj))
-    // }, [page, params, likeId, isLiked])
   }, [page, params])
 
   useEffect(() => {
@@ -48,8 +42,6 @@ const List = () => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView && !loading) {
       setPage((prevState) => prevState + 1)
-
-      // console.log("페이지",page)
     }
   }, [inView, loading])
 
@@ -63,12 +55,6 @@ const List = () => {
     category: params.category,
     page: page,
   }
-  console.log("페이지", page)
-
-  // useEffect(() => {
-  //   dispatch(__getContent(obj))
-
-  //   }, [params, likeId, isLiked, page])
 
   //북마크 활성화 함수
   const bookMarkOn = () => {
@@ -96,8 +82,8 @@ const List = () => {
                   {params.gu !== "중구" && params.gu !== "구로구"
                     ? params.gu.substring(0, params.gu.indexOf("구"))
                     : params.gu !== "구로구"
-                    ? "중구"
-                    : "구로"}
+                      ? "중구"
+                      : "구로"}
                   붐비
                 </h1>
                 {/* 북마크 토글러 함수 실행 */}
@@ -300,7 +286,7 @@ const List = () => {
           </button>
         </div>
         <div className="mx-[26px] mt-4">
-          <Post posts={contents} />
+          <Post />
           <div ref={ref}></div>
         </div>
         <EditBtn />

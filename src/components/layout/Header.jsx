@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import logo from "../../assets/img/logo.svg"
+import navbarLogo from "../../assets/img/navbarLogo.svg"
 const Header = () => {
   const navigate = useNavigate()
   console.log(localStorage.getItem("nickName"))
@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <div className="px-6 bg-bbLpurple border-b-[0.5px] border-bbBB flex justify-between items-center h-[52px]">
-      <img onClick={() => navigate("/")} src={logo}></img>
+      <img onClick={() => navigate("/")} src={navbarLogo}></img>
       <div className="flex items-center">
         {localStorage.getItem("nickName") !== (undefined || null) ? (
           <dl className="flex justify-end items-center ">
