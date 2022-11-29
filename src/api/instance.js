@@ -65,6 +65,9 @@ export const contentsApis = {
   //게시글 작성
   insertContentAX: (contentInfo) => hInstance.post(`/api/posts`, contentInfo),
 
+  //게시글 작성 시 구별 태그 get
+  getGuTags: (gu) => hInstance.get(`api/posts/tags`, { params: { gu: gu } }),
+
   //게시글 수정
   updateContentAX: (payload) =>
     hInstance.put(`/api/posts/${payload.id}`, payload.obj),
@@ -105,7 +108,7 @@ export const contentsApis = {
   // ),
 
   //핫태그
-  hotTagAX: (gu) => hInstance.get(`/api/posts/${gu}/hottest`),
+  hotTagAX: (gu) => hInstance.get(`/api/posts/hottag`, { params: { gu: gu } }),
 
   //게시글 상세 조회
   getContentDetailAX: (postId) => hInstance.get(`/api/posts/${postId}`),
