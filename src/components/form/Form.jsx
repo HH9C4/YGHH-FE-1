@@ -11,6 +11,7 @@ import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import Category from "../elements/Category"
+import { searchTags, __getGuTag } from "../../redux/modules/searchSlice"
 
 const Form = () => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const Form = () => {
   }
   const tags = useSelector((state) => state.contents.tagList)
   console.log("tags", tags)
+  const searchTag = useSelector((state) => state.search.searchTags)
 
   const onRemove = (tag) => {
     dispatch(removeTags(tag))
@@ -41,16 +43,22 @@ const Form = () => {
     }
   }
 
-  const onButtonClick = () => {
+  const onButtonClick = (click) => {
     const filtered = tag.replace(
       /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
       ""
     )
-    if (filtered !== "") {
-      dispatch(insertTags(filtered))
-      setTag("")
+    console.log(click)
+    if (click.bubbles === true || false) {
+      if (filtered !== "") {
+        dispatch(insertTags(filtered))
+        setTag("")
+      } else {
+        alert("태그를 입력해주세요.")
+      }
     } else {
-      alert("태그를 입력해주세요.")
+      dispatch(insertTags(click))
+      setTag("")
     }
   }
 
@@ -104,6 +112,13 @@ const Form = () => {
     console.log(files)
   }, [files])
 
+  useEffect(() => {
+    dispatch(searchTags(tag))
+  }, [tag])
+
+  useEffect(() => {
+    dispatch(__getGuTag(param.gu))
+  }, [])
   return (
     <>
       <form className="pl-[25px] pb-[190px]">
@@ -203,7 +218,7 @@ const Form = () => {
               </svg>
             </div>
           </div>
-          <ul className="rounded-b-md bg-white h-[240px] px-[24px] py-[16px]">
+          <ul className="relative rounded-b-md bg-white h-[240px] px-[24px] py-[16px]">
             <div className="flex flex-wrap">
               {tags.map((tag) => {
                 return (
@@ -217,19 +232,21 @@ const Form = () => {
                 )
               })}
             </div>
-            {/* {[
-              ["Home", "/"],
-              ["Team", "/"],
-              ["Projects", "/"],
-              ["Reports", "/"],
-            ].map(([title, url]) => (
-              <li
-                key={title}
-                className="last-of-type:rounded-b-md active:bg-[#fff6c9] flex p-6 items-center text-bb22 text-sm w-full h-14 bg-white"
-              >
-                <a href={url}>{title}</a>
-              </li>
-            ))} */}
+            {searchTag && (
+              <div className="absolute top-0 left-0 w-full h-[240px] overflow-auto">
+                {searchTag.map((search) => {
+                  return (
+                    <li
+                      onClick={() => onButtonClick(search)}
+                      key={search + Math.random()}
+                      className="last-of-type:rounded-b-md active:bg-[#fff6c9] flex p-6 items-center text-bb22 text-sm w-full h-14 bg-white"
+                    >
+                      {search}
+                    </li>
+                  )
+                })}
+              </div>
+            )}
           </ul>
           <div className="flex justify-end">
             <button

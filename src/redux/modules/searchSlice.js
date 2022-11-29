@@ -11,6 +11,8 @@ const initialState = {
   error: null,
   before: [],
   now: [],
+  tags: [],
+  searchTags: [],
 }
 
 export const __getSearch = createAsyncThunk(
@@ -71,8 +73,7 @@ export const __getGuTag = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.getGuTags(payload)
-      console.log("gettag res", res.data)
-      return thunkAPI.fulfillWithValue(res.data)
+      return thunkAPI.fulfillWithValue(res.data.data.tagList)
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.message)
     }
@@ -82,7 +83,18 @@ export const __getGuTag = createAsyncThunk(
 export const searchSlice = createSlice({
   name: "search",
   initialState,
-  reducers: {},
+  reducers: {
+    searchTags(state, action) {
+      const tagList = state.tags
+      if (tagList !== (undefined || null) && action.payload !== "") {
+        state.searchTags = tagList.filter((t) => t.includes(action.payload))
+        console.log("filter가 도나?", action.payload, current(state))
+      } else if (action.payload === "") {
+        state.searchTags.splice(0)
+      }
+    },
+  },
+
   extraReducers: {
     [__getSearch.pending]: (state) => {
       state.isLoading = true
@@ -90,9 +102,7 @@ export const searchSlice = createSlice({
     [__getSearch.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
-      console.log("action.payload", action.payload)
       const data = action.payload.data.postList
-      console.log("리듀서 데이터", data)
       if (action.payload.payload.page === 0) {
         state.search.splice(0)
         // state.search.push(...action.payload.data.postList)
@@ -157,4 +167,5 @@ export const searchSlice = createSlice({
 // 액션크리에이터는 컴포넌트에서 사용하기 위해 export 하고
 // export const {} = searchSlice.actions
 // reducer 는 configStore에 등록하기 위해 export default 합니다.
+export const { searchTags } = searchSlice.actions
 export default searchSlice.reducer
