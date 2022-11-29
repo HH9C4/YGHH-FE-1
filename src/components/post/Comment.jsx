@@ -2,7 +2,7 @@ import React from "react"
 import { useDispatch } from "react-redux"
 import { __deleteComment } from "../../redux/modules/contentsSlice"
 import { useParams } from "react-router-dom"
-import Likes from "../features/Likes"
+import Likes from "./Likes"
 
 const Comment = ({ data }) => {
   const dispatch = useDispatch()

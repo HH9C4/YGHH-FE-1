@@ -1,14 +1,13 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
-import styled from "styled-components"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
 import Layout from "../components/layout/Layout"
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
 
 const Mypage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   // 마이페이지 대시보드 정보 꺼내기
   const [tab, setTab] = useState(1)
@@ -37,8 +36,9 @@ const Mypage = () => {
           </div>
           <div className="text-xs text-bb22 flex">
             <button
-              onClick={() => navigate('/setting')}
-              className="flex items-center">
+              onClick={() => navigate("/setting")}
+              className="flex items-center"
+            >
               설정
               <svg
                 width="14"
@@ -98,7 +98,6 @@ const Mypage = () => {
               </li>
             </ul>
             <Mypost />
-
           </>
         ) : (
           <>
@@ -128,7 +127,3 @@ const Mypage = () => {
 }
 
 export default Mypage
-
-const Flex = styled.div`
-  display: flex;
-`

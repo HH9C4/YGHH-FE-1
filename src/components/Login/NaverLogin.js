@@ -1,4 +1,3 @@
-import naverLogin from "../../assets/img/naverLogin.png"
 import { NAVER_AUTH_URL } from "../../api/loginKeys"
 import naverLogin2 from "../../assets/img/naverLogin2.png"
 const NaverLogin = ({ setGetToken, setUserInfo }) => {

@@ -7,7 +7,7 @@ import Home from "../pages/Home"
 import Mypage from "../pages/Mypage"
 import Search from "../pages/Search"
 import Write from "../pages/Write"
-import HotTag from "../components/features/HotTag"
+import HotTag from "../pages/HotTag"
 import BookMark from "../pages/BookMark"
 import OAuth2LoginHandler from "../components/Login/OAuth2LoginHandler"
 import OAuth2LogoutHandler from "../components/Login/OAuth2LogoutHandler"
@@ -15,7 +15,7 @@ import OAuthNaverLogin from "../components/Login/OAuthNaverLogin"
 import FindAddress from "../pages/FindAddress"
 import PopulationInfo from "../pages/PopulationInfo"
 import LoginDev from "../pages/LoginDev"
-import Setting from '../pages/Setting'
+import Setting from "../pages/Setting"
 const Router = () => {
   return (
     <BrowserRouter>
@@ -25,7 +25,6 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/login/dev" element={<LoginDev />} />
         <Route path="/list/:gu/:category/:sort" element={<List />} />
-        <Route path="/search" element={<Search />} />
         <Route path="/write/:gu" element={<Write />} />
         <Route path="/write/:gu/:id" element={<Write />} />
         <Route path="/search/:type/:searchWord/:sort" element={<Search />} />
