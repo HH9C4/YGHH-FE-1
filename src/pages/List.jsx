@@ -15,19 +15,16 @@ import { useInView } from "react-intersection-observer"
 const List = () => {
   const [gu, setGu] = useState("")
   const { bookmark } = useSelector((state) => state.contents)
-
   const params = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [select, setSelect] = useState(false)
+  const [page, setPage] = useState(0) //페이지수
+  const [loading, setLoading] = useState(false)
+  const [ref, inView] = useInView()
   const onSelect = () => {
     setSelect(!select)
   }
-
-  const [page, setPage] = useState(0) //페이지수
-
-  const [loading, setLoading] = useState(false)
-  const [ref, inView] = useInView()
 
   /**  서버에서 아이템을 가지고 오는 함수 */
   const getItems = useCallback(async () => {
