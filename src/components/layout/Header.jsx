@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <div className="px-6 bg-bbLpurple border-b-[0.5px] border-bbBB flex justify-between items-center h-[52px]">
-      <img onClick={() => navigate("/")} src={navbarLogo}></img>
+      <img onClick={() => navigate("/home")} src={navbarLogo}></img>
       <div className="flex items-center">
         {localStorage.getItem("nickName") !== (undefined || null) ? (
           <dl className="flex justify-end items-center ">

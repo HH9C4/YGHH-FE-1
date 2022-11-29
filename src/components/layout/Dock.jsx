@@ -23,7 +23,7 @@ const Dock = () => {
         <hr className="border-[0.5px] border-t-0 border-bbBB w-full" />
         <dl className="w-full h-[52px] bg-bbLpurple text-bb66 text-[10px] flex justify-evenly items-center">
           <div
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/home")}
             className="w-12 pt-2 pb-1 flex flex-col items-center cursor-pointer"
           >
             <dt>

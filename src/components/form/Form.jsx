@@ -84,7 +84,7 @@ const Form = () => {
       tagList: tags,
     }
 
-    // formData.append("contents", JSON.stringify(obj))
+
     formData.append(
       "contents",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
@@ -92,13 +92,6 @@ const Form = () => {
     dispatch(__insertContent(formData))
   }
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     navigate("/")
-  //   } else {
-  //     if (error !== undefined) console.log(error)
-  //   }
-  // }, [isSuccess, error, navigate])
 
   useEffect(() => {
     console.log(files)

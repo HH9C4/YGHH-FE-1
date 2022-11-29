@@ -96,13 +96,7 @@ const UpdateForm = ({ data }) => {
     dispatch(insertTags(...data.tagList))
   }, [])
 
-  // useEffect(() => {
-  //   if (isSuccess) {
-  //     navigate("/")
-  //   } else {
-  //     if (error !== undefined) console.log(error)
-  //   }
-  // }, [isSuccess, error, navigate])
+
 
   useEffect(() => {
     console.log(files)
