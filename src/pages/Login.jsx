@@ -12,7 +12,7 @@ const Login = () => {
         <div className=" pt-[170px] ">
           <div className="flex justify-center items-center">
             <div className=" mb-[26px]  w-[175px] h-[73px] text-center b  flex justify-center items-center ">
-              <img src={largeLogo}></img>
+              <img alt='loginLogo' src={largeLogo}></img>
             </div>
           </div>
           <div className='flex flex-col pt-[104px] px-[27px]'>
@@ -28,7 +28,7 @@ const Login = () => {
                 <path d="M20.1751 15.6255C18.3044 14.9624 18.2925 12.5579 18.3498 11.1921C18.5295 8.05755 20.697 7.41742 21.7055 7.26405C22.6729 7.19491 24.9683 7.56006 24.4828 11.692C23.9973 15.824 20.9737 15.9941 20.1751 15.6255Z" fill="white" />
                 <ellipse rx="1.64443" ry="1.94952" transform="matrix(0.999498 -0.0316802 -0.00781422 0.99997 19.9744 11.2228)" fill="black" />
               </svg>
-              <button onClick={() => { navigate("/") }}>로그인 없이 둘러보기</button>
+              <button onClick={() => { navigate("/home") }}>로그인 없이 둘러보기</button>
             </div>
 
             <div className="flex justify-center align-middle mt-[12px]  w-full h-[48px] font-normal leading-[19px] rounded-[4px] bg-[#fee500] ">
