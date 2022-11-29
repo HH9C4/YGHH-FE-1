@@ -43,14 +43,13 @@ const WalkThrough = () => {
     }
 
     function PrevArrow(props) {
-        const { className, style, onClick } = props;
+        const { style, onClick } = props;
         const onPreviousPage = () => {
             onClick()
             handlePrevSlide()
         }
         return (
             <div
-                className={className}
                 style={{ ...style, display: "block" }}
                 onClick={onPreviousPage}
             />
