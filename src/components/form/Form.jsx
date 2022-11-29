@@ -233,7 +233,7 @@ const Form = () => {
           </ul>
           <div className="flex justify-end">
             <button
-              className="w-[128px] h-10 mt-3 rounded-full bg-gradient-to-r from-bbpink to-bbpurple text-white text-sm font-medium"
+              className="w-[128px] h-10 mt-3 rounded-full bg-gradient-to-r from-bbpink to-bbgradientp text-white text-sm font-medium"
               onClick={onPost}
               color="reverse"
               size="medium"
