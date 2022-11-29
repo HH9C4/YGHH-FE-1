@@ -13,7 +13,7 @@ const Home = () => {
           원하는 장소 직접 찾아보기
         </h1>
         <button
-          className="mx-[26px] mt-[24px] text-[14px] w-[330px] h-[48px] rounded-[90px] text-white bg-gradient-to-r from-bbpink to-bbpurple"
+          className="mx-[26px] mt-[24px] text-[14px] w-[330px] h-[48px] rounded-[90px] text-white bg-gradient-to-r from-bbpink to-bbgradientp"
           onClick={() => navigate(`/address`)}
         >
           장소 검색
