@@ -1,15 +1,13 @@
 import React from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { __deleteComment } from "../../redux/modules/contentsSlice"
 import { useParams } from "react-router-dom"
 import Likes from "./Likes"
 
-const Comment = ({ data }) => {
+const Comment = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
-
-  //좋아요에 content ID를 넘기기 위해 변수 생성
-
+  const data = useSelector((state) => state.contents.content)
   const onDeleteButton = (id) => {
     dispatch(__deleteComment(id))
     // alert("삭제하시겠습니까?")
@@ -38,6 +36,7 @@ const Comment = ({ data }) => {
               <div className="flex justify-between pt-[24px] mb-[8px] ">
                 <div className="flex items-center">
                   <img
+                    alt='profileIMG'
                     className="w-[20px] h-[20px]  rounded-full"
                     src={item.profileImage}
                   />
