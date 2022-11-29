@@ -1,97 +1,254 @@
 import React, { useState } from "react"
-import Layout from "../layout/Layout"
-// import {
-//   LineChart,
-//   Line,
-//   XAxis,
-//   YAxis,
-//   CartesianGrid,
-//   Tooltip,
-//   Legend,
-// } from
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  LineSeriesCanvas,
-} from "react-vis"
+
+import Chart from "chart.js/auto"
+import { Line } from "react-chartjs-2"
 
 import { useSelector } from "react-redux"
 
-const LineChartContainer = ({ today, last }) => {
-  // const before = useSelector((state) => state.search.before)
-  // const now = useSelector((state) => state.search.now)
-  // console.log(before, now, "데이터를 보자")
-  const axisStyle = {
-    ticks: {
-      fontSize: "14px",
-      color: "#333",
+const LineChartContainer = ({ hour }) => {
+  const today = [
+    {
+      x: "0",
+      y: hour.todayPopByHour.T0,
     },
-    title: {
-      fontSize: "16px",
-      color: "#333",
+    {
+      x: "1",
+      y: hour.todayPopByHour.T1,
     },
+    {
+      x: "2",
+      y: hour.todayPopByHour.T2,
+    },
+    {
+      x: "3",
+      y: hour.todayPopByHour.T3,
+    },
+    {
+      x: "4",
+      y: hour.todayPopByHour.T4,
+    },
+    {
+      x: "5",
+      y: hour.todayPopByHour.T5,
+    },
+    {
+      x: "6",
+      y: hour.todayPopByHour.T6,
+    },
+    {
+      x: "7",
+      y: hour.todayPopByHour.T7,
+    },
+    {
+      x: "8",
+      y: hour.todayPopByHour.T8,
+    },
+    {
+      x: "9",
+      y: hour.todayPopByHour.T9,
+    },
+    {
+      x: "10",
+      y: hour.todayPopByHour.T10,
+    },
+    {
+      x: "11",
+      y: hour.todayPopByHour.T11,
+    },
+    {
+      x: "12",
+      y: hour.todayPopByHour.T12,
+    },
+    {
+      x: "13",
+      y: hour.todayPopByHour.T13,
+    },
+    {
+      x: "14",
+      y: hour.todayPopByHour.T14,
+    },
+    {
+      x: "15",
+      y: hour.todayPopByHour.T15,
+    },
+    {
+      x: "16",
+      y: hour.todayPopByHour.T16,
+    },
+    {
+      x: "17",
+      y: hour.todayPopByHour.T17,
+    },
+    {
+      x: "18",
+      y: hour.todayPopByHour.T18,
+    },
+    {
+      x: "19",
+      y: hour.todayPopByHour.T19,
+    },
+    {
+      x: "20",
+      y: hour.todayPopByHour.T20,
+    },
+    {
+      x: "21",
+      y: hour.todayPopByHour.T21,
+    },
+    {
+      x: "22",
+      y: hour.todayPopByHour.T22,
+    },
+    {
+      x: "23",
+      y: hour.todayPopByHour.T23,
+    },
+  ]
+
+  const last = [
+    {
+      x: "0",
+      y: hour.lastPopByHour.L0,
+    },
+    {
+      x: "1",
+      y: hour.lastPopByHour.L1,
+    },
+    {
+      x: "2",
+      y: hour.lastPopByHour.L2,
+    },
+    {
+      x: "3",
+      y: hour.lastPopByHour.L3,
+    },
+    {
+      x: "4",
+      y: hour.lastPopByHour.L4,
+    },
+    {
+      x: "5",
+      y: hour.lastPopByHour.L5,
+    },
+    {
+      x: "6",
+      y: hour.lastPopByHour.L6,
+    },
+    {
+      x: "7",
+      y: hour.lastPopByHour.L7,
+    },
+    {
+      x: "8",
+      y: hour.lastPopByHour.L8,
+    },
+    {
+      x: "9",
+      y: hour.lastPopByHour.L9,
+    },
+    {
+      x: "10",
+      y: hour.lastPopByHour.L10,
+    },
+    {
+      x: "11",
+      y: hour.lastPopByHour.L11,
+    },
+    {
+      x: "12",
+      y: hour.lastPopByHour.L12,
+    },
+    {
+      x: "13",
+      y: hour.lastPopByHour.L13,
+    },
+    {
+      x: "14",
+      y: hour.lastPopByHour.L14,
+    },
+    {
+      x: "15",
+      y: hour.lastPopByHour.L15,
+    },
+    {
+      x: "16",
+      y: hour.lastPopByHour.L16,
+    },
+    {
+      x: "17",
+      y: hour.lastPopByHour.L17,
+    },
+    {
+      x: "18",
+      y: hour.lastPopByHour.L18,
+    },
+    {
+      x: "19",
+      y: hour.lastPopByHour.L19,
+    },
+    {
+      x: "20",
+      y: hour.lastPopByHour.L20,
+    },
+    {
+      x: "21",
+      y: hour.lastPopByHour.L21,
+    },
+    {
+      x: "22",
+      y: hour.lastPopByHour.L22,
+    },
+    {
+      x: "23",
+      y: hour.lastPopByHour.L23,
+    },
+  ]
+
+  const data = {
+    labels: [
+      "0",
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20",
+      "21",
+      "22",
+      "23",
+    ],
+    datasets: [
+      {
+        type: "line",
+        label: "오늘",
+        backgroundColor: "#7F73FF",
+        data: today,
+      },
+      {
+        type: "line",
+        label: "지난주",
+        backgroundColor: "#888888",
+        data: last,
+      },
+    ],
   }
   return (
     <div className="overflow-x-auto flex justify-center items-center bg-white rounded-md h-[184px] mt-[12px] py-[16px]">
-      <XYPlot width={280} height={100}>
-        <HorizontalGridLines />
-        <VerticalGridLines />
-        <XAxis
-          type="literal"
-          Range={[0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]}
-          style={{
-            text: {
-              fontSize: "11px",
-              fill: "#888",
-              fontWeight: 400,
-            },
-            strokeLinejoin: "round",
-          }}
-        />
-        <YAxis
-          style={{
-            text: {
-              fontSize: "11px",
-              fill: "#888",
-              fontWeight: 400,
-            },
-            strokeLinejoin: "round",
-          }}
-        />
-        <LineSeriesCanvas color="#9853f0" data={today} />
-        <LineSeriesCanvas color="#888" data={last} />
-      </XYPlot>
-      {/* <LineChart width={400} height={180} data={data}>
-        <CartesianGrid vertical={false} strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis
-          minTickGap={1}
-          allowDataOverflow={false}
-          width={100}
-          type="number"
-          interval="preserveStartEnd"
-          domain={[0, "dataMax + dataMin"]}
-        />
-        <Tooltip />
-        <Legend verticalAlign="top" height={24} />
-        <Line
-          type="monotone"
-          dot={false}
-          name="오늘"
-          dataKey="today"
-          stroke="#9853f0"
-        />
-        <Line
-          type="monotone"
-          dot={false}
-          name="지난주"
-          dataKey="last"
-          stroke="#888888"
-        />
-      </LineChart> */}
+      <Line type="line" data={data} />
     </div>
   )
 }
