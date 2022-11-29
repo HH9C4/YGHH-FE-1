@@ -6,7 +6,7 @@ const EditBtn = () => {
   const param = useParams()
   return (
     <button
-      className="fixed bottom-[228px] right-[30px] bg-gradient-to-r from-bbpink to-bbgradientp shadow-[0_0_5px_0_rgba(255,121,121,0.5)] rounded-full w-[56px] h-[56px] active:animate-ping"
+      className="fixed bottom-[228px] right-[30px] bg-gradient-to-r from-bbpink to-bbgradientp shadow-[0_0_5px_0_rgba(174,174,174,1.0)] rounded-full w-[56px] h-[56px] active:animate-ping"
       onClick={() => navigate(`/write/${param.gu}`, { replace: false })}
     >
       <svg

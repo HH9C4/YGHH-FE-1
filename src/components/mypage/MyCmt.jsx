@@ -21,7 +21,7 @@ const MyCmt = (cmt) => {
       {/* <div>{cmt.commentId}</div> */}
       <div
         onClick={onTab}
-        className="shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-md bg-white w-full mb-3 p-4 flex h-full"
+        className="shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-md bg-white w-full mb-3 pl-[24px] flex h-full"
       >
         <div style={{ display: cmt.cmt.checked ? "none" : "block" }}>
           <div
@@ -30,21 +30,21 @@ const MyCmt = (cmt) => {
               display: tab ? "none" : "block",
             }}
           >
-            <div className="bg-bbpink w-2 h-2 rounded-full animate-ping"></div>
+            <div className="mt-[26px] bg-bbpink w-2 h-2 rounded-full animate-ping"></div>
           </div>
         </div>
         <div className="w-full">
-          <div className="text-bb66 text-[11px]">
+          <div className="mt-[24px] text-bb66 text-[11px]">
             {cmt.cmt.content}에 새 댓글이 달렸습니다.
           </div>
 
-          <div className="text-bb22 text-xs  mt-1">
+          <div className="mb-[24px] text-bb22 text-xs  mt-1">
             <span className="font-bold mr-1">{cmt.cmt.accountName}</span>
             {cmt.cmt.comment}
           </div>
         </div>
         <button
-          className=" w-20 ml-4 bg-bbpurple rounded-md text-white text-center text-xs h-[90%]]"
+          className=" w-[60px] ml-4 bg-bbpurple rounded-r-md text-white text-b11 text-center text-xs h-full]"
           onClick={() => onCheck(cmt.cmt.commentId)}
           style={{
             display: tab ? "block" : "none",
