@@ -54,7 +54,11 @@ export const __getInfo = createAsyncThunk(
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       alert(error.response.data.message)
-      window.history.back()
+      if (localStorage.getItem("nickName") !== null || undefined) {
+        window.location.replace(`/list/${gu}/all/new`)
+      } else {
+        window.location.replace("/login")
+      }
       return thunkAPI.rejectWithValue(error)
     }
   }
