@@ -16,11 +16,12 @@ import FindAddress from "../pages/FindAddress"
 import PopulationInfo from "../pages/PopulationInfo"
 import LoginDev from "../pages/LoginDev"
 import Setting from "../pages/Setting"
+import WalkThrough from '../pages/WalkThrough'
 const Router = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/info/:gu" element={<PopulationInfo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/login/dev" element={<LoginDev />} />
@@ -34,6 +35,7 @@ const Router = () => {
         <Route path="/bookmark" element={<BookMark />} />
         <Route path="/address" element={<FindAddress />} />
         <Route path="/setting" element={<Setting />} />
+        <Route path="/" element={<WalkThrough />} />
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
         {/* 카카오 */}
         <Route path="/user/kakao/callback" element={<OAuth2LoginHandler />} />
