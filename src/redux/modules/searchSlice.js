@@ -11,6 +11,8 @@ const initialState = {
   error: null,
   before: [],
   now: [],
+  tags: [],
+  searchTags: [],
 }
 
 export const __getSearch = createAsyncThunk(
@@ -36,6 +38,7 @@ export const __getSearch = createAsyncThunk(
 export const __getHotTag = createAsyncThunk(
   "contents/getHotTag",
   async (gu, thunkAPI) => {
+    console.log("받았나?", gu)
     try {
       const res = await contentsApis.hotTagAX(gu)
       return thunkAPI.fulfillWithValue(res.data)
@@ -64,10 +67,34 @@ export const __getInfo = createAsyncThunk(
   }
 )
 
+//게시글 작성 시 태그 가져오기
+export const __getGuTag = createAsyncThunk(
+  "contents/__getGuTag",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.getGuTags(payload)
+      return thunkAPI.fulfillWithValue(res.data.data.tagList)
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.message)
+    }
+  }
+)
+
 export const searchSlice = createSlice({
   name: "search",
   initialState,
-  reducers: {},
+  reducers: {
+    searchTags(state, action) {
+      const tagList = state.tags
+      if (tagList !== (undefined || null) && action.payload !== "") {
+        state.searchTags = tagList.filter((t) => t.includes(action.payload))
+        console.log("filter가 도나?", action.payload, current(state))
+      } else if (action.payload === "") {
+        state.searchTags.splice(0)
+      }
+    },
+  },
+
   extraReducers: {
     [__getSearch.pending]: (state) => {
       state.isLoading = true
@@ -75,9 +102,7 @@ export const searchSlice = createSlice({
     [__getSearch.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
-      console.log("action.payload", action.payload)
       const data = action.payload.data.postList
-      console.log("리듀서 데이터", data)
       if (action.payload.payload.page === 0) {
         state.search.splice(0)
         // state.search.push(...action.payload.data.postList)
@@ -92,7 +117,7 @@ export const searchSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload
     },
-
+    //핫태그 페이지
     [__getHotTag.pending]: (state) => {
       state.isLoading = true
     },
@@ -107,6 +132,7 @@ export const searchSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload
     },
+    //정보 페이지
     [__getInfo.pending]: (state) => {
       state.isLoading = true
     },
@@ -120,10 +146,26 @@ export const searchSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload
     },
+    //__게시글 태그 목록 겟
+
+    [__getGuTag.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__getGuTag.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.tags = action.payload
+    },
+    [__getGuTag.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.error = action.payload
+    },
   },
 })
 
 // 액션크리에이터는 컴포넌트에서 사용하기 위해 export 하고
 // export const {} = searchSlice.actions
 // reducer 는 configStore에 등록하기 위해 export default 합니다.
+export const { searchTags } = searchSlice.actions
 export default searchSlice.reducer
