@@ -101,8 +101,9 @@ const BookMark = () => {
               )
             })
           ) : (
-            <div className="w-full">
-              <p className="pl-[105px] pt-[232px] text-[16px] font-medium text-bb88">
+            <div className="w-full pt-[148px]">
+              <p className='pl-[138px] text-[24px] font-medium text-bb88  leading-[29px]'>저런!</p>
+              <p className="pl-[85px] text-[16px] font-medium text-bb88 pt-[13px]">
                 북마크한 지역이 없습니다
               </p>
             </div>

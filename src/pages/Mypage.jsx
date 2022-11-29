@@ -17,7 +17,6 @@ const Mypage = () => {
   const userGender = localStorage.getItem("gender")
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
-
   return (
     <Layout>
       {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}

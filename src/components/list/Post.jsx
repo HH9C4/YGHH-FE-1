@@ -1,23 +1,17 @@
-import React, { useState } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  __getContentDetail,
-  __deleteContent,
-} from "../../redux/modules/contentsSlice"
+import React from "react"
+import { useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
 import Likes from "../post/Likes"
 import EditToggle from "../elements/EditToggle"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const Post = ({ posts }) => {
-  const dispatch = useDispatch()
-  const { id } = useParams()
+const Post = () => {
   const navigate = useNavigate()
+  const { contents } = useSelector((state) => state.contents)
   const settings = {
     dots: true,
-
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -29,9 +23,8 @@ const Post = ({ posts }) => {
   const level = 1
   return (
     <>
-      {posts !== undefined &&
-        posts.map((data) => {
-          // if (posts.length !== 0)
+      {contents !== undefined &&
+        contents.map((data) => {
           return (
             <div key={String(data.postId) + Math.random()}>
               <div className="bg-white p-6 mb-6 rounded-md shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">

@@ -75,8 +75,6 @@ const Detail = () => {
           />
         </svg>
       </div>
-      {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
-      {/* 디테일포스트 호출 및 셀렉터 값 Props로 넘기기 */}
       <div className="px-2">
         <DetailPost data={contentData}></DetailPost>
       </div>
