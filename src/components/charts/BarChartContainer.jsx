@@ -26,7 +26,7 @@ const BarChartContainer = ({ spot }) => {
         },
       },
     ],
-  }
+  } //
 
   return (
     <div className="overflow-x-auto flex justify-center bg-white h-[128px] rounded-md mt-[12px] py-[12px]">
