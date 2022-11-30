@@ -14,11 +14,7 @@ const MyPosts = () => {
     dispatch(__getMyLikes())
   }, [dispatch])
 
-  return (
-    <>
-      <Post posts={posts} />
-    </>
-  )
+  return <></>
 }
 
 export default MyPosts
