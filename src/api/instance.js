@@ -36,6 +36,9 @@ export const membersApis = {
   //로컬용 테스트로그인
   testloginAX: () => nhInstance.get("https://boombiboombi.o-r.kr/user/tester"),
 
+  //토큰 재발급
+  reIssueToken: () => hInstance.get(`/api/reissue`),
+
   //카카오 로그인
   kakaologinAX: (code) => nhInstance.get(`/user/signin/kakao?code=${code}`),
   //로그아웃 서버통신
@@ -49,7 +52,13 @@ export const membersApis = {
     nhInstance.get(
       `/user/signin/naver?code=${loginData.code}&state=${loginData.state}`
     ),
+  //중복확인
+  duplicateName: () => hInstance.get(
+    `/api/namecheck`
+  ),
 }
+
+
 
 export const commentApis = {
   //댓글 작성

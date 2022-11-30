@@ -16,7 +16,7 @@ const Login = () => {
             </div>
           </div>
           <div className='flex flex-col pt-[104px] px-[27px]'>
-            <div className="flex items-center  justify-center align-middle  w-full h-[48px] font-normal leading-[19px] rounded-[4px] 
+            {/* <div className="flex items-center  justify-center align-middle  w-full h-[48px] font-normal leading-[19px] rounded-[4px] 
             text-[16px] text-bbpurple text-center bg-white ">
               <svg
                 className='absolute left-9'
@@ -29,7 +29,7 @@ const Login = () => {
                 <ellipse rx="1.64443" ry="1.94952" transform="matrix(0.999498 -0.0316802 -0.00781422 0.99997 19.9744 11.2228)" fill="black" />
               </svg>
               <button onClick={() => { navigate("/home") }}>로그인 없이 둘러보기</button>
-            </div>
+            </div> */}
 
             <div className="flex justify-center align-middle mt-[12px]  w-full h-[48px] font-normal leading-[19px] rounded-[4px] bg-[#fee500] ">
               <KakaoLogin></KakaoLogin>
