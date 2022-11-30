@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { act } from "react-dom/test-utils"
-import { contentsApis } from "../../api/instance"
+import { contentsApis, membersApis } from "../../api/instance"
 import { current } from "@reduxjs/toolkit"
 
 const initialState = {
@@ -15,6 +15,9 @@ const initialState = {
   searchTags: [],
 }
 
+//에러코드 발급 요청
+
+
 export const __getHome = createAsyncThunk(
   "contents/__getHome",
   async (payload, thunkAPI) => {
@@ -23,7 +26,14 @@ export const __getHome = createAsyncThunk(
       console.log("home", res.data)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
-      alert(error.response.data.msg)
+      if (error.response.data.status === "303 SEE_OTHER") {
+        console.log("여까지 타나?");
+        const reissue = await membersApis.reIssueToken()
+        const Access_Token = reissue.headers.authorization
+        localStorage.setItem("Authorization", Access_Token)
+        const response = await contentsApis.homeInfoAX()
+        return thunkAPI.fulfillWithValue(response.data)
+      }
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -42,8 +52,17 @@ export const __getSearch = createAsyncThunk(
       }
       console.log("서치 오브젝트", object)
       return thunkAPI.fulfillWithValue(object)
-    } catch (error) {
+    }
+    catch (error) {
       alert(error.response.data.msg)
+      if (error.response.data.status === "303 SEE_OTHER") {
+        console.log("여까지 타나?");
+        const reissue = await membersApis.reIssueToken()
+        const Access_Token = reissue.headers.authorization
+        localStorage.setItem("Authorization", Access_Token)
+        const response = await contentsApis.searchAX(obj)
+        return thunkAPI.fulfillWithValue(response.data)
+      }
       return thunkAPI.rejectWithValue(error)
     }
   }

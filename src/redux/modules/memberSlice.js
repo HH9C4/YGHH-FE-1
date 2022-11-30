@@ -13,6 +13,7 @@ export const __testLogin = createAsyncThunk(
       const res = await membersApis.testloginAX(payload)
       const Access_Token = res.headers.authorization
       localStorage.setItem("Authorization", Access_Token)
+      localStorage.setItem("Refresh_Token", res.headers.refresh)
       localStorage.setItem("nickName", res.data.data.accountName)
       localStorage.setItem("profileImage", res.data.data.profileImage)
       localStorage.setItem("ageRange", res.data.data.ageRange)
@@ -38,6 +39,7 @@ export const __kakaoLogin = createAsyncThunk(
       const Access_Token = res.headers.authorization
       console.log(res.data.data)
       localStorage.setItem("Authorization", Access_Token)
+      localStorage.setItem("Refresh_Token", res.headers.refresh)
       localStorage.setItem("nickName", res.data.data.accountName)
       localStorage.setItem("profileImage", res.data.data.profileImage)
       localStorage.setItem("ageRange", res.data.data.ageRange)
@@ -63,6 +65,7 @@ export const __naverLogin = createAsyncThunk(
       console.log("넘어온 값", res) // 토큰이 넘어올 것임
       const Access_Token = res.headers.authorization
       localStorage.setItem("Authorization", Access_Token)
+      localStorage.setItem("Refresh_Token", res.headers.refresh)
       localStorage.setItem("nickName", res.data.data.accountName)
       localStorage.setItem("profileImage", res.data.data.profileImage)
       localStorage.setItem("ageRange", res.data.data.ageRange)

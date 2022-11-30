@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -16,6 +16,8 @@ const DetailPost = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const data = useSelector((state) => state.contents.content)
+  // console.log("디테일 포스트 data", data);
+  console.log("디테일 포스트 data.isLiked", data.isLiked);
   // 게시글 삭제 버튼
   const onPostDelete = (postId) => {
     const obj = {
@@ -39,6 +41,10 @@ const DetailPost = () => {
     autoplay: true,
     autoplaySpeen: 200,
   }
+
+  useEffect(() => {
+
+  }, [])
 
   const level = 1
 
