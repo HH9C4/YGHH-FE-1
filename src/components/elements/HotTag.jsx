@@ -1,30 +1,30 @@
 import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { __getHotTag } from "../redux/modules/searchSlice"
-import Layout from "../components/layout/Layout"
+import { __getHotTag } from "../../redux/modules/searchSlice"
+import Layout from "../layout/Layout"
 
 const HotTag = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const params = useParams()
   const hotTag = useSelector((store) => store.search.hotTag.tagList)
-  const param = useParams("")
+  const gu = localStorage.getItem("gu")
   console.log(hotTag)
   const onSearch = (tag) => {
     navigate(`/search/1/${tag}/new`)
   }
 
   useEffect(() => {
-    dispatch(__getHotTag(param.gu))
-  }, [params])
+    dispatch(__getHotTag(gu))
+  }, [gu])
 
   return (
     <Layout>
       <div className="pt-[32px] pl-[25px] pr-[26px] text-bb22">
         <p className="text-b14 font-medium">지금</p>
         <h1 className="text-b20 font-bold">
-          {param.gu.length > 2 ? param.gu.slice(0, -1) : param.gu}붐비의{" "}
+          {gu.length > 2 ? gu.slice(0, -1) : { gu }}붐비의
           <span className="text-[#ff3535]">HOT-TAG 20</span>
         </h1>
 

@@ -7,7 +7,6 @@ import Home from "../pages/Home"
 import Mypage from "../pages/Mypage"
 import Search from "../pages/Search"
 import Write from "../pages/Write"
-import HotTag from "../pages/HotTag"
 import BookMark from "../pages/BookMark"
 import OAuth2LoginHandler from "../components/Login/OAuth2LoginHandler"
 import OAuth2LogoutHandler from "../components/Login/OAuth2LogoutHandler"
@@ -28,7 +27,6 @@ const Router = () => {
         <Route path="/write/:gu" element={<Write />} />
         <Route path="/write/:gu/:id" element={<Write />} />
         <Route path="/search/:type/:searchWord/:sort" element={<Search />} />
-        <Route path="/hottest/:gu" element={<HotTag />} />
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/bookmark" element={<BookMark />} />

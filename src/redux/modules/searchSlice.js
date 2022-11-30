@@ -15,6 +15,20 @@ const initialState = {
   searchTags: [],
 }
 
+export const __getHome = createAsyncThunk(
+  "contents/__getHome",
+  async (payload, thunkAPI) => {
+    try {
+      const res = await contentsApis.homeInfoAX()
+      console.log("home", res.data)
+      return thunkAPI.fulfillWithValue(res.data)
+    } catch (error) {
+      alert(error.response.data.msg)
+      return thunkAPI.rejectWithValue(error)
+    }
+  }
+)
+
 export const __getSearch = createAsyncThunk(
   "contents/getSearch",
   async (obj, thunkAPI) => {
@@ -96,6 +110,22 @@ export const searchSlice = createSlice({
   },
 
   extraReducers: {
+    //홈
+    [__getHome.pending]: (state) => {
+      state.isLoading = true
+    },
+    [__getHome.fulfilled]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      console.log("action.payload", action.payload)
+      state.hotTag = action.payload.data
+    },
+    [__getHome.rejected]: (state, action) => {
+      state.isLoading = false
+      state.isSuccess = false
+      state.error = action.payload
+    },
+    //검색
     [__getSearch.pending]: (state) => {
       state.isLoading = true
     },
@@ -124,7 +154,6 @@ export const searchSlice = createSlice({
     [__getHotTag.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
-      console.log("action.payload", action.payload)
       state.hotTag = action.payload.data
     },
     [__getHotTag.rejected]: (state, action) => {

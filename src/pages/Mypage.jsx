@@ -17,6 +17,7 @@ const Mypage = () => {
   const userGender = localStorage.getItem("gender")
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
+  const email = localStorage.getItem("email")
   return (
     <Layout>
       {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}
@@ -29,9 +30,9 @@ const Mypage = () => {
         </div>
         <div>
           <div className="flex items-end">
-            <h3 className="text-2xl text-bb22 font-bold mr-2">{userNm}</h3>
-            <div className="text-xs text-bb66 mb-0.5">
-              {userAge.slice(0, 2)}대 {gender}
+            <h3 className="text-b24 text-bb22 font-bold mr-2">{userNm}</h3>
+            <div className="text-b12 text-bb66 mb-0.5">
+              {userAge.slice(0, 2)}대 {gender} <br /> {email}
             </div>
           </div>
           <div className="text-xs text-bb22 flex">
