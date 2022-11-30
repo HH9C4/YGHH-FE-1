@@ -13,7 +13,6 @@ const Comment = () => {
     // alert("삭제하시겠습니까?")
     // window.location.replace(`/detail/${Id}`)
   }
-  console.log("코멘트", data)
   //삭제 버튼 작성자 확인
   const checkOwner = {
     nickName: localStorage.getItem("nickName"),
