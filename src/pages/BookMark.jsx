@@ -53,15 +53,16 @@ const BookMark = () => {
                       </svg>
                     </button>
                   </div>
-                  <div className="h-[96px]flex-row pl-6 text-sm justify-items-center">
+                  <div className="h-[96px] flex-row pl-6 text-sm justify-items-center">
                     <div
                       onClick={() => {
                         navigate(`/info/${item.gu}`)
                       }}
-                      className="w-full  pr-6 flex justify-between items-center"
+                      className="w-full pr-6 flex justify-between items-center"
                     >
-                      <p className="h-[48px] leading-9">정보</p>
+                      <p className="h-[48px] leading-[2.5rem]">정보</p>
                       <svg
+                        className=''
                         width="6"
                         height="12"
                         viewBox="0 0 6 12"
@@ -80,7 +81,7 @@ const BookMark = () => {
                       }}
                       className="flex w-full pr-6 justify-between items-center"
                     >
-                      <p className="h-[48px] leading-9">커뮤니티</p>
+                      <p className="h-[48px] leading-[2.5rem]">커뮤니티</p>
                       <svg
                         width="6"
                         height="12"

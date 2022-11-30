@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Slider from 'react-slick'
 import Layout from '../components/layout/Layout';
 import walkthorugh1 from "../assets/img/walkthrough1.svg"
@@ -6,23 +6,48 @@ import walkthorugh2 from "../assets/img/walkthrough2.svg"
 import walkthorugh3 from "../assets/img/walkthrough3.svg"
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 const WalkThrough = () => {
     const [currentPage, setCurrentPage] = useState(1)
+    const [activeSlide, setActiveSlide] = useState({
+        activeSlide2: 0
+    })
     const navigate = useNavigate();
-    console.log(currentPage);
-
     function NextArrow(props) {
         const { style, onClick } = props;
         const onNextPage = () => {
             onClick()
             handleNextSlide()
         }
+
+        useEffect(() => {
+            if (localStorage.getItem('nickName')) {
+                navigate('/home')
+            }
+        }, [])
         return (
             <>
                 {
-                    currentPage !== 3 ?
+                    activeSlide.activeSlide2 !== 2 ?
                         <div className='relative '>
                             <div className='h-[48px] w-[324px] absolute top-[110px]  bg-bbpurple text-center flex justify-center rounded-[90px]'>
+                                {
+                                    activeSlide.activeSlide2 === 0 ?
+                                        <svg
+                                            className='absolute top-[-90px]'
+                                            width="40" height="8" viewBox="0 0 40 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="4" cy="4" r="4" fill="#7F73FF" />
+                                            <circle cx="20" cy="4" r="4" fill="#BBBBBB" />
+                                            <circle cx="36" cy="4" r="4" fill="#BBBBBB" />
+                                        </svg> :
+                                        <svg
+                                            className='absolute top-[-90px]'
+                                            width="40" height="8" viewBox="0 0 40 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="4" cy="4" r="4" fill="#BBBBBB" />
+                                            <circle cx="20" cy="4" r="4" fill="#7F73FF" />
+                                            <circle cx="36" cy="4" r="4" fill="#BBBBBB" />
+                                        </svg>
+                                }
                                 <button
                                     className='text-white text-b14  font-medium leading-[17px] items-center'
                                     style={{ ...style }}
@@ -31,7 +56,15 @@ const WalkThrough = () => {
                             </div>
                         </div> :
                         <div className='relative '>
-                            <div className='h-[48px] w-[324px] absolute top-[110px]  bg-bbpurple text-center flex justify-center rounded-[90px]'>
+                            <div className='h-[48px] w-[324px] absolute top-[110px]  
+                            bg-bbpurple text-center flex justify-center rounded-[90px]'>
+                                <svg
+                                    className='absolute top-[-90px]'
+                                    width="40" height="8" viewBox="0 0 40 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="4" cy="4" r="4" fill="#BBBBBB" />
+                                    <circle cx="20" cy="4" r="4" fill="#BBBBBB" />
+                                    <circle cx="36" cy="4" r="4" fill="#7F73FF" />
+                                </svg>
                                 <button
                                     onClick={() => navigate('/home')}
                                     className='text-white text-b14 font-medium leading-[17px] items-center'>시작하기</button>
@@ -49,19 +82,28 @@ const WalkThrough = () => {
             handlePrevSlide()
         }
         return (
-            <div
-                style={{ ...style, display: "block" }}
-                onClick={onPreviousPage}
-            />
+            <>
+                {activeSlide.activeSlide2 !== 0 ?
+                    <button
+                        className='text-b14 font-medium fixed left-[25px] top-[25.5px]'
+                        style={{ ...style, display: "block" }}
+                        onClick={onPreviousPage}
+                    >이전으로</button>
+                    : ""
+                }
+            </>
         );
     }
+
     const settings = {
-        // dots: true,
+        dots: false,
         infinite: false,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         dotsClass: "test-css",
+        afterChange: current => setActiveSlide({ activeSlide2: current }),
+        // afterChange: current => this.setCurrentPage(current),
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />,
         appendDots: dots => (
@@ -78,23 +120,19 @@ const WalkThrough = () => {
     };
 
     const handlePrevSlide = () => {
-        // Slider.current.onClick();
-        if (currentPage !== 1) {
+        if (currentPage !== 0) {
             setCurrentPage(currentPage - 1);
         }
-        console.log("내려감?", currentPage);
     };
     const handleNextSlide = () => {
-        // Slider.current.onClick();
         setCurrentPage(currentPage + 1);
-        console.log("올라감?", currentPage);
     };
 
     return (
         <div className="bg-bbLpurple pb-[96px]  max-w-[750px] h-full min-h-[100vh]">
-            <div className='flex h-[46px] px-[26px] justify-end items-end'>
+            <div className=' h-[46px] px-[26px] flex justify-end items-end'>
                 <button
-                    onClick={() => setCurrentPage(3)}
+                    onClick={() => navigate("/home")}
                     className='text-b14 font-medium'>건너뛰기</button>
             </div>
             <div className='w-[324px] mx-auto'>
