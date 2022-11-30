@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
-import { contentsApis, commentApis } from "../../api/instance"
+import { contentsApis, commentApis, membersApis } from "../../api/instance"
 import { current } from "@reduxjs/toolkit"
 import { act } from "react-dom/test-utils"
 
@@ -13,6 +13,8 @@ export const __insertContent = createAsyncThunk(
       window.location.replace(`/list/${res.data.data.gu}/all/new`)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error.response.message) //.data);
     }
   }
@@ -28,6 +30,8 @@ export const __insertComment = createAsyncThunk(
         return thunkAPI.fulfillWithValue(res.data.data)
       }
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -45,6 +49,8 @@ export const __deleteComment = createAsyncThunk(
       }
       // return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -64,6 +70,8 @@ export const __activateLike = createAsyncThunk(
       console.log("게시글 좋아요", obj)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -101,6 +109,8 @@ export const __activateCommentLike = createAsyncThunk(
 
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -133,6 +143,8 @@ export const __returnBookmark = createAsyncThunk(
       console.log("조회 북마크", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -147,6 +159,8 @@ export const __activateBookmark = createAsyncThunk(
       console.log("북마크 활성화", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -160,6 +174,8 @@ export const __deactivateBookmark = createAsyncThunk(
       const res = await contentsApis.bookMarkOffAX(payload)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -173,6 +189,8 @@ export const __deactivateBookmarkPage = createAsyncThunk(
       const res = await contentsApis.bookMarkOffAX(payload)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -192,6 +210,8 @@ export const __getContent = createAsyncThunk(
       console.log("전체조회 받아온값", res)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
+      //토큰 재발급
+      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
