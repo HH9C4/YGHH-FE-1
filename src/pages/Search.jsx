@@ -71,10 +71,10 @@ const Search = () => {
       {/* <div>안녕하세요</div> */}
       <Layout>
         <div className="pl-[26px] pr-[25px] pt-[32px]">
-          <p className="text-[20px] font-bold pb-[12px]">검색</p>
+          <p className="text-[20px] font-bold pb-[12px] mr-1">검색</p>
           <div className="w-full h-[48px] flex items-center bg-white rounded-[5px]">
             <input
-              className="w-full pl-[16px] pt[12px] placeholder:text-[14px]  outline-0"
+              className="w-full pl-[16px] pt[12px] placeholder:text-[14px]  outline-0 mr-1"
               name="keyword"
               defaultValue={
                 params.searchWord !== (undefined || "undefined")
