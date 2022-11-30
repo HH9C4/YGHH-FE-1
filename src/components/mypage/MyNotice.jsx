@@ -1,9 +1,6 @@
-import React, { useRef, useState, useEffect } from "react"
+import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import Post from "../list/Post"
-import { useNavigate, useParams } from "react-router-dom"
 import { __getMyNotice } from "../../redux/modules/mySlice"
-import { computeHeadingLevel } from "@testing-library/react"
 import MyCmt from "./MyCmt"
 // import { useParams } from "react-router-dom"
 
@@ -24,6 +21,14 @@ const Mynotice = () => {
             </div>
           )
         })}
+      {cmts && cmts.length === 0 ? (
+        <div className="text-center mt-[102px] text-bb88 font-medium">
+          <p className="text-b24 ">저런!</p>
+          <p className="text-b16">아직 새로운 알림이 없어요.</p>
+        </div>
+      ) : (
+        ""
+      )}
     </>
   )
 }

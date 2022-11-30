@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
@@ -18,6 +18,11 @@ const Mypage = () => {
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
   const email = localStorage.getItem("email")
+
+  useEffect(() => {
+    localStorage.setItem("location", "my")
+  }, [])
+
   return (
     <Layout>
       {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}

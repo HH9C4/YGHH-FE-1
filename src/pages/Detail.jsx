@@ -57,6 +57,10 @@ const Detail = () => {
     window.history.back()
   }
 
+  useEffect(() => {
+    localStorage.setItem("location", "com")
+  }, [])
+
   return (
     <Layout>
       <div className="pt-[32px] pl-[25px] mb-[32px] flex items-center ">

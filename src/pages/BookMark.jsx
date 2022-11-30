@@ -15,6 +15,7 @@ const BookMark = () => {
 
   useEffect(() => {
     dispatch(__returnBookmark())
+    localStorage.setItem("location", "book")
   }, [])
 
   const bookMarkOff = (gu) => {
@@ -62,7 +63,7 @@ const BookMark = () => {
                     >
                       <p className="h-[48px] leading-[2.5rem]">정보</p>
                       <svg
-                        className=''
+                        className=""
                         width="6"
                         height="12"
                         viewBox="0 0 6 12"
@@ -101,7 +102,9 @@ const BookMark = () => {
             })
           ) : (
             <div className="w-full pt-[148px]">
-              <p className='pl-[138px] text-[24px] font-medium text-bb88  leading-[29px]'>저런!</p>
+              <p className="pl-[138px] text-[24px] font-medium text-bb88  leading-[29px]">
+                저런!
+              </p>
               <p className="pl-[85px] text-[16px] font-medium text-bb88 pt-[13px]">
                 북마크한 지역이 없습니다
               </p>

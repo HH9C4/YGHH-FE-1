@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk, current } from "@reduxjs/toolkit"
 import { contentsApis } from "../../api/instance"
 const initialState = {
   cmt: [],
@@ -27,7 +27,7 @@ export const __postMyNotice = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.mypageNoticeConfirmAX(payload)
-      console.log("mynoticeConfirm", res)
+      console.log("mynoticeConfirm", res.data.data)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -40,7 +40,7 @@ export const __getMyContent = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await contentsApis.getmypageAX()
-      console.log("myposts", res)
+      console.log("myposts", res.data.data)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)

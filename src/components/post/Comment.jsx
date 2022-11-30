@@ -36,7 +36,7 @@ const Comment = () => {
               <div className="flex justify-between pt-[24px] mb-[8px] ">
                 <div className="flex items-center">
                   <img
-                    alt='profileIMG'
+                    alt="profileIMG"
                     className="w-[20px] h-[20px]  rounded-full"
                     src={item.profileImage}
                   />

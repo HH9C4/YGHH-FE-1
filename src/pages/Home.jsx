@@ -27,6 +27,10 @@ const Home = () => {
     dispatch(__getHome())
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem("location", "home")
+  }, [])
+
   return (
     <Layout>
       {/* <div className="w-[375px] pt-[60px]">
