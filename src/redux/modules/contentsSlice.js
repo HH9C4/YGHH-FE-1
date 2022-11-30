@@ -13,9 +13,6 @@ export const __insertContent = createAsyncThunk(
       window.location.replace(`/list/${res.data.data.gu}/all/new`)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
-      return thunkAPI.rejectWithValue(error.response.message) //.data);
     }
   }
 )
@@ -30,9 +27,6 @@ export const __insertComment = createAsyncThunk(
         return thunkAPI.fulfillWithValue(res.data.data)
       }
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
-      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -49,9 +43,6 @@ export const __deleteComment = createAsyncThunk(
       }
       // return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
-      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -70,9 +61,7 @@ export const __activateLike = createAsyncThunk(
       console.log("게시글 좋아요", obj)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
-      return thunkAPI.rejectWithValue(error)
+
     }
   }
 )
@@ -109,9 +98,7 @@ export const __activateCommentLike = createAsyncThunk(
 
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
-      return thunkAPI.rejectWithValue(error)
+
     }
   }
 )
@@ -143,8 +130,6 @@ export const __returnBookmark = createAsyncThunk(
       console.log("조회 북마크", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -159,8 +144,6 @@ export const __activateBookmark = createAsyncThunk(
       console.log("북마크 활성화", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -174,8 +157,6 @@ export const __deactivateBookmark = createAsyncThunk(
       const res = await contentsApis.bookMarkOffAX(payload)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -189,8 +170,6 @@ export const __deactivateBookmarkPage = createAsyncThunk(
       const res = await contentsApis.bookMarkOffAX(payload)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -210,8 +189,6 @@ export const __getContent = createAsyncThunk(
       console.log("전체조회 받아온값", res)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
-      //토큰 재발급
-      const reissue = await membersApis.reIssueToken(payload)
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -349,8 +326,6 @@ export const contentsSlice = createSlice({
     },
     [__activateLike.fulfilled]: (state, action) => {
       state.isLoading = false
-      console.log("좋아요 리듀서 안, 페이로드", action.payload)
-      console.log("커렌트", current(state))
       state.content.likeId = action.payload.id
       state.content.isLiked = action.payload.data.isLiked
       state.content.likeCount = action.payload.data.likeCount
@@ -360,8 +335,13 @@ export const contentsSlice = createSlice({
         }
         return false
       })
-      state.contents[indexID].isLiked = action.payload.data.isLiked
-      state.contents[indexID].likeCount = action.payload.data.likeCount
+      console.log("index ID", indexID);
+      if (indexID >= 0) {
+        state.contents[indexID].isLiked = action.payload.data.isLiked
+        state.contents[indexID].likeCount = action.payload.data.likeCount
+      }
+      // state.contents[indexID].isLiked = action.payload.data.isLiked
+      // state.contents[indexID].likeCount = action.payload.data.likeCount
     },
     [__activateLike.rejected]: (state, action) => {
       state.isLoading = false
@@ -382,8 +362,12 @@ export const contentsSlice = createSlice({
         }
         return false
       })
-      state.contents[indexID].isLiked = action.payload.data.isLiked
-      state.contents[indexID].likeCount = action.payload.data.likeCount
+      if (indexID >= 0) {
+        state.contents[indexID].isLiked = action.payload.data.isLiked
+        state.contents[indexID].likeCount = action.payload.data.likeCount
+      }
+      // state.contents[indexID].isLiked = action.payload.data.isLiked
+      // state.contents[indexID].likeCount = action.payload.data.likeCount
     },
     [__deactivateLike.rejected]: (state, action) => {
       state.isLoading = false
