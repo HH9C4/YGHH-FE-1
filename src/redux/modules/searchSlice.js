@@ -11,7 +11,9 @@ const initialState = {
   error: null,
   before: [],
   now: [],
+  //getGuTag용 스토어
   tags: [],
+  //온체인지 발생시마다 필터 돌아가는 스토어
   searchTags: [],
 }
 
