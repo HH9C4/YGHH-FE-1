@@ -92,14 +92,12 @@ const Form = () => {
       tagList: tags,
     }
 
-
     formData.append(
       "contents",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
     dispatch(__insertContent(formData))
   }
-
 
   useEffect(() => {
     console.log(files)
