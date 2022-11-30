@@ -159,6 +159,9 @@ export const contentsApis = {
     hInstance.get(`/api/guinfo`, {
       params: { gu: gu },
     }),
+
+  // 홈 정보
+  homeInfoAX: () => hInstance.get(`api/maininfo`),
 }
 
 export default { hInstance, nhInstance }

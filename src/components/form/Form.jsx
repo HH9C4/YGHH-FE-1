@@ -226,7 +226,7 @@ const Form = () => {
               })}
             </div>
             {searchTag && (
-              <div className="absolute top-0 left-0 w-full h-[240px] overflow-auto">
+              <div className="absolute top-0 left-0 w-full rounded-b-md h-[240px] overflow-auto">
                 {searchTag.map((search) => {
                   return (
                     <li
@@ -234,7 +234,7 @@ const Form = () => {
                       key={search + Math.random()}
                       className="last-of-type:rounded-b-md active:bg-[#fff6c9] flex p-6 items-center text-bb22 text-sm w-full h-14 bg-white"
                     >
-                      {search}
+                      # {search}
                     </li>
                   )
                 })}
