@@ -2,15 +2,7 @@ import React from "react"
 import Layout from "../layout/Layout"
 
 const Landing = ({ data, onClose }) => {
-  //   const state = useLocation()
-  //   //   const [data, setData] = useState()
-  //   const address = state.state
-  //   useEffect(() => {
-  //     window.location.reload()
-  //     //   setData(address)
-  //   }, [address])
 
-  //   console.log("랜딩 스테이트", address)
 
   const gu = data.split(" ", 2)
 

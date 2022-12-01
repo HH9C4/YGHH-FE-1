@@ -59,7 +59,6 @@ const Setting = () => {
     }
   }
 
-  console.log(nicknameInput.nickname)
 
   useEffect(() => {
     dispatch(__duplicateName())
@@ -70,7 +69,6 @@ const Setting = () => {
   }, [nicknameInput.nickname])
 
   useEffect(() => {
-    console.log(files)
   }, [files])
 
   useEffect(() => {
@@ -134,6 +132,7 @@ const Setting = () => {
               src={localStorage.getItem("profileImage")}
             />
             <div className=" absolute top-0 w-[80px] h-[80px] rounded-full bg-[rgba(0,0,0,0.56)]"></div>
+
             <div className="absolute right-[40%] bottom-[39%] w-[24px] h-[24px] p-[4px] rounded-full  shadow-[0_0_10px_0_rgba(0,0,0,0.1)] ">
               {/* <svg
                 width="16"
@@ -274,7 +273,9 @@ const Setting = () => {
           </div>
 
           <div className="flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]">
-            <p className=" text-[14px] font-medium text-[#ff5b5b]">
+            <p
+              onClick={(() => alert('현재 준비 중인 서비스입니다🥲'))}
+              className=" text-[14px] font-medium text-[#ff5b5b]">
               서비스 탈퇴
             </p>
           </div>
