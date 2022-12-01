@@ -7,9 +7,8 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const Post = () => {
+const Post = ({ posts }) => {
   const navigate = useNavigate()
-  const { contents } = useSelector((state) => state.contents)
   const settings = {
     dots: true,
     dotsClass: "post",
@@ -25,8 +24,8 @@ const Post = () => {
   const level = 1
   return (
     <>
-      {contents !== undefined &&
-        contents.map((data) => {
+      {posts !== undefined &&
+        posts.map((data) => {
           return (
             <div key={String(data.postId) + Math.random()}>
               <div className="bg-white p-6 mb-6 rounded-md shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">

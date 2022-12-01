@@ -44,7 +44,7 @@ const Search = () => {
   }, [params])
 
   let obj = {
-    type: 0,
+    type: params.type,
     searchWord: params.searchWord,
     sort: params.sort,
     page: page,
