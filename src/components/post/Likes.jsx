@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { contentsApis } from "../../api/instance"
 import {
   __activateCommentLike,
@@ -10,7 +10,6 @@ import {
 
 function Likes({ data, level, isLiked, itemId, count }) {
   const dispatch = useDispatch()
-
   const onLike = () => {
     const obj = {
       contentId: data,

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
-import { contentsApis, commentApis } from "../../api/instance"
+import { contentsApis, commentApis, membersApis } from "../../api/instance"
 import { current } from "@reduxjs/toolkit"
 import { act } from "react-dom/test-utils"
 
@@ -13,7 +13,6 @@ export const __insertContent = createAsyncThunk(
       window.location.replace(`/list/${res.data.data.gu}/all/new`)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.message) //.data);
     }
   }
 )
@@ -28,7 +27,6 @@ export const __insertComment = createAsyncThunk(
         return thunkAPI.fulfillWithValue(res.data.data)
       }
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -45,7 +43,6 @@ export const __deleteComment = createAsyncThunk(
       }
       // return thunkAPI.fulfillWithValue(payload)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
     }
   }
 )
@@ -64,7 +61,7 @@ export const __activateLike = createAsyncThunk(
       console.log("게시글 좋아요", obj)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+
     }
   }
 )
@@ -101,7 +98,7 @@ export const __activateCommentLike = createAsyncThunk(
 
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
-      return thunkAPI.rejectWithValue(error)
+
     }
   }
 )
@@ -329,8 +326,6 @@ export const contentsSlice = createSlice({
     },
     [__activateLike.fulfilled]: (state, action) => {
       state.isLoading = false
-      console.log("좋아요 리듀서 안, 페이로드", action.payload)
-      console.log("커렌트", current(state))
       state.content.likeId = action.payload.id
       state.content.isLiked = action.payload.data.isLiked
       state.content.likeCount = action.payload.data.likeCount
@@ -340,8 +335,13 @@ export const contentsSlice = createSlice({
         }
         return false
       })
-      state.contents[indexID].isLiked = action.payload.data.isLiked
-      state.contents[indexID].likeCount = action.payload.data.likeCount
+      console.log("index ID", indexID);
+      if (indexID >= 0) {
+        state.contents[indexID].isLiked = action.payload.data.isLiked
+        state.contents[indexID].likeCount = action.payload.data.likeCount
+      }
+      // state.contents[indexID].isLiked = action.payload.data.isLiked
+      // state.contents[indexID].likeCount = action.payload.data.likeCount
     },
     [__activateLike.rejected]: (state, action) => {
       state.isLoading = false
@@ -362,8 +362,12 @@ export const contentsSlice = createSlice({
         }
         return false
       })
-      state.contents[indexID].isLiked = action.payload.data.isLiked
-      state.contents[indexID].likeCount = action.payload.data.likeCount
+      if (indexID >= 0) {
+        state.contents[indexID].isLiked = action.payload.data.isLiked
+        state.contents[indexID].likeCount = action.payload.data.likeCount
+      }
+      // state.contents[indexID].isLiked = action.payload.data.isLiked
+      // state.contents[indexID].likeCount = action.payload.data.likeCount
     },
     [__deactivateLike.rejected]: (state, action) => {
       state.isLoading = false
