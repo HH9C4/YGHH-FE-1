@@ -30,7 +30,9 @@ const WalkThrough = () => {
                 {
                     activeSlide.activeSlide2 !== 2 ?
                         <div className='relative '>
-                            <div className='h-[48px] w-[324px] absolute top-[110px]  bg-bbpurple text-center flex justify-center rounded-[90px]'>
+                            <div
+                                onClick={onNextPage}
+                                className='h-[48px] w-[324px] absolute top-[110px]  bg-bbpurple text-center flex justify-center rounded-[90px]'>
                                 {
                                     activeSlide.activeSlide2 === 0 ?
                                         <svg
@@ -51,7 +53,6 @@ const WalkThrough = () => {
                                 <button
                                     className='text-white text-b14  font-medium leading-[17px] items-center'
                                     style={{ ...style }}
-                                    onClick={onNextPage}
                                 >다음으로</button>
                             </div>
                         </div> :
