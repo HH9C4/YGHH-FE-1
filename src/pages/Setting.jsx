@@ -273,7 +273,9 @@ const Setting = () => {
           </div>
 
           <div className="flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]">
-            <p className=" text-[14px] font-medium text-[#ff5b5b]">
+            <p
+              onClick={(() => alert('현재 준비 중인 서비스입니다🥲'))}
+              className=" text-[14px] font-medium text-[#ff5b5b]">
               서비스 탈퇴
             </p>
           </div>
