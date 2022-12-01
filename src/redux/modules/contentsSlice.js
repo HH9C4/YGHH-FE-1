@@ -53,12 +53,10 @@ export const __activateLike = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.likesAX(payload)
-      console.log("게시글 좋아요 페이로드", payload)
       const obj = {
         id: payload.contentId,
         data: res.data.data,
       }
-      console.log("게시글 좋아요", obj)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
 
@@ -127,7 +125,6 @@ export const __returnBookmark = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.returnBookMarkAX(payload)
-      console.log("조회 북마크", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -141,7 +138,6 @@ export const __activateBookmark = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.bookMarkAX(payload)
-      console.log("북마크 활성화", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -186,7 +182,6 @@ export const __getContent = createAsyncThunk(
         data: res.data.data,
         isBookmarked: res.data.isBookmarked,
       }
-      console.log("전체조회 받아온값", res)
       return thunkAPI.fulfillWithValue(obj)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -252,9 +247,7 @@ export const __mypageModify = createAsyncThunk(
   "contents/__mypageModify",
   async (payload, thunkAPI) => {
     try {
-      console.log("마이페이지 수정 페이로드", payload)
       const res = await contentsApis.modifyAX(payload)
-      console.log("마이페이지 수정 리스폰", res)
       //나중에 리듀서로 리팩토링 예정
       localStorage.setItem("profileImage", res.data.data.profileImage)
       localStorage.setItem("nickName", res.data.data.accountName)
@@ -279,7 +272,6 @@ export const contentsSlice = createSlice({
   reducers: {
     insertTags(state, action) {
       state.tagList.push(action.payload)
-      console.log(state.tagList)
     },
     removeTags(state, action) {
       state.tagList.filter((t) => t !== action.payload)
@@ -335,7 +327,6 @@ export const contentsSlice = createSlice({
         }
         return false
       })
-      console.log("index ID", indexID);
       if (indexID >= 0) {
         state.contents[indexID].isLiked = action.payload.data.isLiked
         state.contents[indexID].likeCount = action.payload.data.likeCount
@@ -489,7 +480,6 @@ export const contentsSlice = createSlice({
     },
     [__getContent.fulfilled]: (state, action) => {
       state.isLoading = false
-      console.log("리듀서", action.payload)
       if (action.payload.payload.page === 0) {
         state.contents.splice(0)
         state.contents.push(...action.payload.data.postList)

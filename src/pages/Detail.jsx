@@ -46,7 +46,6 @@ const Detail = () => {
     if (comment.comment.trim() === "") {
       return alert("댓글을 입력하여 주십시오.")
     }
-    console.log(obj)
     dispatch(__insertComment(obj))
     setComment({
       comment: "",
