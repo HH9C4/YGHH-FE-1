@@ -5,6 +5,7 @@ import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from "react-router-dom"
+import { setLocation } from "../redux/modules/mySlice"
 
 const Mypage = () => {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ const Mypage = () => {
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
 
   useEffect(() => {
-    localStorage.setItem("location", "my")
+    dispatch(setLocation("my"))
   }, [])
 
   return (

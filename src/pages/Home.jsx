@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux"
 import { __getHome } from "../redux/modules/searchSlice"
 import { useSelector } from "react-redux"
 import HomeIncreaseArrow from "../assets/img/HomeIncreaseArrow.svg"
+import { setLocation } from "../redux/modules/mySlice"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -47,7 +48,7 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem("location", "home")
+    dispatch(setLocation("home"))
   }, [])
   //정보페이지로 이동-guNM
 

@@ -11,6 +11,7 @@ import SelectGu from "../components/features/SelectGu"
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
 import { useInView } from "react-intersection-observer"
+import { setLocation } from "../redux/modules/mySlice"
 
 const List = () => {
   const [gu, setGu] = useState("")
@@ -48,7 +49,7 @@ const List = () => {
   }, [params])
 
   useEffect(() => {
-    localStorage.setItem("location", "com")
+    dispatch(setLocation("com"))
   }, [])
 
   let obj = {

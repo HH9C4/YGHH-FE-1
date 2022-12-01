@@ -7,6 +7,7 @@ import {
   __deactivateBookmarkPage,
 } from "../redux/modules/contentsSlice"
 import { useNavigate } from "react-router-dom"
+import { setLocation } from "../redux/modules/mySlice"
 const BookMark = () => {
   //페이지 안에서 전부 해결
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ const BookMark = () => {
 
   useEffect(() => {
     dispatch(__returnBookmark())
-    localStorage.setItem("location", "book")
+    dispatch(setLocation("book"))
   }, [])
 
   const bookMarkOff = (gu) => {
