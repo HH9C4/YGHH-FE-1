@@ -10,12 +10,12 @@ import bg from "../../assets/img/dock/book_g.svg"
 import bb from "../../assets/img/dock/book_b.svg"
 import mg from "../../assets/img/dock/mem_g.svg"
 import mb from "../../assets/img/dock/mem_b.svg"
+import { useSelector } from "react-redux"
 
 const Dock = () => {
   const navigate = useNavigate()
   const gu = localStorage.getItem("gu")
-
-  const location = localStorage.getItem("location")
+  const location = useSelector((state) => state.my.location)
 
   const toLogin = () => {
     alert("로그인이 필요한 서비스입니다🥲")
