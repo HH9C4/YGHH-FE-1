@@ -35,7 +35,6 @@ const UpdateForm = ({ data }) => {
     setTag(e.target.value)
   }
   const tags = useSelector((state) => state.contents.tagList)
-  console.log("tags", tags)
 
   const onKeyUp = (e) => {
     if ([","].indexOf(e.key) !== -1) {
@@ -55,7 +54,6 @@ const UpdateForm = ({ data }) => {
       alert("태그를 입력해주세요.")
     }
   }
-  console.log("태그추가", data.tagList.push(...tags))
   const { isSuccess, error } = useSelector((state) => state)
 
   //이미지 업로드 훅
@@ -99,7 +97,6 @@ const UpdateForm = ({ data }) => {
 
 
   useEffect(() => {
-    console.log(files)
   }, [files])
 
   return (

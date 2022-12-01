@@ -15,7 +15,6 @@ const MyCmt = (cmt) => {
     dispatch(__postMyNotice(id))
     navigate(`/detail/${cmt.cmt.postId}`)
   }
-  console.log("cmt", cmt.cmt.checked)
   return (
     <>
       {/* <div>{cmt.commentId}</div> */}

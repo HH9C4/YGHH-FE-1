@@ -10,7 +10,6 @@ const HotTag = () => {
   const params = useParams()
   const hotTag = useSelector((store) => store.search.hotTag.tagList)
   const gu = localStorage.getItem("gu")
-  console.log(hotTag)
   const onSearch = (tag) => {
     navigate(`/search/1/${tag}/new`)
   }
