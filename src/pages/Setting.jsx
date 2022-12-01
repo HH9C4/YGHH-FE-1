@@ -214,7 +214,7 @@ const Setting = () => {
               )}
               <p
                 type="button"
-                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-9
+                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-6
              shadow-[0_0_10px_0_rgba(0,0,0,0.1)] "
                 onClick={handleLogout}
               >
