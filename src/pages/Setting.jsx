@@ -177,7 +177,7 @@ const Setting = () => {
               name="nickname"
               onChange={nicknameInputHandle}
               maxLength={20}
-              className="w-full mt-[13px] text-b14 text-bb22 outline-none bg-transparent"
+              className="w-full mt-[12px] mb-[4px] text-b14 text-bb22 outline-none bg-transparent"
               type="text"
             ></input>
           </div>
@@ -247,7 +247,7 @@ const Setting = () => {
               )}
               <p
                 type="button"
-                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-6
+                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-8
              shadow-[0_0_10px_0_rgba(0,0,0,0.1)] "
                 onClick={handleLogout}
               >
