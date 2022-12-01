@@ -14,10 +14,6 @@ const Home = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const homeData = useSelector((state) => state.search.home)
-  // const jamTopList = homeData.jamTopList;
-  // const popChangeList = homeData.popChangeList;
-
-  console.log("homeData", homeData);
 
   const topSettings = {
     dots: false,
