@@ -14,6 +14,7 @@ import { useInView } from "react-intersection-observer"
 
 const List = () => {
   const [gu, setGu] = useState("")
+  const posts = useSelector((state) => state.contents.contents)
   const { bookmark } = useSelector((state) => state.contents)
   const params = useParams()
   const dispatch = useDispatch()
@@ -287,7 +288,7 @@ const List = () => {
           </button>
         </div>
         <div className="mx-[26px] mt-4">
-          <Post />
+          <Post posts={posts} />
           <div ref={ref}></div>
         </div>
         <EditBtn />
