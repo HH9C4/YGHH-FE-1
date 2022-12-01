@@ -12,6 +12,8 @@ const Post = () => {
   const { contents } = useSelector((state) => state.contents)
   const settings = {
     dots: true,
+    dotsClass: "post",
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -79,7 +81,7 @@ const Post = () => {
                         {data.likeCount}
                       </div>
                     </div>
-                    <div className="w-[40px] h-[24px] border-bb22 leading-5 border-[0.5px] text-center rounded-md text-bb22 text-[14px]">
+                    <div className="w-[48px] h-[24px] border-bb66 text-b12 leading-6 border-[0.5px] text-center rounded-full text-bb66">
                       {data.category}
                     </div>
                   </div>
