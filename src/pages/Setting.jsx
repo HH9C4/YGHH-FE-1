@@ -1,18 +1,22 @@
 import React, { useEffect, useRef, useState } from "react"
 import Layout from "../components/layout/Layout"
 import { useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { __naverLogout } from "../redux/modules/memberSlice"
 import { __mypageModify } from "../redux/modules/contentsSlice"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
 import useInput from "../hooks/useInput"
+import { name } from "../redux/modules/memberSlice"
+
 const Setting = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const LOGOUTREDIRECT_URI =
     "https://boombiboombi.vercel.app/user/kakao/logout/callback"
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
+
+  const checkDuplicate = useSelector((state) => state.members.name)
 
   //커스텀 훅 사용
   const [nicknameInput, setnicknameInput, nicknameInputHandle] = useInput({
@@ -58,6 +62,14 @@ const Setting = () => {
   console.log(nicknameInput.nickname)
 
   useEffect(() => {
+    dispatch(__duplicateName())
+  }, [])
+
+  useEffect(() => {
+    dispatch(name(nicknameInput.nickname))
+  }, [nicknameInput.nickname])
+
+  useEffect(() => {
     console.log(files)
   }, [files])
 
@@ -66,7 +78,7 @@ const Setting = () => {
   }, [])
   return (
     <Layout>
-      <div className="pt-6 ml-[25px] mr-[26px] mb-8">
+      <div className="pt-6 ml-[25px] mr-[26px] pb-8">
         <div className="w-full flex items-center">
           <button onClick={() => navigate(-1)} className="active:animate-ping">
             <svg
@@ -121,7 +133,7 @@ const Setting = () => {
               src={localStorage.getItem("profileImage")}
             />
             <div className=" absolute top-0 w-[80px] h-[80px] rounded-full bg-[rgba(0,0,0,0.56)]"></div>
-            <div className="absolute right-6 bottom-7 bottom-0 w-[24px] h-[24px] p-[4px] rounded-full  shadow-[0_0_10px_0_rgba(0,0,0,0.1)] ">
+            <div className="absolute right-[40%] bottom-[39%] w-[24px] h-[24px] p-[4px] rounded-full  shadow-[0_0_10px_0_rgba(0,0,0,0.1)] ">
               {/* <svg
                 width="16"
                 height="16"
@@ -164,25 +176,25 @@ const Setting = () => {
               name="nickname"
               onChange={nicknameInputHandle}
               maxLength={20}
-              className="w-full mt-[13px] outline-none bg-transparent"
+              className="w-full mt-[13px] text-b14 text-bb22 outline-none bg-transparent"
               type="text"
-            ></input>
-            {/* <svg
-              onClick={onPut}
-              className="mb-[3px]"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M19 20H5a1 1 0 0 0 0 2h14a1 1 0 0 0 0-2zM5 18h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71L16.66 2.6A2 2 0 0 0 14 2.53l-9 9a2 2 0 0 0-.57 1.21L4 16.91A1 1 0 0 0 5 18zM15.27 4 18 6.73l-2 1.95L13.32 6l1.95-2zm-8.9 8.91L12 7.32l2.7 2.7-5.6 5.6-3 .28.27-2.99z"
-                fill="#888"
-              />
-            </svg> */}
+            />
+            {checkDuplicate && nicknameInput.nickname !== "" ? (
+              <p className="w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple">
+                닉네임 사용이 가능합니다
+              </p>
+            ) : (
+              ""
+            )}
+            {!checkDuplicate ? (
+              <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
+                이미 사용중인 닉네임입니다
+              </p>
+            ) : (
+              ""
+            )}
           </div>
-          <div className="flex items-center px-[24px] justify-between mt-[40px] rounded-[8px] bg-white w-full h-16">
+          <div className="flex items-center px-[24px] justify-between mt-[32px] rounded-[8px] bg-white w-full h-[64px]">
             <p className="text-[14px] font-medium ">연결된 계정</p>
             <div className="flex items-center">
               {localStorage.getItem("site") === "naver" ? (
@@ -248,7 +260,14 @@ const Setting = () => {
               <p className=" text-[14px] font-medium">1.0.1 Ver</p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
-              <p className=" text-[14px] font-medium">개발자 문의</p>
+              <button
+                onClick={() => {
+                  window.open("https://forms.gle/788k8ygRzdZBWU4j7")
+                }}
+                className="w-full text-left text-[14px] font-medium"
+              >
+                개발자 문의
+              </button>
             </div>
           </div>
 
