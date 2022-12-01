@@ -7,11 +7,31 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { useDispatch } from "react-redux"
 import { __getHome } from "../redux/modules/searchSlice"
+import { useSelector } from 'react-redux'
+import HomeIncreaseArrow from "../assets/img/HomeIncreaseArrow.svg"
 
 const Home = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const settings = {
+  const homeData = useSelector((state) => state.search.home)
+  // const jamTopList = homeData.jamTopList;
+  // const popChangeList = homeData.popChangeList;
+
+  console.log("homeData", homeData);
+
+  const topSettings = {
+    dots: false,
+    dotsClass: "test-css",
+    arrows: false,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+  }
+
+  const bottomSettings = {
     dots: true,
     dotsClass: "test-css",
     arrows: false,
@@ -20,7 +40,7 @@ const Home = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
   }
 
   useEffect(() => {
@@ -30,56 +50,122 @@ const Home = () => {
   useEffect(() => {
     localStorage.setItem("location", "home")
   }, [])
+  //정보페이지로 이동-guNM
 
   return (
     <Layout>
-      {/* <div className="w-[375px] pt-[60px]">
-        <Slider>
-          <div className="bg-white rounded-md">
-            <div>
-              <p></p>
-              <a>{}</a>
-            </div>
-            <ul className="text-bb22 py-[16px] flex justify-between mt-[4px] rounded-md h-[80px] bg-white">
-              <li className="px-[16px] flex flex-col justify-center items-center w-[50%] border-r-[0.5px] border-bbBB">
-                <p className="text-[12px] font-medium">실시간 인구혼잡도</p>
-                <div className="flex items-center mt-[8px]">
+      <div className="w-[375px] pl-[25px] pt-[32px]">
+        <Slider {...topSettings}>
+          {
+            homeData.jamTopList !== undefined &&
+            homeData.jamTopList?.map((item) => {
+              return (
+                <>
                   <div
-                    // style={{
-                    //   backgroundColor:
-                    //     spot.area_congest_lvl === "매우 붐빔"
-                    //       ? "#ff3535"
-                    //       : spot.area_congest_lvl === "붐빔"
-                    //       ? "#FF8A00"
-                    //       : spot.area_congest_lvl === "보통"
-                    //       ? "#FFD600"
-                    //       : spot.area_congest_lvl === "여유"
-                    //       ? "#00B953"
-                    //       : "",
-                    // }}
-                    className="w-[20px] h-[20px] rounded-full"
-                  ></div>
-                  <p className="text-[18px] ml-[8px] font-semibold">{}</p>
-                </div>
-              </li>
+                    onClick={(() => navigate(`/info/${item.guNm}`))}
+                    className='flex  items-center mb-[8px] h-[48px] px-[12px] border-b-[0.5px] border-b-[#bbb] bg-white rounded-md '>
+                    <p className='w-[33%] text-[10px] font-medium text-bb22'>지난
+                      {item.isweekend ? " 주말에" : " 평일에"} 가장 붐빈 지역</p>
+                    <p className='pl-[13px] pr-[4px] text-[14px] font-bold'>
+                      {item.ranking}
+                    </p>
+                    <a
+                      className='text-[14px] text-center w-[60%] font-bold text-bbpurple'>{item.areaNm}</a>
 
-              <li className="p-[16px] flex justify-center items-center w-[50%]">
-                <div className="flex flex-col">
-                  <p className="text-[12px] mb-[4px] font-medium">여성</p>
-                  <p className="text-[20px] font-semibold">{}</p>
-                </div>
-                <div className="flex flex-col ml-[36px]">
-                  <p className="text-[12px] mb-[4px] font-medium">남성</p>
-                  <p className="text-[20px] font-semibold">{}</p>
-                </div>
-              </li>
-            </ul>
-          </div>
+                  </div>
+                </>
+              )
+            })
+          }
         </Slider>
-      </div> */}
-      <h1 className="pt-[64px] mx-[65px] text-[24px] text-center leading-[21px] font-bold">
+        <Slider {...bottomSettings}>
+          {
+            homeData.popChangeList !== undefined &&
+            homeData.popChangeList?.map((item) => {
+              return (
+                <div
+                  nClick={(() => navigate(`/info/${item.guNm}`))}
+                  className="  bg-white h-[148px] rounded-md">
+                  <div className='flex flex-col justify-center  items-center w-full border-b-[0.5px] border-b-[#bbb] h-[67.5px]'>
+                    <p className='text-[14px] font-medium text-bb22'>최근 1시간 동안 인구가 가장 많이
+                      <span className='text-bbred font-bold'>
+                        {
+                          homeData.popChangeList.plusMinus < 0 ?
+                            " 급증한 " : " 급감한 "
+                        }
+                      </span>
+                      지역</p>
+                    <p className='text-[14px] pt-[4px] font-bold text-bbpurple'>{item.areaNm}</p>
+                  </div>
+
+                  <ul className="text-bb22  px-[24px] py-[16px] flex justify-between pt-[17px] rounded-md h-[80px] bg-white">
+                    <li className="  flex flex-col justify-center items-center border-bbBB">
+                      <p className="w-[101px] text-[14px] font-medium">실시간 인구혼잡도</p>
+                      <div className="flex items-center mt-[8px]">
+                        <div
+                          style={{
+                            backgroundColor:
+                              item.areaCongestLvl === "매우 붐빔"
+                                ? "#ff3535"
+                                : item.areaCongestLvl === "붐빔"
+                                  ? "#FF8A00"
+                                  : item.areaCongestLvl === "보통"
+                                    ? "#FFD600"
+                                    : item.areaCongestLvl === "여유"
+                                      ? "#00B953"
+                                      : "",
+                          }}
+                          className="w-[20px] h-[20px] rounded-full"></div>
+                        <p className="text-[18px] ml-[8px] font-semibold">
+                          {item.areaCongestLvl}
+                        </p>
+                      </div>
+                    </li>
+                    <li className=" flex flex-col ml-[12px] justify-center items-center w-full  border-bbBB">
+                      <p className="text-[14px]  font-medium">증감인구</p>
+                      <div className="flex  items-center mt-[8px]">
+                        <p className="text-[18px] ml-[8px]  font-semibold">
+                          {/* {Number(item.plusMinus) > 1000 ||
+                            Number(item.plusMinus) < -1000
+                            ? `${item.plusMinus.subString(0, item.plusMinus.length)}K`
+                            : item.plusMinus} */}
+                          {Number(item.plusMinus) > 1000 ||
+                            Number(item.plusMinus) < -1000
+                            ? `${String(item.plusMinus)?.substring(
+                              0,
+                              String(item.plusMinus)?.length - 3)}K`
+                            : item.plusMinus}
+                        </p>
+                      </div>
+                    </li>
+                    <li className=" flex flex-col justify-center items-center w-[50%]  border-bbBB">
+                      <p className="text-[14px] font-medium">증감율</p>
+                      <div className="flex text-bbred items-center mt-[8px]">
+                        <div className="flex items-center">
+                          <p className="text-[18px] ml-[24px] font-semibold">{item.increaseRate}%
+                          </p>
+                          <svg
+                            className="trnsition-transform"
+                            transform={item.plusMinus < 0 ? "rotate(180)" : "rotate(0)"}
+                            width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4.358 8.867a.833.833 0 0 0 1.175.108L9.167 5.95v9.883a.833.833 0 0 0 1.666 0V5.95l3.634 3.025a.833.833 0 1 0 1.066-1.283l-5-4.167-.125-.075-.108-.058a.833.833 0 0 0-.6 0l-.108.058-.125.075-5 4.167a.834.834 0 0 0-.109 1.175z" fill="#FF3535" />
+                          </svg>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div>
+              )
+            })
+          }
+
+        </Slider>
+
+      </div>
+      {/* <h1 className="pt-[64px] mx-[65px] text-[24px] text-center leading-[21px] font-bold">
         원하는 장소 직접 찾아보기
-      </h1>
+      </h1> */}
       <button
         className="mx-[26px] mt-[24px] text-[14px] w-[330px] h-[48px] rounded-[90px] text-white bg-gradient-to-r from-bbpink to-bbgradientp"
         onClick={() => navigate(`/address`)}
@@ -97,5 +183,6 @@ const Home = () => {
       </div>
     </Layout>
   )
+
 }
 export default Home

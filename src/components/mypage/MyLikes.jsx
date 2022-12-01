@@ -2,11 +2,9 @@ import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { __getMyLikes } from "../../redux/modules/mySlice"
 import MyItem from "./MyItem"
-// import { useParams } from "react-router-dom"
 
 const MyPosts = () => {
   const posts = useSelector((store) => store.my.likes)
-  // console.log("my likes", posts)
   const dispatch = useDispatch()
 
   useEffect(() => {

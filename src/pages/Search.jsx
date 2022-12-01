@@ -12,19 +12,14 @@ import { useInView } from "react-intersection-observer"
 const Search = () => {
   const posts = useSelector((store) => store.search.search)
   const size = useSelector((store) => store.search.size)
-  console.log("스토어에서 가져온 값", posts)
-  console.log("스토어에서 가져온 사이즈", size)
+
   const dispatch = useDispatch()
   const [sort, setSort] = useState("new")
   const [search, setSearch, searchHandle] = useInput()
-  //   const gu = useParams()
   const navigate = useNavigate()
   const params = useParams()
-
   const [page, setPage] = useState(0) //페이지수
-  // const [size, setSize] = useState([]) //리스트수
   const [loading, setLoading] = useState(false)
-  // console.log("page",page)
   const [ref, inView] = useInView()
 
   /**  서버에서 아이템을 가지고 오는 함수 */
@@ -41,8 +36,6 @@ const Search = () => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
     if (inView && !loading) {
       setPage((prevState) => prevState + 1)
-
-      // console.log("페이지",page)
     }
   }, [inView, loading])
 
@@ -62,7 +55,6 @@ const Search = () => {
     navigate(`/search/0/${search.keyword}/${params.sort}`)
   }
   function onSort(id) {
-    console.log(id)
     navigate(`/search/0/${params.searchWord}/${id}`)
   }
 

@@ -17,6 +17,7 @@ module.exports = {
       bbpurple: "#7F73FF",
       bbLpurple: "#F1EFFF",
       bborange: "#FFB800",
+      bbred: "#ff3535",
       bbyellow: "#FFEC8A",
       bbLyellow: "FFF6C9",
       bbgradientp: "#A66FFF",

@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom"
 import navbarLogo from "../../assets/img/navbarLogo.svg"
 const Header = () => {
   const navigate = useNavigate()
-  console.log(localStorage.getItem("nickName"))
   const params = useParams()
 
   useEffect(() => {
