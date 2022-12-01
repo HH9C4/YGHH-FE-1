@@ -4,7 +4,6 @@ import { membersApis } from "../../api/instance"
 import axios from "axios"
 // import { delCookie } from "../../cookie/cookie"
 
-
 //테스트 로그인
 export const __testLogin = createAsyncThunk(
   "members/__testLogin",
@@ -23,7 +22,6 @@ export const __testLogin = createAsyncThunk(
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
       window.location.replace("/")
-      console.log("2차 되나?", res)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
@@ -54,7 +52,6 @@ export const __kakaoLogin = createAsyncThunk(
     }
   }
 )
-
 
 //네이버 로그인
 export const __naverLogin = createAsyncThunk(
@@ -87,7 +84,7 @@ export const __duplicateName = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await membersApis.duplicateName()
-      console.log("중복확인 리스폰", res);
+
       const obj = {
         nickNameList: res.data.data,
         payload: payload,
@@ -178,10 +175,10 @@ export const memberSlice = createSlice({
   },
   reducers: {
     name(state, action) {
-      const userInput = action.payload;
-      console.log("userInput", userInput);
-      const result = state.memberNickNames.findIndex((item) =>
-        item === userInput
+      const userInput = action.payload
+      console.log("userInput", userInput)
+      const result = state.memberNickNames.findIndex(
+        (item) => item === userInput
       )
       console.log("result", result)
 
@@ -190,7 +187,6 @@ export const memberSlice = createSlice({
       } else {
         state.name = true
       }
-
     },
   },
   extraReducers: {
@@ -201,8 +197,9 @@ export const memberSlice = createSlice({
       state.isLoading = false
       state.isSuccess = false
 
-      const nickNameList = action.payload.nickNameList;
-      state.memberNickNames = nickNameList;
+      const nickNameList = action.payload.nickNameList
+      state.memberNickNames = nickNameList
+
       // const userInput = action.payload.payload;
       // console.log("nickNameList", nickNameList)
       // console.log("액션 페이로드 리듀서", action.payload)
@@ -218,7 +215,6 @@ export const memberSlice = createSlice({
       // } else {
       //   state.name = false
       // }
-
     },
     [__duplicateName.rejected]: (state, action) => {
       state.isLoading = false
