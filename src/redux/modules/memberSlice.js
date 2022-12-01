@@ -172,7 +172,6 @@ export const memberSlice = createSlice({
     name(state, action) {
 
       const userInput = action.payload
-      console.log("userInput", userInput)
       const result = state.memberNickNames.findIndex(
         (item) => item === userInput
       )
