@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
 import Layout from "../components/layout/Layout"
-import { useDispatch } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
-import { __naverLogout } from "../redux/modules/memberSlice"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { __naverLogout, __duplicateName } from "../redux/modules/memberSlice"
 import { __mypageModify } from "../redux/modules/contentsSlice"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
@@ -13,7 +13,7 @@ const Setting = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const LOGOUTREDIRECT_URI =
-    "https://boombiboombi.vercel.app/user/kakao/logout/callback"
+    "https://boombiboombi.com/user/kakao/logout/callback"
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
 
   const checkDuplicate = useSelector((state) => state.members.name)
@@ -76,6 +76,7 @@ const Setting = () => {
   useEffect(() => {
     localStorage.setItem("location", "my")
   }, [])
+
   return (
     <Layout>
       <div className="pt-6 ml-[25px] mr-[26px] pb-8">
@@ -178,23 +179,24 @@ const Setting = () => {
               maxLength={20}
               className="w-full mt-[13px] text-b14 text-bb22 outline-none bg-transparent"
               type="text"
-            />
-            {checkDuplicate && nicknameInput.nickname !== "" ? (
-              <p className="w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple">
-                닉네임 사용이 가능합니다
-              </p>
-            ) : (
-              ""
-            )}
-            {!checkDuplicate ? (
-              <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
-                이미 사용중인 닉네임입니다
-              </p>
-            ) : (
-              ""
-            )}
+            ></input>
           </div>
-          <div className="flex items-center px-[24px] justify-between mt-[32px] rounded-[8px] bg-white w-full h-[64px]">
+          {checkDuplicate && nicknameInput.nickname !== "" ? (
+            <p className="w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple">
+              닉네임 사용이 가능합니다
+            </p>
+          ) : (
+            ""
+          )}
+          {!checkDuplicate ? (
+            <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
+              이미 사용중인 닉네임입니다
+            </p>
+          ) : (
+            ""
+          )}
+
+          <div className="flex items-center px-[24px] justify-between mt-[40px] rounded-[8px] bg-white w-full h-16">
             <p className="text-[14px] font-medium ">연결된 계정</p>
             <div className="flex items-center">
               {localStorage.getItem("site") === "naver" ? (
@@ -245,7 +247,7 @@ const Setting = () => {
               )}
               <p
                 type="button"
-                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-9
+                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-6
              shadow-[0_0_10px_0_rgba(0,0,0,0.1)] "
                 onClick={handleLogout}
               >

@@ -4,6 +4,10 @@ import { membersApis } from "../../api/instance"
 import axios from "axios"
 // import { delCookie } from "../../cookie/cookie"
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a004e595623fb92c070574bd7aad9b706854ff5
 //테스트 로그인
 export const __testLogin = createAsyncThunk(
   "members/__testLogin",
@@ -53,6 +57,10 @@ export const __kakaoLogin = createAsyncThunk(
   }
 )
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a004e595623fb92c070574bd7aad9b706854ff5
 //네이버 로그인
 export const __naverLogin = createAsyncThunk(
   "members/__naverLogin",
@@ -84,7 +92,11 @@ export const __duplicateName = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await membersApis.duplicateName()
+<<<<<<< HEAD
       console.log("중복확인 리스폰", res)
+=======
+      console.log("중복확인 리스폰", res);
+>>>>>>> 0a004e595623fb92c070574bd7aad9b706854ff5
       const obj = {
         nickNameList: res.data.data,
         payload: payload,
@@ -175,10 +187,17 @@ export const memberSlice = createSlice({
   },
   reducers: {
     name(state, action) {
+<<<<<<< HEAD
       const userInput = action.payload
       console.log("userInput", userInput)
       const result = state.memberNickNames.findIndex(
         (item) => item === userInput
+=======
+      const userInput = action.payload;
+      console.log("userInput", userInput);
+      const result = state.memberNickNames.findIndex((item) =>
+        item === userInput
+>>>>>>> 0a004e595623fb92c070574bd7aad9b706854ff5
       )
       console.log("result", result)
 
@@ -187,6 +206,10 @@ export const memberSlice = createSlice({
       } else {
         state.name = true
       }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a004e595623fb92c070574bd7aad9b706854ff5
     },
   },
   extraReducers: {
@@ -197,8 +220,13 @@ export const memberSlice = createSlice({
       state.isLoading = false
       state.isSuccess = false
 
+<<<<<<< HEAD
       const nickNameList = action.payload.nickNameList
       state.memberNickNames = nickNameList
+=======
+      const nickNameList = action.payload.nickNameList;
+      state.memberNickNames = nickNameList;
+>>>>>>> 0a004e595623fb92c070574bd7aad9b706854ff5
       // const userInput = action.payload.payload;
       // console.log("nickNameList", nickNameList)
       // console.log("액션 페이로드 리듀서", action.payload)
@@ -214,6 +242,10 @@ export const memberSlice = createSlice({
       // } else {
       //   state.name = false
       // }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0a004e595623fb92c070574bd7aad9b706854ff5
     },
     [__duplicateName.rejected]: (state, action) => {
       state.isLoading = false

@@ -12,6 +12,7 @@ const WalkThrough = () => {
     const [activeSlide, setActiveSlide] = useState({
         activeSlide2: 0
     })
+    const nickname = localStorage.getItem('nickName')
     const navigate = useNavigate();
     function NextArrow(props) {
         const { style, onClick } = props;
@@ -19,10 +20,9 @@ const WalkThrough = () => {
             onClick()
             handleNextSlide()
         }
-
         useEffect(() => {
-            if (localStorage.getItem('nickName')) {
-                navigate('/home')
+            if (nickname !== null || undefined) {
+                window.location.replace('/home')
             }
         }, [])
         return (

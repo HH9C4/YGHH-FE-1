@@ -1,12 +1,5 @@
 import axios from "axios"
 
-//헤더 없는 인스턴스
-export const nhInstance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  headers: {},
-})
-
-//
 
 //헤더 있는 인스턴스
 export const hInstance = axios.create({
@@ -17,8 +10,59 @@ export const hInstance = axios.create({
         ? ""
         : localStorage.getItem("Authorization"),
   },
+
   withCredentials: true,
 })
+
+//헤더 없는 인스턴스
+export const nhInstance = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  headers: {},
+})
+
+//리프레쉬 인스턴스
+export const reFreshInstance = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    Refresh:
+      localStorage.getItem("Refresh_Token")
+  },
+})
+
+////////////////////////////////////// 인터셉터 시작
+let isTokenRefresh = false;
+
+hInstance.interceptors.response.use(function (response) {
+  return response;
+}, async function (error) {
+  const originalConfig = error.config;
+  if (error.response.data.status === "303 SEE_OTHER") {
+    if (!isTokenRefresh) {
+      isTokenRefresh = true;
+      try {
+        // const reissue = await reFreshInstance.get(`/user/reissue`)
+        const data = await axios({
+          url: `https://boombiboombi.o-r.kr/user/reissue`,
+          method: "GET",
+          headers: {
+            Refresh:
+              localStorage.getItem("Refresh_Token")
+          },
+        });
+
+        const Access_Token = data.headers.authorization
+        localStorage.setItem("Authorization", Access_Token)
+        window.location.reload()
+        axios(originalConfig);
+      }
+      catch (err) {
+        console.log("토큰 갱신 에러", err);
+      }
+    }
+  }
+  return Promise.reject(error);
+});
+///////////////////////////////// 인터셉터 끝
 
 //카카오 탈퇴 인스턴스
 export const kakaoinstance = axios.create({
@@ -36,8 +80,12 @@ export const membersApis = {
   //로컬용 테스트로그인
   testloginAX: () => nhInstance.get("https://boombiboombi.o-r.kr/user/tester"),
 
+  //토큰 재발급
+  reIssueToken: () => reFreshInstance.get(`/user/reissue`),
+
   //카카오 로그인
   kakaologinAX: (code) => nhInstance.get(`/user/signin/kakao?code=${code}`),
+
   //로그아웃 서버통신
   logoutAX: () => hInstance.delete(`/api/logout`),
 
@@ -49,7 +97,13 @@ export const membersApis = {
     nhInstance.get(
       `/user/signin/naver?code=${loginData.code}&state=${loginData.state}`
     ),
+  //중복확인
+  duplicateName: () => hInstance.get(
+    `/api/namecheck`
+  ),
 }
+
+
 
 export const commentApis = {
   //댓글 작성
