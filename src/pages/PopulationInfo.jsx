@@ -34,6 +34,10 @@ const PopulationInfo = () => {
     dispatch(__getInfo(gu))
   }, [gu])
 
+  useEffect(() => {
+    localStorage.setItem("location", "info")
+  }, [])
+
   return (
     <div
       style={{
@@ -126,16 +130,18 @@ const PopulationInfo = () => {
                     </p>
                   </li>
                 </ul>
-                {guInfo.spotInfoList.map((spot) => {
-                  return (
-                    <SpotContainer
-                      key={spot.gu_nm}
-                      Slider={Slider}
-                      settings={settings}
-                      spot={spot}
-                    />
-                  )
-                })}
+                <div className="pt-[12px] pb-[40px] rounded-md">
+                  {guInfo.spotInfoList.map((spot) => {
+                    return (
+                      <SpotContainer
+                        key={spot.gu_nm}
+                        Slider={Slider}
+                        settings={settings}
+                        spot={spot}
+                      />
+                    )
+                  })}
+                </div>
               </>
             ) : (
               <div>아직 {localStorage.getItem("gu")} 는 준비중입니다 😢</div>
