@@ -19,7 +19,6 @@ const BookMark = () => {
   }, [])
 
   const bookMarkOff = (gu) => {
-    console.log(gu)
     dispatch(__deactivateBookmarkPage(gu))
   }
   return (

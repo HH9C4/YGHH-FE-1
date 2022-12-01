@@ -14,7 +14,6 @@ export const __getMyNotice = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await contentsApis.mypageNoticeAX()
-      console.log("mynotice", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -27,7 +26,6 @@ export const __postMyNotice = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.mypageNoticeConfirmAX(payload)
-      console.log("mynoticeConfirm", res.data.data)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -40,7 +38,6 @@ export const __getMyContent = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await contentsApis.getmypageAX()
-      console.log("myposts", res.data.data)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
@@ -54,7 +51,6 @@ export const __getMyLikes = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const res = await contentsApis.mypageLikedAX()
-      console.log("mylikes", res)
       return thunkAPI.fulfillWithValue(res.data.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)

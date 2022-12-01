@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit"
 import { createAsyncThunk } from "@reduxjs/toolkit"
 import { act } from "react-dom/test-utils"
 import { contentsApis, membersApis } from "../../api/instance"
-import { current } from "@reduxjs/toolkit"
 
 const initialState = {
   search: [],
@@ -25,11 +24,9 @@ export const __getHome = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const res = await contentsApis.homeInfoAX()
-      console.log("home", res.data)
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       if (error.response.data.status === "303 SEE_OTHER") {
-        console.log("여까지 타나?");
         const reissue = await membersApis.reIssueToken()
         const Access_Token = reissue.headers.authorization
         localStorage.setItem("Authorization", Access_Token)
@@ -45,20 +42,16 @@ export const __getSearch = createAsyncThunk(
   "contents/getSearch",
   async (obj, thunkAPI) => {
     try {
-      console.log(obj)
       const res = await contentsApis.searchAX(obj)
-      console.log("서치 리스폰스", res)
       const object = {
         payload: obj,
         data: res.data.data,
       }
-      console.log("서치 오브젝트", object)
       return thunkAPI.fulfillWithValue(object)
     }
     catch (error) {
       alert(error.response.data.msg)
       if (error.response.data.status === "303 SEE_OTHER") {
-        console.log("여까지 타나?");
         const reissue = await membersApis.reIssueToken()
         const Access_Token = reissue.headers.authorization
         localStorage.setItem("Authorization", Access_Token)
@@ -73,7 +66,6 @@ export const __getSearch = createAsyncThunk(
 export const __getHotTag = createAsyncThunk(
   "contents/getHotTag",
   async (gu, thunkAPI) => {
-    console.log("받았나?", gu)
     try {
       const res = await contentsApis.hotTagAX(gu)
       return thunkAPI.fulfillWithValue(res.data)
@@ -123,7 +115,6 @@ export const searchSlice = createSlice({
       const tagList = state.tags
       if (tagList !== (undefined || null) && action.payload !== "") {
         state.searchTags = tagList.filter((t) => t.includes(action.payload))
-        console.log("filter가 도나?", action.payload, current(state))
       } else if (action.payload === "") {
         state.searchTags.splice(0)
       }
@@ -138,7 +129,6 @@ export const searchSlice = createSlice({
     [__getHome.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
-      console.log("action.payload", action.payload)
       state.hotTag = action.payload.data
     },
     [__getHome.rejected]: (state, action) => {

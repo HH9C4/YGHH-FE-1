@@ -59,7 +59,6 @@ const Setting = () => {
     }
   }
 
-  console.log(nicknameInput.nickname)
 
   useEffect(() => {
     dispatch(__duplicateName())
@@ -70,7 +69,6 @@ const Setting = () => {
   }, [nicknameInput.nickname])
 
   useEffect(() => {
-    console.log(files)
   }, [files])
 
   useEffect(() => {
@@ -134,19 +132,7 @@ const Setting = () => {
               src={localStorage.getItem("profileImage")}
             />
             <div className=" absolute top-0 w-[80px] h-[80px] rounded-full bg-[rgba(0,0,0,0.56)]"></div>
-            <div className="absolute right-6 bottom-7 bottom-0 w-[24px] h-[24px] p-[4px] rounded-full  shadow-[0_0_10px_0_rgba(0,0,0,0.1)] ">
-              {/* <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="m12.933 4.893-1.826-1.826a1.333 1.333 0 0 0-1.774-.047l-6 6c-.215.217-.35.502-.38.807l-.286 2.78a.667.667 0 0 0 .666.726h.06l2.78-.253c.305-.03.59-.165.807-.38l6-6a1.28 1.28 0 0 0-.047-1.807zm-6.88 6.854-2 .186.18-2L8 6.213l1.8 1.8-3.747 3.734zm4.614-4.627L8.88 5.333 10.18 4 12 5.82l-1.333 1.3z"
-                  fill="#222"
-                />
-              </svg> */}
+            <div className="absolute right-6 bottom-6 w-[24px] h-[24px] p-[4px] rounded-full  shadow-[0_0_10px_0_rgba(0,0,0,0.1)] ">
               <svg
                 width="24"
                 height="24"

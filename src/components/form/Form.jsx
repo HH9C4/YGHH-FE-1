@@ -30,7 +30,6 @@ const Form = () => {
     setTag(e.target.value)
   }
   const tags = useSelector((state) => state.contents.tagList)
-  console.log("tags", tags)
   const searchTag = useSelector((state) => state.search.searchTags)
 
   const onRemove = (tag) => {
@@ -48,7 +47,6 @@ const Form = () => {
       /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
       ""
     )
-    console.log(click)
     if (click.bubbles === true || false) {
       if (filtered !== "") {
         dispatch(insertTags(filtered))
@@ -100,7 +98,6 @@ const Form = () => {
   }
 
   useEffect(() => {
-    console.log(files)
   }, [files])
 
   useEffect(() => {
