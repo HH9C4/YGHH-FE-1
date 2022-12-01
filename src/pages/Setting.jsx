@@ -7,7 +7,7 @@ import { __mypageModify } from "../redux/modules/contentsSlice"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
 import useInput from "../hooks/useInput"
-import { name } from '../redux/modules/memberSlice'
+import { name } from "../redux/modules/memberSlice"
 
 const Setting = () => {
   const navigate = useNavigate()
@@ -79,7 +79,7 @@ const Setting = () => {
 
   return (
     <Layout>
-      <div className="pt-6 ml-[25px] mr-[26px] mb-8">
+      <div className="pt-6 ml-[25px] mr-[26px] pb-8">
         <div className="w-full flex items-center">
           <button onClick={() => navigate(-1)} className="active:animate-ping">
             <svg
@@ -134,7 +134,7 @@ const Setting = () => {
               src={localStorage.getItem("profileImage")}
             />
             <div className=" absolute top-0 w-[80px] h-[80px] rounded-full bg-[rgba(0,0,0,0.56)]"></div>
-            <div className="absolute right-6 bottom-7 bottom-0 w-[24px] h-[24px] p-[4px] rounded-full  shadow-[0_0_10px_0_rgba(0,0,0,0.1)] ">
+            <div className="absolute right-[40%] bottom-[39%] w-[24px] h-[24px] p-[4px] rounded-full  shadow-[0_0_10px_0_rgba(0,0,0,0.1)] ">
               {/* <svg
                 width="16"
                 height="16"
@@ -177,22 +177,24 @@ const Setting = () => {
               name="nickname"
               onChange={nicknameInputHandle}
               maxLength={20}
-              className="w-full mt-[13px] outline-none bg-transparent"
+              className="w-full mt-[12px] mb-[4px] text-b14 text-bb22 outline-none bg-transparent"
               type="text"
             ></input>
           </div>
-          {
-            checkDuplicate && nicknameInput.nickname !== '' ?
-              <p
-                className='w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple'>닉네임 사용이 가능합니다</p> : ""
-          }
-          {
-            !checkDuplicate ?
-              <p
-                className='w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]'>이미 사용중인 닉네임입니다</p> : ""
-          }
-
-
+          {checkDuplicate && nicknameInput.nickname !== "" ? (
+            <p className="w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple">
+              닉네임 사용이 가능합니다
+            </p>
+          ) : (
+            ""
+          )}
+          {!checkDuplicate ? (
+            <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
+              이미 사용중인 닉네임입니다
+            </p>
+          ) : (
+            ""
+          )}
 
           <div className="flex items-center px-[24px] justify-between mt-[40px] rounded-[8px] bg-white w-full h-16">
             <p className="text-[14px] font-medium ">연결된 계정</p>
@@ -245,7 +247,7 @@ const Setting = () => {
               )}
               <p
                 type="button"
-                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-6
+                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-8
              shadow-[0_0_10px_0_rgba(0,0,0,0.1)] "
                 onClick={handleLogout}
               >
@@ -260,7 +262,14 @@ const Setting = () => {
               <p className=" text-[14px] font-medium">1.0.1 Ver</p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
-              <p className=" text-[14px] font-medium">개발자 문의</p>
+              <button
+                onClick={() => {
+                  window.open("https://forms.gle/788k8ygRzdZBWU4j7")
+                }}
+                className="w-full text-left text-[14px] font-medium"
+              >
+                개발자 문의
+              </button>
             </div>
           </div>
 
