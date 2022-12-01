@@ -46,6 +46,10 @@ const List = () => {
     setPage(0)
   }, [params])
 
+  useEffect(() => {
+    localStorage.setItem("location", "com")
+  }, [])
+
   let obj = {
     gu: params.gu,
     sort: params.sort,
@@ -79,8 +83,8 @@ const List = () => {
                   {params.gu !== "중구" && params.gu !== "구로구"
                     ? params.gu.substring(0, params.gu.indexOf("구"))
                     : params.gu !== "구로구"
-                      ? "중구"
-                      : "구로"}
+                    ? "중구"
+                    : "구로"}
                   붐비
                 </h1>
                 {/* 북마크 토글러 함수 실행 */}

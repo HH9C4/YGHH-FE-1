@@ -84,7 +84,7 @@ const Post = () => {
                     </div>
                   </div>
                   <div
-                    className="text-sm text-bb22 mt-6 mb-4"
+                    className="break-all text-sm text-bb22 mt-6 mb-4"
                     onClick={() => navigate(`/detail/${data.postId}`)}
                   >
                     {data.content}
