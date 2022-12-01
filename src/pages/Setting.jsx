@@ -59,7 +59,6 @@ const Setting = () => {
     }
   }
 
-
   useEffect(() => {
     dispatch(__duplicateName())
   }, [])
@@ -68,8 +67,7 @@ const Setting = () => {
     dispatch(name(nicknameInput.nickname))
   }, [nicknameInput.nickname])
 
-  useEffect(() => {
-  }, [files])
+  useEffect(() => {}, [files])
 
   useEffect(() => {
     localStorage.setItem("location", "my")
@@ -77,8 +75,8 @@ const Setting = () => {
 
   return (
     <Layout>
-      <div className="pt-6 ml-[25px] mr-[26px] pb-8">
-        <div className="w-full flex items-center">
+      <div className="w-full pt-6 ml-[25px] mr-[26px] pb-8">
+        <div className="w-full justify-between flex items-center">
           <button onClick={() => navigate(-1)} className="active:animate-ping">
             <svg
               width="24"
@@ -93,15 +91,13 @@ const Setting = () => {
               />
             </svg>
           </button>
-          <h1 className=" flex w-full absolute left-[45%] text-bb22 font-bold text-[20px]">
-            설정
-          </h1>
-          <h1
+          <h1 className="flex text-bb22 font-bold text-[20px]">설정</h1>
+          <button
             onClick={onPut}
-            className=" flex  w-full absolute left-[87%] text-bb22 font-medium	 text-[14px]"
+            className="flex text-bb22 font-medium text-[14px]"
           >
             저장
-          </h1>
+          </button>
         </div>
         <div className="flex justify-center mt-[35px] ">
           <label className="relative w-[80px] h-[80px] " htmlFor="img-File">
@@ -119,7 +115,7 @@ const Setting = () => {
             {fileUrls.map((value) => {
               return (
                 <img
-                  className="absolute rounded-full w-full h-full "
+                  className="absolute rounded-full w-full h-full object-cover"
                   src={value ? value : ""}
                   alt="image"
                   key={Math.random()}
@@ -180,21 +176,22 @@ const Setting = () => {
               type="text"
             ></input>
           </div>
-          {checkDuplicate && nicknameInput.nickname !== "" ? (
-            <p className="w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple">
-              닉네임 사용이 가능합니다
-            </p>
-          ) : (
-            ""
-          )}
-          {!checkDuplicate ? (
-            <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
-              이미 사용중인 닉네임입니다
-            </p>
-          ) : (
-            ""
-          )}
-
+          <div className="relative w-full">
+            {checkDuplicate && nicknameInput.nickname !== "" ? (
+              <p className="w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple">
+                닉네임 사용이 가능합니다
+              </p>
+            ) : (
+              ""
+            )}
+            {!checkDuplicate ? (
+              <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
+                이미 사용중인 닉네임입니다
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
           <div className="flex items-center px-[24px] justify-between mt-[40px] rounded-[8px] bg-white w-full h-16">
             <p className="text-[14px] font-medium ">연결된 계정</p>
             <div className="flex items-center">
@@ -274,8 +271,9 @@ const Setting = () => {
 
           <div className="flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]">
             <p
-              onClick={(() => alert('현재 준비 중인 서비스입니다🥲'))}
-              className=" text-[14px] font-medium text-[#ff5b5b]">
+              onClick={() => alert("현재 준비 중인 서비스입니다🥲")}
+              className=" text-[14px] font-medium text-[#ff5b5b]"
+            >
               서비스 탈퇴
             </p>
           </div>
