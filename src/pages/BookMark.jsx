@@ -25,11 +25,11 @@ const BookMark = () => {
     <Layout>
       <div className="ml-[25px] mr-[26px] pt-[32px]  ">
         <p className=" text-xl font-bold mb-[12px]">나의 북마크</p>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap gap-x-[12px] gap-y-[12px]">
           {bookmarkData !== undefined && bookmarkData.length !== 0 ? (
             bookmarkData.map((item) => {
               return (
-                <div className="w-[156px] h-[160px] mr-[12px] my-[12] bg-white mb-3 rounded-lg text-bb22 ">
+                <div className="w-[140px] h-[160px] bg-white rounded-lg text-bb22 ">
                   <div className=" h-[63.5px] border-b-[1px] border-b-bbBB flex flex-row pl-6 mr-1 items-center">
                     <p className="text-base font-medium ">
                       {item.gu !== "중구"

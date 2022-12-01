@@ -4,7 +4,6 @@ import { membersApis } from "../../api/instance"
 import axios from "axios"
 // import { delCookie } from "../../cookie/cookie"
 
-
 //테스트 로그인
 export const __testLogin = createAsyncThunk(
   "members/__testLogin",
@@ -52,7 +51,6 @@ export const __kakaoLogin = createAsyncThunk(
     }
   }
 )
-
 
 //네이버 로그인
 export const __naverLogin = createAsyncThunk(
@@ -172,9 +170,11 @@ export const memberSlice = createSlice({
   },
   reducers: {
     name(state, action) {
-      const userInput = action.payload;
-      const result = state.memberNickNames.findIndex((item) =>
-        item === userInput
+
+      const userInput = action.payload
+      console.log("userInput", userInput)
+      const result = state.memberNickNames.findIndex(
+        (item) => item === userInput
       )
 
       if (result !== -1) {
@@ -182,7 +182,6 @@ export const memberSlice = createSlice({
       } else {
         state.name = true
       }
-
     },
   },
   extraReducers: {
@@ -192,9 +191,9 @@ export const memberSlice = createSlice({
     [__duplicateName.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
-
       const nickNameList = action.payload.nickNameList;
       state.memberNickNames = nickNameList;
+
     },
     [__duplicateName.rejected]: (state, action) => {
       state.isLoading = false
