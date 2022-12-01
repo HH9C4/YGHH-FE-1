@@ -28,33 +28,19 @@ export const reFreshInstance = axios.create({
       localStorage.getItem("Refresh_Token")
   },
 })
-// Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJleHAiOjE2NzA0MTYyMjcsImlhdCI6MTY2OTgxMTQyN30.Zc1lvD6EVPhyTeXEt1tcGv2uhCADSV0BMJYk9H7uhok
 
-// 새로운 엑세스 토큰
-// Authorization: Bearer  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJleHAiOjE2Njk4MTE1MTYsImlhdCI6MTY2OTgxMTQ4Nn0.hSsb6sHp_N65l2xzG25LInuDFywgGgR-HySA6tywYI8
-
-// 가지고 있는 토큰
-// Bearer  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJleHAiOjE2Njk4MTE2MzIsImlhdCI6MTY2OTgxMTYwMn0.wEEVWk7KId6ZZF5Y4IvkZLtYWtx0IAlTX1dj3-7DhU0
-
-// 가지고 있는 토큰2
-// Bearer  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJleHAiOjE2Njk4MTE3NzcsImlhdCI6MTY2OTgxMTc0N30.AeEqR6dkBuhbMW2eBaRvZrvw-cVsta5ikFfrlQUBjjc
-
-// 가지고 있는 토큰3
-// Bearer  eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIiLCJleHAiOjE2Njk4MTE4NTYsImlhdCI6MTY2OTgxMTgyNn0.p6TWWj2uq75Y3kOhD-TbeCn1rTcPCrQL7p0akmW-XqM
+////////////////////////////////////// 인터셉터 시작
 let isTokenRefresh = false;
-// 응답 인터셉터 추가하기
 
 hInstance.interceptors.response.use(function (response) {
   return response;
 }, async function (error) {
   const originalConfig = error.config;
-
   if (error.response.data.status === "303 SEE_OTHER") {
-
     if (!isTokenRefresh) {
       isTokenRefresh = true;
       try {
-
+        // const reissue = await reFreshInstance.get(`/user/reissue`)
         const data = await axios({
           url: `https://boombiboombi.o-r.kr/user/reissue`,
           method: "GET",
@@ -64,38 +50,19 @@ hInstance.interceptors.response.use(function (response) {
           },
         });
 
-        console.log("리프레서 데이터", data);
-        // const reissue = await reFreshInstance.get(`/user/reissue`)
         const Access_Token = data.headers.authorization
         localStorage.setItem("Authorization", Access_Token)
-
-        // if (data) {
-        //   localStorage.setItem(
-        //     "token",
-        //     JSON.stringify(data.data, ["accessToken", "refreshToken"])
-        //   );
         window.location.reload()
-        // return await hInstance.request(originalConfig);
         axios(originalConfig);
-        // }
       }
       catch (err) {
         console.log("토큰 갱신 에러", err);
       }
     }
-
-
-    // console.log("받아오는 에러 메시지", error);
-    // console.log("여까지 타나?");
-    // const reissue = await reFreshInstance.get(`/user/reissue`)
-    // console.log("리이슈 결과값", reissue);
-    // const Access_Token = reissue.headers.authorization
-    // localStorage.setItem("Authorization", Access_Token)
-    // return await hInstance.request(originalConfig);
   }
   return Promise.reject(error);
 });
-
+///////////////////////////////// 인터셉터 끝
 
 //카카오 탈퇴 인스턴스
 export const kakaoinstance = axios.create({
