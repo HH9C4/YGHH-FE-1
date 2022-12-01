@@ -16,6 +16,7 @@ const DetailPost = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const data = useSelector((state) => state.contents.content)
+
   // 게시글 삭제 버튼
   const onPostDelete = (postId) => {
     const obj = {
@@ -32,6 +33,8 @@ const DetailPost = () => {
 
   const settings = {
     dots: true,
+    dotsClass: "post",
+    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -40,9 +43,7 @@ const DetailPost = () => {
     autoplaySpeen: 200,
   }
 
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, [])
 
   const level = 1
 
@@ -84,15 +85,20 @@ const DetailPost = () => {
           )}
 
           {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
-          <div className="mt-6 flex items-center">
-            <Likes
-              data={data.postId}
-              level={level}
-              isLiked={data.isLiked}
-              count={data.likeCount}
-            />
-            <div className="ml-1 text-lg text-bb22 font-semibold">
-              {data.likeCount}
+          <div className="flex justify-between items-end">
+            <div className="mt-6 flex items-center">
+              <Likes
+                data={data.postId}
+                level={level}
+                isLiked={data.isLiked}
+                count={data.likeCount}
+              />
+              <div className="ml-1 text-lg text-bb22 font-semibold">
+                {data.likeCount}
+              </div>
+            </div>
+            <div className="w-[48px] h-[24px] border-bb66 text-b12 leading-6 border-[0.5px] text-center rounded-full text-bb66">
+              {data.category}
             </div>
           </div>
           <div
