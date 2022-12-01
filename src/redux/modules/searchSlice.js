@@ -10,6 +10,7 @@ const initialState = {
   error: null,
   before: [],
   now: [],
+  home: {},
   //getGuTag용 스토어
   tags: [],
   //온체인지 발생시마다 필터 돌아가는 스토어
@@ -26,13 +27,6 @@ export const __getHome = createAsyncThunk(
       const res = await contentsApis.homeInfoAX()
       return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
-      if (error.response.data.status === "303 SEE_OTHER") {
-        const reissue = await membersApis.reIssueToken()
-        const Access_Token = reissue.headers.authorization
-        localStorage.setItem("Authorization", Access_Token)
-        const response = await contentsApis.homeInfoAX()
-        return thunkAPI.fulfillWithValue(response.data)
-      }
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -50,14 +44,6 @@ export const __getSearch = createAsyncThunk(
       return thunkAPI.fulfillWithValue(object)
     }
     catch (error) {
-      alert(error.response.data.msg)
-      if (error.response.data.status === "303 SEE_OTHER") {
-        const reissue = await membersApis.reIssueToken()
-        const Access_Token = reissue.headers.authorization
-        localStorage.setItem("Authorization", Access_Token)
-        const response = await contentsApis.searchAX(obj)
-        return thunkAPI.fulfillWithValue(response.data)
-      }
       return thunkAPI.rejectWithValue(error)
     }
   }
@@ -129,7 +115,7 @@ export const searchSlice = createSlice({
     [__getHome.fulfilled]: (state, action) => {
       state.isLoading = false
       state.isSuccess = false
-      state.hotTag = action.payload.data
+      state.home = action.payload.data
     },
     [__getHome.rejected]: (state, action) => {
       state.isLoading = false
