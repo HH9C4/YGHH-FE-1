@@ -8,6 +8,7 @@ import SelectInfo from "../components/features/SelectInfo"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import { setLocation } from "../redux/modules/mySlice"
 
 const PopulationInfo = () => {
   const dispatch = useDispatch()
@@ -34,7 +35,7 @@ const PopulationInfo = () => {
   }, [gu])
 
   useEffect(() => {
-    localStorage.setItem("location", "info")
+    dispatch(setLocation("info"))
   }, [])
 
   return (
@@ -54,8 +55,8 @@ const PopulationInfo = () => {
                   {params.gu !== "중구" && params.gu !== "구로구"
                     ? params.gu.substring(0, params.gu.indexOf("구"))
                     : params.gu !== "구로구"
-                      ? "중구"
-                      : "구로"}
+                    ? "중구"
+                    : "구로"}
                   붐비
                 </h1>
               </div>
@@ -122,9 +123,9 @@ const PopulationInfo = () => {
                     <p className="text-[20px] font-semibold">
                       {Number(guInfo.gu_confirmed) > 1000
                         ? `${guInfo.gu_confirmed.substring(
-                          0,
-                          guInfo.gu_confirmed.length - 3
-                        )}K`
+                            0,
+                            guInfo.gu_confirmed.length - 3
+                          )}K`
                         : guInfo.gu_confirmed}
                     </p>
                   </li>

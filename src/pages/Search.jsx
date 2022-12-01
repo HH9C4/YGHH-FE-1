@@ -75,7 +75,7 @@ const Search = () => {
               }
               value={search.keyword}
               onChange={searchHandle}
-              placeholder="#을 붙이면 태그로 검색할 수 있어요"
+              placeholder="검색어를 입력해주세요."
             ></input>
             <svg
               className="mr-[19px]"
