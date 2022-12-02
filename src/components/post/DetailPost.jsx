@@ -16,8 +16,6 @@ const DetailPost = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const data = useSelector((state) => state.contents.content)
-  // console.log("디테일 포스트 data", data);
-  console.log("디테일 포스트 data.isLiked", data.isLiked)
   // 게시글 삭제 버튼
   const onPostDelete = (postId) => {
     const obj = {
@@ -29,7 +27,7 @@ const DetailPost = () => {
 
   //삭제 버튼 작성자 확인
   const checkOwner = {
-    nickName: useSelector((state) => state.members.user.nickName),
+    nickName: localStorage.getItem("nickName"),
   }
 
   const settings = {
@@ -44,7 +42,7 @@ const DetailPost = () => {
     autoplaySpeen: 200,
   }
 
-  useEffect(() => {}, [])
+  useEffect(() => { }, [])
 
   const level = 1
 

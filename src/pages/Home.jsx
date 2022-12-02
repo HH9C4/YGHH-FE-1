@@ -47,59 +47,66 @@ const Home = () => {
 
   return (
     <Layout>
-      <div className="w-full pl-[25px] pr-[26px] pt-[32px]">
+      <div
+        key={Math.random() * 10}
+        className="w-full pl-[25px] pr-[26px] pt-[32px]">
         <Slider {...topSettings}>
           {homeData.jamTopList !== undefined &&
             homeData.jamTopList?.map((item) => {
               return (
                 <>
-                  <div
-                    onClick={() => navigate(`/info/${item.guNm}`)}
-                    className="flex items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
-                  >
-                    <p className="w-[38%] text-[10px] font-medium text-bb22">
-                      지난
-                      {item.isWeekend ? " 주말에" : " 평일에"} 가장 붐빈 지역
-                    </p>
 
-                    <div className="relative h-[20px] ">
-                      <div className="absolute bottom-0 w-[20px] h-[20px] ">
-                        <div
-                          style={{
-                            backgroundColor:
-                              item.ranking === 1
-                                ? "#FFD76E"
-                                : item.ranking === 2
-                                ? "#bbb"
-                                : item.ranking === 3
-                                ? "#dbab46"
-                                : "",
-                          }}
-                          className="absolute bottom-[3px] left-[3px] w-[14px] h-[14px] rounded-full
-                       animate-ping"
-                        ></div>
-                        <div
-                          style={{
-                            backgroundColor:
-                              item.ranking === 1
-                                ? "#FFBF17"
-                                : item.ranking === 2
-                                ? "#bfbfbf"
-                                : item.ranking === 3
-                                ? "#db9400"
-                                : "",
-                          }}
-                          className="absolute bottom-[2px] left-[2px] w-[16px] h-[16px] rounded-full
-                        "
-                        ></div>
-                      </div>
-                      <p className="absolute left-[-1.25px] bottom-[2px] pl-[8px] pr-[4px] text-b11 text-white  font-bold">
-                        {item.ranking}
+                  <div
+                    key={Math.random() * 10}
+                    onClick={() => navigate(`/info/${item.guNm}`)}
+                    className="flex justify-between items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
+                  >
+
+                    <div className='flex justify-center items-center w-full '>
+                      <p className=" text-right text-[10px] font-medium text-bb22">
+                        지난
+                        <span className='font-bold text-bbred'>{item.isWeekend ? " 주말" : " 평일"}</span>에 가장 붐빈 지역
+
                       </p>
+                      <div className="relative ml-[12px] h-[20px] ">
+                        <div className="absolute bottom-0 w-[20px] h-[20px] ">
+                          <div
+                            style={{
+                              backgroundColor:
+                                item.ranking === 1
+                                  ? "#FFD76E"
+                                  : item.ranking === 2
+                                    ? "#bbb"
+                                    : item.ranking === 3
+                                      ? "#dbab46"
+                                      : "",
+                            }}
+                            className="absolute bottom-[3px] left-[3px] w-[14px] h-[14px] rounded-full
+                       animate-ping"
+                          ></div>
+                          <div
+                            style={{
+                              backgroundColor:
+                                item.ranking === 1
+                                  ? "#FFBF17"
+                                  : item.ranking === 2
+                                    ? "#bfbfbf"
+                                    : item.ranking === 3
+                                      ? "#db9400"
+                                      : "",
+                            }}
+                            className="absolute bottom-[2px] left-[2px] w-[16px] h-[16px] rounded-full
+                        "
+                          ></div>
+                        </div>
+                        <p className="absolute left-[-1.25px] bottom-[2px] pl-[8px] pr-[4px] text-b11 text-white  font-bold">
+                          {item.ranking}
+                        </p>
+                      </div>
+                      <a className="text-b12 text-center ml-[28px] font-bold text-bbpurple">
+                        {item.areaNm}
+                      </a>
                     </div>
-                    <a className="text-b12 text-center w-[60%] font-bold text-bbpurple">
-                      {item.areaNm}
-                    </a>
                   </div>
                 </>
               )
@@ -110,7 +117,8 @@ const Home = () => {
             homeData.popChangeList?.map((item) => {
               return (
                 <div
-                  nClick={() => navigate(`/info/${item.guNm}`)}
+                  key={Math.random() * 10}
+                  onClick={() => navigate(`/info/${item.guNm}`)}
                   className="  bg-white h-[148px] rounded-md"
                 >
                   <div className="flex flex-col justify-center  items-center w-full border-b-[0.5px] border-b-[#bbb] h-[67.5px]">
@@ -164,11 +172,11 @@ const Home = () => {
                             : item.plusMinus} */}
 
                           {Number(item.plusMinus) >= 1000 ||
-                          Number(item.plusMinus) <= -1000
+                            Number(item.plusMinus) <= -1000
                             ? `${String(item.plusMinus)?.substring(
-                                0,
-                                String(item.plusMinus)?.length - 3
-                              )}.${String(item.plusMinus).slice(-3, -2)}K`
+                              0,
+                              String(item.plusMinus)?.length - 3
+                            )}.${String(item.plusMinus).slice(-3, -2)}K`
                             : item.plusMinus}
                         </p>
                       </div>

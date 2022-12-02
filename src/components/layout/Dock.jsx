@@ -21,7 +21,6 @@ const Dock = () => {
     alert("로그인이 필요한 서비스입니다🥲")
     navigate("/login")
   }
-  console.log(gu, location)
   const onInfo = () => {
     alert(
       "확인하려는 위치가 선택되지 않았습니다. 홈화면에서 구를 선택하여 주십시오😀"
@@ -33,15 +32,6 @@ const Dock = () => {
       <div className="fixed bottom-0 w-full h-[80px] bg-bbLpurple">
         <hr className="border-[0.5px] border-t-0 border-bbBB w-full" />
         <dl className="w-full h-[52px] max-w-[420px] mx-auto bg-bbLpurple text-bb66 text-[10px] flex justify-evenly items-center">
-          <div
-            onClick={() => navigate("/home")}
-            className="w-12 pt-2 pb-1 flex flex-col items-center cursor-pointer"
-          >
-            <dt>
-              <img src={location === "home" ? hb : hg} />
-            </dt>
-            <dd className="mt-1">홈</dd>
-          </div>
           <div
             onClick={() =>
               gu === "" || null || undefined
@@ -60,8 +50,8 @@ const Dock = () => {
               gu === ""
                 ? onInfo()
                 : nickName
-                ? navigate(`/list/${gu}/all/new`)
-                : toLogin()
+                  ? navigate(`/list/${gu}/all/new`)
+                  : toLogin()
             }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
@@ -69,6 +59,15 @@ const Dock = () => {
               <img className="mt-1" src={location === "com" ? cb : cg} />
             </dt>
             <dd className="mt-1">커뮤니티</dd>
+          </div>
+          <div
+            onClick={() => navigate("/home")}
+            className="w-12 pt-2 pb-1 flex flex-col items-center cursor-pointer"
+          >
+            <dt>
+              <img src={location === "home" ? hb : hg} />
+            </dt>
+            <dd className="mt-1">홈</dd>
           </div>
           <div
             onClick={() => (nickName ? navigate(`/bookmark`) : toLogin())}
