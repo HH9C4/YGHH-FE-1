@@ -19,7 +19,6 @@ const initialState = {
 
 //에러코드 발급 요청
 
-
 export const __getHome = createAsyncThunk(
   "contents/__getHome",
   async (payload, thunkAPI) => {
@@ -42,8 +41,7 @@ export const __getSearch = createAsyncThunk(
         data: res.data.data,
       }
       return thunkAPI.fulfillWithValue(object)
-    }
-    catch (error) {
+    } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
   }

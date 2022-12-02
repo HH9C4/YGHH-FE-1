@@ -13,7 +13,7 @@ const WalkThrough = () => {
   const [activeSlide, setActiveSlide] = useState({
     activeSlide2: 0,
   })
-  const nickname = useSelector((state) => state.members.user.nickName)
+  const nickname = localStorage.getItem("nickName")
   const navigate = useNavigate()
   function NextArrow(props) {
     const { style, onClick } = props
