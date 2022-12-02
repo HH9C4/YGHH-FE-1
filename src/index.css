@@ -464,10 +464,13 @@
   color: #7f73ff;
 }
 
-html {
+* {
   font-family: "Pretendard Std Variable", "Pretendard Std", "Pretendard";
 }
 
+html {
+  font-family: "Pretendard Std Variable", "Pretendard Std", "Pretendard";
+}
 body {
   font-family: "Pretendard Std Variable", "Pretendard Std", "Pretendard";
 }
