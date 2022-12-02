@@ -14,6 +14,7 @@ const Comment = () => {
     // alert("삭제하시겠습니까?")
     // window.location.replace(`/detail/${Id}`)
   }
+
   //삭제 버튼 작성자 확인
   const checkOwner = {
     nickName: nickName,
