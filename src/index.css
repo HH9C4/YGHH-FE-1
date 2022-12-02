@@ -307,3 +307,11 @@
   opacity: 1;
   color: #7f73ff;
 }
+
+html > body {
+  font-family: "Pretendard Std", "Pretendard Std Variable", sans;
+}
+
+body {
+  font-family: "Pretendard Std", "Pretendard Std Variable", sans;
+}
