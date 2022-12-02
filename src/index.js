@@ -6,9 +6,7 @@ import store from "./redux/config/configStore"
 import { Provider } from "react-redux"
 const root = ReactDOM.createRoot(document.getElementById("root"))
 root.render(
-  <div className="font-sans">
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </div>
+  <Provider store={store}>
+    <App />
+  </Provider>
 )
