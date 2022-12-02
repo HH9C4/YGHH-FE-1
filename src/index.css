@@ -474,3 +474,16 @@ html {
 body {
   font-family: "Pretendard Std Variable", "Pretendard Std", "Pretendard";
 }
+
+@layer {
+  * {
+    font-family: "Pretendard Std Variable", "Pretendard Std", "Pretendard";
+  }
+
+  html {
+    font-family: "Pretendard Std Variable", "Pretendard Std", "Pretendard";
+  }
+  body {
+    font-family: "Pretendard Std Variable", "Pretendard Std", "Pretendard";
+  }
+}
