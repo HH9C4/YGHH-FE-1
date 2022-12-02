@@ -68,11 +68,6 @@ export const __naverLogin = createAsyncThunk(
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
       window.location.replace("/")
-      }
-      thunkAPI.fulfillWithValue(obj)
-      // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
-      alert(`${res.data.data.nickName}님 환영합니다!`)
-      window.location.replace("/")
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }
