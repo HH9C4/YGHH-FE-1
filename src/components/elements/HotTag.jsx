@@ -4,19 +4,19 @@ import { useNavigate, useParams } from "react-router-dom"
 import { __getHotTag } from "../../redux/modules/searchSlice"
 import Layout from "../layout/Layout"
 
-const HotTag = ({ onHotTag }) => {
+const HotTag = ({ onHotTag, hotTag }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const params = useParams()
-  const hotTag = useSelector((store) => store.search.hotTag.tagList)
-  const gu = localStorage.getItem("gu")
+  const hotTags = useSelector((store) => store.search.hotTag.tagList)
+  const gu = useSelector((state) => state.members.user.gu)
   const onSearch = (tag) => {
     navigate(`/search/1/${tag}/new`)
   }
 
   useEffect(() => {
-    dispatch(__getHotTag(gu))
-  }, [gu])
+    if (hotTag) dispatch(__getHotTag(gu))
+  }, [hotTag])
 
   return (
     <div className="h-[300px]  relative border-[0.5px] border-bbBB bg-white w-full rounded-md mt-[4px] p-[20px]">
@@ -36,8 +36,8 @@ const HotTag = ({ onHotTag }) => {
       </svg>
 
       <div className="h-full mt-[36px] flex flex-wrap content-start gap-[8px] ">
-        {hotTag &&
-          hotTag.map((hot) => {
+        {hotTags &&
+          hotTags.map((hot) => {
             if (hot.length !== 0)
               return (
                 <button

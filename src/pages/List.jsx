@@ -299,7 +299,7 @@ const List = () => {
                 : "hidden"
             }
           >
-            <HotTag onHotTag={onHotTag} />
+            <HotTag onHotTag={onHotTag} hotTag={hotTag} />
           </div>
         </div>
         <div className="ml-[25px] mr-[26px] mt-[16px]">
