@@ -21,9 +21,9 @@ const Setting = () => {
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
 
   const checkDuplicate = useSelector((state) => state.members.name)
-  const site = useSelector((state) => state.members.user.site)
-  const userNickname = useSelector((state) => state.members.user.nickname)
-  const profileImage = useSelector((state) => state.members.user.profileImage)
+  const site = localStorage.getItem("site")
+  const userNickname = localStorage.getItem("nickName")
+  const profileImage = localStorage.getItem("profileImage")
 
   //커스텀 훅 사용
   const [nicknameInput, setnicknameInput, nicknameInputHandle] = useInput({

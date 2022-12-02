@@ -12,10 +12,10 @@ const Mypage = () => {
   const dispatch = useDispatch()
   // 마이페이지 대시보드 정보 꺼내기
   const [tab, setTab] = useState(1)
-  const userImg = useSelector((state) => state.members.user.profileImage)
-  const userNm = useSelector((state) => state.members.user.nickName)
-  const userAge = useSelector((state) => state.members.user.ageRange)
-  const userGender = useSelector((state) => state.members.user.gender)
+  const userImg = localStorage.getItem("profileImage")
+  const userNm = localStorage.getItem("nickName")
+  const userAge = localStorage.getItem("ageRange")
+  const userGender = localStorage.getItem("gender")
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
 

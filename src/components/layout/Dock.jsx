@@ -16,12 +16,12 @@ const Dock = () => {
   const navigate = useNavigate()
   const gu = useSelector((state) => state.members.user.gu)
   const location = useSelector((state) => state.members.user.location)
-  const nickName = useSelector((state) => state.members.user.location)
+  const nickName = localStorage.getItem("nickName")
   const toLogin = () => {
     alert("로그인이 필요한 서비스입니다🥲")
     navigate("/login")
   }
-
+  console.log(gu, location)
   const onInfo = () => {
     alert(
       "확인하려는 위치가 선택되지 않았습니다. 홈화면에서 구를 선택하여 주십시오😀"
@@ -44,7 +44,9 @@ const Dock = () => {
           </div>
           <div
             onClick={() =>
-              gu === null || undefined ? onInfo() : navigate(`/info/${gu}`)
+              gu === "" || null || undefined
+                ? onInfo()
+                : navigate(`/info/${gu}`)
             }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
@@ -55,7 +57,11 @@ const Dock = () => {
           </div>
           <div
             onClick={() =>
-              nickName ? navigate(`/list/${gu}/all/new`) : toLogin()
+              gu === ""
+                ? onInfo()
+                : nickName
+                ? navigate(`/list/${gu}/all/new`)
+                : toLogin()
             }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >

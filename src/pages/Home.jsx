@@ -136,8 +136,9 @@ const Home = () => {
                             ? `${String(item.plusMinus)?.substring(
                                 0,
                                 String(item.plusMinus)?.length - 3
-                              )}.${String(item.plusMinus).substring(-3, 2)}K`
+                              )}.${String(item.plusMinus).slice(-3, -2)}K`
                             : item.plusMinus}
+                          {console.log(item.plusMinus)}
                         </p>
                       </div>
                     </li>

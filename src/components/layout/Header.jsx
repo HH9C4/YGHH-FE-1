@@ -8,8 +8,8 @@ const Header = () => {
   const dispatch = useDispatch()
   const params = useParams()
 
-  const nickName = useSelector((state) => state.members.user.nickName)
-  const profileImage = useSelector((state) => state.members.user.profileImage)
+  const nickName = localStorage.getItem("nickName")
+  const profileImage = localStorage.getItem("profileImage")
 
   useEffect(() => {
     if (params.gu !== undefined && params.gu !== "undefined") {
