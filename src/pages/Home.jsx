@@ -24,7 +24,7 @@ const Home = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 3000,
   }
 
   const bottomSettings = {
@@ -35,10 +35,9 @@ const Home = () => {
     speed: 300,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 3000,
   }
-
   useEffect(() => {
     dispatch(__getHome())
   }, [])
@@ -46,7 +45,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(setLocation("home"))
   }, [])
-  //정보페이지로 이동-guNM
+
 
   return (
     <Layout>
@@ -58,18 +57,50 @@ const Home = () => {
                 <>
                   <div
                     onClick={() => navigate(`/info/${item.guNm}`)}
-                    className="flex  items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
+                    className="flex items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
                   >
                     <p className="w-[38%] text-[10px] font-medium text-bb22">
                       지난
                       {item.isWeekend ? " 주말에" : " 평일에"} 가장 붐빈 지역
                     </p>
-                    <p className="pl-[8px] pr-[4px] text-[14px] font-bold">
-                      {item.ranking}
-                    </p>
-                    <a className="text-[14px] text-center w-[60%] font-bold text-bbpurple">
+
+
+                    <div className='relative h-[20px] '>
+                      <div
+                        className='absolute bottom-0 w-[20px] h-[20px] '>
+                        <div
+                          style={{
+                            backgroundColor:
+                              item.ranking === 1
+                                ? "#FFD76E"
+                                : item.ranking === 2
+                                  ? "#bbb"
+                                  : item.ranking === 3
+                                    ? "#dbab46" : "",
+                          }}
+                          className='absolute bottom-[3px] left-[3px] w-[14px] h-[14px] rounded-full
+                       animate-ping'></div>
+                        <div
+                          style={{
+                            backgroundColor:
+                              item.ranking === 1
+                                ? "#FFBF17"
+                                : item.ranking === 2
+                                  ? "#bfbfbf"
+                                  : item.ranking === 3
+                                    ? "#db9400" : "",
+                          }}
+                          className='absolute bottom-[2px] left-[2px] w-[16px] h-[16px] rounded-full
+                        '></div>
+                      </div>
+                      <p className="absolute left-[-1.25px] bottom-[2px] pl-[8px] pr-[4px] text-b11 text-white  font-bold">
+                        {item.ranking}
+                      </p>
+                    </div>
+                    <a className="text-b12 text-center w-[60%] font-bold text-bbpurple">
                       {item.areaNm}
                     </a>
+
                   </div>
                 </>
               )
@@ -88,8 +119,8 @@ const Home = () => {
                       최근 1시간 동안 인구가 가장 많이
                       <span className="text-bbred font-bold">
                         {homeData.popChangeList.plusMinus < 0
-                          ? " 급증한 "
-                          : " 급감한 "}
+                          ? " 급감한 "
+                          : " 급증한 "}
                       </span>
                       지역
                     </p>
@@ -110,12 +141,12 @@ const Home = () => {
                               item.areaCongestLvl === "매우 붐빔"
                                 ? "#ff3535"
                                 : item.areaCongestLvl === "붐빔"
-                                ? "#FF8A00"
-                                : item.areaCongestLvl === "보통"
-                                ? "#FFD600"
-                                : item.areaCongestLvl === "여유"
-                                ? "#00B953"
-                                : "",
+                                  ? "#FF8A00"
+                                  : item.areaCongestLvl === "보통"
+                                    ? "#FFD600"
+                                    : item.areaCongestLvl === "여유"
+                                      ? "#00B953"
+                                      : "",
                           }}
                           className="w-[20px] h-[20px] rounded-full"
                         ></div>
@@ -133,11 +164,11 @@ const Home = () => {
                             ? `${item.plusMinus.subString(0, item.plusMinus.length)}K`
                             : item.plusMinus} */}
                           {Number(item.plusMinus) > 1000 ||
-                          Number(item.plusMinus) < -1000
+                            Number(item.plusMinus) < -1000
                             ? `${String(item.plusMinus)?.substring(
-                                0,
-                                String(item.plusMinus)?.length - 3
-                              )}K`
+                              0,
+                              String(item.plusMinus)?.length - 3
+                            )}K`
                             : item.plusMinus}
                         </p>
                       </div>
