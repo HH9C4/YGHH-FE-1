@@ -310,11 +310,7 @@
 }
 
 @layer base {
-  html > body {
-    @apply font-sans;
-  }
-
-  body {
-    @apply font-sans;
+  html {
+    font-family: Pretendard Std;
   }
 }
