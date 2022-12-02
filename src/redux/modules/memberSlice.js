@@ -100,7 +100,7 @@ export const __kakaoLogout = createAsyncThunk(
       if (res.data.status === "200 OK") {
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
-        localStorage.removeItem("ninkName")
+        localStorage.removeItem("nickName")
         window.location.replace("/")
       }
     } catch (error) {
@@ -119,7 +119,7 @@ export const __kakaoDelete = createAsyncThunk(
       if (res.data.status === "200 OK") {
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
-        localStorage.removeItem("ninkName")
+        localStorage.removeItem("nickName")
         window.location.replace("/")
         //   console.log("로그아웃 res 값", res)
         //   localStorage.removeItem("Authorization")
@@ -146,7 +146,7 @@ export const __naverLogout = createAsyncThunk(
       if (res.data.status === "200 OK") {
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
-        localStorage.removeItem("ninkName")
+        localStorage.removeItem("nickName")
         window.location.replace("/")
       }
       return thunkAPI.fulfillWithValue(res.data.data)

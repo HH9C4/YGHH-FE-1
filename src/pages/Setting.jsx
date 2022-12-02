@@ -82,7 +82,7 @@ const Setting = () => {
 
   return (
     <Layout>
-      <div className="w-full pt-6 ml-[25px] mr-[26px] pb-8">
+      <div className="w-full pt-6 pl-[25px] pr-[26px] pb-8">
         <div className="w-full justify-between flex items-center">
           <button onClick={() => navigate(-1)} className="active:animate-ping">
             <svg
@@ -98,10 +98,10 @@ const Setting = () => {
               />
             </svg>
           </button>
-          <h1 className="flex text-bb22 font-bold text-[20px]">설정</h1>
+          <h1 className="text-bb22 font-bold text-[20px]">설정</h1>
           <button
             onClick={onPut}
-            className="flex text-bb22 font-medium text-[14px]"
+            className=" text-bb22 font-medium text-[14px]"
           >
             저장
           </button>
@@ -168,7 +168,7 @@ const Setting = () => {
             </div>
           </label>
         </div>
-        <div className="mt-10 ">
+        <div className="mt-10 w-full">
           <p className="text-[14px] font-medium">
             닉네임을 입력하세요 (최대 20자)
           </p>
