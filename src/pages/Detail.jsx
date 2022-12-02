@@ -10,7 +10,7 @@ import Comment from "../components/post/Comment"
 import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from "react-router-dom"
-import { setLocation } from "../redux/modules/mySlice"
+import { setLocation } from "../redux/modules/memberSlice"
 
 const Detail = () => {
   const dispatch = useDispatch("")

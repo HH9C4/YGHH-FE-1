@@ -60,14 +60,7 @@ export const __getMyLikes = createAsyncThunk(
 export const mySlice = createSlice({
   name: "my",
   initialState,
-  reducers: {
-    setLocation(state, action) {
-      state.location = action.payload
-    },
-    setGu(state, action) {
-      state.gu = action.payload
-    },
-  },
+  reducers: {},
   extraReducers: {
     //마이페이지 내 게시글 새댓글 조회
     [__getMyNotice.pending]: (state) => {
@@ -107,5 +100,4 @@ export const mySlice = createSlice({
     },
   },
 })
-export const { setLocation, setGu } = mySlice.actions
 export default mySlice.reducer

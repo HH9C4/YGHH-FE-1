@@ -11,7 +11,8 @@ import SelectGu from "../components/features/SelectGu"
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
 import { useInView } from "react-intersection-observer"
-import { setLocation } from "../redux/modules/mySlice"
+import { setLocation } from "../redux/modules/memberSlice"
+import HotTag from "../components/elements/HotTag"
 
 const List = () => {
   const [gu, setGu] = useState("")
@@ -26,6 +27,11 @@ const List = () => {
   const [ref, inView] = useInView()
   const onSelect = () => {
     setSelect(!select)
+  }
+
+  const [hotTag, setHotTag] = useState(false)
+  const onHotTag = () => {
+    setHotTag(!hotTag)
   }
 
   /**  서버에서 아이템을 가지고 오는 함수 */
@@ -71,8 +77,8 @@ const List = () => {
   return (
     <div
       style={{
-        overflow: select ? "hidden" : "auto",
-        height: select ? "300px" : "",
+        overflow: select || hotTag ? "hidden" : "auto",
+        height: select || hotTag ? "100vh" : "",
       }}
     >
       <Layout>
@@ -125,7 +131,7 @@ const List = () => {
                 )}
               </div>
 
-              <div onClick={onSelect}>
+              <div className="z-20" onClick={onSelect}>
                 {select ? (
                   <>
                     <svg
@@ -141,7 +147,7 @@ const List = () => {
                         fill="#231F20"
                       />
                     </svg>
-                    <div className="z-20 w-full h-full px-auto fixed top-[130px] left-0 bg-bbLpurple">
+                    <div className="w-full h-full px-auto fixed top-[130px] left-0 bg-bbLpurple">
                       <div className="mt-3 w-[90%] max-w-[375px] mx-auto">
                         <SelectGu />
                       </div>
@@ -281,16 +287,32 @@ const List = () => {
               </button>
             )}
           </div>
-          <button
-            className="text-[#ff3535] font-bold"
-            onClick={() => navigate(`/hottest/${params.gu}`)}
-          >
+          <button className="text-[#ff3535] font-bold" onClick={onHotTag}>
             🔥HOT-TAG 20
           </button>
         </div>
-        <div className="mx-[26px] mt-4">
+        <div className="relative">
+          <div
+            className={
+              hotTag
+                ? "absolute right-0 z-20 pl-[25px] pr-[26px] mt-3 w-[100%] max-w-[420px] mx-auto"
+                : "hidden"
+            }
+          >
+            <HotTag onHotTag={onHotTag} />
+          </div>
+        </div>
+        <div className="ml-[25px] mr-[26px] mt-[16px]">
           <Post posts={posts} />
           <div ref={ref}></div>
+          {posts && posts.length === 0 ? (
+            <div className="text-center mt-[102px] text-bb88 font-medium">
+              <p className="text-b24 ">저런!</p>
+              <p className="text-b16">아직 게시글이 없어요.</p>
+            </div>
+          ) : (
+            ""
+          )}
         </div>
         <EditBtn />
       </Layout>

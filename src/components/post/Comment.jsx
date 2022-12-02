@@ -8,6 +8,7 @@ const Comment = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const data = useSelector((state) => state.contents.content)
+  const nickName = useSelector((state) => state.members.user.nickName)
   const onDeleteButton = (id) => {
     dispatch(__deleteComment(id))
     // alert("삭제하시겠습니까?")
@@ -15,7 +16,7 @@ const Comment = () => {
   }
   //삭제 버튼 작성자 확인
   const checkOwner = {
-    nickName: localStorage.getItem("nickName"),
+    nickName: nickName,
   }
   //댓글 삭제 요청을 위한 level 변수 생성
   const level = 2

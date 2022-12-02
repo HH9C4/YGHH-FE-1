@@ -8,8 +8,7 @@ import "slick-carousel/slick/slick-theme.css"
 import { useDispatch } from "react-redux"
 import { __getHome } from "../redux/modules/searchSlice"
 import { useSelector } from "react-redux"
-import HomeIncreaseArrow from "../assets/img/HomeIncreaseArrow.svg"
-import { setLocation } from "../redux/modules/mySlice"
+import { setLocation } from "../redux/modules/memberSlice"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -163,13 +162,15 @@ const Home = () => {
                             Number(item.plusMinus) < -1000
                             ? `${item.plusMinus.subString(0, item.plusMinus.length)}K`
                             : item.plusMinus} */}
-                          {Number(item.plusMinus) > 1000 ||
-                            Number(item.plusMinus) < -1000
+
+                          {Number(item.plusMinus) >= 1000 ||
+                          Number(item.plusMinus) <= -1000
                             ? `${String(item.plusMinus)?.substring(
-                              0,
-                              String(item.plusMinus)?.length - 3
-                            )}K`
+                                0,
+                                String(item.plusMinus)?.length - 3
+                              )}.${String(item.plusMinus).slice(-3, -2)}K`
                             : item.plusMinus}
+                          {console.log(item.plusMinus)}
                         </p>
                       </div>
                     </li>

@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   return (
     <div className="bg-bbLpurple w-full h-full min-h-[100vh]">
       <div className="bg-bbLpurple mx-auto pt-[44px] pb-[96px] max-w-[420px] h-full min-h-[100vh]">
-        {children}
+        <div className="z-0">{children}</div>
       </div>
       <Header />
       <Dock />

@@ -27,9 +27,9 @@ const Post = ({ posts }) => {
       {posts !== undefined &&
         posts.map((data) => {
           return (
-            <div key={String(data.postId) + Math.random()}>
+            <div className="w-full" key={String(data.postId) + Math.random()}>
               <div className="bg-white p-6 mb-6 rounded-md shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
-                <div>
+                <div className="relative">
                   <div className="flex justify-between items-center">
                     <div className="flex items-center">
                       <img
@@ -39,9 +39,6 @@ const Post = ({ posts }) => {
                       <div className="ml-2 text-sm text-bb22 font-bold">
                         {data.accountName}
                       </div>
-                    </div>
-                    <div className="z-20">
-                      <EditToggle data={data} />
                     </div>
                   </div>
 
@@ -65,7 +62,11 @@ const Post = ({ posts }) => {
                   ) : (
                     ""
                   )}
-
+                  <div className="absolute right-[0] top-[13px]">
+                    <div className="relative">
+                      <EditToggle data={data} />
+                    </div>
+                  </div>
                   {/* 좋아요, 조회수, 댓글 수, 수정삭제 컨테이너 */}
 
                   <div className="mt-6 flex items-center justify-between">
