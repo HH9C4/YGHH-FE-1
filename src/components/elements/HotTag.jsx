@@ -15,7 +15,7 @@ const HotTag = ({ onHotTag, hotTag }) => {
   }
 
   useEffect(() => {
-    dispatch(__getHotTag(gu))
+    if (hotTag) dispatch(__getHotTag(gu))
   }, [hotTag])
 
   return (
