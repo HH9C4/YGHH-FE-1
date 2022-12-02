@@ -7,7 +7,7 @@ import {
   __deactivateBookmarkPage,
 } from "../redux/modules/contentsSlice"
 import { useNavigate } from "react-router-dom"
-import { setLocation } from "../redux/modules/mySlice"
+import { setLocation } from "../redux/modules/memberSlice"
 const BookMark = () => {
   //페이지 안에서 전부 해결
   const navigate = useNavigate()

@@ -1,40 +1,46 @@
 import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import navbarLogo from "../../assets/img/navbarLogo.svg"
+import { setGu } from "../../redux/modules/memberSlice"
 const Header = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const params = useParams()
+
+  const nickName = localStorage.getItem("nickName")
+  const profileImage = localStorage.getItem("profileImage")
 
   useEffect(() => {
     if (params.gu !== undefined && params.gu !== "undefined") {
-      localStorage.setItem("gu", params.gu)
+      dispatch(setGu(params.gu))
     }
   }, [params])
 
   return (
-    <div className="fixed top-0 px-6 w-full bg-bbLpurple border-b-[0.5px] border-bbBB h-[52px]">
+    <div className="flex items-center fixed top-0 px-6 w-full bg-bbLpurple border-b-[0.5px] border-bbBB h-[52px]">
       <div className="max-w-[420px] mx-auto w-full flex justify-between items-center">
         <img onClick={() => navigate("/home")} src={navbarLogo}></img>
         <div className="flex items-center">
-          {localStorage.getItem("nickName") !== (undefined || null) ? (
-            <dl className="flex justify-end items-center ">
+          {nickName !== (undefined || null) ? (
+            <dl
+              onClick={() => navigate("/mypage")}
+              className="flex justify-end items-center cursor-pointer"
+            >
               <dt>
                 <img
                   className="m-3 object-cover rounded-full w-[18px] h-[18px]"
-                  src={localStorage.getItem("profileImage")}
-                ></img>
+                  src={profileImage}
+                />
               </dt>
               <dd className="text-xs text-bb22 after:ml-1">
-                <span className="font-medium">
-                  {localStorage.getItem("nickName")}
-                </span>
-                님
+                <span className="font-medium">{nickName}</span>님
               </dd>
             </dl>
           ) : (
             <button
               onClick={() => navigate("/login")}
-              className="text-xs text-bb22 font-medium"
+              className="text-xs text-bb22 font-medium cursor-pointer"
             >
               로그인
             </button>

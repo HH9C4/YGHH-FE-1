@@ -8,13 +8,14 @@ import SelectInfo from "../components/features/SelectInfo"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { setLocation } from "../redux/modules/mySlice"
+import { setLocation } from "../redux/modules/memberSlice"
 
 const PopulationInfo = () => {
   const dispatch = useDispatch()
   const params = useParams()
   const gu = params.gu
   const guInfo = useSelector((state) => state.search.info)
+  const guNm = useSelector((state) => state.members.user.gu)
   const [select, setSelect] = useState(false)
   const onSelect = () => {
     setSelect(!select)
@@ -144,7 +145,7 @@ const PopulationInfo = () => {
                 </div>
               </>
             ) : (
-              <div>아직 {localStorage.getItem("gu")} 는 준비중입니다 😢</div>
+              <div>아직 {guNm} 는 준비중입니다 😢</div>
             )}
           </>
         )}

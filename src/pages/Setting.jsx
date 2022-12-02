@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react"
 import Layout from "../components/layout/Layout"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { __naverLogout, __duplicateName } from "../redux/modules/memberSlice"
+import {
+  __naverLogout,
+  __duplicateName,
+  setLocation,
+} from "../redux/modules/memberSlice"
 import { __mypageModify } from "../redux/modules/contentsSlice"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
@@ -17,12 +21,15 @@ const Setting = () => {
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
 
   const checkDuplicate = useSelector((state) => state.members.name)
+  const site = localStorage.getItem("site")
+  const userNickname = localStorage.getItem("nickName")
+  const profileImage = localStorage.getItem("profileImage")
 
   //커스텀 훅 사용
   const [nicknameInput, setnicknameInput, nicknameInputHandle] = useInput({
     nickname: "",
   })
-  const userNickname = localStorage.getItem("nickname")
+
   //이미지 업로드 훅
   const [files, fileUrls, uploadHandle] = useImgUpload(1, false, 0.3, 1000)
 
@@ -52,7 +59,7 @@ const Setting = () => {
   }
 
   const handleLogout = () => {
-    if (localStorage.getItem("site") === "kakao") {
+    if (site === "kakao") {
       window.location.href = KAKAO_LOGOUT_URL
     } else {
       dispatch(__naverLogout())
@@ -70,7 +77,7 @@ const Setting = () => {
   useEffect(() => {}, [files])
 
   useEffect(() => {
-    localStorage.setItem("location", "my")
+    setLocation("my")
   }, [])
 
   return (
@@ -125,7 +132,7 @@ const Setting = () => {
             <img
               alt="profileimage"
               className="w-full h-full object-cover rounded-full"
-              src={localStorage.getItem("profileImage")}
+              src={profileImage}
             />
             <div className=" absolute top-0 w-[80px] h-[80px] rounded-full bg-[rgba(0,0,0,0.56)]"></div>
 
@@ -195,7 +202,7 @@ const Setting = () => {
           <div className="flex items-center px-[24px] justify-between mt-[40px] rounded-[8px] bg-white w-full h-16">
             <p className="text-[14px] font-medium ">연결된 계정</p>
             <div className="flex items-center">
-              {localStorage.getItem("site") === "naver" ? (
+              {site === "naver" ? (
                 <>
                   <svg
                     width="16"

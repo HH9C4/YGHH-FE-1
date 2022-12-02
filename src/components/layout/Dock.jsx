@@ -14,14 +14,14 @@ import { useSelector } from "react-redux"
 
 const Dock = () => {
   const navigate = useNavigate()
-  const gu = localStorage.getItem("gu")
-  const location = useSelector((state) => state.my.location)
-
+  const gu = useSelector((state) => state.members.user.gu)
+  const location = useSelector((state) => state.members.user.location)
+  const nickName = localStorage.getItem("nickName")
   const toLogin = () => {
     alert("로그인이 필요한 서비스입니다🥲")
     navigate("/login")
   }
-
+  console.log(gu, location)
   const onInfo = () => {
     alert(
       "확인하려는 위치가 선택되지 않았습니다. 홈화면에서 구를 선택하여 주십시오😀"
@@ -44,7 +44,9 @@ const Dock = () => {
           </div>
           <div
             onClick={() =>
-              gu === null || undefined ? onInfo() : navigate(`/info/${gu}`)
+              gu === "" || null || undefined
+                ? onInfo()
+                : navigate(`/info/${gu}`)
             }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
@@ -55,7 +57,9 @@ const Dock = () => {
           </div>
           <div
             onClick={() =>
-              localStorage.getItem("nickName")
+              gu === ""
+                ? onInfo()
+                : nickName
                 ? navigate(`/list/${gu}/all/new`)
                 : toLogin()
             }
@@ -67,11 +71,7 @@ const Dock = () => {
             <dd className="mt-1">커뮤니티</dd>
           </div>
           <div
-            onClick={() =>
-              localStorage.getItem("nickName")
-                ? navigate(`/bookmark`)
-                : toLogin()
-            }
+            onClick={() => (nickName ? navigate(`/bookmark`) : toLogin())}
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >
             <dt>
@@ -80,9 +80,7 @@ const Dock = () => {
             <dd className="mt-0.5">북마크</dd>
           </div>
           <div
-            onClick={() =>
-              localStorage.getItem("nickName") ? navigate(`/mypage`) : toLogin()
-            }
+            onClick={() => (nickName ? navigate(`/mypage`) : toLogin())}
             className="w-12 pt-2 pb-2 flex flex-col items-center"
           >
             <dt>

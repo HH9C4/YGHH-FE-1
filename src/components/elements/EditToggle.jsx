@@ -21,14 +21,14 @@ const EditToggle = ({ data }) => {
   return (
     <>
       {localStorage.getItem("nickName") === data.accountName ? (
-        <div>
+        <div className="flex relative">
           <button onClick={onToggle} className="flex">
             <div className="w-1 h-1  bg-bb66 rounded-full"></div>
             <div className="w-1 h-1 ml-1 bg-bb66 rounded-full"></div>
             <div className="w-1 h-1 ml-1 bg-bb66 rounded-full"></div>
           </button>
           {display ? (
-            <div className="h-24 w-24 rounded-md absolute mt-3 right-12 bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
+            <div className="h-24 w-24 rounded-md absolute mt-3 right-[0] bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
               <button
                 className="h-12 text-center w-24 text-sm text-bb22"
                 onClick={() =>
