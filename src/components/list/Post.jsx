@@ -40,7 +40,7 @@ const Post = ({ posts }) => {
                         {data.accountName}
                       </div>
                     </div>
-                    <div className="z-20">
+                    <div className="z-20 relative">
                       <EditToggle data={data} />
                     </div>
                   </div>

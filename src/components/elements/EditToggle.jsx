@@ -21,7 +21,7 @@ const EditToggle = ({ data }) => {
   return (
     <>
       {localStorage.getItem("nickName") === data.accountName ? (
-        <div>
+        <div className="flex relative">
           <button onClick={onToggle} className="flex">
             <div className="w-1 h-1  bg-bb66 rounded-full"></div>
             <div className="w-1 h-1 ml-1 bg-bb66 rounded-full"></div>
