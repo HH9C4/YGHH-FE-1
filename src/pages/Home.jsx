@@ -60,10 +60,12 @@ const Home = () => {
                     onClick={() => navigate(`/info/${item.guNm}`)}
                     className="flex justify-between items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
                   >
+
                     <div className='flex justify-center items-center w-full '>
                       <p className=" text-right text-[10px] font-medium text-bb22">
                         지난
                         <span className='font-bold text-bbred'>{item.isWeekend ? " 주말" : " 평일"}</span>에 가장 붐빈 지역
+
                       </p>
                       <div className="relative ml-[12px] h-[20px] ">
                         <div className="absolute bottom-0 w-[20px] h-[20px] ">
@@ -145,12 +147,12 @@ const Home = () => {
                               item.areaCongestLvl === "매우 붐빔"
                                 ? "#ff3535"
                                 : item.areaCongestLvl === "붐빔"
-                                  ? "#FF8A00"
-                                  : item.areaCongestLvl === "보통"
-                                    ? "#FFD600"
-                                    : item.areaCongestLvl === "여유"
-                                      ? "#00B953"
-                                      : "",
+                                ? "#FF8A00"
+                                : item.areaCongestLvl === "보통"
+                                ? "#FFD600"
+                                : item.areaCongestLvl === "여유"
+                                ? "#00B953"
+                                : "",
                           }}
                           className="w-[20px] h-[20px] rounded-full"
                         ></div>

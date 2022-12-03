@@ -27,7 +27,7 @@ const DetailPost = () => {
 
   //삭제 버튼 작성자 확인
   const checkOwner = {
-    nickName: useSelector((state) => state.members.user.nickName),
+    nickName: localStorage.getItem("nickName"),
   }
 
   const settings = {

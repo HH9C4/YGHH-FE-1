@@ -28,9 +28,14 @@ module.exports = {
       bbBB: "#BBBBBB",
       bbfb: "#FBFBFB",
     },
+    fontFamily: {
+      sans: ["Pretendard", "Pretendard Std Variable", "Pretendard Std"],
+      custom: ["Pretendard"],
+    },
     extend: {
       fontFamily: {
-        sans: ["Pretendard Std", "Pretendard Std Variable"],
+        sans: ["Pretendard", "Pretendard Std Variable", "Pretendard Std"],
+        custom: ["Pretendard"],
       },
       fontSize: {
         b11: "11px",

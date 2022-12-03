@@ -8,7 +8,7 @@ const Comment = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
   const data = useSelector((state) => state.contents.content)
-  const nickName = useSelector((state) => state.members.user.nickName)
+  const nickName = localStorage.getItem("nickName")
   const onDeleteButton = (id) => {
     dispatch(__deleteComment(id))
     // alert("삭제하시겠습니까?")
