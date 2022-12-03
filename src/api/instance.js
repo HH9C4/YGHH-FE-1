@@ -52,10 +52,16 @@ hInstance.interceptors.response.use(function (response) {
 
         const Access_Token = data.headers.authorization
         localStorage.setItem("Authorization", Access_Token)
+
         window.location.reload()
         axios(originalConfig);
       }
-      catch (err) {
+      catch (error) {
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("Refresh_Token")
+        localStorage.removeItem("nickName")
+        alert('로그인이 만료되었습니다. 다시 로그인 해주세요.')
+        window.location.replace('/login')
       }
     }
   }
