@@ -23,6 +23,10 @@ const Mypage = () => {
     dispatch(setLocation("my"))
   }, [])
 
+  //겟요청할때 받아올 정보 : 성별 / 연령대
+  //설정 들어가면 또 겟해서 연결된 계정 보여주고
+  //
+
   return (
     <Layout>
       {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}
@@ -37,7 +41,8 @@ const Mypage = () => {
           <div className="flex items-end">
             <h3 className="text-b24 text-bb22 font-bold mr-2">{userNm}</h3>
             <div className="text-b12 text-bb66 mb-0.5">
-              {userAge.slice(0, 2)}대 {gender}
+              {userAge !== "비공개" ? `${userAge.slice(0, 2)}대` : userAge}{" "}
+              {gender}
             </div>
           </div>
           <div className="text-xs text-bb22 flex">

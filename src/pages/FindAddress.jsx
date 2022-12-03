@@ -57,12 +57,12 @@ const FindAddress = () => {
     } else {
       alert("현재는 서울지역만 서비스하고 있어요 😢")
       setToggle(false)
-      window.location.reload(`/address`)
+      window.location.replace(`/address`)
     }
   }
   const onClose = () => {
     setToggle(!toggle)
-    window.location.reload(`/address`)
+    window.location.replace(`/address`)
   }
 
   return (
