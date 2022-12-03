@@ -50,8 +50,8 @@ const Dock = () => {
               gu === ""
                 ? onInfo()
                 : nickName
-                  ? navigate(`/list/${gu}/all/new`)
-                  : toLogin()
+                ? navigate(`/list/${gu}/all/new`)
+                : toLogin()
             }
             className="w-12 pt-2 pb-1 flex flex-col items-center"
           >

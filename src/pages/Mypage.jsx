@@ -37,7 +37,8 @@ const Mypage = () => {
           <div className="flex items-end">
             <h3 className="text-b24 text-bb22 font-bold mr-2">{userNm}</h3>
             <div className="text-b12 text-bb66 mb-0.5">
-              {userAge.slice(0, 2)}개 {gender}
+              {userAge !== "비공개" ? `${userAge.slice(0, 2)}대` : userAge}{" "}
+              {gender}
             </div>
           </div>
           <div className="text-xs text-bb22 flex">

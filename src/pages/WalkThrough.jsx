@@ -28,6 +28,7 @@ const WalkThrough = () => {
     }, [])
     return (
       <>
+        {" "}
         {activeSlide.activeSlide2 !== 2 ? (
           <div className="relative ">
             <div
@@ -109,13 +110,15 @@ const WalkThrough = () => {
     return (
       <>
         {activeSlide.activeSlide2 !== 0 ? (
-          <button
-            className="text-b14 font-medium fixed left-[25px] top-[25.5px]"
-            style={{ ...style, display: "block" }}
-            onClick={onPreviousPage}
-          >
-            이전으로
-          </button>
+          <div className="relative max-w-[420px] mx-auto">
+            <button
+              className="text-b14 absolute w-[60px] font-medium mt-[-20px]"
+              style={{ ...style, display: "block" }}
+              onClick={onPreviousPage}
+            >
+              이전으로
+            </button>
+          </div>
         ) : (
           ""
         )}
@@ -156,63 +159,63 @@ const WalkThrough = () => {
   }
 
   return (
-    <div className="bg-bbLpurple pb-[96px]  max-w-[750px] h-full min-h-[100vh]">
-      <div className=" h-[46px] px-[26px] flex justify-end items-end">
-        <button
+    <div className="bg-bbLpurple w-full min-w-[100vw] h-full min-h-[100vh] overflow-scroll font-sans">
+      <div className="bg-bbLpurple pb-[96px]  max-w-[420px] h-full min-h-[100vh] mx-auto">
+        <div
           onClick={() => navigate("/home")}
-          className="text-b14 font-medium"
+          className=" h-[46px] px-[26px] flex justify-end items-end"
         >
-          건너뛰기
-        </button>
-      </div>
-      <div className="w-[324px] mx-auto">
-        <Slider {...settings}>
-          <div className="mx-auto">
-            <div className="mt-[87px]">
-              <img
-                className="w-[281px] mx-auto h-[204px]"
-                alt="서울시 스팟 곳곳의 인구 밀집 정도를
+          <button className="text-b14 font-medium">건너뛰기</button>
+        </div>
+        <div className="w-[324px] mx-auto">
+          <Slider {...settings}>
+            <div className="mx-auto">
+              <div className="mt-[87px]">
+                <img
+                  className="w-[281px] mx-auto h-[204px]"
+                  alt="서울시 스팟 곳곳의 인구 밀집 정도를
                                     연령별, 성별, 시간별로 다양하게 파악해요"
-                src={walkthorugh1}
-              ></img>
+                  src={walkthorugh1}
+                ></img>
+              </div>
+              <p className="text-center pt-[36px] text-b14 font-medium">
+                서울시 스팟 곳곳의 인구 밀집 정도를
+                <br />
+                연령별, 성별, 시간별로 다양하게 파악해요
+              </p>
             </div>
-            <p className="text-center pt-[36px] text-b14 font-medium">
-              서울시 스팟 곳곳의 인구 밀집 정도를
-              <br />
-              연령별, 성별, 시간별로 다양하게 파악해요
-            </p>
-          </div>
-          <div className="mx-auto">
-            <div className="mt-[87px]">
-              <img
-                className="w-[105px] mx-auto h-[210px]"
-                alt="지역별 커뮤니티를 통해
+            <div className="mx-auto">
+              <div className="mt-[87px]">
+                <img
+                  className="w-[105px] mx-auto h-[210px]"
+                  alt="지역별 커뮤니티를 통해
                                 실시간으로 여러 소식을 주고받아요 "
-                src={walkthorugh2}
-              ></img>
+                  src={walkthorugh2}
+                ></img>
+              </div>
+              <p className="text-center mt-[36px] text-b14 font-medium">
+                지역별 커뮤니티를 통해
+                <br />
+                실시간으로 여러 소식을 주고받아요{" "}
+              </p>
             </div>
-            <p className="text-center mt-[36px] text-b14 font-medium">
-              지역별 커뮤니티를 통해
-              <br />
-              실시간으로 여러 소식을 주고받아요{" "}
-            </p>
-          </div>
-          <div className="mx-auto">
-            <div className="mt-[87px]">
-              <img
-                className="w-[183px] mx-auto h-[183px]"
-                alt="자주 가는 곳을 북마크해
+            <div className="mx-auto">
+              <div className="mt-[87px]">
+                <img
+                  className="w-[183px] mx-auto h-[183px]"
+                  alt="자주 가는 곳을 북마크해
                                 쉽게 관리해요"
-                src={walkthorugh3}
-              ></img>
+                  src={walkthorugh3}
+                ></img>
+              </div>
+              <p className="text-center mt-[53px] text-b14 font-medium">
+                자주 가는 곳을 북마크해
+                <br />
+                쉽게 관리해요
+              </p>
             </div>
-            <p className="text-center mt-[53px] text-b14 font-medium">
-              자주 가는 곳을 북마크해
-              <br />
-              쉽게 관리해요
-            </p>
-          </div>
-        </Slider>
+          </Slider>
+        </div>
       </div>
     </div>
   )
