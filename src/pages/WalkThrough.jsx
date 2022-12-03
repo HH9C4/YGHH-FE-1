@@ -110,9 +110,9 @@ const WalkThrough = () => {
     return (
       <>
         {activeSlide.activeSlide2 !== 0 ? (
-          <div className="max-w-[420px] mx-auto">
+          <div className="relative max-w-[420px] mx-auto">
             <button
-              className="text-b14 font-medium mt-[-20px]"
+              className="text-b14 absolute w-[60px] font-medium mt-[-20px]"
               style={{ ...style, display: "block" }}
               onClick={onPreviousPage}
             >
@@ -161,13 +161,11 @@ const WalkThrough = () => {
   return (
     <div className="bg-bbLpurple w-full min-w-[100vw] h-full min-h-[100vh] overflow-scroll font-sans">
       <div className="bg-bbLpurple pb-[96px]  max-w-[420px] h-full min-h-[100vh] mx-auto">
-        <div className=" h-[46px] px-[26px] flex justify-end items-end">
-          <button
-            onClick={() => navigate("/home")}
-            className="text-b14 font-medium"
-          >
-            건너뛰기
-          </button>
+        <div
+          onClick={() => navigate("/home")}
+          className=" h-[46px] px-[26px] flex justify-end items-end"
+        >
+          <button className="text-b14 font-medium">건너뛰기</button>
         </div>
         <div className="w-[324px] mx-auto">
           <Slider {...settings}>
