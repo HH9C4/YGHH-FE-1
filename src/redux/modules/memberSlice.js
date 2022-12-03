@@ -64,7 +64,7 @@ export const __naverLogin = createAsyncThunk(
       localStorage.setItem("ageRange", res.data.data.ageRange)
       localStorage.setItem("email", res.data.data.email)
       localStorage.setItem("gender", res.data.data.gender)
-      localStorage.setItem("site", "kakao")
+      localStorage.setItem("site", "naver")
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
       window.location.replace("/")

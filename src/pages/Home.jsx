@@ -55,7 +55,6 @@ const Home = () => {
             homeData.jamTopList?.map((item) => {
               return (
                 <>
-
                   <div
                     key={Math.random() * 10}
                     onClick={() => navigate(`/info/${item.guNm}`)}
