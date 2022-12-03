@@ -37,7 +37,7 @@ const MyCmt = (cmt) => {
             {cmt.cmt.content}에 새 댓글이 달렸습니다.
           </div>
 
-          <div className="mb-[24px] text-bb22 text-xs  mt-1">
+          <div className="mb-[24px] pr-[20px] text-bb22 text-xs break-all mt-1">
             <span className="font-bold mr-1">{cmt.cmt.accountName}</span>
             {cmt.cmt.comment}
           </div>
