@@ -267,7 +267,7 @@ const Setting = () => {
           <div className="flex flex-col  mt-[12px] rounded-[8px] bg-white w-[w-full] h-[128px]">
             <div className="flex w-full px-[24px] justify-between items-center h-[63.5px] border-b-[1px] border-b-bbBB">
               <p className=" text-[14px] font-medium">현재버전</p>
-              <p className=" text-[14px] font-medium">1.0.5 Ver</p>
+              <p className=" text-[14px] font-medium">1.0.6 Ver</p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
               <button
