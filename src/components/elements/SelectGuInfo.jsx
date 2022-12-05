@@ -1,7 +1,9 @@
 import React from "react"
+import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 const SelectGuInfo = () => {
+  const location = useSelector((state) => state.members.user.location)
   const navigate = useNavigate()
   const gu = [
     ["강남구", `/list/강남구/all/new`, `/info/강남구`],
@@ -32,20 +34,19 @@ const SelectGuInfo = () => {
   ]
   return (
     <div className="px-auto pt-[24px] w-full">
-      {gu.map(([gu, list, info]) => (
-        <div className="flex flex-row flex-wrap justify-between mb-3">
+      <div className="flex flex-row flex-wrap gap-[12px] justify-between mb-3">
+        {gu.map(([gu, list, info]) => (
           <button
-            className=" w-[100px] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)]  "
+            key={gu}
+            className=" w-[30%] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)]  "
             onClick={
-              localStorage.getItem("location") === "list"
-                ? () => navigate(list)
-                : () => navigate(info)
+              location === "list" ? () => navigate(list) : () => navigate(info)
             }
           >
             {gu}
           </button>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   )
 }

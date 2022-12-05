@@ -107,7 +107,10 @@ const Setting = () => {
           </button>
         </div>
         <div className="flex justify-center mt-[35px] ">
-          <label className="relative w-[80px] h-[80px] " htmlFor="img-File">
+          <label
+            className="hover:cursor-pointer relative w-[80px] h-[80px] "
+            htmlFor="img-File"
+          >
             <input
               style={{ display: "none" }}
               accept="image/*"
@@ -169,10 +172,10 @@ const Setting = () => {
           </label>
         </div>
         <div className="mt-10 w-full">
-          <p className="text-[14px] font-medium">
+          <p className="text-b14 font-medium">
             닉네임을 입력하세요 (최대 20자)
           </p>
-          <div className="flex w-full items-end border-b-[2px] border-b-[#888]">
+          <div className="flex w-full items-end border-b-[2px] border-b-bb88">
             <input
               defaultValue={userNickname}
               placeholder={userNickname}
@@ -185,7 +188,7 @@ const Setting = () => {
           </div>
           <div className="relative w-full">
             {checkDuplicate && nicknameInput.nickname !== "" ? (
-              <p className="w-full absolute mt-[8px] text-[11px] font-medium text-bbpurple">
+              <p className="w-full absolute mt-[8px] text-b11 font-medium text-bbpurple">
                 닉네임 사용이 가능합니다
               </p>
             ) : (
@@ -250,7 +253,7 @@ const Setting = () => {
               )}
               <p
                 type="button"
-                className=" ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-8
+                className="hover:cursor-pointer ml-[12px] text-[14px] font-medium  rounded-full w-[80px]  text-center h-[32px] leading-8
              shadow-[0_0_10px_0_rgba(0,0,0,0.1)] "
                 onClick={handleLogout}
               >
@@ -269,20 +272,18 @@ const Setting = () => {
                 onClick={() => {
                   window.open("https://forms.gle/788k8ygRzdZBWU4j7")
                 }}
-                className="w-full text-left text-[14px] font-medium"
+                className="hover:cursor-pointer w-full text-left text-[14px] font-medium"
               >
                 개발자 문의
               </button>
             </div>
           </div>
 
-          <div className="flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]">
-            <p
-              onClick={() => alert("현재 준비 중인 서비스입니다🥲")}
-              className=" text-[14px] font-medium text-[#ff5b5b]"
-            >
-              서비스 탈퇴
-            </p>
+          <div
+            onClick={() => alert("현재 준비 중인 서비스입니다🥲")}
+            className="hover:cursor-pointer flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]"
+          >
+            <p className="text-[14px] font-medium text-bbred">서비스 탈퇴</p>
           </div>
         </div>
       </div>

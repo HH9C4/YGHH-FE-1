@@ -38,7 +38,7 @@ const Comment = () => {
                 <div className="flex items-center">
                   <img
                     alt="profileIMG"
-                    className="w-[20px] h-[20px]  rounded-full"
+                    className="w-[20px] h-[20px] border-[0.5px] border-bbBB rounded-full"
                     src={item.profileImage}
                   />
                   <p className=" text-[12px] pl-[3px] text-left font-bold ">
