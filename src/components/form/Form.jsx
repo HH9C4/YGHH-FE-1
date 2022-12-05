@@ -36,18 +36,25 @@ const Form = () => {
     dispatch(removeTags(tag))
   }
 
+  const onKeyDown = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+    }
+  }
+
   const onKeyUp = (e) => {
-    if ([","].indexOf(e.key) !== -1) {
+    if (e.keyCode === 188) {
       onButtonClick()
     }
   }
 
   const onButtonClick = (click) => {
-    const filtered = tag.replace(
-      /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
-      ""
-    )
-    if (click.bubbles === true || false) {
+    console.log("click", click)
+    if (click === undefined) {
+      const filtered = tag.replace(
+        /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
+        ""
+      )
       if (filtered !== "") {
         dispatch(insertTags(filtered))
         setTag("")
@@ -66,7 +73,7 @@ const Form = () => {
   const data = state.state
 
   //이미지 업로드 훅
-  const [files, fileUrls, uploadHandle] = useImgUpload(10, false, 0.3, 1000)
+  const [files, fileUrls, uploadHandle] = useImgUpload(10, false, 0.2, 1000)
 
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
@@ -97,8 +104,7 @@ const Form = () => {
     dispatch(__insertContent(formData))
   }
 
-  useEffect(() => {
-  }, [files])
+  useEffect(() => {}, [files])
 
   useEffect(() => {
     dispatch(searchTags(tag))
@@ -109,7 +115,7 @@ const Form = () => {
   }, [])
   return (
     <>
-      <form className="pl-[25px] pb-[190px]">
+      <form onKeyDown={onKeyDown} className="pl-[25px] pb-[190px]">
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
@@ -129,7 +135,7 @@ const Form = () => {
           >
             <label
               htmlFor="img-File"
-              className="w-[100px] h-[100px] bg-white rounded-md shrink-0 mt-3 mr-3"
+              className="hover:cursor-pointer w-[100px] h-[100px] bg-white rounded-md shrink-0 mt-3 mr-3"
             >
               <input
                 style={{ display: "none" }}
@@ -187,10 +193,10 @@ const Form = () => {
               onChange={onTagChange}
               placeholder="쉼표(,)로 태그를 추가할 수 있어요"
             />
-            <div
-              onClick={onButtonClick}
-              // onKeyUp={onKeyUp}
-              className="w-6 h-6 ml-[8px] rounded-full  bg-[#efefef] flex justify-center items-center"
+            <button
+              type="button"
+              onClick={() => onButtonClick()}
+              className="hover:cursor-pointer w-6 h-6 ml-[8px] rounded-full  bg-[#efefef] flex justify-center items-center"
             >
               <svg
                 width="12"
@@ -204,30 +210,44 @@ const Form = () => {
                   fill="#222222"
                 />
               </svg>
-            </div>
+            </button>
           </div>
-          <ul className="relative rounded-b-md bg-white h-[240px] px-[24px] py-[16px]">
+          <ul className="relative rounded-b-md bg-white h-[240px] px-[24px] py-[16px] overflow-auto">
             <div className="flex flex-wrap">
               {tags.map((tag) => {
                 return (
                   <div
+                    key={tag + Math.random()}
                     name={tag}
                     onClick={() => onRemove(tag)}
-                    className="text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md"
+                    className="hover:cursor-pointer text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md"
                   >
                     # {tag}
                   </div>
                 )
               })}
+              {0 < tags.length && tags.length < 11 ? (
+                <p className="text-b11 text-bbpurple absolute bottom-[0px] left-0 py-[8px] px-[24px] bg-white w-full">
+                  ※ 태그를 클릭해서 등록한 태그를 삭제할 수 있어요.
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             {searchTag && (
-              <div className="absolute top-0 left-0 w-full rounded-b-md h-[240px] overflow-auto">
+              <div
+                className={
+                  searchTag.length !== 0
+                    ? "absolute top-0 left-0 w-full rounded-b-md bg-white h-[240px] overflow-auto"
+                    : "hidden"
+                }
+              >
                 {searchTag.map((search) => {
                   return (
                     <li
                       onClick={() => onButtonClick(search)}
                       key={search + Math.random()}
-                      className="last-of-type:rounded-b-md active:bg-[#fff6c9] flex p-6 items-center text-bb22 text-sm w-full h-14 bg-white"
+                      className="hover:cursor-pointer last-of-type:rounded-b-md active:bg-[#fff6c9] flex p-6 items-center text-bb22 text-sm w-full h-14 bg-white"
                     >
                       # {search}
                     </li>
@@ -238,7 +258,8 @@ const Form = () => {
           </ul>
           <div className="flex justify-end">
             <button
-              className="w-[128px] h-10 mt-3 rounded-full bg-gradient-to-r from-bbpink to-bbgradientp text-white text-sm font-medium"
+              type="submit"
+              className="hover:cursor-pointer w-[128px] h-10 mt-3 rounded-full bg-gradient-to-r from-bbpink to-bbgradientp text-white text-sm font-medium"
               onClick={onPost}
               color="reverse"
               size="medium"

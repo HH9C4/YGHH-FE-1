@@ -14,7 +14,7 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="share"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           공유
         </label>
@@ -30,7 +30,7 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="ques"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           질문
         </label>
@@ -46,7 +46,7 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="tasty"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           맛집
         </label>
@@ -62,7 +62,7 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="daily"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           일상
         </label>
