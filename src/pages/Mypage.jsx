@@ -33,7 +33,7 @@ const Mypage = () => {
       <div className="flex items-end pt-8 ml-[25px] mr-[26px] mb-10">
         <div>
           <img
-            className="w-20 h-20 object-cover rounded-full mr-6"
+            className="border-[0.5px] border-bbBB w-20 h-20 object-cover rounded-full mr-6"
             src={userImg}
           />
         </div>

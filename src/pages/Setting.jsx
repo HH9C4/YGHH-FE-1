@@ -32,7 +32,7 @@ const Setting = () => {
 
   //이미지 업로드 훅
   const [files, fileUrls, uploadHandle] = useImgUpload(1, false, 0.3, 1000)
-
+  console.log("파일", files, "Url", fileUrls)
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
 
@@ -122,8 +122,8 @@ const Setting = () => {
             {fileUrls.map((value) => {
               return (
                 <img
-                  className="absolute rounded-full w-full h-full object-cover"
-                  src={value ? value : ""}
+                  className="border-[0.5px] border-bbBB bg-white absolute rounded-full w-full h-full object-cover"
+                  src={value.url ? value.url : ""}
                   alt="image"
                   key={Math.random()}
                 />
@@ -262,7 +262,7 @@ const Setting = () => {
           <div className="flex flex-col  mt-[12px] rounded-[8px] bg-white w-[w-full] h-[128px]">
             <div className="flex w-full px-[24px] justify-between items-center h-[63.5px] border-b-[1px] border-b-bbBB">
               <p className=" text-[14px] font-medium">현재버전</p>
-              <p className=" text-[14px] font-medium">1.0.1 Ver</p>
+              <p className=" text-[14px] font-medium">1.0.4 Ver</p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
               <button

@@ -1,6 +1,5 @@
 import axios from "axios"
 
-
 //헤더 있는 인스턴스
 export const hInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -24,49 +23,56 @@ export const nhInstance = axios.create({
 export const reFreshInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
   headers: {
-    Refresh:
-      localStorage.getItem("Refresh_Token")
+    Refresh: localStorage.getItem("Refresh_Token"),
   },
 })
 
 ////////////////////////////////////// 인터셉터 시작
-let isTokenRefresh = false;
+let isTokenRefresh = false
 
-hInstance.interceptors.response.use(function (response) {
-  return response;
-}, async function (error) {
-  const originalConfig = error.config;
-  if (error.response.data.status === "303 SEE_OTHER") {
-    if (!isTokenRefresh) {
-      isTokenRefresh = true;
-      try {
-        // const reissue = await reFreshInstance.get(`/user/reissue`)
-        const data = await axios({
-          url: `https://boombiboombi.o-r.kr/user/reissue`,
-          method: "GET",
-          headers: {
-            Refresh:
-              localStorage.getItem("Refresh_Token")
-          },
-        });
+hInstance.interceptors.response.use(
+  function (response) {
+    return response
+  },
+  async function (error) {
+    const originalConfig = error.config
+    if (error.response.data.status === "303 SEE_OTHER") {
+      if (!isTokenRefresh) {
+        isTokenRefresh = true
+        try {
+          // const reissue = await reFreshInstance.get(`/user/reissue`)
+          const data = await axios({
+            url: `https://boombiboombi.o-r.kr/user/reissue`,
+            method: "GET",
+            headers: {
+              Refresh: localStorage.getItem("Refresh_Token"),
+            },
+          })
 
-        const Access_Token = data.headers.authorization
-        localStorage.setItem("Authorization", Access_Token)
+          const Access_Token = data.headers.authorization
+          localStorage.setItem("Authorization", Access_Token)
 
-        window.location.reload()
-        axios(originalConfig);
-      }
-      catch (error) {
-        localStorage.removeItem("Authorization")
-        localStorage.removeItem("Refresh_Token")
-        localStorage.removeItem("nickName")
-        alert('로그인이 만료되었습니다. 다시 로그인 해주세요.')
-        window.location.replace('/login')
+          window.location.reload()
+          axios(originalConfig)
+        } catch (error) {
+          localStorage.removeItem("Authorization")
+          localStorage.removeItem("Refresh_Token")
+          localStorage.removeItem("nickName")
+          alert("로그인이 만료되었습니다. 다시 로그인 해주세요.")
+          window.location.replace("/login")
+        }
       }
     }
+    if (error.response.data.status === "401 UNAUTHORIZED") {
+      localStorage.removeItem("Authorization")
+      localStorage.removeItem("Refresh_Token")
+      localStorage.removeItem("nickName")
+      alert("로그인이 만료되었습니다. 다시 로그인 해주세요.")
+      window.location.replace("/login")
+    }
+    return Promise.reject(error)
   }
-  return Promise.reject(error);
-});
+)
 ///////////////////////////////// 인터셉터 끝
 
 //카카오 탈퇴 인스턴스
@@ -103,12 +109,8 @@ export const membersApis = {
       `/user/signin/naver?code=${loginData.code}&state=${loginData.state}`
     ),
   //중복확인
-  duplicateName: () => hInstance.get(
-    `/api/namecheck`
-  ),
+  duplicateName: () => hInstance.get(`/api/namecheck`),
 }
-
-
 
 export const commentApis = {
   //댓글 작성
