@@ -38,7 +38,7 @@ const Dock = () => {
                 ? onInfo()
                 : navigate(`/info/${gu}`)
             }
-            className="w-12 pt-2 pb-1 flex flex-col items-center"
+            className="hover:cursor-pointer w-12 pt-2 pb-1 flex flex-col items-center"
           >
             <dt>
               <img src={location === "info" ? ib : ig} />
@@ -53,16 +53,16 @@ const Dock = () => {
                 ? navigate(`/list/${gu}/all/new`)
                 : toLogin()
             }
-            className="w-12 pt-2 pb-1 flex flex-col items-center"
+            className="hover:cursor-pointer w-12 pt-2 pb-1 flex flex-col items-center"
           >
             <dt>
-              <img className="mt-1" src={location === "com" ? cb : cg} />
+              <img className="mt-1" src={location === "list" ? cb : cg} />
             </dt>
             <dd className="mt-1">커뮤니티</dd>
           </div>
           <div
             onClick={() => navigate("/home")}
-            className="w-12 pt-2 pb-1 flex flex-col items-center cursor-pointer"
+            className="hover:cursor-pointer w-12 pt-2 pb-1 flex flex-col items-center cursor-pointer"
           >
             <dt>
               <img src={location === "home" ? hb : hg} />
@@ -71,7 +71,7 @@ const Dock = () => {
           </div>
           <div
             onClick={() => (nickName ? navigate(`/bookmark`) : toLogin())}
-            className="w-12 pt-2 pb-1 flex flex-col items-center"
+            className="hover:cursor-pointer w-12 pt-2 pb-1 flex flex-col items-center"
           >
             <dt>
               <img src={location === "book" ? bb : bg} />
@@ -80,7 +80,7 @@ const Dock = () => {
           </div>
           <div
             onClick={() => (nickName ? navigate(`/mypage`) : toLogin())}
-            className="w-12 pt-2 pb-2 flex flex-col items-center"
+            className="hover:cursor-pointer w-12 pt-2 pb-2 flex flex-col items-center"
           >
             <dt>
               <img className="mt-1" src={location === "my" ? mb : mg} />

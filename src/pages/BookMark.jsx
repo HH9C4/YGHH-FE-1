@@ -2,6 +2,7 @@ import React from "react"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Layout from "../components/layout/Layout"
+import length0 from "../assets/img/length0.png"
 import {
   __returnBookmark,
   __deactivateBookmarkPage,
@@ -102,13 +103,10 @@ const BookMark = () => {
                 )
               })
             ) : (
-              <div className="w-full pt-[148px]">
-                <p className="pl-[138px] text-[24px] font-medium text-bb88  leading-[29px]">
-                  저런!
-                </p>
-                <p className="pl-[85px] text-[16px] font-medium text-bb88 pt-[13px]">
-                  북마크한 지역이 없습니다
-                </p>
+              <div className="w-full text-bb88 font-medium text-center pt-[148px]">
+                <img className="w-[96px] mb-[8px] mx-auto" src={length0} />
+                <p className="text-b24 leading-[29px]">저런!</p>
+                <p className="text-b16 mt-[4px]">북마크한 지역이 없습니다.</p>
               </div>
             )}
           </div>

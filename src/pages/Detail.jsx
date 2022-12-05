@@ -58,7 +58,7 @@ const Detail = () => {
   }
 
   useEffect(() => {
-    dispatch(setLocation("com"))
+    dispatch(setLocation("list"))
   }, [])
 
   return (
