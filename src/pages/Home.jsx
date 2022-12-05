@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import SelectInfo from "../components/features/SelectInfo"
 import Layout from "../components/layout/Layout"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
@@ -9,6 +8,7 @@ import { useDispatch } from "react-redux"
 import { __getHome } from "../redux/modules/searchSlice"
 import { useSelector } from "react-redux"
 import { setLocation } from "../redux/modules/memberSlice"
+import SelectGuInfo from "../components/elements/SelectGuInfo"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -49,7 +49,8 @@ const Home = () => {
     <Layout>
       <div
         key={Math.random() * 10}
-        className="w-full pl-[25px] pr-[26px] pt-[32px]">
+        className="w-full pl-[25px] pr-[26px] pt-[32px]"
+      >
         <Slider {...topSettings}>
           {homeData.jamTopList !== undefined &&
             homeData.jamTopList?.map((item) => {
@@ -60,12 +61,13 @@ const Home = () => {
                     onClick={() => navigate(`/info/${item.guNm}`)}
                     className="flex justify-between items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
                   >
-
-                    <div className='flex justify-center items-center w-full '>
+                    <div className="hover:cursor-pointer flex justify-center items-center w-full ">
                       <p className=" text-right text-[10px] font-medium text-bb22">
                         지난
-                        <span className='font-bold text-bbred'>{item.isWeekend ? " 주말" : " 평일"}</span>에 가장 붐빈 지역
-
+                        <span className="font-bold text-bbred">
+                          {item.isWeekend ? " 주말" : " 평일"}
+                        </span>
+                        에 가장 붐빈 지역
                       </p>
                       <div className="relative ml-[12px] h-[20px] ">
                         <div className="absolute bottom-0 w-[20px] h-[20px] ">
@@ -75,10 +77,10 @@ const Home = () => {
                                 item.ranking === 1
                                   ? "#FFD76E"
                                   : item.ranking === 2
-                                    ? "#bbb"
-                                    : item.ranking === 3
-                                      ? "#dbab46"
-                                      : "",
+                                  ? "#bbb"
+                                  : item.ranking === 3
+                                  ? "#dbab46"
+                                  : "",
                             }}
                             className="absolute bottom-[3px] left-[3px] w-[14px] h-[14px] rounded-full
                        animate-ping"
@@ -89,16 +91,16 @@ const Home = () => {
                                 item.ranking === 1
                                   ? "#FFBF17"
                                   : item.ranking === 2
-                                    ? "#bfbfbf"
-                                    : item.ranking === 3
-                                      ? "#db9400"
-                                      : "",
+                                  ? "#bfbfbf"
+                                  : item.ranking === 3
+                                  ? "#db9400"
+                                  : "",
                             }}
                             className="absolute bottom-[2px] left-[2px] w-[16px] h-[16px] rounded-full
                         "
                           ></div>
                         </div>
-                        <p className="absolute left-[-1.25px] bottom-[2px] pl-[8px] pr-[4px] text-b11 text-white  font-bold">
+                        <p className="hover:cursor-pointer absolute left-[-1.25px] bottom-[2px] pl-[8px] pr-[4px] text-b11 text-white  font-bold">
                           {item.ranking}
                         </p>
                       </div>
@@ -117,10 +119,12 @@ const Home = () => {
               return (
                 <div
                   key={Math.random() * 10}
-                  onClick={() => navigate(`/info/${item.guNm}`)}
                   className="  bg-white h-[148px] rounded-md"
                 >
-                  <div className="flex flex-col justify-center  items-center w-full border-b-[0.5px] border-b-[#bbb] h-[67.5px]">
+                  <div
+                    onClick={() => navigate(`/info/${item.guNm}`)}
+                    className="hover:cursor-pointer flex flex-col justify-center  items-center w-full border-b-[0.5px] border-b-[#bbb] h-[67.5px]"
+                  >
                     <p className="text-[14px] font-medium text-bb22">
                       최근 1시간 동안 인구가 가장 많이
                       <span className="text-bbred font-bold">
@@ -171,11 +175,11 @@ const Home = () => {
                             : item.plusMinus} */}
 
                           {Number(item.plusMinus) >= 1000 ||
-                            Number(item.plusMinus) <= -1000
+                          Number(item.plusMinus) <= -1000
                             ? `${String(item.plusMinus)?.substring(
-                              0,
-                              String(item.plusMinus)?.length - 3
-                            )}.${String(item.plusMinus).slice(-3, -2)}K`
+                                0,
+                                String(item.plusMinus)?.length - 3
+                              )}.${String(item.plusMinus).slice(-3, -2)}K`
                             : item.plusMinus}
                         </p>
                       </div>
@@ -228,8 +232,8 @@ const Home = () => {
           어느 구인지 이미 아시나요?
         </h2>
         <div className="flex w-full">
-          <div className="w-[360px] mx-auto">
-            <SelectInfo />
+          <div className="min-w-[270px] w-[100%] mx-auto">
+            <SelectGuInfo />
           </div>
         </div>
       </div>

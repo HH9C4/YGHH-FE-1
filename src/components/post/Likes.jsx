@@ -19,7 +19,7 @@ function Likes({ data, level, isLiked, itemId, count }) {
       count: count,
     }
 
-    //게시글 좋아요 
+    //게시글 좋아요
     if (!isLiked && level === 1) {
       dispatch(__activateLike(obj))
     } else if (isLiked && level === 1) {
@@ -38,7 +38,10 @@ function Likes({ data, level, isLiked, itemId, count }) {
       <span key="comment-basic-like">
         <div title="Like">
           {/* isLiked로 구분 */}
-          <div className="active:animate-ping" onClick={onLike}>
+          <div
+            className="hover:cursor-pointer active:animate-ping"
+            onClick={onLike}
+          >
             {level === 1 ? (
               isLiked ? (
                 <svg

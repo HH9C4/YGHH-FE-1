@@ -76,13 +76,13 @@ const Mypage = () => {
               </li>
               <li
                 onClick={() => setTab(2)}
-                className=" w-full h-12 leading-[3.5]"
+                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
               >
                 내 게시물
               </li>
               <li
                 onClick={() => setTab(3)}
-                className=" w-full h-12 leading-[3.5]"
+                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
               >
                 좋아요
               </li>
@@ -94,7 +94,7 @@ const Mypage = () => {
             <ul className="flex justify-between items-center text-center text-sm text-bb22 mb-5">
               <li
                 onClick={() => setTab(1)}
-                className="w-full h-12 leading-[3.5]"
+                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
               >
                 알림
               </li>
@@ -103,7 +103,7 @@ const Mypage = () => {
               </li>
               <li
                 onClick={() => setTab(3)}
-                className=" w-full h-12 leading-[3.5]"
+                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
               >
                 좋아요
               </li>
@@ -115,13 +115,13 @@ const Mypage = () => {
             <ul className="flex justify-between items-center text-center text-sm  text-bb22 mb-5">
               <li
                 onClick={() => setTab(1)}
-                className="w-full h-12 leading-[3.5]"
+                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
               >
                 알림
               </li>
               <li
                 onClick={() => setTab(2)}
-                className="w-full h-12 leading-[3.5]"
+                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
               >
                 내 게시물
               </li>

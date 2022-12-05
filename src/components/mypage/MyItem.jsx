@@ -21,7 +21,7 @@ const MyItem = ({ post }) => {
   return (
     <div
       onClick={() => navigate(`/detail/${post.postId}`)}
-      className="mt-[12px] w-full h-[80px] flex bg-white rounded-md px-[20px] py-[16px]"
+      className="hover:cursor-pointer mt-[12px] w-full h-[80px] flex bg-white rounded-md px-[20px] py-[16px]"
     >
       {post.imageUrl.length !== 0 ? (
         <div className="w-[22%] h-[48px] mr-[12px] ">

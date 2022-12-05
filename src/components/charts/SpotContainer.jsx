@@ -11,6 +11,7 @@ const SpotContainer = ({ spot, settings, Slider }) => {
   return (
     <>
       <article
+        key={spot.area_nm}
         className={
           select
             ? "first-of-type:rounded-t-md last-of-type:rounded-b-md ml-[25px] mr-[26px] bg-white border-[0.5px] border-bbpurple"
