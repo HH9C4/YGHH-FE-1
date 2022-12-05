@@ -55,6 +55,7 @@ hInstance.interceptors.response.use(function (response) {
 
         window.location.reload()
         axios(originalConfig);
+
       }
       catch (error) {
         localStorage.removeItem("Authorization")
@@ -64,6 +65,13 @@ hInstance.interceptors.response.use(function (response) {
         window.location.replace('/login')
       }
     }
+  }
+  if (error.response.data.status === "401 UNAUTHORIZED") {
+    localStorage.removeItem("Authorization")
+    localStorage.removeItem("Refresh_Token")
+    localStorage.removeItem("nickName")
+    alert('로그인이 만료되었습니다. 다시 로그인 해주세요.')
+    window.location.replace('/login')
   }
   return Promise.reject(error);
 });
@@ -80,6 +88,15 @@ export const kakaoinstance = axios.create({
   },
   withCredentials: true,
 })
+
+export const chatApis = {
+  //createRoom
+  CreateRoom: (createRoom) => hInstance.post(`/room`, createRoom),
+  // getRoomList: () => token.get(`/roomList`),
+  getRoomList: () => hInstance.get(`/roomList`),
+  getInitialChatList: (getInitialList) => hInstance.post(`/roomInfo`, getInitialList),
+}
+
 
 export const membersApis = {
   //로컬용 테스트로그인
@@ -107,6 +124,7 @@ export const membersApis = {
     `/api/namecheck`
   ),
 }
+
 
 
 
