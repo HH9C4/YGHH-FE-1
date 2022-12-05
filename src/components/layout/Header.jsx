@@ -29,7 +29,7 @@ const Header = () => {
             >
               <dt>
                 <img
-                  className="m-3 object-cover rounded-full w-[18px] h-[18px]"
+                  className="border-[0.5px] border-bbBB m-3 object-cover rounded-full w-[18px] h-[18px]"
                   src={profileImage}
                 />
               </dt>
