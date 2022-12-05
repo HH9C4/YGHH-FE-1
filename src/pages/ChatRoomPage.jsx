@@ -2,72 +2,89 @@ import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { __getinitialChatList, __getinitialChatList2, ListReducer } from '../redux/modules/chatSlice';
-import webstomp from "webstomp-client";
 import SockJS from "sockjs-client";
+import Layout from '../components/layout/Layout';
+import webstomp from 'webstomp-client';
+
 
 const ChatRoomPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const sock = new SockJS(`${process.env.REACT_APP_URL}/ws/chat`);
-    const ws = webstomp.over(sock);
     const dispatch = useDispatch();
+    const chatList2 = useSelector((state) => state.chatting.chatList);
+    const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`);
+    const ws = webstomp.over(sock);
+    console.log(" 룸아이디 체크해야함", chatList2)
+    console.log("아이디", id)
 
-    const chatList = useSelector((state) => state.chatting.chatList);
-    const chatList2 = useSelector((state) => state.chatting.chatList2);
-
-    console.log("요청하는정보~~", chatList, chatList2)
-
-    let postId = Number(id);
-    //여러번 호출안하거나 undefined 
-    //onSubmitHandler
-
-    useEffect(() => { //채팅내역을 mount될때마다 
-        dispatch(__getinitialChatList({ postId: postId, roomId: 1, }));
+    // ⭐️채팅방 입장
+    useEffect(() => { //페이지가 마운트 될 때마다 띄어준 후 연결한 뒤 나갔을때 끊어준다.
+        // dispatch(__getinitialChatList({ chatList2.roomId }));
+        wsConnectSubscribe();
+        // dispatch(__getinitialChatList(1));
+        dispatch(__getinitialChatList(id));
         return () => {
             onbeforeunloda();
         }
-    }, []);
+        // }, [chatList2.roomId]);
+    }, [chatList2.roomId]);
+    // }, []);
 
-    //소켓이 끊겼을떄 감지해서 페이지를 이탈했을떄 스토어를 리셋 array splice
-    //splice(0) 싹다 날려줌.state.search 
-    //state.splice(0) =>0번째 인덱스부터 날린다.
+    // 다민님꺼 
+    // useEffect(() => {
+    //     console.log("listReducer", listReducer);
+    //     if (roomId !== undefined) {
+    //     dispatch(
+    //     __getinitialChatList({
+    //     roomId: roomId,
+    //     })
+    //     );
+    //     return () => {
+    //     onbeforeunloda();
+    //     };
+    //     }
+    //     }, [roomId]);
 
-    useEffect(() => {
-        wsConnectSubscribe();
-        return () => { onbeforeunloda(); };
-    },
-        [chatList2.roomId]);
+    // useEffect(() => {
+    //     wsConnectSubscribe();
 
-    //함수를 return안에 만들어서 리듀서를 비워주는 
-    //새로고침 하지 않으면 메시지가 2개로 나오는 issue 떄문에 두번 연결
-    //끊어주지 않으면 또 다시 이전화면 다녀오면 2개 나오는 issue때문에
+    //     return () => {
+    //         onbeforeunloda();
+    //     };
+    // }, [chatList2.roomId, chatList2]);
+
+    //소켓이 끊겼을때 감지해서 페이지를 이탈했을때 스토어를 리셋 array splice
 
     const [chatBody, setChatBody] = useState("");
-
     const content = {
-        sender: localStorage.getItem("user-nickname"),
+        sender: localStorage.getItem("nickName"),
         message: chatBody,
     };
 
     let headers = {
-        Access_Token: localStorage.getItem("Access_Token"),
+        Authorization: localStorage.getItem("Authorization"),
     };
 
+
+    //🧏통신 시도
     function wsConnectSubscribe() {
         try {
             ws.connect(headers, (frame) => {
-                //roomID가  undefind가 나타남. chatList쪽에 dispatch에 SetTimeout을 설정한후 roomId를 직접 로컬로 받아서 sub에 넣으니까 해결은됨 f5시에 문자가 두개씩나타나는 오류가생김.
-                ws.subscribe(`/sub/${chatList2.roomId}`, (response) => {
+                // ws.subscribe(`/sub/${chatList2.roomId}`, (response) => {
+                ws.subscribe(`/sub/1`, (response) => {
+                    console.log("섭 되나?");
                     let data = JSON.parse(response.body);
+                    // dispatch(__getinitialChatList(1));
                     dispatch(ListReducer(data));
+                    console.log("데이터!!!!!!!!!!!", data)
                 })
             });
         } catch (error) { }
     }
-
     function waitForConnection(ws, callback) {
         setTimeout(
             function () {
+                console.log("여기2");
                 // 연결되었을 때 콜백함수 실행
                 if (ws.ws.readyState === 1) {
                     callback();
@@ -81,13 +98,14 @@ const ChatRoomPage = () => {
 
     const onbeforeunloda = () => {
         try {
+            console.log("여기3");
             ws.disconnect(
                 () => {
                     ws.unsubscribe("sub-0");
                     clearTimeout(waitForConnection);
                 },
 
-                { Access_Token: localStorage.getItem("Access_Token") }
+                { Access_Token: localStorage.getItem("Authorization") }
             );
         } catch (e) {
             // console.log("연결구독해체 에러", e);
@@ -101,16 +119,19 @@ const ChatRoomPage = () => {
     };
 
     const onSubmitHandler = (event) => {
-        //event.preventDefault()
         if (chatBody === "" || chatBody === " ") {
-            return alert("내용을 입력해주세요.");
+            return alert("내용 입력 좀 .");
         }
         waitForConnection(ws, function () {
-            ws.send(
-                `/pub/${chatList2.roomId}`,
+            console.log("여기1");
+            // ws.send(`/pub/${chatList2.roomId}`,
+            ws.send(`/pub/1`,
                 JSON.stringify(content),
                 {
-                    Access_Token: localStorage.getItem("Access_Token"),
+                    headers: {
+                        Authorization:
+                            localStorage.getItem("Authorization")
+                    }
                 },
                 setChatBody("")
             );
@@ -137,8 +158,66 @@ const ChatRoomPage = () => {
     //채팅창 치면 맨 밑으로 내려감.
 
     return (
-        <div>ChatRoomPage</div>
-    )
+        <Layout>
+            <div>
+                <header>
+                    <div>
+                        <div onClick={
+                            () => navigate(-1)
+                        } />
+                    </div>
+                    <div>
+                        <div>{chatList2.postNickname}</div>
+                        <div>30분 전 접속 </div>
+                    </div>
+                    {
+                        localStorage.getItem("nickName") === chatList2.hostName ?
+                            <>
+                                <div>모달용</div>
+                            </>
+                            : null
+                    }
+                </header>
+                <section>
+                    <div>
+                        <img src='#' alt='profileImage'>{chatList2.postImg}</img>
+                    </div>
+                    <div>
+                    </div>
+                </section>
+                <div>날짜 오늘</div>
+                <div sx={{ height: "80%", overflow: "scroll" }}>
+                    {
+                        chatList2.chatList !== undefined &&
+                        chatList2.chatList !== null &&
+                        chatList2.chatList.map((item, i) => {
+                            return localStorage.getItem("nickName") == item.sender ?
+                                (
+                                    <div className='flex flex-col'>
+                                        <div >작성자 : {item.sender}</div>
+                                        <div className='pl-[10px]'>내용 : {item.message}</div>
+                                    </div>
+                                ) :
+                                (
+                                    <div>
+                                        <div>{item.message}</div>
+                                    </div>
+                                );
+                        })}
+
+                    <div ref={scrollRef}></div>
+                </div>
+                <div>
+                    <input
+                        value={chatBody}
+                        onKeyPress={appKeyPress}
+                        onChange={inputHandler}
+                    ></input>
+                    {/* <button onSubmit={appKeyPress} onClick={onSubmitHandler}>전송</button> */}
+                </div>
+            </div>
+        </Layout>
+    );
 }
 
 export default ChatRoomPage

@@ -74,7 +74,7 @@ const Setting = () => {
     dispatch(name(nicknameInput.nickname))
   }, [nicknameInput.nickname])
 
-  useEffect(() => {}, [files])
+  useEffect(() => { }, [files])
 
   useEffect(() => {
     setLocation("my")
@@ -124,7 +124,7 @@ const Setting = () => {
                 <img
                   className="absolute rounded-full w-full h-full object-cover"
                   src={value ? value : ""}
-                  alt="image"
+                  alt="image2"
                   key={Math.random()}
                 />
               )

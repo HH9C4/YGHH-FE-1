@@ -89,12 +89,23 @@ export const kakaoinstance = axios.create({
   withCredentials: true,
 })
 
+//채팅 API
 export const chatApis = {
-  //createRoom
+  //수락버튼
+  complete: (complete) => hInstance.put(`/room/${complete}`),
+
+  //채팅방 생성
   CreateRoom: (createRoom) => hInstance.post(`/room`, createRoom),
-  // getRoomList: () => token.get(`/roomList`),
-  getRoomList: () => hInstance.get(`/roomList`),
-  getInitialChatList: (getInitialList) => hInstance.post(`/roomInfo`, getInitialList),
+
+  //채팅방 목록 조회
+  getRoomList: () => hInstance.get(`/myrooms`),
+
+  //채팅방 입장
+  getInitialChatList: (getInitialList) => hInstance.get(`/room/${getInitialList}`),
+
+  //채팅방 입장
+  getInitialChatList2: (getInitialList2) => hInstance.get(`/room/${getInitialList2}`),
+
 }
 
 

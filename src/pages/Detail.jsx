@@ -5,21 +5,23 @@ import {
   __insertComment,
   __getContentDetail,
 } from "../redux/modules/contentsSlice"
-import __CreateRoom from "../redux/modules/contentsSlice"
+import { __CreateRoom } from "../redux/modules/chatSlice"
 import DetailPost from "../components/post/DetailPost"
 import Comment from "../components/post/Comment"
 import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from "react-router-dom"
 import { setLocation } from "../redux/modules/memberSlice"
+import { json } from 'react-router-dom'
 
 const Detail = () => {
   const dispatch = useDispatch("")
   const navigate = useNavigate()
   //셀렉터로 상세조회 데이터 전부 불러오기
   const contentData = useSelector((state) => state.contents.content)
-  console.log("디테일페이지", contentData);
+  const chatList2 = useSelector((state) => state.chatting.chatList2);
   const { id } = useParams()
+
 
   //GET 요청 디스패치
   useEffect(() => {
@@ -62,19 +64,21 @@ const Detail = () => {
   //CreateRoom은 입장시 데이터를 chatList2로 보내서 결국 다른 데이터를 넣어줌 
   //채팅방 입장시 바로 연결이 안됨 데이터를 보내는게 이동하는것 보다 느려서 그럴거라 판단이되서 setTimeout을 줌
   const onClickChatting = () => {
-    const chatData = {
-      postId: contentData.postId,
-      postNickName: contentData.accountName,
+    const obj = {
+      otherUserNickname: contentData.accountName
     }
-    dispatch(__CreateRoom(chatData));
+    dispatch(__CreateRoom(obj));
     setTimeout(
       function () {
         // 연결되었을 때 콜백함수 실행
-        navigate(`/ChatRoomPage/${contentData.postId}`);
+        // navigate(`/ChatRoomPage/${chatList2.roomId}`);
+        navigate(`/ChatRoomPage/1`);
       },
-      300
+      300,
     );
   }
+
+
 
   useEffect(() => {
     dispatch(setLocation("com"))
