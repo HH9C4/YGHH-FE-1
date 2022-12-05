@@ -7,7 +7,7 @@ const SelectGuInfo = () => {
 
   const bookmarkList = localStorage.getItem("bookmarkList")
   const [bookmarked, setBookmarked] = useState({
-    gu: bookmarkList.replace(`"`, "").split(","),
+    gu: bookmarkList ? bookmarkList.replace(`"`, "").split(",") : "",
   })
 
   const navigate = useNavigate()
