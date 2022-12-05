@@ -22,6 +22,7 @@ const Post = ({ posts }) => {
   }
 
   const level = 1
+
   return (
     <>
       {posts !== undefined &&
@@ -50,9 +51,8 @@ const Post = ({ posts }) => {
                           return (
                             <img
                               className="shrink-0 w-full h-[300px] object-cover"
-                              key={img}
+                              key={img + Math.random()}
                               src={img}
-                              onClick={() => navigate(`/detail/${data.postId}`)}
                             />
                           )
                         })}
@@ -86,7 +86,7 @@ const Post = ({ posts }) => {
                     </div>
                   </div>
                   <div
-                    className="break-all text-sm text-bb22 mt-6 mb-4"
+                    className="hover:cursor-pointer break-all text-sm text-bb22 mt-6 mb-4"
                     onClick={() => navigate(`/detail/${data.postId}`)}
                   >
                     {data.content}
@@ -105,7 +105,10 @@ const Post = ({ posts }) => {
                         )
                       })}
                   </div>
-                  <div className="mt-6 flex justify-between text-bb66 text-[13px] ">
+                  <div
+                    onClick={() => navigate(`/detail/${data.postId}`)}
+                    className="hover:cursor-pointer mt-6 flex justify-between text-bb66 text-[13px] "
+                  >
                     <div className="flex">
                       <div className="mr-3">
                         {data.createdAt === data.modifiedAt
