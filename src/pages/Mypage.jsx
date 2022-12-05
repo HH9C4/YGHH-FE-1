@@ -23,6 +23,10 @@ const Mypage = () => {
     dispatch(setLocation("my"))
   }, [])
 
+  //겟요청할때 받아올 정보 : 성별 / 연령대
+  //설정 들어가면 또 겟해서 연결된 계정 보여주고
+  //
+
   return (
     <Layout>
       {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}
