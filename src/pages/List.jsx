@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Post from "../components/list/Post"
+import length0 from "../assets/img/length0.png"
 import {
   __getContent,
   __activateBookmark,
@@ -310,6 +311,7 @@ const List = () => {
           <div ref={ref}></div>
           {posts && posts.length === 0 ? (
             <div className="text-center mt-[102px] text-bb88 font-medium">
+              <img className="w-[96px] mb-[8px] mx-auto" src={length0} />
               <p className="text-b24 ">저런!</p>
               <p className="text-b16">아직 게시글이 없어요.</p>
             </div>
