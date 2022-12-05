@@ -136,8 +136,7 @@ const List = () => {
                 {select ? (
                   <>
                     <svg
-                      className="hover:cursor-pointer transition-transform duration-300"
-                      transform="rotate(180)"
+                      className="hover:cursor-pointer transition-transform duration-300 rotate-180"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -157,8 +156,7 @@ const List = () => {
                   </>
                 ) : (
                   <svg
-                    className="hover:cursor-pointer transition-transform duration-300"
-                    transform="rotate(0)"
+                    className="hover:cursor-pointer transition-transform duration-300 rotate-0"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
