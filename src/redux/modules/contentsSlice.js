@@ -12,8 +12,7 @@ export const __insertContent = createAsyncThunk(
       window.alert("게시글이 등록되었습니다.")
       window.location.replace(`/list/${res.data.data.gu}/all/new`)
       return thunkAPI.fulfillWithValue(res.data)
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 )
 
@@ -26,8 +25,7 @@ export const __insertComment = createAsyncThunk(
       if (res.data.status === "201 CREATED") {
         return thunkAPI.fulfillWithValue(res.data.data)
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 )
 
@@ -42,8 +40,7 @@ export const __deleteComment = createAsyncThunk(
         return thunkAPI.fulfillWithValue(payload)
       }
       // return thunkAPI.fulfillWithValue(payload)
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 )
 
@@ -58,9 +55,7 @@ export const __activateLike = createAsyncThunk(
         data: res.data.data,
       }
       return thunkAPI.fulfillWithValue(obj)
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 )
 
@@ -95,9 +90,7 @@ export const __activateCommentLike = createAsyncThunk(
       }
 
       return thunkAPI.fulfillWithValue(obj)
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 )
 
@@ -274,7 +267,8 @@ export const contentsSlice = createSlice({
       state.tagList.push(action.payload)
     },
     removeTags(state, action) {
-      state.tagList.filter((t) => t !== action.payload)
+      console.log("들어왔나?", action.payload)
+      state.tagList = state.tagList.filter((t) => t !== action.payload)
     },
   },
   extraReducers: {

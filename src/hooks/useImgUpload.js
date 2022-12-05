@@ -9,8 +9,9 @@ import imageCompression from "browser-image-compression"
 const useImgUpload = (
   limitCount = 10,
   isComp = true,
-  imgMaxSize = 0.3,
-  imgMaxWidthHeight = 1280
+  imgMaxSize = 0.2,
+  imgMaxWidthHeight = 1280,
+  reset = true
 ) => {
   //이미지 파일 & 프리뷰URL useState
   const [imgFiles, setImgFiles] = useState([])
@@ -22,9 +23,10 @@ const useImgUpload = (
     const files = e.currentTarget.files
 
     //state 초기화
-    setImgFiles([])
-    setImgUrls([])
-
+    if (reset === true) {
+      setImgFiles([])
+      setImgUrls([])
+    }
     //파일 갯수 제한
     if (limitCount > 0) {
       if ([...files].length > limitCount) {
@@ -65,12 +67,14 @@ const useImgUpload = (
             const reader = new FileReader() // FileReader API로 이미지 인식
             reader.onload = () => {
               // 사진 올리고 나서 처리하는 event
-              setImgUrls((imgUrls) => [...imgUrls, reader.result])
+              setImgUrls((imgUrls) => [
+                ...imgUrls,
+                { name: res.name, url: reader.result },
+              ])
             }
             reader.readAsDataURL(res) //reader에게 file을 먼저 읽힘
           })
-          .catch((error) => {
-          })
+          .catch((error) => {})
       } else {
         //이미지 파일 담기
         setImgFiles((imgs) => [...imgs, file])
@@ -78,13 +82,21 @@ const useImgUpload = (
         const reader = new FileReader() // FileReader API로 이미지 인식
         reader.onload = () => {
           // 사진 올리고 나서 처리하는 event
-          setImgUrls((imgUrls) => [...imgUrls, reader.result])
+          setImgUrls((imgUrls) => [...imgUrls, { url: reader.result }])
         }
         reader.readAsDataURL(file) //reader에게 file을 먼저 읽힘
       }
     })
   }
-  return [imgFiles, imgUrls, handler]
+
+  //이미지 삭제 핸들러
+  const deleteHandler = (e) => {
+    console.log(e)
+    setImgFiles(imgFiles.filter((item) => item.name !== e.name))
+    setImgUrls(imgUrls.filter((url) => url.url !== e.url))
+  }
+
+  return [imgFiles, imgUrls, handler, deleteHandler]
 }
 
 export default useImgUpload

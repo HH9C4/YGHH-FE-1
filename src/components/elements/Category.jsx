@@ -1,10 +1,12 @@
+import { data } from "autoprefixer"
 import React from "react"
 
-const Category = ({ postInput, postInputHandle }) => {
+const Category = ({ data, postInput, postInputHandle }) => {
   return (
     <ul className=" pt-3 pb-8 flex items-center overflow-x-auto">
       <li className="flex w-full relative items-center ">
         <input
+          defaultChecked={data && data.category === "공유" ? "checked" : ""}
           value="공유"
           onChange={postInputHandle}
           type="radio"
@@ -14,13 +16,14 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="share"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           공유
         </label>
       </li>
       <li className="flex w-full relative items-center">
         <input
+          defaultChecked={data && data.category === "질문" ? "checked" : ""}
           value="질문"
           onChange={postInputHandle}
           type="radio"
@@ -30,13 +33,14 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="ques"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           질문
         </label>
       </li>
       <li className="flex w-full relative items-center ">
         <input
+          defaultChecked={data && data.category === "맛집" ? "checked" : ""}
           value="맛집"
           onChange={postInputHandle}
           type="radio"
@@ -46,13 +50,14 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="tasty"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           맛집
         </label>
       </li>
       <li className="flex w-full relative items-center ">
         <input
+          defaultChecked={data && data.category === "일상" ? "checked" : ""}
           value="일상"
           onChange={postInputHandle}
           type="radio"
@@ -62,7 +67,7 @@ const Category = ({ postInput, postInputHandle }) => {
         />
         <label
           htmlFor="daily"
-          className="flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
+          className="hover:cursor-pointer flex items-center justify-center shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 peer-checked:bg-bbpurple peer-checked:text-white w-20 h-10 rounded-full mr-3"
         >
           일상
         </label>
