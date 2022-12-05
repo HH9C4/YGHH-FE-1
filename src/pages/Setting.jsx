@@ -12,6 +12,8 @@ import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
 import useInput from "../hooks/useInput"
 import { name } from "../redux/modules/memberSlice"
+import insta from "../assets/img/setting_insta.png"
+import mail from "../assets/img/setting_mail.png"
 
 const Setting = () => {
   const navigate = useNavigate()
@@ -286,6 +288,21 @@ const Setting = () => {
             <p className="text-[14px] font-medium text-bbred">서비스 탈퇴</p>
           </div>
         </div>
+      </div>
+      <div className="ml-[25px] mr-[26px]">
+        <div className="flex">
+          <a href="https://instagram.com/boombiboombi.official">
+            <img className="hover:cursor-pointer mr-[12px]" src={insta} />
+          </a>
+          <a href="mailto:boombiboombi.official@gmail.com">
+            <img className="hover:cursor-pointer" src={mail} />
+          </a>
+        </div>
+        <p className="mt-[12px] text-bb22 text-b11 font-medium leading-[1.55]">
+          Copyright ©2022
+          <br />
+          Hang-Hae99 9th Final : C team 4 all rights reserved.
+        </p>
       </div>
     </Layout>
   )

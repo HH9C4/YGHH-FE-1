@@ -1,11 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 const SelectGuInfo = () => {
   const location = useSelector((state) => state.members.user.location)
+
+  const bookmarkList = localStorage.getItem("bookmarkList")
+  const [bookmarked, setBookmarked] = useState({
+    gu: bookmarkList.replace(`"`, "").split(","),
+  })
+
   const navigate = useNavigate()
-  const gu = [
+  const guArr = [
     ["강남구", `/list/강남구/all/new`, `/info/강남구`],
     ["강동구", `/list/강동구/all/new`, `/info/강동구`],
     ["강북구", `/list/강북구/all/new`, `/info/강북구`],
@@ -35,15 +41,32 @@ const SelectGuInfo = () => {
   return (
     <div className="px-auto pt-[24px] w-full">
       <div className="flex flex-row flex-wrap gap-[12px] justify-between mb-3">
-        {gu.map(([gu, list, info]) => (
+        {guArr.map(([gu, list, info]) => (
           <button
             key={gu}
-            className=" w-[30%] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)]  "
+            className="hover:bg-bbpurple hover:text-white active:bg-bbpurple active:text-white relative w-[30%] h-[40px] rounded-[80px] text-[14px] leading-[21px] text-center bg-white shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)]  "
             onClick={
               location === "list" ? () => navigate(list) : () => navigate(info)
             }
           >
             {gu}
+            {bookmarked.gu && bookmarked.gu.includes(gu) ? (
+              <svg
+                className="absolute right-[10px] top-[12px]"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M5.99997 21C5.82818 20.9995 5.65943 20.9547 5.50997 20.87C5.3555 20.7832 5.22688 20.6569 5.13727 20.504C5.04766 20.3511 5.00027 20.1772 4.99997 20V5.33C4.98645 4.73032 5.2098 4.14946 5.6216 3.71332C6.03341 3.27718 6.6005 3.02089 7.19997 3H16.8C17.3994 3.02089 17.9665 3.27718 18.3783 3.71332C18.7901 4.14946 19.0135 4.73032 19 5.33V20C18.9989 20.1745 18.9522 20.3457 18.8645 20.4966C18.7768 20.6475 18.6511 20.7727 18.5 20.86C18.3479 20.9478 18.1755 20.994 18 20.994C17.8244 20.994 17.652 20.9478 17.5 20.86L11.83 17.65L6.49997 20.85C6.34952 20.9434 6.17698 20.9951 5.99997 21Z"
+                  fill="#FFB800"
+                />
+              </svg>
+            ) : (
+              ""
+            )}
           </button>
         ))}
       </div>

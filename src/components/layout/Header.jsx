@@ -20,12 +20,16 @@ const Header = () => {
   return (
     <div className="flex items-center fixed top-0 px-6 w-full bg-bbLpurple border-b-[0.5px] border-bbBB h-[52px]">
       <div className="max-w-[420px] mx-auto w-full flex justify-between items-center">
-        <img onClick={() => navigate("/home")} src={navbarLogo}></img>
+        <img
+          className="hover:cursor-pointer"
+          onClick={() => navigate("/home")}
+          src={navbarLogo}
+        ></img>
         <div className="flex items-center">
           {nickName !== (undefined || null) ? (
             <dl
               onClick={() => navigate("/mypage")}
-              className="flex justify-end items-center cursor-pointer"
+              className="hover:cursor-pointer flex justify-end items-center cursor-pointer"
             >
               <dt>
                 <img
@@ -40,7 +44,7 @@ const Header = () => {
           ) : (
             <button
               onClick={() => navigate("/login")}
-              className="text-xs text-bb22 font-medium cursor-pointer"
+              className="hover:cursor-pointer text-xs text-bb22 font-medium cursor-pointer"
             >
               로그인
             </button>
@@ -48,7 +52,7 @@ const Header = () => {
 
           <svg
             onClick={() => navigate("/search/0/undefined/new")}
-            className="ml-3"
+            className="hover:cursor-pointer ml-3"
             width="18"
             height="18"
             viewBox="0 0 18 18"
