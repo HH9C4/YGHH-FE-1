@@ -6,7 +6,7 @@ const Category = ({ data, postInput, postInputHandle }) => {
     <ul className=" pt-3 pb-8 flex items-center overflow-x-auto">
       <li className="flex w-full relative items-center ">
         <input
-          checked={data.category === "공유" ? "checked" : ""}
+          defaultChecked={data && data.category === "공유" ? "checked" : ""}
           value="공유"
           onChange={postInputHandle}
           type="radio"
@@ -23,7 +23,7 @@ const Category = ({ data, postInput, postInputHandle }) => {
       </li>
       <li className="flex w-full relative items-center">
         <input
-          checked={data.category === "질문" ? "checked" : ""}
+          defaultChecked={data && data.category === "질문" ? "checked" : ""}
           value="질문"
           onChange={postInputHandle}
           type="radio"
@@ -40,7 +40,7 @@ const Category = ({ data, postInput, postInputHandle }) => {
       </li>
       <li className="flex w-full relative items-center ">
         <input
-          checked={data.category === "맛집" ? "checked" : ""}
+          defaultChecked={data && data.category === "맛집" ? "checked" : ""}
           value="맛집"
           onChange={postInputHandle}
           type="radio"
@@ -57,7 +57,7 @@ const Category = ({ data, postInput, postInputHandle }) => {
       </li>
       <li className="flex w-full relative items-center ">
         <input
-          checked={data.category === "일상" ? "checked" : ""}
+          defaultChecked={data && data.category === "일상" ? "checked" : ""}
           value="일상"
           onChange={postInputHandle}
           type="radio"

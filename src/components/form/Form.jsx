@@ -29,11 +29,16 @@ const Form = () => {
   const onTagChange = (e) => {
     setTag(e.target.value)
   }
-  const tags = useSelector((state) => state.contents.tagList)
+  // const tags = useSelector((state) => state.contents.tagList)
   const searchTag = useSelector((state) => state.search.searchTags)
 
-  const onRemove = (tag) => {
-    dispatch(removeTags(tag))
+  const [tags, setTags] = useState([])
+  const insertTags = (e) => {
+    console.log(e)
+    setTags([...tags, e])
+  }
+  const removeTags = (e) => {
+    setTags(tags.filter((t) => t !== e))
   }
 
   const onKeyDown = (e) => {
@@ -49,20 +54,19 @@ const Form = () => {
   }
 
   const onButtonClick = (click) => {
-    console.log("click", click)
     if (click === undefined) {
       const filtered = tag.replace(
         /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
         ""
       )
       if (filtered !== "") {
-        dispatch(insertTags(filtered))
+        insertTags(filtered)
         setTag("")
       } else {
         alert("태그를 입력해주세요.")
       }
     } else {
-      dispatch(insertTags(click))
+      insertTags(click)
       setTag("")
     }
   }
@@ -80,7 +84,6 @@ const Form = () => {
     1000,
     false
   )
-  console.log("파일", files, "Url", fileUrls)
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
 
@@ -125,11 +128,7 @@ const Form = () => {
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
-        <Category
-          data={data}
-          postInput={postInput}
-          postInputHandle={postInputHandle}
-        />
+        <Category postInput={postInput} postInputHandle={postInputHandle} />
         <div className="pr-[26px]">
           <p className="text-sm text-bb22 font-medium">
             이미지를 업로드해주세요. (최대 10장, 1:1비율로 자동 조정)
@@ -169,18 +168,18 @@ const Form = () => {
               </svg>
             </label>
             {fileUrls.length !== 0 &&
-              fileUrls.map((value) => {
+              fileUrls.reverse().map((value) => {
                 return (
                   <div className="relative shrink-0 ">
                     <img
-                      className="w-[100px] h-[100px] rounded-md my-3 mr-3 object-cover"
+                      className="border-[0.5px] border-bbBB w-[100px] h-[100px] rounded-md my-3 mr-3 object-cover"
                       src={value.url ? value.url : ""}
                       alt="image"
                       key={Math.random()}
                     />
                     <div
                       onClick={() => imgDelete(value)}
-                      className="bg-white absolute right-0 top-[8px] rounded-full w-[24px] h-[24px]"
+                      className="bg-white hover:cursor-pointer absolute right-[4px] top-[8px] rounded-full w-[24px] h-[24px]"
                     >
                       <svg
                         transform="rotate(45)"
@@ -247,7 +246,7 @@ const Form = () => {
                   <div
                     key={tag + Math.random()}
                     name={tag}
-                    onClick={() => onRemove(tag)}
+                    onClick={() => removeTags(tag)}
                     className="hover:cursor-pointer text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md"
                   >
                     # {tag}

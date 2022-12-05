@@ -20,7 +20,6 @@ const UpdateForm = ({ data }) => {
   const param = useParams()
   const id = data.postId
 
-  const state = useLocation()
   const searchTag = useSelector((state) => state.search.searchTags)
   //커스텀 훅 사용
   const [postInput, setPostInput, postInputHandle] = useInput({
@@ -39,7 +38,6 @@ const UpdateForm = ({ data }) => {
     console.log(e)
     setTags([...tags, e])
   }
-  console.log(tags, "인풋", tag)
   const removeTags = (e) => {
     setTags(tags.filter((t) => t !== e))
   }
@@ -222,9 +220,9 @@ const UpdateForm = ({ data }) => {
                 </div>
               )
             })}
-            {editUrl.map((img) => {
+            {editUrl.reverse().map((img) => {
               return (
-                <div className="relative shrink-0 ">
+                <div key={img} className="relative shrink-0 ">
                   <img
                     className="border-[0.5px] border-bbBB w-[100px] h-[100px] rounded-md my-3 mr-3 shrink-0 object-cover"
                     src={img}
