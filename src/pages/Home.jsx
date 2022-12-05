@@ -192,9 +192,10 @@ const Home = () => {
                             {item.increaseRate}%
                           </p>
                           <svg
-                            className="trnsition-transform"
-                            transform={
-                              item.plusMinus < 0 ? "rotate(180)" : "rotate(0)"
+                            className={
+                              item.plusMinus < 0
+                                ? "trnsition-transform duration-300 rotate-180"
+                                : "transition-transform duration-300 rotate-0"
                             }
                             width="20"
                             height="20"
