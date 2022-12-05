@@ -7,17 +7,17 @@ import {
   __activateBookmark,
   __deactivateBookmark,
 } from "../redux/modules/contentsSlice"
-import SelectGu from "../components/features/SelectGu"
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
 import { useInView } from "react-intersection-observer"
 import { setLocation } from "../redux/modules/memberSlice"
 import HotTag from "../components/elements/HotTag"
+import SelectGuInfo from "../components/elements/SelectGuInfo"
 
 const List = () => {
-  const [gu, setGu] = useState("")
   const posts = useSelector((state) => state.contents.contents)
   const { bookmark } = useSelector((state) => state.contents)
+
   const params = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -55,7 +55,7 @@ const List = () => {
   }, [params])
 
   useEffect(() => {
-    dispatch(setLocation("com"))
+    dispatch(setLocation("list"))
   }, [])
 
   let obj = {
@@ -99,7 +99,7 @@ const List = () => {
                 {bookmark ? (
                   <button onClick={() => bookMarkOff(params.gu)}>
                     <svg
-                      className="active:animate-ping"
+                      className="hover:cursor-pointer active:animate-ping"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -115,7 +115,7 @@ const List = () => {
                 ) : (
                   <button onClick={() => bookMarkOn(params.gu)}>
                     <svg
-                      className="active:animate-ping"
+                      className="hover:cursor-pointer active:animate-ping"
                       width="24"
                       height="24"
                       viewBox="0 0 24 24"
@@ -131,10 +131,11 @@ const List = () => {
                 )}
               </div>
 
-              <div className="z-20" onClick={onSelect}>
+              <div onClick={onSelect} className="z-20">
                 {select ? (
                   <>
                     <svg
+                      className="hover:cursor-pointer transition-transform duration-300"
                       transform="rotate(180)"
                       width="24"
                       height="24"
@@ -149,12 +150,14 @@ const List = () => {
                     </svg>
                     <div className="w-full h-full px-auto fixed top-[130px] left-0 bg-bbLpurple">
                       <div className="mt-3 w-[90%] max-w-[375px] mx-auto">
-                        <SelectGu />
+                        <SelectGuInfo />
                       </div>
                     </div>
                   </>
                 ) : (
                   <svg
+                    className="hover:cursor-pointer transition-transform duration-300"
+                    transform="rotate(0)"
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"

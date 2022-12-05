@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom"
 import SpotContainer from "../components/charts/SpotContainer"
 import Layout from "../components/layout/Layout"
 import { __getInfo } from "../redux/modules/searchSlice"
-import SelectInfo from "../components/features/SelectInfo"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { setLocation } from "../redux/modules/memberSlice"
+import SelectGuInfo from "../components/elements/SelectGuInfo"
 
 const PopulationInfo = () => {
   const dispatch = useDispatch()
@@ -80,7 +80,7 @@ const PopulationInfo = () => {
                     </svg>
                     <div className="z-20 w-full h-full px-auto fixed top-[130px] left-0 bg-bbLpurple">
                       <div className="mt-3 w-[90%] max-w-[375px] mx-auto">
-                        <SelectInfo />
+                        <SelectGuInfo />
                       </div>
                     </div>
                   </>
@@ -135,7 +135,7 @@ const PopulationInfo = () => {
                   {guInfo.spotInfoList.map((spot) => {
                     return (
                       <SpotContainer
-                        key={spot.gu_nm}
+                        key={spot.area_nm}
                         Slider={Slider}
                         settings={settings}
                         spot={spot}

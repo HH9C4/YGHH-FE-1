@@ -20,7 +20,7 @@ const MyCmt = (cmt) => {
       {/* <div>{cmt.commentId}</div> */}
       <div
         onClick={onTab}
-        className="shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-md bg-white w-full mb-3 pl-[24px] flex h-full"
+        className="hover:cursor-pointer shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-md bg-white w-full mb-3 pl-[24px] flex h-full"
       >
         <div style={{ display: cmt.cmt.checked ? "none" : "block" }}>
           <div

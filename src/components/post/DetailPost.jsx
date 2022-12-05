@@ -42,7 +42,7 @@ const DetailPost = () => {
     autoplaySpeen: 200,
   }
 
-  useEffect(() => { }, [])
+  useEffect(() => {}, [])
 
   const level = 1
 
@@ -54,7 +54,7 @@ const DetailPost = () => {
             <div className="flex items-center">
               <img
                 src={data.profileImage}
-                className="w-8 h-8 rounded-full object-cover"
+                className="border-[0.5px] border-bbBB w-8 h-8 rounded-full object-cover"
               ></img>
               <div className="ml-2 text-sm text-bb22 font-bold">
                 {data.accountName}
@@ -70,7 +70,7 @@ const DetailPost = () => {
                 {data.imageUrl.map((img) => {
                   return (
                     <img
-                      className="mt-[12px] shrink-0 w-full h-[300px] object-cover"
+                      className="border-[0.5px] border-bbBB mt-[12px] shrink-0 w-full h-[300px] object-cover"
                       key={img}
                       onClick={() => navigate(`/detail/${data.postId}`)}
                       src={img}
