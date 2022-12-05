@@ -29,8 +29,11 @@ const SpotContainer = ({ spot, settings, Slider }) => {
           <h2 className="font-semibold text-b14">{spot.area_nm}</h2>
 
           <svg
-            className="trnsition-transform"
-            transform={select ? "rotate(180)" : "rotate(0)"}
+            className={
+              select
+                ? "trnsition-transform origin-center rotate-180"
+                : "trnsition-transform origin-center rotate-0"
+            }
             width="24"
             height="24"
             viewBox="0 0 24 24"

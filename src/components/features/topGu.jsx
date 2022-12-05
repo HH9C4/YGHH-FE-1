@@ -1,7 +1,6 @@
 import React from "react"
-import { useParams } from 'react-router-dom'
+import { useParams } from "react-router-dom"
 import { bookMarkOff, bookMarkOn } from "../../redux/modules/contentsSlice"
-
 
 const topGu = () => {
   const params = useParams()
@@ -57,7 +56,7 @@ const topGu = () => {
             {select ? (
               <>
                 <svg
-                  transform="rotate(180)"
+                  className="origin-center rotate-180 cursor-pointer transition-transform duration-300"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
@@ -77,6 +76,7 @@ const topGu = () => {
               </>
             ) : (
               <svg
+                className="origin-center rotate-180 cursor-pointer transition-transform duration-300"
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"

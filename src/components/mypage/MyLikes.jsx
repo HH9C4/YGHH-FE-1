@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { __getMyLikes } from "../../redux/modules/mySlice"
 import MyItem from "./MyItem"
-
+import length0 from "../../assets/img/length0.png"
 const MyPosts = () => {
   const posts = useSelector((store) => store.my.likes)
   const dispatch = useDispatch()

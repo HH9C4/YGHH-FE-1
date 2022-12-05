@@ -182,8 +182,7 @@ const Form = () => {
                       className="bg-white hover:cursor-pointer absolute right-[4px] top-[8px] rounded-full w-[24px] h-[24px]"
                     >
                       <svg
-                        transform="rotate(45)"
-                        className="mx-auto mt-[4px]"
+                        className="origin-center rotate-45 transition-transform duration-300 mx-auto mt-[4px]"
                         width="16"
                         height="16"
                         viewBox="0 0 24 24"
