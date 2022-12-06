@@ -61,9 +61,8 @@ const Home = () => {
           {homeData.jamTopList !== undefined &&
             homeData.jamTopList?.map((item) => {
               return (
-                <>
+                <div key={Math.random() * 10}>
                   <div
-                    key={Math.random() * 10}
                     onClick={() => navigate(`/info/${item.guNm}`)}
                     className="flex justify-between items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
                   >
@@ -115,7 +114,7 @@ const Home = () => {
                       </a>
                     </div>
                   </div>
-                </>
+                </div>
               )
             })}
         </Slider>

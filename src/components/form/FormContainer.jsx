@@ -38,7 +38,6 @@ const Form = () => {
 
   const [tags, setTags] = useState([])
   const insertTags = (e) => {
-    console.log(e)
     setTags([...tags, e])
   }
   const removeTags = (e) => {

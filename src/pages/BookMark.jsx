@@ -38,7 +38,10 @@ const BookMark = () => {
             {bookmarkData !== undefined && bookmarkData.length !== 0 ? (
               bookmarkData.map((item) => {
                 return (
-                  <div className="w-[48%] h-[160px] bg-white rounded-lg text-bb22">
+                  <div
+                    key={item.gu}
+                    className="w-[48%] h-[160px] bg-white rounded-lg text-bb22"
+                  >
                     <div className=" h-[63.5px] border-b-[1px] border-b-bbBB flex flex-row pl-6 mr-1 items-center">
                       <p className="text-base font-medium ">
                         {item.gu !== "중구"

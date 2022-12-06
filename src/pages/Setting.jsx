@@ -34,7 +34,6 @@ const Setting = () => {
 
   //이미지 업로드 훅
   const [files, fileUrls, uploadHandle] = useImgUpload(1, false, 0.3, 1000)
-  console.log("파일", files, "Url", fileUrls)
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
 

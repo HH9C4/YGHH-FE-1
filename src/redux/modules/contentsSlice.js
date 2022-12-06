@@ -267,7 +267,6 @@ export const contentsSlice = createSlice({
       state.tagList.push(action.payload)
     },
     removeTags(state, action) {
-      console.log("들어왔나?", action.payload)
       state.tagList = state.tagList.filter((t) => t !== action.payload)
     },
   },

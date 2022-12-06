@@ -122,7 +122,6 @@ export const __kakaoDelete = createAsyncThunk(
         localStorage.removeItem("Refresh_Token")
         localStorage.removeItem("nickName")
         window.location.replace("/")
-        //   console.log("로그아웃 res 값", res)
         //   localStorage.removeItem("Authorization")
         //   localStorage.removeItem("nickName")
         //   localStorage.removeItem("profileImage")

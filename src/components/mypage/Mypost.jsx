@@ -18,7 +18,11 @@ const MyPosts = () => {
     <>
       {posts &&
         posts.map((post) => {
-          return <MyItem post={post} />
+          return (
+            <div key={post.postId}>
+              <MyItem post={post} />
+            </div>
+          )
         })}
       {posts && posts.length === 0 ? (
         <div className="text-center mt-[102px] text-bb88 font-medium">

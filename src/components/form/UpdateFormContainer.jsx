@@ -38,7 +38,6 @@ const UpdateForm = ({ data }) => {
   }
   const [tags, setTags] = useState([])
   const insertTags = (e) => {
-    console.log(e)
     setTags([...tags, e])
   }
   const removeTags = (e) => {
@@ -58,13 +57,11 @@ const UpdateForm = ({ data }) => {
     }
   }
   const onButtonClick = (click) => {
-    console.log("click", click)
     if (click === undefined) {
       const filtered = tag.replace(
         /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
         ""
       )
-      console.log("filtered", filtered)
       if (filtered !== "") {
         insertTags(filtered)
         setTag("")
