@@ -52,9 +52,9 @@ const SelectGuInfo = () => {
             {gu}
             {bookmarked.gu && bookmarked.gu.includes(gu) ? (
               <svg
-                className="absolute right-[10px] top-[12px]"
-                width="14"
-                height="14"
+                className="absolute left-[10px] top-[-2px]"
+                width="18"
+                height="18"
                 viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
