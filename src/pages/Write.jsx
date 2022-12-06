@@ -1,7 +1,7 @@
 import React from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import FormContainer from "../components/form/FormContainer"
-import UpdateForm from "../components/form/UpdateForm"
+import UpdateFormContainer from "../components/form/UpdateFormContainer"
 import Layout from "../components/layout/Layout"
 
 const Write = () => {
@@ -33,7 +33,11 @@ const Write = () => {
           {params.id !== undefined ? "게시글 수정" : "새 게시물 작성"}
         </h1>
       </div>
-      {params.id !== undefined ? <UpdateForm data={data} /> : <FormContainer />}
+      {params.id !== undefined ? (
+        <UpdateFormContainer data={data} />
+      ) : (
+        <FormContainer />
+      )}
     </Layout>
   )
 }

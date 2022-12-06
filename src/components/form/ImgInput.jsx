@@ -43,7 +43,7 @@ const ImgInput = ({ uploadHandle, imgRef, fileUrls, imgDelete }) => {
         {fileUrls.length !== 0 &&
           fileUrls.reverse().map((value) => {
             return (
-              <div className="relative shrink-0 ">
+              <div key={value} className="relative shrink-0">
                 <img
                   className="border-[0.5px] border-bbBB w-[100px] h-[100px] rounded-md my-3 mr-3 object-cover"
                   src={value.url ? value.url : ""}

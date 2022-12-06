@@ -17,7 +17,7 @@ const TagInput = ({ tag, onKeyUp, onTagChange, onButtonClick }) => {
       <button
         type="button"
         onClick={() => onButtonClick()}
-        className="shrink-0 hover:cursor-pointer w-6 h-6 ml-[8px] rounded-full  bg-[#efefef] flex justify-center items-center"
+        className="shrink-0 hover:cursor-pointer w-6 h-6 ml-[8px] rounded-full bg-[#efefef] flex justify-center items-center"
       >
         <svg
           width="12"
