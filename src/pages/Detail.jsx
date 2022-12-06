@@ -20,9 +20,10 @@ const Detail = () => {
   //셀렉터로 상세조회 데이터 전부 불러오기
   const contentData = useSelector((state) => state.contents.content)
   const chatList2 = useSelector((state) => state.chatting.chatList2);
+  const [onToggleModal, setOnToggleModal] = useState(false)
   const { id } = useParams()
-
-
+  console.log("chatList2", chatList2);
+  console.log("contentData", contentData);
   //GET 요청 디스패치
   useEffect(() => {
     dispatch(__getContentDetail(id))
@@ -67,15 +68,18 @@ const Detail = () => {
     const obj = {
       otherUserNickname: contentData.accountName
     }
-    dispatch(__CreateRoom(obj));
-    setTimeout(
-      function () {
-        // 연결되었을 때 콜백함수 실행
-        // navigate(`/ChatRoomPage/${chatList2.roomId}`);
-        navigate(`/ChatRoomPage/1`);
-      },
-      300,
-    );
+    const username = localStorage.getItem("nickName");
+    if (username !== contentData.accountName) {
+      dispatch(__CreateRoom(obj));
+    }
+    // setTimeout(
+    //   function () {
+    //     // 연결되었을 때 콜백함수 실행
+    //     // navigate(`/ChatRoomPage/${chatList2.roomId}`);
+    //     navigate(`/ChatRoomPage/1`);
+    //   },
+    //   300,
+    // );
   }
 
 
@@ -129,7 +133,6 @@ const Detail = () => {
         <div className="px-8">
           <Comment></Comment>
         </div>
-        <button onClick={onClickChatting}>채팅하기</button>
       </div>
     </Layout>
   )

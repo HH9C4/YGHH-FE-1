@@ -101,10 +101,10 @@ export const chatApis = {
   getRoomList: () => hInstance.get(`/myrooms`),
 
   //채팅방 입장
-  getInitialChatList: (getInitialList) => hInstance.get(`/room/${getInitialList}`),
+  getInitialChatList: (roomID) => hInstance.get(`/room/${roomID}`),
 
   //채팅방 입장
-  getInitialChatList2: (getInitialList2) => hInstance.get(`/room/${getInitialList2}`),
+  getInitialChatList2: (roomID) => hInstance.get(`/room/${roomID}`),
 
 }
 

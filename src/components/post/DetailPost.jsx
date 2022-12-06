@@ -7,6 +7,7 @@ import {
 } from "../../redux/modules/contentsSlice"
 import Likes from "./Likes"
 import EditToggle from "../elements/EditToggle"
+import UserToggle from '../elements/UserToggle'
 
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
@@ -24,7 +25,7 @@ const DetailPost = () => {
     }
     dispatch(__deleteContent(obj))
   }
-
+  console.log("디테일 포스트", data);
   //삭제 버튼 작성자 확인
   const checkOwner = {
     nickName: localStorage.getItem("nickName"),
@@ -53,15 +54,18 @@ const DetailPost = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <img
+                alt='profileImg'
                 src={data.profileImage}
                 className="w-8 h-8 rounded-full object-cover"
               ></img>
+              <UserToggle data={data}></UserToggle>
               <div className="ml-2 text-sm text-bb22 font-bold">
                 {data.accountName}
               </div>
             </div>
             <div className="z-20">
               <EditToggle data={data} />
+
             </div>
           </div>
           {data.imageUrl && data.imageUrl.length !== 0 ? (
@@ -70,6 +74,7 @@ const DetailPost = () => {
                 {data.imageUrl.map((img) => {
                   return (
                     <img
+                      alt='postImg'
                       className="mt-[12px] shrink-0 w-full h-[300px] object-cover"
                       key={img}
                       onClick={() => navigate(`/detail/${data.postId}`)}

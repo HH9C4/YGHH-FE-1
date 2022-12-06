@@ -12,6 +12,7 @@ const ChatRoomPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const chatList2 = useSelector((state) => state.chatting.chatList);
+    const [readStatus, setReadStatus] = useState();
     const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`);
     const ws = webstomp.over(sock);
     console.log(" 룸아이디 체크해야함", chatList2)
@@ -27,7 +28,7 @@ const ChatRoomPage = () => {
             onbeforeunloda();
         }
         // }, [chatList2.roomId]);
-    }, [chatList2.roomId]);
+    }, [id]);
     // }, []);
 
     // 다민님꺼 
@@ -71,7 +72,7 @@ const ChatRoomPage = () => {
         try {
             ws.connect(headers, (frame) => {
                 // ws.subscribe(`/sub/${chatList2.roomId}`, (response) => {
-                ws.subscribe(`/sub/1`, (response) => {
+                ws.subscribe(`/sub/${id}`, (response) => {
                     console.log("섭 되나?");
                     let data = JSON.parse(response.body);
                     // dispatch(__getinitialChatList(1));
@@ -125,7 +126,7 @@ const ChatRoomPage = () => {
         waitForConnection(ws, function () {
             console.log("여기1");
             // ws.send(`/pub/${chatList2.roomId}`,
-            ws.send(`/pub/1`,
+            ws.send(`/pub/${id}`,
                 JSON.stringify(content),
                 {
                     headers: {
@@ -194,12 +195,14 @@ const ChatRoomPage = () => {
                             return localStorage.getItem("nickName") == item.sender ?
                                 (
                                     <div className='flex flex-col'>
+                                        <img src={localStorage.getItem("profileImage")} alt="" />
                                         <div >작성자 : {item.sender}</div>
                                         <div className='pl-[10px]'>내용 : {item.message}</div>
                                     </div>
                                 ) :
                                 (
                                     <div>
+                                        {/* <div>{item.message}</div> */}
                                         <div>{item.message}</div>
                                     </div>
                                 );

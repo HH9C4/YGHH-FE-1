@@ -8,6 +8,7 @@ export const __CreateRoom = createAsyncThunk(
             console.log("생성 페이로드", payload);
             const response = await chatApis.CreateRoom(payload)
             console.log("생성 리스폰스임", response);
+            window.location.replace(`/ChatRoomPage/${response.data.data.roomId}`);
             return thunkAPI.fulfillWithValue(response.data.data);
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
