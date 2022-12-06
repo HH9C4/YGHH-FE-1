@@ -25,7 +25,6 @@ const DetailPost = () => {
     }
     dispatch(__deleteContent(obj))
   }
-  console.log("디테일 포스트", data);
   //삭제 버튼 작성자 확인
   const checkOwner = {
     nickName: localStorage.getItem("nickName"),

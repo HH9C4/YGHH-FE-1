@@ -22,8 +22,6 @@ const Detail = () => {
   const chatList2 = useSelector((state) => state.chatting.chatList2);
   const [onToggleModal, setOnToggleModal] = useState(false)
   const { id } = useParams()
-  console.log("chatList2", chatList2);
-  console.log("contentData", contentData);
   //GET 요청 디스패치
   useEffect(() => {
     dispatch(__getContentDetail(id))
@@ -60,29 +58,6 @@ const Detail = () => {
   const goback = () => {
     window.history.back()
   }
-
-  //채팅하기 기능
-  //CreateRoom은 입장시 데이터를 chatList2로 보내서 결국 다른 데이터를 넣어줌 
-  //채팅방 입장시 바로 연결이 안됨 데이터를 보내는게 이동하는것 보다 느려서 그럴거라 판단이되서 setTimeout을 줌
-  const onClickChatting = () => {
-    const obj = {
-      otherUserNickname: contentData.accountName
-    }
-    const username = localStorage.getItem("nickName");
-    if (username !== contentData.accountName) {
-      dispatch(__CreateRoom(obj));
-    }
-    // setTimeout(
-    //   function () {
-    //     // 연결되었을 때 콜백함수 실행
-    //     // navigate(`/ChatRoomPage/${chatList2.roomId}`);
-    //     navigate(`/ChatRoomPage/1`);
-    //   },
-    //   300,
-    // );
-  }
-
-
 
   useEffect(() => {
     dispatch(setLocation("com"))

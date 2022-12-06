@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <div className="flex items-center fixed top-0 px-6 w-full bg-bbLpurple border-b-[0.5px] border-bbBB h-[52px]">
       <div className="max-w-[420px] mx-auto w-full flex justify-between items-center">
-        <img onClick={() => navigate("/home")} src={navbarLogo}></img>
+        <img alt='navbarLogo' onClick={() => navigate("/home")} src={navbarLogo}></img>
         <div className="flex items-center">
           {nickName !== (undefined || null) ? (
             <dl
@@ -29,10 +29,12 @@ const Header = () => {
             >
               <dt>
                 <img
+                  alt='pro'
                   className="m-3 object-cover rounded-full w-[18px] h-[18px]"
                   src={profileImage}
                 />
               </dt>
+
               <dd className="text-xs text-bb22 after:ml-1">
                 <span className="font-medium">{nickName}</span>님
               </dd>
@@ -45,29 +47,29 @@ const Header = () => {
               로그인
             </button>
           )}
-
           <svg
-            onClick={() => navigate("/search/0/undefined/new")}
-            className="ml-3"
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clipPath="url(#clip0_431_3145)">
-              <path
-                d="M8.04748 14.1975C4.73998 14.1975 2.04749 11.475 2.04749 8.1225C2.04749 4.77 4.73998 2.0475 8.04748 2.0475C11.355 2.0475 14.0475 4.77 14.0475 8.1225C14.0475 11.475 11.355 14.1975 8.04748 14.1975ZM8.04748 3.1725C5.35498 3.1725 3.17249 5.3925 3.17249 8.1225C3.17249 10.8525 5.36248 13.0725 8.04748 13.0725C10.7325 13.0725 12.9225 10.8525 12.9225 8.1225C12.9225 5.3925 10.7325 3.1725 8.04748 3.1725Z"
-                fill="#222222"
-              />
-              <path
-                d="M15.39 15.9525C15.2475 15.9525 15.0975 15.9 14.9925 15.7875L11.6025 12.3525C11.385 12.135 11.385 11.775 11.6025 11.5575C11.82 11.34 12.18 11.34 12.3975 11.5575L15.7875 14.9925C16.005 15.21 16.005 15.57 15.7875 15.7875C15.675 15.8925 15.5325 15.9525 15.39 15.9525Z"
-                fill="#222222"
-              />
+            onClick={() => navigate("/chat")}
+            className='mx-[12px]'
+            width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_801_894)">
+              <path d="M8.88337 3C5.08604 3 2 5.68451 2 9C2 10.3308 2.50478 11.5468 3.33078 12.5449L2.90631 14.4379C2.826 14.782 3.22753 15.0803 3.61759 14.9771L5.90057 14.4034C6.80688 14.782 7.80497 15 8.87189 15C12.6692 15 15.7553 12.3155 15.7553 9C15.7553 5.68451 12.6692 3 8.87189 3H8.88337Z" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
             </g>
             <defs>
-              <clipPath id="clip0_431_3145">
+              <clipPath id="clip0_801_894">
                 <rect width="18" height="18" fill="white" />
+              </clipPath>
+            </defs>
+          </svg>
+          <svg
+            onClick={() => navigate("/search/0/undefined/new")}
+            width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#bxdvyg8zna)" stroke="#000" stroke-width="1.5" stroke-miterlimit="10">
+              <path d="M8.047 13.635c3.003 0 5.438-2.468 5.438-5.512 0-3.045-2.434-5.513-5.438-5.513-3.003 0-5.437 2.468-5.437 5.513 0 3.044 2.434 5.512 5.437 5.512z" />
+              <path d="M15.39 15.39 12 11.955" stroke-linecap="round" />
+            </g>
+            <defs>
+              <clipPath id="bxdvyg8zna">
+                <path fill="#fff" d="M0 0h18v18H0z" />
               </clipPath>
             </defs>
           </svg>

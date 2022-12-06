@@ -10,34 +10,13 @@ const ChatList = () => {
     const dispatch = useDispatch();
     const navigator = useNavigate();
     const Room = useSelector((state) => state.chatting.roomList);
-
-
-    console.log("받아오는 룸값", Room);
-
     useEffect(() => {
         dispatch(__getRoomList());
     }, []);
 
-    const onClickChatting = (item) => {
-        navigator(`/ChatRoomPage/${item.postId}`)
-        setTimeout(
-            function () {
-                dispatch(__getinitialChatList2({
-                    roomId: item.roomId
-                }
-                )
-                );
-            }
-            , 200);
+    const onClickChatting = (roomId) => {
+        window.location.replace(`/ChatRoomPage/${roomId}`);
     }
-
-
-    //여기 부분을 풀면 채팅 이 잘나오고 방이 안들어가짐
-    //방들어갈떄 API한개.
-    //roomID가  undefind가 나타남. 방연결이 되었다안되었다함
-    // chatList쪽에 dispatch에 SetTimeout을 설정한후 roomId를 직접 로컬로 받아서 sub에 넣으니까 해결은됨 f5시에 문자가 두개씩나타나는 오류가생김.
-
-    //들어갈때 get요청
 
     // window.onload = function(event) {
     //   window.location.reload()
@@ -103,18 +82,25 @@ const ChatList = () => {
                     Room !== undefined &&
                     Room.map((item) => {
                         return (
-                            <div className='flex justify-between pt-[24px] items-start'>
+                            <div
+                                key={item.roomId}
+                                onClick={() => onClickChatting(item.roomId)}
+                                className='hover:cursor-pointer flex justify-between mt-[24px] items-start'>
                                 <div className='flex items-center'>
                                     <img
-                                        className="rounded-full w-[48px] h-[48px] object-cover shrink-0"
+                                        className="rounded-full w-[48px] border-[0.5px] border-bbBB h-[48px] object-cover shrink-0"
                                         alt='profileImg' src={item.otherProfilePic}></img>
 
-                                    <div className='ml-[12px] flex flex-col'>
+                                    <div className='ml-[12px] flex flex-col mt-[4px]'>
                                         <p className='text-[12px] text-bb22 font-bold'>{item.roomName}</p>
-                                        <p className='break-all overflow-hidden h-[32px] text-[11px] mt-[4px] font-medium'>asdjkhqwdhjqwhdjhqwjdhqwjdhjqwdhjqwhdjqwhdjhqwjdhjqwdasdasdasdasdasdasdasdasdasdhjqwhdj</p>
+                                        <div className='overflow-hidden h-[32px] '>
+                                            <p className='break-all leading-[1] mt-[2px] text-[11px] font-medium'>
+                                                {item.lastMessage}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className='flex justify-end flex-col items-end w-[55px] ml-[12px] shrink-0'>
+                                <div className='flex justify-end flex-col items-end w-[55px] ml-[12px] mt-[4px] shrink-0'>
                                     <p className='text-b11 text-bb22'>{item.lastMessageTime}</p>
                                     <div className='flex justify-center items-center bg-bbred w-[16px] mt-[4px] h-[16px] text-white  rounded-full font-medium text-b12'>1</div>
                                 </div>
