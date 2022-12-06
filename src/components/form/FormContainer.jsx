@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
+
+import { contentsApis } from "../../api/instance"
 import { useDispatch, useSelector } from "react-redux"
 import {
   __insertContent,
@@ -20,6 +22,15 @@ import ImgInput from "./ImgInput"
 const Form = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  //게시글 등록
+  const insertContent = async (payload) => {
+    const res = await contentsApis.insertContentAX(payload)
+    window.alert("게시글이 등록되었습니다.")
+    window.location.replace(`/list/${res.data.data.gu}/all/new`)
+    return
+  }
+
   //커스텀 훅 사용
   const [postInput, setPostInput, postInputHandle] = useInput({
     category: "",
@@ -113,7 +124,7 @@ const Form = () => {
       "contents",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
-    dispatch(__insertContent(formData))
+    insertContent(formData)
   }
 
   useEffect(() => {}, [files])

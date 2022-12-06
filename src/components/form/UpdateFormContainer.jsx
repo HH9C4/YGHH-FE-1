@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
+import { contentsApis } from "../../api/instance"
 import { useDispatch, useSelector } from "react-redux"
 import {
   __insertContent,
@@ -29,6 +30,18 @@ const UpdateForm = ({ data }) => {
     category: "",
     content: "",
   })
+
+  //게시글 수정
+  const updateContent = async (payload) => {
+    try {
+      const res = await contentsApis.updateContentAX(payload)
+      window.alert("게시글 수정이 완료되었습니다.")
+      navigate(`/detail/${payload.id}`)
+    } catch (error) {
+      // return thunkAPI.fulfillWithValue(obj);
+      return
+    }
+  }
 
   //태그
   const [tag, setTag] = useState("")
@@ -119,7 +132,7 @@ const UpdateForm = ({ data }) => {
       obj: formData,
       id: id,
     }
-    dispatch(__updataContent(editObj))
+    updateContent(editObj)
   }
 
   // useEffect(() => {

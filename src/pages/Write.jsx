@@ -9,6 +9,7 @@ const Write = () => {
   const params = useParams()
   const state = useLocation()
   const data = state.state
+
   return (
     <Layout>
       <div className="flex pt-6 ml-[25px] mb-8">
