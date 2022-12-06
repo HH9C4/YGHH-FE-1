@@ -18,6 +18,12 @@ const BookMark = () => {
   useEffect(() => {
     dispatch(__returnBookmark())
     dispatch(setLocation("book"))
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }, [])
 
   const bookMarkOff = (gu) => {

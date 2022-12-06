@@ -6,13 +6,13 @@ const EditBtn = () => {
   const param = useParams()
   return (
     <button
-      className="fixed bottom-[224px] right-[30px] bg-gradient-to-r from-bbpink to-bbgradientp shadow-[0_0_5px_0_rgba(174,174,174,1.0)] rounded-full w-[56px] h-[56px] active:animate-ping"
+      className="fixed bottom-[204px] right-[30px] bg-gradient-to-r from-bbpink to-bbgradientp shadow-[0_0_5px_0_rgba(174,174,174,1.0)] rounded-full w-[40px] h-[40px] active:animate-ping"
       onClick={() => navigate(`/write/${param.gu}`, { replace: false })}
     >
       <svg
         className="mx-auto"
-        width="32"
-        height="32"
+        width="23"
+        height="23"
         viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

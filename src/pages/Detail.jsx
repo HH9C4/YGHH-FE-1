@@ -59,12 +59,18 @@ const Detail = () => {
 
   useEffect(() => {
     dispatch(setLocation("list"))
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }, [])
 
   return (
     <Layout>
       <div className="w-full pt-[32px] pb-[100px]">
-        <div className="ml-[25px] mr-[26px] flex items-center mb-[32px]">
+        <div className="ml-[25px] mr-[26px] flex items-center mb-[32px] cursor-pointer">
           <svg
             onClick={goback}
             width="24"
@@ -80,7 +86,7 @@ const Detail = () => {
           </svg>
         </div>
         <div className="px-2">
-          <DetailPost></DetailPost>
+          <DetailPost />
         </div>
         <div className="fixed bottom-[80px] left-0 w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple">
           <div className="flex items-center h-14 w-full max-w-[420px] mx-auto rounded-[5px] px-[12px] shrink-0">

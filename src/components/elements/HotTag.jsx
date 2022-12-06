@@ -41,6 +41,7 @@ const HotTag = ({ onHotTag, hotTag }) => {
             if (hot.length !== 0)
               return (
                 <button
+                  key={hot}
                   className="px-[10px] h-[32px] py-[7px] rounded-[3px] bg-bbyellow text-b12"
                   value={hot}
                   onClick={() => onSearch(hot)}

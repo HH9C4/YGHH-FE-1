@@ -21,6 +21,12 @@ const Mypage = () => {
 
   useEffect(() => {
     dispatch(setLocation("my"))
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }, [])
 
   //겟요청할때 받아올 정보 : 성별 / 연령대
