@@ -1,35 +1,153 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { contentsApis } from "../../api/instance"
-import {
-  __activateCommentLike,
-  __deactivateCommentLike,
-  __activateLike,
-  __deactivateLike,
-} from "../../redux/modules/contentsSlice"
+import { postList, searchList } from "../state/store"
+import { useRecoilState } from "recoil"
 
-function Likes({ data, level, isLiked, itemId, count }) {
-  const dispatch = useDispatch()
+function Likes({ postId, level, isLiked, itemId, count }) {
+  const [posts, setPosts] = useRecoilState(postList)
+  const [searchs, setSearchs] = useRecoilState(searchList)
+
   const onLike = () => {
     const obj = {
-      contentId: data,
+      postId: postId,
       level: level,
       isLiked: !isLiked,
       itemId: itemId,
       count: count,
     }
+    //게시글 좋아요 활성화
+    const activateLike = async (payload) => {
+      console.log(payload)
+      const res = await contentsApis.likesAX(payload)
+      const id = payload.postId
+      const { data } = res.data
+
+      const indexID = posts.findIndex((item) => {
+        if (item.postId === id) {
+          return true
+        }
+        return false
+      })
+
+      const indexS = searchs.findIndex((item) => {
+        if (item.postId === id) {
+          return true
+        }
+        return false
+      })
+
+      if (indexID >= 0) {
+        let postLiked = [...posts]
+        postLiked[indexID] = { ...postLiked[indexID], isLiked: data.isLiked }
+        postLiked[indexID] = {
+          ...postLiked[indexID],
+          likeCount: data.likeCount,
+        }
+        setPosts(postLiked)
+      }
+
+      if (indexS >= 0) {
+        let searchLiked = [...searchs]
+        searchLiked[indexS] = { ...searchLiked[indexS], isLiked: data.isLiked }
+        searchLiked[indexS] = {
+          ...searchLiked[indexS],
+          likeCount: data.likeCount,
+        }
+        setSearchs(searchLiked)
+      }
+    }
+
+    //게시글 좋아요 비활성화
+    const deactivateLike = async (payload) => {
+      const res = await contentsApis.cancelLikesAX(payload)
+      const id = payload.postId
+      const { data } = res.data
+
+      const indexID = posts.findIndex((item) => {
+        if (item.postId === id) {
+          return true
+        }
+        return false
+      })
+
+      const indexS = searchs.findIndex((item) => {
+        if (item.postId === id) {
+          return true
+        }
+        return false
+      })
+
+      if (indexID >= 0) {
+        let postDisLiked = [...posts]
+        postDisLiked[indexID] = {
+          ...postDisLiked[indexID],
+          isLiked: data.isLiked,
+        }
+        postDisLiked[indexID] = {
+          ...postDisLiked[indexID],
+          likeCount: data.likeCount,
+        }
+        setPosts(postDisLiked)
+      }
+
+      if (indexS >= 0) {
+        let searchLiked = [...searchs]
+        searchLiked[indexS] = { ...searchLiked[indexS], isLiked: data.isLiked }
+        searchLiked[indexS] = {
+          ...searchLiked[indexS],
+          likeCount: data.likeCount,
+        }
+        setSearchs(searchLiked)
+      }
+    }
+
+    //댓글 좋아요 활성화
+    const activateCommentLike = async (payload) => {
+      const res = await contentsApis.likesAX(payload)
+      const id = payload.itemId
+      const { data } = res.data.data
+
+      const indexID = posts.commentList.findIndex((item) => {
+        if (item.commentId === id) {
+          return true
+        }
+        return false
+      })
+      if (indexID >= 0) {
+        setPosts((posts.commentList[indexID].isLiked = data.isLiked))
+        setPosts((posts.commentList[indexID].likeCount = data.likeCount))
+      }
+    }
+
+    //댓글 좋아요 비활성화
+    const deactivateCommentLike = async (payload) => {
+      const res = await contentsApis.cancelLikesAX(payload)
+      const id = payload.itemId
+      const { data } = res.data.data
+
+      const indexID = posts.commentList.findIndex((item) => {
+        if (item.commentId === id) {
+          return true
+        }
+        return false
+      })
+      if (indexID >= 0) {
+        setPosts((posts.commentList[indexID].isLiked = data.isLiked))
+        setPosts((posts.commentList[indexID].likeCount = data.likeCount))
+      }
+    }
 
     //게시글 좋아요
     if (!isLiked && level === 1) {
-      dispatch(__activateLike(obj))
+      activateLike(obj)
     } else if (isLiked && level === 1) {
-      dispatch(__deactivateLike(obj))
+      deactivateLike(obj)
     }
     // 댓글 좋아요 로직
     if (!isLiked && level === 2) {
-      dispatch(__activateCommentLike(obj))
+      activateCommentLike(obj)
     } else if (isLiked && level === 2) {
-      dispatch(__deactivateCommentLike(obj))
+      deactivateCommentLike(obj)
     }
   }
 

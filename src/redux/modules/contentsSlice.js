@@ -3,18 +3,18 @@ import { contentsApis, commentApis, membersApis } from "../../api/instance"
 import { current } from "@reduxjs/toolkit"
 import { act } from "react-dom/test-utils"
 
-//게시글 작성
-export const __insertContent = createAsyncThunk(
-  "contents/__insertContent",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await contentsApis.insertContentAX(payload)
-      window.alert("게시글이 등록되었습니다.")
-      window.location.replace(`/list/${res.data.data.gu}/all/new`)
-      return thunkAPI.fulfillWithValue(res.data)
-    } catch (error) {}
-  }
-)
+// //게시글 작성
+// export const __insertContent = createAsyncThunk(
+//   "contents/__insertContent",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await contentsApis.insertContentAX(payload)
+//       window.alert("게시글이 등록되었습니다.")
+//       window.location.replace(`/list/${res.data.data.gu}/all/new`)
+//       return thunkAPI.fulfillWithValue(res.data)
+//     } catch (error) {}
+//   }
+// )
 
 //댓글 작성
 export const __insertComment = createAsyncThunk(
@@ -112,18 +112,18 @@ export const __deactivateCommentLike = createAsyncThunk(
   }
 )
 
-//북마크 조회
-export const __returnBookmark = createAsyncThunk(
-  "contents/__returnBookmark",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await contentsApis.returnBookMarkAX(payload)
-      return thunkAPI.fulfillWithValue(res.data.data)
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error)
-    }
-  }
-)
+// //북마크 조회
+// export const __returnBookmark = createAsyncThunk(
+//   "contents/__returnBookmark",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await contentsApis.returnBookMarkAX(payload)
+//       return thunkAPI.fulfillWithValue(res.data.data)
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error)
+//     }
+//   }
+// )
 
 //북마크 활성화
 export const __activateBookmark = createAsyncThunk(
@@ -151,36 +151,36 @@ export const __deactivateBookmark = createAsyncThunk(
   }
 )
 
-//북마크 페이지 비활성화
-export const __deactivateBookmarkPage = createAsyncThunk(
-  "contents/__deactivateBookmarkPage",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await contentsApis.bookMarkOffAX(payload)
-      return thunkAPI.fulfillWithValue(res.data.data)
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error)
-    }
-  }
-)
+// //북마크 페이지 비활성화
+// export const __deactivateBookmarkPage = createAsyncThunk(
+//   "contents/__deactivateBookmarkPage",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await contentsApis.bookMarkOffAX(payload)
+//       return thunkAPI.fulfillWithValue(res.data.data)
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error)
+//     }
+//   }
+// )
 
-// 게시글 전체조회
-export const __getContent = createAsyncThunk(
-  "contents/__getContent",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await contentsApis.getContentAX(payload)
-      const obj = {
-        payload: payload,
-        data: res.data.data,
-        isBookmarked: res.data.isBookmarked,
-      }
-      return thunkAPI.fulfillWithValue(obj)
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error)
-    }
-  }
-)
+// // 게시글 전체조회
+// export const __getContent = createAsyncThunk(
+//   "contents/__getContent",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await contentsApis.getContentAX(payload)
+//       const obj = {
+//         payload: payload,
+//         data: res.data.data,
+//         isBookmarked: res.data.isBookmarked,
+//       }
+//       return thunkAPI.fulfillWithValue(obj)
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error)
+//     }
+//   }
+// )
 //게시글 상세조회
 export const __getContentDetail = createAsyncThunk(
   "contents/__getContentDetail",
@@ -193,20 +193,20 @@ export const __getContentDetail = createAsyncThunk(
     }
   }
 )
-//게시글 수정
-export const __updataContent = createAsyncThunk(
-  "contents/__updataContent",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await contentsApis.updateContentAX(payload)
-      window.alert("게시글 수정이 완료되었습니다.")
-      window.location.replace(`/detail/${payload.id}`)
-    } catch (error) {
-      // return thunkAPI.fulfillWithValue(obj);
-      return thunkAPI.rejectWithValue(error)
-    }
-  }
-)
+// //게시글 수정
+// export const __updataContent = createAsyncThunk(
+//   "contents/__updataContent",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await contentsApis.updateContentAX(payload)
+//       window.alert("게시글 수정이 완료되었습니다.")
+//       window.location.replace(`/detail/${payload.id}`)
+//     } catch (error) {
+//       // return thunkAPI.fulfillWithValue(obj);
+//       return thunkAPI.rejectWithValue(error)
+//     }
+//   }
+// )
 //게시글 삭제
 export const __deleteContent = createAsyncThunk(
   "contents/__deleteContent",
@@ -420,33 +420,33 @@ export const contentsSlice = createSlice({
       state.error = action.payload
     },
 
-    // 북마크 페이지 비활성화
-    [__deactivateBookmarkPage.pending]: (state) => {
-      state.isLoading = true
-    },
-    [__deactivateBookmarkPage.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.bookmarks = state.bookmarks.filter(
-        (item) => item.gu !== action.payload.gu
-      )
-    },
-    [__deactivateBookmarkPage.rejected]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    },
-    // 북마크 조회
-    [__returnBookmark.pending]: (state) => {
-      state.isLoading = true
-    },
-    [__returnBookmark.fulfilled]: (state, action) => {
-      state.isLoading = false
+    // // 북마크 페이지 비활성화
+    // [__deactivateBookmarkPage.pending]: (state) => {
+    //   state.isLoading = true
+    // },
+    // [__deactivateBookmarkPage.fulfilled]: (state, action) => {
+    //   state.isLoading = false
+    //   state.bookmarks = state.bookmarks.filter(
+    //     (item) => item.gu !== action.payload.gu
+    //   )
+    // },
+    // [__deactivateBookmarkPage.rejected]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // },
+    // // 북마크 조회
+    // [__returnBookmark.pending]: (state) => {
+    //   state.isLoading = true
+    // },
+    // [__returnBookmark.fulfilled]: (state, action) => {
+    //   state.isLoading = false
 
-      state.bookmarks = action.payload
-    },
-    [__returnBookmark.rejected]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    },
+    //   state.bookmarks = action.payload
+    // },
+    // [__returnBookmark.rejected]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // },
     //게시글 삭제
     [__deleteContent.pending]: (state) => {
       state.isLoading = true //
@@ -458,15 +458,15 @@ export const contentsSlice = createSlice({
       state.isLoading = false //
       state.error = action.payload //
     },
-    //__게시글 작성
-    [__insertContent.fulfilled]: (state, action) => {
-      if (action.payload.status === 200) {
-        alert("글작성 성공!")
-      }
-    },
-    [__insertContent.rejected]: (state, action) => {
-      state.error = action.payload
-    },
+    // //__게시글 작성
+    // [__insertContent.fulfilled]: (state, action) => {
+    //   if (action.payload.status === 200) {
+    //     alert("글작성 성공!")
+    //   }
+    // },
+    // [__insertContent.rejected]: (state, action) => {
+    //   state.error = action.payload
+    // },
     //__게시글 전체 조회
     [__getContent.pending]: (state) => {
       state.isLoading = true
@@ -485,13 +485,13 @@ export const contentsSlice = createSlice({
       state.isLoading = false
       state.error = action.payload
     },
-    //게시글 수정
-    [__updataContent.fulfilled]: (state, action) => {
-      state.contents = action.payload
-    },
-    [__updataContent.rejected]: (state, action) => {
-      state.error = action.payload //
-    },
+    // //게시글 수정
+    // [__updataContent.fulfilled]: (state, action) => {
+    //   state.contents = action.payload
+    // },
+    // [__updataContent.rejected]: (state, action) => {
+    //   state.error = action.payload //
+    // },
   },
 })
 export const { insertTags, removeTags } = contentsSlice.actions

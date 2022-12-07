@@ -204,16 +204,12 @@ export const contentsApis = {
 
   //좋아요
   likesAX: (postInfo) =>
-    hInstance.put(
-      `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
-    ),
+    hInstance.put(`/api/likes?level=${postInfo.level}&id=${postInfo.postId}`),
 
   //좋아요 취소
 
   cancelLikesAX: (postInfo) =>
-    hInstance.put(
-      `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
-    ),
+    hInstance.put(`/api/likes?level=${postInfo.level}&id=${postInfo.postId}`),
 
   // 지역구별 정보
   infoAX: (gu) =>
@@ -224,5 +220,3 @@ export const contentsApis = {
   // 홈 정보
   homeInfoAX: () => hInstance.get(`api/maininfo`),
 }
-
-export default { hInstance, nhInstance }

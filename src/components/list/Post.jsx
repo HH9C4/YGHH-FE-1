@@ -1,6 +1,6 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+
 import Likes from "../post/Likes"
 import EditToggle from "../elements/EditToggle"
 import Slider from "react-slick"
@@ -25,8 +25,8 @@ const Post = ({ posts }) => {
 
   return (
     <>
-      {posts !== undefined &&
-        posts.map((data) => {
+      {posts &&
+        posts?.map((data) => {
           return (
             <div className="w-full" key={String(data.postId) + Math.random()}>
               <div className="bg-white p-6 mb-6 rounded-md shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
@@ -72,7 +72,7 @@ const Post = ({ posts }) => {
                   <div className="mt-6 flex items-center justify-between">
                     <div className="flex items-center">
                       <Likes
-                        data={data.postId}
+                        postId={data.postId}
                         level={level}
                         isLiked={data.isLiked}
                         count={data.likeCount}
@@ -93,7 +93,7 @@ const Post = ({ posts }) => {
                   </div>
                   <div className="flex flex-wrap">
                     {data.tagList !== (undefined || null) &&
-                      data.tagList.map((postTag) => {
+                      data?.tagList?.map((postTag) => {
                         return (
                           <button
                             key={postTag}

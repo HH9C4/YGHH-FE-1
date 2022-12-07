@@ -2,13 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 
 import { contentsApis } from "../../api/instance"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  __insertContent,
-  __updataContent,
-  __getContentDetail,
-  insertTags,
-  removeTags,
-} from "../../redux/modules/contentsSlice"
+
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
 import { useLocation, useNavigate, useParams } from "react-router-dom"

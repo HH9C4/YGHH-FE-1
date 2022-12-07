@@ -47,7 +47,7 @@ const ImgInput = ({ uploadHandle, imgRef, fileUrls, imgDelete }) => {
                 <img
                   className="border-[0.5px] border-bbBB w-[100px] h-[100px] rounded-md my-3 mr-3 object-cover"
                   src={value.url ? value.url : ""}
-                  alt="image"
+                  alt="userUploadImage"
                   key={Math.random()}
                 />
                 <div

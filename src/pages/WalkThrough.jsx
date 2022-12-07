@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
 import Slider from "react-slick"
-import Layout from "../components/layout/Layout"
 import walkthorugh1 from "../assets/img/walkthrough1.svg"
 import walkthorugh2 from "../assets/img/walkthrough2.svg"
 import walkthorugh3 from "../assets/img/walkthrough3.svg"

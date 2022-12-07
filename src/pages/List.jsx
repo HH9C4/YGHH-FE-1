@@ -2,24 +2,30 @@ import React, { useRef, useState, useEffect, useCallback } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Post from "../components/list/Post"
+import { contentsApis } from "../api/instance"
 import length0 from "../assets/img/length0.png"
-import {
-  __getContent,
-  __activateBookmark,
-  __deactivateBookmark,
-} from "../redux/modules/contentsSlice"
+// import { useRecoilState } from "recoil"
+// import { postsState } from "../components/state/store"
+
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
 import { useInView } from "react-intersection-observer"
 import { setLocation } from "../redux/modules/memberSlice"
 import HotTag from "../components/elements/HotTag"
 import SelectGuInfo from "../components/elements/SelectGuInfo"
+import { postList } from "../components/state/store"
+import { useRecoilState } from "recoil"
 
 const List = () => {
-  const posts = useSelector((state) => state.contents.contents)
-  const { bookmark } = useSelector((state) => state.contents)
+  // const posts = useSelector((state) => state.contents.contents)
+  // const { bookmark } = useSelector((state) => state.contents)
 
-  const params = useParams()
+  // const [posts, setPosts] = useState()
+
+  const [posts, setPosts] = useRecoilState(postList)
+  const [bookMarked, setBookMarked] = useState()
+
+  const param = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [select, setSelect] = useState(false)
@@ -30,19 +36,61 @@ const List = () => {
     setSelect(!select)
   }
 
+  const getContent = async (payload) => {
+    const res = await contentsApis.getContentAX(payload)
+    console.log(payload, "리스폰스", res.data.data.postList)
+    const postList = res.data.data.postList
+    if (page === 0) {
+      setPosts(postList)
+    } else {
+      setPosts([...posts, ...postList])
+    }
+    setBookMarked(res.data.data.isBookmarked)
+
+    return
+  }
+  console.log("posts", posts)
+  const activateBookmark = async (payload) => {
+    try {
+      const res = await contentsApis.bookMarkAX(payload)
+      return setBookMarked(res.data.data.bookmarked)
+    } catch (error) {
+      return
+    }
+  }
+
+  const deactivateBookmark = async (payload) => {
+    try {
+      const res = await contentsApis.bookMarkOffAX(payload)
+      return setBookMarked(res.data.data.bookmarked)
+    } catch (error) {
+      return
+    }
+  }
+
   const [hotTag, setHotTag] = useState(false)
   const onHotTag = () => {
     setHotTag(!hotTag)
   }
 
+  useEffect(() => {
+    setPage(0)
+  }, [param])
+
   /**  서버에서 아이템을 가지고 오는 함수 */
-  const getItems = useCallback(async () => {
-    dispatch(__getContent(obj))
-  }, [page, params])
+  useEffect(() => {
+    getContent(obj)
+  }, [page, param])
 
   useEffect(() => {
-    getItems()
-  }, [getItems])
+    // if (!window.scrollY) return
+    // // 현재 위치가 이미 최상단일 경우 return
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: "smooth",
+    // })
+    dispatch(setLocation("list"))
+  }, [])
 
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
@@ -51,34 +99,24 @@ const List = () => {
     }
   }, [inView, loading])
 
-  useEffect(() => {
-    setPage(0)
-  }, [params])
+  // useEffect(() => {
 
-  useEffect(() => {
-    dispatch(setLocation("list"))
-    if (!window.scrollY) return
-    // 현재 위치가 이미 최상단일 경우 return
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }, [])
+  // }, [])
 
   let obj = {
-    gu: params.gu,
-    sort: params.sort,
-    category: params.category,
+    gu: param.gu,
+    sort: param.sort,
+    category: param.category,
     page: page,
   }
 
   //북마크 활성화 함수
   const bookMarkOn = () => {
-    dispatch(__activateBookmark(params.gu))
+    activateBookmark(param.gu)
   }
   //북마크 비활성화 함수
   const bookMarkOff = (gu) => {
-    dispatch(__deactivateBookmark(gu))
+    deactivateBookmark(gu)
   }
 
   return (
@@ -95,16 +133,16 @@ const List = () => {
             <div className="flex flex-row justify-between items-center">
               <div className="flex">
                 <h1 className="font-bold text-xl">
-                  {params.gu !== "중구" && params.gu !== "구로구"
-                    ? params.gu.substring(0, params.gu.indexOf("구"))
-                    : params.gu !== "구로구"
+                  {param.gu !== "중구" && param.gu !== "구로구"
+                    ? param.gu.substring(0, param.gu.indexOf("구"))
+                    : param.gu !== "구로구"
                     ? "중구"
                     : "구로"}
                   붐비
                 </h1>
                 {/* 북마크 토글러 함수 실행 */}
-                {bookmark ? (
-                  <button onClick={() => bookMarkOff(params.gu)}>
+                {bookMarked ? (
+                  <button onClick={() => bookMarkOff(param.gu)}>
                     <svg
                       className="hover:cursor-pointer active:animate-ping"
                       width="24"
@@ -120,7 +158,7 @@ const List = () => {
                     </svg>
                   </button>
                 ) : (
-                  <button onClick={() => bookMarkOn(params.gu)}>
+                  <button onClick={() => bookMarkOn(param.gu)}>
                     <svg
                       className="hover:cursor-pointer active:animate-ping"
                       width="24"
@@ -181,71 +219,61 @@ const List = () => {
         </div>
         <div className="overflow-x-auto ">
           <div className="flex felx-nowrap h-12 mt-6 mb-4 pl-6">
-            {params.category === "all" ? (
+            {param.category === "all" ? (
               <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 전체
               </button>
             ) : (
               <button
-                onClick={() =>
-                  navigate(`/list/${params.gu}/all/${params.sort}`)
-                }
+                onClick={() => navigate(`/list/${param.gu}/all/${param.sort}`)}
                 className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 전체
               </button>
             )}
-            {params.category === "공유" ? (
+            {param.category === "공유" ? (
               <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 공유
               </button>
             ) : (
               <button
-                onClick={() =>
-                  navigate(`/list/${params.gu}/공유/${params.sort}`)
-                }
+                onClick={() => navigate(`/list/${param.gu}/공유/${param.sort}`)}
                 className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 공유
               </button>
             )}
-            {params.category === "질문" ? (
+            {param.category === "질문" ? (
               <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 질문
               </button>
             ) : (
               <button
-                onClick={() =>
-                  navigate(`/list/${params.gu}/질문/${params.sort}`)
-                }
+                onClick={() => navigate(`/list/${param.gu}/질문/${param.sort}`)}
                 className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 질문
               </button>
             )}
-            {params.category === "맛집" ? (
+            {param.category === "맛집" ? (
               <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 맛집
               </button>
             ) : (
               <button
-                onClick={() =>
-                  navigate(`/list/${params.gu}/맛집/${params.sort}`)
-                }
+                onClick={() => navigate(`/list/${param.gu}/맛집/${param.sort}`)}
                 className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 맛집
               </button>
             )}
-            {params.category === "일상" ? (
+            {param.category === "일상" ? (
               <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 일상
               </button>
             ) : (
               <button
-                onClick={() =>
-                  navigate(`/list/${params.gu}/일상/${params.sort}`)
-                }
+                onClick={() => navigate(`/list/${param.gu}/일상/${param.sort}`)}
                 className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 일상
@@ -255,11 +283,11 @@ const List = () => {
         </div>
         <div className="flex justify-between mx-[26px] text-sm">
           <div>
-            {params.sort === "new" ? (
+            {param.sort === "new" ? (
               <button
                 className="mr-3 font-bold text-bb22"
                 onClick={() =>
-                  navigate(`/list/${params.gu}/${params.category}/new`)
+                  navigate(`/list/${param.gu}/${param.category}/new`)
                 }
               >
                 최신순
@@ -268,18 +296,18 @@ const List = () => {
               <button
                 className="text-bb88 font-medium mr-3"
                 onClick={() =>
-                  navigate(`/list/${params.gu}/${params.category}/new`)
+                  navigate(`/list/${param.gu}/${param.category}/new`)
                 }
               >
                 최신순
               </button>
             )}
             |
-            {params.sort === "new" ? (
+            {param.sort === "new" ? (
               <button
                 className="text-bb88 font-medium ml-3"
                 onClick={() =>
-                  navigate(`/list/${params.gu}/${params.category}/hot`)
+                  navigate(`/list/${param.gu}/${param.category}/hot`)
                 }
               >
                 인기순
@@ -288,7 +316,7 @@ const List = () => {
               <button
                 className="text-bb22 font-bold ml-3"
                 onClick={() =>
-                  navigate(`/list/${params.gu}/${params.category}/hot`)
+                  navigate(`/list/${param.gu}/${param.category}/hot`)
                 }
               >
                 인기순
@@ -311,17 +339,18 @@ const List = () => {
           </div>
         </div>
         <div className="ml-[25px] mr-[26px] mt-[16px]">
-          <Post posts={posts} />
-          <div ref={ref}></div>
+          {posts && <Post posts={posts} />}
+
           {posts && posts.length === 0 ? (
             <div className="text-center mt-[102px] text-bb88 font-medium">
               <img className="w-[96px] mb-[8px] mx-auto" src={length0} />
-              <p className="text-b24 ">저런!</p>
+              <p className="text-b24 ">앗!</p>
               <p className="text-b16">아직 게시글이 없어요.</p>
             </div>
           ) : (
             ""
           )}
+          <div ref={ref}></div>
         </div>
         <EditBtn />
       </Layout>

@@ -1,22 +1,42 @@
-import React from "react"
+import React, { useState } from "react"
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { contentsApis } from "../api/instance"
 import Layout from "../components/layout/Layout"
 import length0 from "../assets/img/length0.png"
-import {
-  __returnBookmark,
-  __deactivateBookmarkPage,
-} from "../redux/modules/contentsSlice"
 import { useNavigate } from "react-router-dom"
 import { setLocation } from "../redux/modules/memberSlice"
 const BookMark = () => {
   //페이지 안에서 전부 해결
+  const [bookmarkData, setBookmarkData] = useState()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const bookmarkData = useSelector((state) => state.contents.bookmarks)
+  // const bookmarkData = useSelector((state) => state.contents.bookmarks)
+
+  //북마크 조회
+  const returnBookmark = async (payload) => {
+    try {
+      const res = await contentsApis.returnBookMarkAX(payload)
+      return setBookmarkData(res.data.data)
+    } catch (error) {
+      return
+    }
+  }
+
+  //북마크 페이지 비활성화
+  const deactivateBookmarkPage = async (payload) => {
+    try {
+      const res = await contentsApis.bookMarkOffAX(payload)
+      return setBookmarkData(
+        bookmarkData.filter((item) => item.gu !== res.data.data.gu)
+      )
+    } catch (error) {
+      return
+    }
+  }
 
   useEffect(() => {
-    dispatch(__returnBookmark())
+    returnBookmark()
     dispatch(setLocation("book"))
     if (!window.scrollY) return
     // 현재 위치가 이미 최상단일 경우 return
@@ -27,7 +47,7 @@ const BookMark = () => {
   }, [])
 
   const bookMarkOff = (gu) => {
-    dispatch(__deactivateBookmarkPage(gu))
+    deactivateBookmarkPage(gu)
   }
   return (
     <Layout>
