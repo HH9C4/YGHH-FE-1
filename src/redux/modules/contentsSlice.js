@@ -305,54 +305,54 @@ export const contentsSlice = createSlice({
       state.isLoading = false //
       state.error = action.payload //
     },
-    // 게시글 좋아요 활성화
-    [__activateLike.pending]: (state) => {
-      state.isLoading = true
-    },
-    [__activateLike.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.content.likeId = action.payload.id
-      state.content.isLiked = action.payload.data.isLiked
-      state.content.likeCount = action.payload.data.likeCount
-      const indexID = state.contents.findIndex((item) => {
-        if (item.postId === action.payload.id) {
-          return true
-        }
-        return false
-      })
-      if (indexID >= 0) {
-        state.contents[indexID].isLiked = action.payload.data.isLiked
-        state.contents[indexID].likeCount = action.payload.data.likeCount
-      }
-      // state.contents[indexID].isLiked = action.payload.data.isLiked
-      // state.contents[indexID].likeCount = action.payload.data.likeCount
-    },
-    [__activateLike.rejected]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    },
-    //게시글 좋아요 비활성화
-    [__deactivateLike.pending]: (state) => {
-      state.isLoading = true
-    },
-    [__deactivateLike.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.content.likeId = action.payload.id
-      state.content.isLiked = action.payload.data.isLiked
-      state.content.likeCount = action.payload.data.likeCount
-      const indexID = state.contents.findIndex((item) => {
-        if (item.postId === action.payload.id) {
-          return true
-        }
-        return false
-      })
-      if (indexID >= 0) {
-        state.contents[indexID].isLiked = action.payload.data.isLiked
-        state.contents[indexID].likeCount = action.payload.data.likeCount
-      }
-      // state.contents[indexID].isLiked = action.payload.data.isLiked
-      // state.contents[indexID].likeCount = action.payload.data.likeCount
-    },
+    // // 게시글 좋아요 활성화
+    // [__activateLike.pending]: (state) => {
+    //   state.isLoading = true
+    // },
+    // [__activateLike.fulfilled]: (state, action) => {
+    //   state.isLoading = false
+    //   state.content.likeId = action.payload.id
+    //   state.content.isLiked = action.payload.data.isLiked
+    //   state.content.likeCount = action.payload.data.likeCount
+    //   const indexID = state.contents.findIndex((item) => {
+    //     if (item.postId === action.payload.id) {
+    //       return true
+    //     }
+    //     return false
+    //   })
+    //   if (indexID >= 0) {
+    //     state.contents[indexID].isLiked = action.payload.data.isLiked
+    //     state.contents[indexID].likeCount = action.payload.data.likeCount
+    //   }
+    //   // state.contents[indexID].isLiked = action.payload.data.isLiked
+    //   // state.contents[indexID].likeCount = action.payload.data.likeCount
+    // },
+    // [__activateLike.rejected]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // },
+    // //게시글 좋아요 비활성화
+    // [__deactivateLike.pending]: (state) => {
+    //   state.isLoading = true
+    // },
+    // [__deactivateLike.fulfilled]: (state, action) => {
+    //   state.isLoading = false
+    //   state.content.likeId = action.payload.id
+    //   state.content.isLiked = action.payload.data.isLiked
+    //   state.content.likeCount = action.payload.data.likeCount
+    //   const indexID = state.contents.findIndex((item) => {
+    //     if (item.postId === action.payload.id) {
+    //       return true
+    //     }
+    //     return false
+    //   })
+    //   if (indexID >= 0) {
+    //     state.contents[indexID].isLiked = action.payload.data.isLiked
+    //     state.contents[indexID].likeCount = action.payload.data.likeCount
+    //   }
+    //   // state.contents[indexID].isLiked = action.payload.data.isLiked
+    //   // state.contents[indexID].likeCount = action.payload.data.likeCount
+    // },
     [__deactivateLike.rejected]: (state, action) => {
       state.isLoading = false
       state.error = action.payload
@@ -467,24 +467,24 @@ export const contentsSlice = createSlice({
     // [__insertContent.rejected]: (state, action) => {
     //   state.error = action.payload
     // },
-    //__게시글 전체 조회
-    [__getContent.pending]: (state) => {
-      state.isLoading = true
-    },
-    [__getContent.fulfilled]: (state, action) => {
-      state.isLoading = false
-      if (action.payload.payload.page === 0) {
-        state.contents.splice(0)
-        state.contents.push(...action.payload.data.postList)
-      } else {
-        state.contents.push(...action.payload.data.postList)
-      }
-      state.bookmark = action.payload.data.isBookmarked
-    },
-    [__getContent.rejected]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    },
+    // //__게시글 전체 조회
+    // [__getContent.pending]: (state) => {
+    //   state.isLoading = true
+    // },
+    // [__getContent.fulfilled]: (state, action) => {
+    //   state.isLoading = false
+    //   if (action.payload.payload.page === 0) {
+    //     state.contents.splice(0)
+    //     state.contents.push(...action.payload.data.postList)
+    //   } else {
+    //     state.contents.push(...action.payload.data.postList)
+    //   }
+    //   state.bookmark = action.payload.data.isBookmarked
+    // },
+    // [__getContent.rejected]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // },
     // //게시글 수정
     // [__updataContent.fulfilled]: (state, action) => {
     //   state.contents = action.payload

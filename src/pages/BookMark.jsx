@@ -64,9 +64,11 @@ const BookMark = () => {
                   >
                     <div className=" h-[63.5px] border-b-[1px] border-b-bbBB flex flex-row pl-6 mr-1 items-center">
                       <p className="text-base font-medium ">
-                        {item.gu !== "중구"
+                        {item.gu !== "중구" && item.gu !== "구로구"
                           ? item.gu.substring(0, item.gu.indexOf("구"))
-                          : item.gu}
+                          : item.gu !== "구로구"
+                          ? "중구"
+                          : "구로"}
                         붐비
                       </p>
                       <button onClick={() => bookMarkOff(item.gu)}>
