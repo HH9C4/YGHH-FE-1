@@ -6,9 +6,10 @@ import SockJS from "sockjs-client";
 import Layout from '../components/layout/Layout';
 import webstomp from 'webstomp-client';
 import { leaveRoom, chatApis } from "../api/instance"
-
+import { createBrowserHistory } from "history";
 
 const ChatRoomPage = () => {
+
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -117,17 +118,13 @@ const ChatRoomPage = () => {
     const fetchRooms = async () => {
         const response = await chatApis.leaveRoom(chatData.roomId)
         console.log(response);
-        // navigate('/chat')
+        navigate('/chat')
     };
     //채팅방 나가기
     const leaveChat = () => {
         fetchRooms()
     }
 
-
-    // useEffect(() => {
-    //     fetchRooms();
-    // }, []);
 
     // 채팅창 치면 가장 하단으로 스크롤
     // useEffect(() => {
@@ -139,6 +136,8 @@ const ChatRoomPage = () => {
     //         });
     //     }
     // }, [chatData]);
+
+
 
     return (
         <Layout>
@@ -228,7 +227,6 @@ const ChatRoomPage = () => {
                                             <div className='w-full h-full max-w-[185px] overflow-hidden py-[7px] bg-white rounded-lg mr-[11px] px-[10px]'>
 
                                                 <p className='break-all leading-[1] mt-[2px] text-bb22 text-b12 font-medium '>
-
                                                     {item.message}
                                                 </p>
                                             </div>
@@ -239,10 +237,6 @@ const ChatRoomPage = () => {
                                     </div>
                                 );
                         })}
-
-                    <p className='text-center text-b11 text-bb88
-                        border-[0.5px] my-[36px] max-w-[260px] mx-auto py-[4px] px-[10px] rounded-full 
-                        '>여기까지 읽으셨습니다.</p>
                     <div ref={scrollRef}></div>
                 </div>
 

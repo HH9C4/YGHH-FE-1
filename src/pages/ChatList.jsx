@@ -16,10 +16,9 @@ const ChatList = () => {
     const [room, setRoom] = useState();
     const params = useParams()
 
-
-
     const fetchRooms = async () => {
         const response = await chatApis.getRoomList()
+        console.log(response);
         setRoom(response.data.data);
         setRooms(response.data.data);
     };
@@ -41,7 +40,7 @@ const ChatList = () => {
     const onClickChatting = (roomId) => {
         window.location.replace(`/ChatRoomPage/${roomId}`);
     }
-
+    console.log("room", room);
     // window.onload = function(event) {
     //   window.location.reload()
     //   //event.preventDefault()
@@ -103,8 +102,8 @@ const ChatList = () => {
                     </svg>
                 </div>
                 {
-                    room !== undefined && room !== [] ?
-                        (room?.map((item) => {
+                    room !== undefined && room.length !== 0 ?
+                        (room.map((item) => {
                             return (
                                 <div
                                     key={item.roomId}
@@ -126,10 +125,8 @@ const ChatList = () => {
                                     </div>
                                     <div className='flex justify-end flex-col items-end w-[55px] ml-[12px] mt-[4px] shrink-0'>
                                         <p className='text-b11 text-bb22'>{item.lastMessageTime}</p>
-                                        <div className='flex justify-center items-center bg-bbred mt-[4px] px-[7px] h-[16px] text-white  rounded-full font-normal text-b12'>New</div>
                                     </div>
                                 </div>
-
                             )
                         })) : (
                             <div className='flex flex-col items-center mt-[100px]'>
@@ -154,7 +151,6 @@ const ChatList = () => {
                                 <p className='text-b16 text-bb88'>채팅내역이 존재하지 않습니다.</p>
                             </div>
                         )
-
                 }
 
             </div>

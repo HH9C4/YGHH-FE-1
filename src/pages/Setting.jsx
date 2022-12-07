@@ -27,7 +27,7 @@ const Setting = () => {
 
   //커스텀 훅 사용
   const [nicknameInput, setnicknameInput, nicknameInputHandle] = useInput({
-    nickname: "",
+    nickname: '',
   })
 
   //이미지 업로드 훅
@@ -36,6 +36,7 @@ const Setting = () => {
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
 
+  console.log(nicknameInput);
   //submit
   const onPut = (e) => {
     e.preventDefault()
@@ -46,16 +47,19 @@ const Setting = () => {
         formData.append("image", file)
       })
     }
+
     let obj = {
-      nickname: nicknameInput.nickname,
+      nickname: userNickname === nicknameInput.nickname ? "" : nicknameInput.nickname
     }
+    console.log("보내기 전, obj", obj);
 
     formData.append(
       "nickname",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
-
     dispatch(__mypageModify(formData))
+
+
   }
 
   const handleLogout = () => {
@@ -191,7 +195,7 @@ const Setting = () => {
             ) : (
               ""
             )}
-            {!checkDuplicate ? (
+            {!checkDuplicate && userNickname !== nicknameInput.nickname ? (
               <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
                 이미 사용중인 닉네임입니다
               </p>
