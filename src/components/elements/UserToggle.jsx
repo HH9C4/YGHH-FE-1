@@ -40,7 +40,7 @@ const UserToggle = ({ data }) => {
     return (
         <>
             {localStorage.getItem("nickName") !== data.accountName ? (
-                <div className="flex  hover:cursor-pointer relative">
+                <div className="flex hover:cursor-pointer relative">
                     <button
                         onClick={onToggle}
                         className="flex w-[40px] h-[40px]  absolute top-[-20px] left-[-30px]">

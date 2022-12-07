@@ -94,6 +94,9 @@ export const chatApis = {
   //수락버튼
   complete: (complete) => hInstance.put(`/room/${complete}`),
 
+  //채팅방 나가기 
+  leaveRoom: (roomID) => hInstance.put(`/room/${roomID}`),
+
   //채팅방 생성
   CreateRoom: (createRoom) => hInstance.post(`/room`, createRoom),
 

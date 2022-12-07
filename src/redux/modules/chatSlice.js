@@ -13,17 +13,17 @@ export const __CreateRoom = createAsyncThunk(
         }
     }
 );
-export const __getRoomList = createAsyncThunk(
-    "/chat/__getRoomList",
-    async (payload, thunkAPI) => {
-        try {
-            const response = await chatApis.getRoomList()
-            return thunkAPI.fulfillWithValue(response.data.data);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data);
-        }
-    }
-);
+// export const __getRoomList = createAsyncThunk(
+//     "/chat/__getRoomList",
+//     async (payload, thunkAPI) => {
+//         try {
+//             const response = await chatApis.getRoomList()
+//             return thunkAPI.fulfillWithValue(response.data.data);
+//         } catch (error) {
+//             return thunkAPI.rejectWithValue(error.response.data);
+//         }
+//     }
+// );
 export const __getinitialChatList = createAsyncThunk(
     "/chat/__getInitialChatList",
     async (payload, thunkAPI) => {
@@ -114,17 +114,17 @@ export const chatSlice = createSlice({
             state.isLoading = false;
             state.err = action.payload;
         },
-        [__getRoomList.pending]: (state, action) => {
-            state.isLoading = true;
-        },
-        [__getRoomList.fulfilled]: (state, action) => {
-            state.isLoading = false;
-            state.roomList = action.payload;
-        },
-        [__getRoomList.rejected]: (state, action) => {
-            state.isLoading = false;
-            state.err = action.payload;
-        },
+        // [__getRoomList.pending]: (state, action) => {
+        //     state.isLoading = true;
+        // },
+        // [__getRoomList.fulfilled]: (state, action) => {
+        //     state.isLoading = false;
+        //     state.roomList = action.payload;
+        // },
+        // [__getRoomList.rejected]: (state, action) => {
+        //     state.isLoading = false;
+        //     state.err = action.payload;
+        // },
         [__getinitialChatList.pending]: (state, action) => {
             state.isLoading = true;
         },

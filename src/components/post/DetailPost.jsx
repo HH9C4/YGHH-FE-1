@@ -57,7 +57,9 @@ const DetailPost = () => {
                 src={data.profileImage}
                 className="w-8 h-8 rounded-full object-cover"
               ></img>
-              <UserToggle data={data}></UserToggle>
+              <div className="z-20">
+                <UserToggle data={data}></UserToggle>
+              </div>
               <div className="ml-2 text-sm text-bb22 font-bold">
                 {data.accountName}
               </div>

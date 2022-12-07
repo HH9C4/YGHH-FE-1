@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { __getinitialChatList, __getinitialChatList2, ListReducer } from '../redux/modules/chatSlice';
+import { __getinitialChatList, ListReducer } from '../redux/modules/chatSlice';
 import SockJS from "sockjs-client";
 import Layout from '../components/layout/Layout';
 import webstomp from 'webstomp-client';
+import { leaveRoom, chatApis } from "../api/instance"
 
 
 const ChatRoomPage = () => {
@@ -15,6 +16,7 @@ const ChatRoomPage = () => {
     const [readStatus, setReadStatus] = useState(false);
     const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`);
     const ws = webstomp.over(sock);
+    const userNickName = localStorage.getItem("nickName")
 
     // ⭐️채팅방 입장
     useEffect(() => { //페이지가 마운트 될 때마다 띄어준 후 연결한 뒤 나갔을때 끊어준다.
@@ -23,13 +25,12 @@ const ChatRoomPage = () => {
         // dispatch(__getinitialChatList(1));
         dispatch(__getinitialChatList(id));
         return () => {
-            onbeforeunloda();
+            onbeforeunload();
         }
     }, [id]);
 
 
     //소켓이 끊겼을때 감지해서 페이지를 이탈했을때 스토어를 리셋 array splice
-
     const [chatBody, setChatBody] = useState("");
     const content = {
         sender: localStorage.getItem("nickName"),
@@ -45,10 +46,8 @@ const ChatRoomPage = () => {
     function wsConnectSubscribe() {
         try {
             ws.connect(headers, (frame) => {
-                // ws.subscribe(`/sub/${chatList2.roomId}`, (response) => {
                 ws.subscribe(`/sub/${id}`, (response) => {
                     let data = JSON.parse(response.body);
-                    // dispatch(__getinitialChatList(1));
                     dispatch(ListReducer(data));
                 })
             });
@@ -68,7 +67,7 @@ const ChatRoomPage = () => {
         );
     }//stomp 메시지 에러 waitForConnection함수로 해결
 
-    const onbeforeunloda = () => {
+    const onbeforeunload = () => {
         try {
             ws.disconnect(
                 () => {
@@ -113,6 +112,22 @@ const ChatRoomPage = () => {
     };
     //enter시 메시지 전송 기능
     const scrollRef = useRef();
+
+    //채팅방 나가기
+    const fetchRooms = async () => {
+        const response = await chatApis.leaveRoom(chatData.roomId)
+        console.log(response);
+        // navigate('/chat')
+    };
+    //채팅방 나가기
+    const leaveChat = () => {
+        fetchRooms()
+    }
+
+
+    // useEffect(() => {
+    //     fetchRooms();
+    // }, []);
 
     // 채팅창 치면 가장 하단으로 스크롤
     // useEffect(() => {
@@ -164,7 +179,10 @@ const ChatRoomPage = () => {
                             </defs>
                         </svg>
 
-                        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        {/* 신고하기 */}
+                        <svg
+                            onClick={leaveChat}
+                            width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <line x1="1.5" y1="3.5" x2="16.5" y2="3.5" stroke="#222222" stroke-linecap="round" />
                             <line x1="1.5" y1="9.5" x2="16.5" y2="9.5" stroke="#222222" stroke-linecap="round" />
                             <line x1="1.5" y1="15.5" x2="16.5" y2="15.5" stroke="#222222" stroke-linecap="round" />
@@ -176,7 +194,8 @@ const ChatRoomPage = () => {
                         chatData.chatList !== undefined &&
                         chatData.chatList !== null &&
                         chatData.chatList.map((item, i) => {
-                            return localStorage.getItem("nickName") === item.sender ?
+                            // return localStorage.getItem("nickName") === item.sender ?
+                            return userNickName !== item.sender ?
                                 (
                                     <div className='flex pb-[12px] mt-[12px] items-start'>
                                         <img
@@ -184,7 +203,7 @@ const ChatRoomPage = () => {
                                             alt='profileImg' src={chatData.guestProfile}></img>
 
                                         <div className='ml-[8px] flex flex-col  relative'>
-                                            <p className='text-b12 pb-[4px]  text-bb66 font-medium'>{chatData.guestName}</p>
+                                            <p className='text-b12 pb-[4px]  text-bb66 font-medium'>{chatData.yourName}</p>
                                             <svg
                                                 className='absolute top-[30px] left-0'
                                                 width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -216,15 +235,17 @@ const ChatRoomPage = () => {
                                             <img
                                                 className="rounded-full w-[40px] border-[0.5px] border-bbBB h-[40px] object-cover shrink-0"
                                                 alt='profileImg' src={localStorage.getItem('profileImage')}></img>
-
                                         </div>
-
                                     </div>
                                 );
                         })}
 
+                    <p className='text-center text-b11 text-bb88
+                        border-[0.5px] my-[36px] max-w-[260px] mx-auto py-[4px] px-[10px] rounded-full 
+                        '>여기까지 읽으셨습니다.</p>
                     <div ref={scrollRef}></div>
                 </div>
+
                 <div className="fixed bottom-[80px] px-[20px] py-[8px] left-0 w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple">
                     <div className="flex items-center  w-full max-w-[420px] mx-auto rounded-[5px]  shrink-0">
                         <input
