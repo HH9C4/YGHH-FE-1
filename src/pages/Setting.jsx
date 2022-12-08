@@ -36,7 +36,6 @@ const Setting = () => {
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
 
-  console.log(nicknameInput);
   //submit
   const onPut = (e) => {
     e.preventDefault()
@@ -51,15 +50,12 @@ const Setting = () => {
     let obj = {
       nickname: userNickname === nicknameInput.nickname ? "" : nicknameInput.nickname
     }
-    console.log("보내기 전, obj", obj);
 
     formData.append(
       "nickname",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
     dispatch(__mypageModify(formData))
-
-
   }
 
   const handleLogout = () => {

@@ -108,7 +108,7 @@ const Form = () => {
     dispatch(__getGuTag(param.gu))
   }, [])
   return (
-    <>
+    <div key={Math.random()}>
       <form className="pl-[25px] pb-[190px]">
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
@@ -161,7 +161,7 @@ const Form = () => {
                 <img
                   className="w-[100px] h-[100px] rounded-md my-3 mr-3 shrink-0 object-cover"
                   src={value ? value : ""}
-                  alt="image"
+                  alt="profileImageChange"
                   key={Math.random()}
                 />
               )
@@ -248,7 +248,7 @@ const Form = () => {
           </div>
         </div>
       </form>
-    </>
+    </div>
   )
 }
 

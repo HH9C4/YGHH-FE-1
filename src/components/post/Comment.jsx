@@ -1,8 +1,11 @@
 import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { __deleteComment } from "../../redux/modules/contentsSlice"
+import { __CreateRoom } from "../../redux/modules/chatSlice"
+
 import { useParams } from "react-router-dom"
 import Likes from "./Likes"
+
 
 const Comment = () => {
   const dispatch = useDispatch()
@@ -14,13 +17,30 @@ const Comment = () => {
     // alert("삭제하시겠습니까?")
     // window.location.replace(`/detail/${Id}`)
   }
-
   //삭제 버튼 작성자 확인
   const checkOwner = {
     nickName: nickName,
   }
   //댓글 삭제 요청을 위한 level 변수 생성
   const level = 2
+
+  const onClickChatting = (commenterName) => {
+    const obj = {
+      otherUserNickname: commenterName
+    }
+
+    if (nickName !== commenterName) {
+      dispatch(__CreateRoom(obj));
+    }
+    // setTimeout(
+    //   function () {
+    //     // 연결되었을 때 콜백함수 실행
+    //     // navigate(`/ChatRoomPage/${chatList2.roomId}`);
+    //     navigate(`/ChatRoomPage/1`);
+    //   },
+    //   300,
+    // );
+  }
 
   return (
     <>
@@ -65,8 +85,17 @@ const Comment = () => {
                 <p>{item.createdAt}</p>
                 <p className="mx-2">|</p>
                 <p className="">{data.gu}</p>
+
+                {
+                  nickName !== item.accountName &&
+                  <>
+                    <p className="mx-2">|</p>
+                    <button className='font-medium text-bb22' onClick={() => onClickChatting(item.accountName)}>채팅하기</button>
+                  </>
+                }
                 {checkOwner.nickName === item.accountName ? (
                   <>
+
                     <p className="mx-2 text-bb66">|</p>
                     <button
                       className=" text-[11px] font-medium text-bb22 "

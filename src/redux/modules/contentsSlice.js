@@ -247,16 +247,12 @@ export const __mypageModify = createAsyncThunk(
   "contents/__mypageModify",
   async (payload, thunkAPI) => {
     try {
-
       const res = await contentsApis.modifyAX(payload)
-      console.log("리스폰바뀌었니", res);
       //나중에 리듀서로 리팩토링 예정
       localStorage.setItem("profileImage", res.data.data.profileImage)
       localStorage.setItem("nickName", res.data.data.accountName)
       window.alert("프로필 수정이 완료되었습니다.")
       window.location.replace("/mypage")
-      // window.location.replace("/mypage")
-      // return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }

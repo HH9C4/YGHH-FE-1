@@ -49,17 +49,17 @@ export const __getinitialChatList = createAsyncThunk(
 //     }
 // );
 
-export const __complete = createAsyncThunk(
-    "/chat/__complete",
-    async (payload, thunkAPI) => {
-        try {
-            const response = await chatApis.complete(payload)
-            return thunkAPI.fulfillWithValue(response.data.msg);
-        } catch (error) {
-            return thunkAPI.rejectWithValue(error.response.data.data);
-        }
-    }
-);
+// export const __complete = createAsyncThunk(
+//     "/chat/__complete",
+//     async (payload, thunkAPI) => {
+//         try {
+//             const response = await chatApis.complete(payload)
+//             return thunkAPI.fulfillWithValue(response.data.msg);
+//         } catch (error) {
+//             return thunkAPI.rejectWithValue(error.response.data.data);
+//         }
+//     }
+// );
 
 
 export const chatSlice = createSlice({
@@ -103,17 +103,17 @@ export const chatSlice = createSlice({
             state.isLoading = false;
             state.err = action.payload;
         },
-        [__complete.pending]: (state, action) => {
-            state.isLoading = true;
-        },
-        [__complete.fulfilled]: (state, action) => {
-            state.isLoading = false;
-            state.complete = action.payload;
-        },
-        [__complete.rejected]: (state, action) => {
-            state.isLoading = false;
-            state.err = action.payload;
-        },
+        // [__complete.pending]: (state, action) => {
+        //     state.isLoading = true;
+        // },
+        // [__complete.fulfilled]: (state, action) => {
+        //     state.isLoading = false;
+        //     state.complete = action.payload;
+        // },
+        // [__complete.rejected]: (state, action) => {
+        //     state.isLoading = false;
+        //     state.err = action.payload;
+        // },
         // [__getRoomList.pending]: (state, action) => {
         //     state.isLoading = true;
         // },

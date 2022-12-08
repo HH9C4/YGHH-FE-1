@@ -92,7 +92,7 @@ export const kakaoinstance = axios.create({
 //채팅 API
 export const chatApis = {
   //수락버튼
-  complete: (complete) => hInstance.put(`/room/${complete}`),
+  // complete: (complete) => hInstance.put(`/room/${complete}`),
 
   //채팅방 나가기 
   leaveRoom: (roomID) => hInstance.put(`/room/${roomID}`),
@@ -109,6 +109,12 @@ export const chatApis = {
   //채팅방 입장
   getInitialChatList2: (roomID) => hInstance.get(`/room/${roomID}`),
 
+}
+
+//실시간 알림 API
+export const notificationApis = {
+  //수락버튼
+  getNotificationAX: (complete) => hInstance.put(`/room/${complete}`),
 }
 
 
