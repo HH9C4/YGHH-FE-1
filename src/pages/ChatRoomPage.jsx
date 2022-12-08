@@ -126,15 +126,15 @@ const ChatRoomPage = () => {
 
 
     // 채팅창 치면 가장 하단으로 스크롤
-    // useEffect(() => {
-    //     if (scrollRef) {
-    //         scrollRef.current.scrollIntoView({
-    //             behavior: "smooth",
-    //             block: "end",
-    //             inline: "nearest",
-    //         });
-    //     }
-    // }, [chatData]);
+    useEffect(() => {
+        if (scrollRef) {
+            scrollRef.current.scrollIntoView({
+                behavior: "smooth",
+                block: "end",
+                inline: "nearest",
+            });
+        }
+    }, [chatData]);
 
 
 

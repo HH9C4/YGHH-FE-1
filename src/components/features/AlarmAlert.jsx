@@ -44,8 +44,6 @@ const AlarmAlert = ({ newNotice, setNewNotice }) => {
                     </div>
                 ) : ''
             }
-
-
         </div>
 
     )
