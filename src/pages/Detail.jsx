@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { __CreateRoom } from "../redux/modules/chatSlice"
 import { contentsApis, commentApis } from "../api/instance"
 import { postDetail } from "../components/state/store"

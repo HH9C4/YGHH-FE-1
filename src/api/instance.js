@@ -240,6 +240,11 @@ export const contentsApis = {
 
   // 지역구별 정보
   infoAX: (gu) =>
+    nhInstance.get(`/api/guinfo`, {
+      params: { gu: gu },
+    }),
+
+  infoAX2: (gu) =>
     hInstance.get(`/api/guinfo`, {
       params: { gu: gu },
     }),

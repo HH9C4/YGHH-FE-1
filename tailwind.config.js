@@ -1,7 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 // const colors = require("tailwindcss/colors")
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+  purge: {
+    enabeld: true,
+    content: ["./src/**/*.{html,js,jsx,ts,tsx}"],
+  },
   theme: {
     colors: {
       transparent: "transparent",
@@ -16,7 +19,7 @@ module.exports = {
       bermuda: "#78dcca",
       bbpurple: "#7F73FF",
       bbLpurple: "#F1EFFF",
-      bborange: "#FFB800",
+      bborange: "#FFC700",
       bbred: "#ff3535",
       bbyellow: "#FFEC8A",
       bbLyellow: "FFF6C9",
@@ -49,5 +52,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar-hide")],
 }

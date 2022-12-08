@@ -2,7 +2,7 @@ import React from "react"
 
 const TagSearch = ({ tags, searchTag, removeTags, onButtonClick }) => {
   return (
-    <ul className="relative rounded-b-md bg-white h-[240px] px-[24px] py-[16px] overflow-auto">
+    <ul className="relative rounded-b-md bg-white h-[240px] px-[24px] py-[16px] scrollbar-hide overflow-auto">
       <div className="flex flex-wrap">
         {tags.map((tag) => {
           return (
@@ -28,7 +28,7 @@ const TagSearch = ({ tags, searchTag, removeTags, onButtonClick }) => {
         <div
           className={
             searchTag.length !== 0
-              ? "absolute top-0 left-0 w-full rounded-b-md bg-white h-[240px] overflow-auto"
+              ? "absolute top-0 left-0 w-full rounded-b-md bg-white h-[240px] scrollbar-hide overflow-auto"
               : "hidden"
           }
         >

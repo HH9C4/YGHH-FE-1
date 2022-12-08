@@ -158,7 +158,7 @@ const WalkThrough = () => {
   }
 
   return (
-    <div className="bg-bbLpurple w-full min-w-[100vw] h-full min-h-[100vh] overflow-scroll font-sans">
+    <div className="bg-bbLpurple w-full min-w-[100vw] h-full min-h-[100vh] overflow-scroll scrollbar-hide font-sans">
       <div className="bg-bbLpurple pb-[96px]  max-w-[420px] h-full min-h-[100vh] mx-auto">
         <div
           onClick={() => navigate("/home")}

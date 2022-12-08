@@ -17,18 +17,55 @@ const PopulationInfo = () => {
   const guNm = useSelector((state) => state.members.user.gu)
   const [select, setSelect] = useState(false)
   const [guInfo, setGuInfo] = useState()
-  const getInfo = async (gu) => {
+  const [bookMarked, setBookMarked] = useState()
+
+  const userName = localStorage.getItem("nickName")
+
+  const activateBookmark = async (payload) => {
     try {
-      const res = await contentsApis.infoAX(gu)
-      return setGuInfo(res.data.data)
+      const res = await contentsApis.bookMarkAX(payload)
+      return setBookMarked(res.data.data.bookmarked)
     } catch (error) {
-      alert(error.response.data.message)
-      if (localStorage.getItem("nickName") !== null || undefined) {
-        window.location.replace(`/list/${gu}/all/new`)
-      } else {
-        window.location.replace("/login")
-      }
       return
+    }
+  }
+
+  const deactivateBookmark = async (payload) => {
+    try {
+      const res = await contentsApis.bookMarkOffAX(payload)
+      return setBookMarked(res.data.data.bookmarked)
+    } catch (error) {
+      return
+    }
+  }
+
+  const getInfo = async (gu) => {
+    if (!userName) {
+      try {
+        const res = await contentsApis.infoAX(gu)
+        return setGuInfo(res.data.data)
+      } catch (error) {
+        alert(error.response.data.message)
+        if (localStorage.getItem("nickName") !== null || undefined) {
+          window.location.replace(`/list/${gu}/all/new`)
+        } else {
+          window.location.replace("/login")
+        }
+        return
+      }
+    } else {
+      try {
+        const res = await contentsApis.infoAX2(gu)
+        return setGuInfo(res.data.data)
+      } catch (error) {
+        alert(error.response.data.message)
+        if (localStorage.getItem("nickName") !== null || undefined) {
+          window.location.replace(`/list/${gu}/all/new`)
+        } else {
+          window.location.replace("/login")
+        }
+        return
+      }
     }
   }
   const onSelect = () => {
@@ -45,6 +82,15 @@ const PopulationInfo = () => {
     autoplay: true,
     autoplaySpeed: 5000,
   }
+  //북마크 활성화 함수
+  const bookMarkOn = () => {
+    activateBookmark(params.gu)
+  }
+  //북마크 비활성화 함수
+  const bookMarkOff = (gu) => {
+    deactivateBookmark(gu)
+  }
+
   useEffect(() => {
     getInfo(gu)
   }, [gu])
@@ -80,6 +126,40 @@ const PopulationInfo = () => {
                     : "구로"}
                   붐비
                 </h1>
+                {/* 북마크 토글러 함수 실행 */}
+                {bookMarked ? (
+                  <button onClick={() => bookMarkOff(params.gu)}>
+                    <svg
+                      className="hover:cursor-pointer active:animate-ping"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.99997 21C5.82818 20.9995 5.65943 20.9547 5.50997 20.87C5.3555 20.7832 5.22688 20.6569 5.13727 20.504C5.04766 20.3511 5.00027 20.1772 4.99997 20V5.33C4.98645 4.73032 5.2098 4.14946 5.6216 3.71332C6.03341 3.27718 6.6005 3.02089 7.19997 3H16.8C17.3994 3.02089 17.9665 3.27718 18.3783 3.71332C18.7901 4.14946 19.0135 4.73032 19 5.33V20C18.9989 20.1745 18.9522 20.3457 18.8645 20.4966C18.7768 20.6475 18.6511 20.7727 18.5 20.86C18.3479 20.9478 18.1755 20.994 18 20.994C17.8244 20.994 17.652 20.9478 17.5 20.86L11.83 17.65L6.49997 20.85C6.34952 20.9434 6.17698 20.9951 5.99997 21Z"
+                        fill="#FFB800"
+                      />
+                    </svg>
+                  </button>
+                ) : (
+                  <button onClick={() => bookMarkOn(params.gu)}>
+                    <svg
+                      className="hover:cursor-pointer active:animate-ping"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M6.08999 21.06C5.82477 21.06 5.57042 20.9546 5.38288 20.7671C5.19534 20.5796 5.08999 20.3252 5.08999 20.06L4.93999 5.39998C4.92795 5.10233 4.97487 4.80523 5.07806 4.52577C5.18125 4.24632 5.33868 3.99002 5.54127 3.77163C5.74387 3.55323 5.98765 3.37704 6.25859 3.25319C6.52952 3.12935 6.82227 3.06029 7.11999 3.04998L16.71 2.99998C17.0081 3.00519 17.3023 3.06908 17.5757 3.18799C17.8491 3.30691 18.0964 3.47852 18.3035 3.69304C18.5106 3.90755 18.6734 4.16076 18.7826 4.4382C18.8918 4.71564 18.9453 5.01187 18.94 5.30998L19.08 19.97C19.0817 20.1452 19.0373 20.3178 18.9513 20.4705C18.8653 20.6232 18.7407 20.7506 18.59 20.84C18.438 20.9278 18.2655 20.974 18.09 20.974C17.9145 20.974 17.742 20.9278 17.59 20.84L11.89 17.68L6.59999 20.91C6.44334 20.9975 6.26906 21.0487 6.08999 21.06ZM11.85 15.51C12.0238 15.5103 12.195 15.5514 12.35 15.63L17.06 18.24L16.94 5.28998C16.94 5.08998 16.81 4.94998 16.73 4.95998L7.12999 5.04998C7.04999 5.04998 6.93999 5.17998 6.93999 5.37998L7.05999 18.28L11.34 15.65C11.4954 15.561 11.6709 15.5128 11.85 15.51Z"
+                        fill="#222222"
+                      />
+                    </svg>
+                  </button>
+                )}
               </div>
 
               <div onClick={onSelect}>
