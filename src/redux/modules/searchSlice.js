@@ -76,33 +76,25 @@ export const __getInfo = createAsyncThunk(
     }
   }
 )
+// )
 
-//게시글 작성 시 태그 가져오기
-export const __getGuTag = createAsyncThunk(
-  "contents/__getGuTag",
-  async (payload, thunkAPI) => {
-    try {
-      const res = await contentsApis.getGuTags(payload)
-      return thunkAPI.fulfillWithValue(res.data.data.tagList)
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.message)
-    }
-  }
-)
+// //게시글 작성 시 태그 가져오기
+// export const __getGuTag = createAsyncThunk(
+//   "contents/__getGuTag",
+//   async (payload, thunkAPI) => {
+//     try {
+//       const res = await contentsApis.getGuTags(payload)
+//       return thunkAPI.fulfillWithValue(res.data.data.tagList)
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error.response.message)
+//     }
+//   }
+// )
 
 export const searchSlice = createSlice({
   name: "search",
   initialState,
-  reducers: {
-    searchTags(state, action) {
-      const tagList = state.tags
-      if (tagList !== (undefined || null) && action.payload !== "") {
-        state.searchTags = tagList.filter((t) => t.includes(action.payload))
-      } else if (action.payload === "") {
-        state.searchTags.splice(0)
-      }
-    },
-  },
+  reducers: {},
 
   extraReducers: {
     //홈
@@ -171,24 +163,24 @@ export const searchSlice = createSlice({
     },
     //__게시글 태그 목록 겟
 
-    [__getGuTag.pending]: (state) => {
-      state.isLoading = true
-    },
-    [__getGuTag.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.isSuccess = false
-      state.tags = action.payload
-    },
-    [__getGuTag.rejected]: (state, action) => {
-      state.isLoading = false
-      state.isSuccess = false
-      state.error = action.payload
-    },
+    //   [__getGuTag.pending]: (state) => {
+    //     state.isLoading = true
+    //   },
+    //   [__getGuTag.fulfilled]: (state, action) => {
+    //     state.isLoading = false
+    //     state.isSuccess = false
+    //     state.tags = action.payload
+    //   },
+    //   [__getGuTag.rejected]: (state, action) => {
+    //     state.isLoading = false
+    //     state.isSuccess = false
+    //     state.error = action.payload
+    //   },
   },
 })
 
 // 액션크리에이터는 컴포넌트에서 사용하기 위해 export 하고
 // export const {} = searchSlice.actions
 // reducer 는 configStore에 등록하기 위해 export default 합니다.
-export const { searchTags } = searchSlice.actions
+
 export default searchSlice.reducer

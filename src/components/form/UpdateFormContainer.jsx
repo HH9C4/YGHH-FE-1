@@ -1,35 +1,44 @@
 import React, { useEffect, useRef, useState } from "react"
 import { contentsApis } from "../../api/instance"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  __insertContent,
-  __updataContent,
-  __getContentDetail,
-  insertTags,
-  removeTags,
-} from "../../redux/modules/contentsSlice"
+
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Category from "../elements/Category"
-import { searchTags, __getGuTag } from "../../redux/modules/searchSlice"
 import ContentInput from "./ContentInput"
 import TagInput from "./TagInput"
 import TagSearch from "./TagSearch"
 
 const UpdateForm = ({ data }) => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const param = useParams()
   const id = data.postId
 
-  const searchTag = useSelector((state) => state.search.searchTags)
   //커스텀 훅 사용
   const [postInput, setPostInput, postInputHandle] = useInput({
     category: "",
     content: "",
   })
+
+  const [tagList, setTagList] = useState()
+  const [searchTag, setSearchTag] = useState()
+
+  // 인풋창과 일치하는 태그 리스트 반환
+  const searchTags = (payload) => {
+    if (tagList !== (undefined || null) && payload !== "") {
+      setSearchTag(tagList.filter((t) => t.includes(payload)))
+    } else if (payload === "") {
+      setSearchTag()
+    }
+  }
+
+  //게시글 작성 시 구에 등록된 태그 가져오기
+  const getGuTag = async (payload) => {
+    const res = await contentsApis.getGuTags(payload)
+    setTagList(res.data.data.tagList)
+  }
 
   //게시글 수정
   const updateContent = async (payload) => {
@@ -56,8 +65,6 @@ const UpdateForm = ({ data }) => {
   const removeTags = (e) => {
     setTags(tags.filter((t) => t !== e))
   }
-  // const tags = useSelector((state) => state.contents.tagList)
-
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault()
@@ -86,8 +93,6 @@ const UpdateForm = ({ data }) => {
       setTag("")
     }
   }
-  const { isSuccess, error } = useSelector((state) => state)
-
   const [deleteUrl, setDeleteUrl] = useState([])
   const [editUrl, setEditUrl] = useState([...data.imageUrl])
   const beforeDelete = (e) => {
@@ -144,11 +149,11 @@ const UpdateForm = ({ data }) => {
   }, [files])
 
   useEffect(() => {
-    dispatch(searchTags(tag))
+    searchTags(tag)
   }, [tag])
 
   useEffect(() => {
-    dispatch(__getGuTag(param.gu))
+    getGuTag(param.gu)
     setTags([...data.tagList])
   }, [])
 
