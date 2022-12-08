@@ -30,7 +30,6 @@ const List = () => {
 
   const getContent = async (payload) => {
     const res = await contentsApis.getContentAX(payload)
-    console.log(payload, "리스폰스", res.data.data.postList)
     const postList = res.data.data.postList
     if (page === 0) {
       setPosts(postList)
@@ -41,7 +40,6 @@ const List = () => {
 
     return
   }
-  console.log("posts", posts)
   const activateBookmark = async (payload) => {
     try {
       const res = await contentsApis.bookMarkAX(payload)

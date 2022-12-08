@@ -17,7 +17,6 @@ function Likes({ postId, level, isLiked, itemId, count }) {
     }
     //게시글 좋아요 활성화
     const activateLike = async (payload) => {
-      console.log(payload)
       const res = await contentsApis.likesAX(payload)
       const id = payload.postId
       const { data } = res.data

@@ -1,16 +1,10 @@
 import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { __deleteComment } from "../../redux/modules/contentsSlice"
-import { useParams } from "react-router-dom"
 import Likes from "./Likes"
 import { commentApis } from "../../api/instance"
 
 import { useRecoilState } from "recoil"
 import { postDetail } from "../state/store"
 const Comment = () => {
-  const dispatch = useDispatch()
-  const { id } = useParams()
-
   const [data, setData] = useRecoilState(postDetail)
   // const data = useSelector((state) => state.contents.content)
   const nickName = localStorage.getItem("nickName")

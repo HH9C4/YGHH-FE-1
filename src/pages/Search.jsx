@@ -24,7 +24,6 @@ const Search = () => {
   const [searchSize, setSearchSize] = useRecoilState(searchSizes)
   const getSearch = async (payload) => {
     const res = await contentsApis.searchAX(payload)
-    console.log(payload, "리스폰스", res.data.data.sizeOfList)
     const searchList = res.data.data.postList
     setSearchSize(res.data.data.sizeOfList)
     if (page === 0) {

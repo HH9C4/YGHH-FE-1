@@ -42,7 +42,6 @@ const Detail = () => {
           ...contentData,
           commentList: [...contentData.commentList, cmt],
         })
-        console.log(contentData)
       }
     } catch (error) {}
   }
@@ -50,7 +49,7 @@ const Detail = () => {
   //GET 요청 디스패치
   useEffect(() => {
     getContentDetail(id)
-  }, [dispatch, id, contentData.isLiked])
+  }, [dispatch, id])
 
   const [comment, setComment] = useState({})
 
