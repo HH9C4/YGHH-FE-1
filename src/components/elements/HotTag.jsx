@@ -1,21 +1,28 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams } from "react-router-dom"
-import { __getHotTag } from "../../redux/modules/searchSlice"
-import Layout from "../layout/Layout"
+import React, { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
+import { contentsApis } from "../../api/instance"
 
 const HotTag = ({ onHotTag, hotTag }) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const params = useParams()
-  const hotTags = useSelector((store) => store.search.hotTag.tagList)
+  const [hotTags, setHotTags] = useState()
   const gu = useSelector((state) => state.members.user.gu)
   const onSearch = (tag) => {
     navigate(`/search/1/${tag}/new`)
   }
 
+  const getHotTag = async (gu) => {
+    try {
+      const res = await contentsApis.hotTagAX(gu)
+      return setHotTags(res.data.data.tagList)
+    } catch (error) {
+      alert(error.response.data.msg)
+      return
+    }
+  }
+
   useEffect(() => {
-    if (hotTag) dispatch(__getHotTag(gu))
+    if (hotTag) getHotTag(gu)
   }, [hotTag])
 
   return (

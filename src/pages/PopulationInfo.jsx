@@ -3,20 +3,34 @@ import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import SpotContainer from "../components/charts/SpotContainer"
 import Layout from "../components/layout/Layout"
-import { __getInfo } from "../redux/modules/searchSlice"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import { setLocation } from "../redux/modules/memberSlice"
 import SelectGuInfo from "../components/elements/SelectGuInfo"
+import { contentsApis } from "../api/instance"
 
 const PopulationInfo = () => {
   const dispatch = useDispatch()
   const params = useParams()
   const gu = params.gu
-  const guInfo = useSelector((state) => state.search.info)
   const guNm = useSelector((state) => state.members.user.gu)
   const [select, setSelect] = useState(false)
+  const [guInfo, setGuInfo] = useState()
+  const getInfo = async (gu) => {
+    try {
+      const res = await contentsApis.infoAX(gu)
+      return setGuInfo(res.data.data)
+    } catch (error) {
+      alert(error.response.data.message)
+      if (localStorage.getItem("nickName") !== null || undefined) {
+        window.location.replace(`/list/${gu}/all/new`)
+      } else {
+        window.location.replace("/login")
+      }
+      return
+    }
+  }
   const onSelect = () => {
     setSelect(!select)
   }
@@ -32,7 +46,7 @@ const PopulationInfo = () => {
     autoplaySpeed: 5000,
   }
   useEffect(() => {
-    dispatch(__getInfo(gu))
+    getInfo(gu)
   }, [gu])
 
   useEffect(() => {
