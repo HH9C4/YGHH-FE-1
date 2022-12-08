@@ -47,15 +47,16 @@ const Setting = () => {
         formData.append("image", file)
       })
     }
+
     let obj = {
-      nickname: nicknameInput.nickname,
+      nickname:
+        userNickname === nicknameInput.nickname ? "" : nicknameInput.nickname,
     }
 
     formData.append(
       "nickname",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
-
     dispatch(__mypageModify(formData))
   }
 
@@ -128,7 +129,7 @@ const Setting = () => {
                 <img
                   className="border-[0.5px] border-bbBB bg-white absolute rounded-full w-full h-full object-cover"
                   src={value.url ? value.url : ""}
-                  alt="image"
+                  alt="editImage"
                   key={Math.random()}
                 />
               )
@@ -195,7 +196,7 @@ const Setting = () => {
             ) : (
               ""
             )}
-            {!checkDuplicate ? (
+            {!checkDuplicate && userNickname !== nicknameInput.nickname ? (
               <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
                 이미 사용중인 닉네임입니다
               </p>
@@ -281,7 +282,7 @@ const Setting = () => {
           </div>
 
           <div
-            onClick={() => alert("현재 준비 중인 서비스입니다🥲")}
+            onClick={() => alert("현재 준비 중인 서비스입니다.")}
             className="hover:cursor-pointer flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]"
           >
             <p className="text-[14px] font-medium text-bbred">서비스 탈퇴</p>

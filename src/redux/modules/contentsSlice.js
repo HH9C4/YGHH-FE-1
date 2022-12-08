@@ -12,8 +12,6 @@ export const __mypageModify = createAsyncThunk(
       localStorage.setItem("nickName", res.data.data.accountName)
       window.alert("프로필 수정이 완료되었습니다.")
       window.location.replace("/mypage")
-      // window.location.replace("/mypage")
-      // return thunkAPI.fulfillWithValue(res.data)
     } catch (error) {
       return thunkAPI.rejectWithValue(error)
     }

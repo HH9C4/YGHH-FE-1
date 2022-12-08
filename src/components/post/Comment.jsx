@@ -1,14 +1,14 @@
 import React from "react"
 import Likes from "./Likes"
 import { commentApis } from "../../api/instance"
-
+import { useDispatch } from "react-redux"
+import { __CreateRoom } from "../../redux/modules/chatSlice"
 import { useRecoilState } from "recoil"
 import { postDetail } from "../state/store"
 const Comment = () => {
   const [data, setData] = useRecoilState(postDetail)
-  // const data = useSelector((state) => state.contents.content)
   const nickName = localStorage.getItem("nickName")
-
+  const dispatch = useDispatch()
   const deleteComment = async (id) => {
     try {
       // const res = await commentApis.commentDeletePostAX(payload)
@@ -34,6 +34,24 @@ const Comment = () => {
   }
   //댓글 삭제 요청을 위한 level 변수 생성
   const level = 2
+
+  const onClickChatting = (commenterName) => {
+    const obj = {
+      otherUserNickname: commenterName,
+    }
+
+    if (nickName !== commenterName) {
+      dispatch(__CreateRoom(obj))
+    }
+    // setTimeout(
+    //   function () {
+    //     // 연결되었을 때 콜백함수 실행
+    //     // navigate(`/ChatRoomPage/${chatList2.roomId}`);
+    //     navigate(`/ChatRoomPage/1`);
+    //   },
+    //   300,
+    // );
+  }
 
   return (
     <>
@@ -78,6 +96,18 @@ const Comment = () => {
                 <p>{item.createdAt}</p>
                 <p className="mx-2">|</p>
                 <p className="">{data.gu}</p>
+
+                {nickName !== item.accountName && (
+                  <>
+                    <p className="mx-2">|</p>
+                    <button
+                      className="font-medium text-bb22"
+                      onClick={() => onClickChatting(item.accountName)}
+                    >
+                      채팅하기
+                    </button>
+                  </>
+                )}
                 {checkOwner.nickName === item.accountName ? (
                   <>
                     <p className="mx-2 text-bb66">|</p>

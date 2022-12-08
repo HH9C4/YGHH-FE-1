@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
 import { useDispatch } from "react-redux"
-
+import { __CreateRoom } from "../redux/modules/chatSlice"
 import { contentsApis, commentApis } from "../api/instance"
 import { postDetail } from "../components/state/store"
 import { useRecoilState } from "recoil"
@@ -11,13 +11,15 @@ import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from "react-router-dom"
 import { setLocation } from "../redux/modules/memberSlice"
+import { json } from "react-router-dom"
 
 const Detail = () => {
   const dispatch = useDispatch("")
   const navigate = useNavigate()
   //셀렉터로 상세조회 데이터 전부 불러오기
   const [contentData, setContentData] = useRecoilState(postDetail)
-  // const contentData = useSelector((state) => state.contents.content)
+  const chatList2 = useSelector((state) => state.chatting.chatList2)
+  const [onToggleModal, setOnToggleModal] = useState(false)
 
   const { id } = useParams()
   //게시글 상세조회

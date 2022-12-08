@@ -87,6 +87,33 @@ export const kakaoinstance = axios.create({
   withCredentials: true,
 })
 
+//채팅 API
+export const chatApis = {
+  //수락버튼
+  // complete: (complete) => hInstance.put(`/room/${complete}`),
+
+  //채팅방 나가기
+  leaveRoom: (roomID) => hInstance.put(`/room/${roomID}`),
+
+  //채팅방 생성
+  CreateRoom: (createRoom) => hInstance.post(`/room`, createRoom),
+
+  //채팅방 목록 조회
+  getRoomList: () => hInstance.get(`/myrooms`),
+
+  //채팅방 입장
+  getInitialChatList: (roomID) => hInstance.get(`/room/${roomID}`),
+
+  //채팅방 입장
+  getInitialChatList2: (roomID) => hInstance.get(`/room/${roomID}`),
+}
+
+//실시간 알림 API
+export const notificationApis = {
+  //수락버튼
+  getNotificationAX: (complete) => hInstance.put(`/room/${complete}`),
+}
+
 export const membersApis = {
   //로컬용 테스트로그인
   testloginAX: () => nhInstance.get("https://boombiboombi.o-r.kr/user/tester"),

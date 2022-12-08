@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 
 import Likes from "./Likes"
 import EditToggle from "../elements/EditToggle"
+import UserToggle from "../elements/UserToggle"
 
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
@@ -23,8 +24,6 @@ const DetailPost = ({ data }) => {
     autoplaySpeen: 200,
   }
 
-  useEffect(() => {}, [])
-
   const level = 1
 
   return (
@@ -34,9 +33,13 @@ const DetailPost = ({ data }) => {
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <img
+                alt="profileImg"
                 src={data.profileImage}
                 className="border-[0.5px] border-bbBB w-8 h-8 rounded-full object-cover"
               ></img>
+              <div className="z-20">
+                <UserToggle data={data}></UserToggle>
+              </div>
               <div className="ml-2 text-sm text-bb22 font-bold">
                 {data.accountName}
               </div>
@@ -51,6 +54,7 @@ const DetailPost = ({ data }) => {
                 {data.imageUrl.map((img) => {
                   return (
                     <img
+                      alt="postImg"
                       className="border-[0.5px] border-bbBB mt-[12px] shrink-0 w-full h-[300px] object-cover"
                       key={img}
                       onClick={() => navigate(`/detail/${data.postId}`)}

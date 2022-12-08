@@ -28,7 +28,7 @@ const Dock = () => {
   }
 
   return (
-    <>
+    <div key={Math.random()}>
       <div className="fixed bottom-0 w-full h-[80px] bg-bbLpurple">
         <hr className="border-[0.5px] border-t-0 border-bbBB w-full" />
         <dl className="w-full h-[52px] max-w-[420px] mx-auto bg-bbLpurple text-bb66 text-[10px] flex justify-evenly items-center">
@@ -50,8 +50,8 @@ const Dock = () => {
               gu === ""
                 ? onInfo()
                 : nickName
-                ? navigate(`/list/${gu}/all/new`)
-                : toLogin()
+                  ? navigate(`/list/${gu}/all/new`)
+                  : toLogin()
             }
             className="hover:cursor-pointer w-12 pt-2 pb-1 flex flex-col items-center"
           >
@@ -89,7 +89,7 @@ const Dock = () => {
           </div>
         </dl>
       </div>
-    </>
+    </div>
   )
 }
 
