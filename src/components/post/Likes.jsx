@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { contentsApis } from "../../api/instance"
-import { postList, searchList } from "../state/store"
+import { postList, searchList, postDetail } from "../state/store"
 import { useRecoilState } from "recoil"
 
 function Likes({ postId, level, isLiked, itemId, count }) {
   const [posts, setPosts] = useRecoilState(postList)
   const [searchs, setSearchs] = useRecoilState(searchList)
+  const [post, setPost] = useRecoilState(postDetail)
 
   const onLike = () => {
     const obj = {
@@ -55,6 +56,8 @@ function Likes({ postId, level, isLiked, itemId, count }) {
         }
         setSearchs(searchLiked)
       }
+
+      setPost({ ...post, isLiked: data.isLiked, likeCount: data.likeCount })
     }
 
     //게시글 좋아요 비활성화
@@ -99,6 +102,7 @@ function Likes({ postId, level, isLiked, itemId, count }) {
         }
         setSearchs(searchLiked)
       }
+      setPost({ ...post, isLiked: data.isLiked, likeCount: data.likeCount })
     }
 
     //댓글 좋아요 활성화

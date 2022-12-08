@@ -5,6 +5,9 @@ import {
   __insertComment,
   __getContentDetail,
 } from "../redux/modules/contentsSlice"
+import { contentsApis, commentApis } from "../api/instance"
+import { postDetail } from "../components/state/store"
+import { useRecoilState } from "recoil"
 import DetailPost from "../components/post/DetailPost"
 import Comment from "../components/post/Comment"
 import { useEffect } from "react"
@@ -16,13 +19,24 @@ const Detail = () => {
   const dispatch = useDispatch("")
   const navigate = useNavigate()
   //셀렉터로 상세조회 데이터 전부 불러오기
-  const contentData = useSelector((state) => state.contents.content)
+  const [contentData, setContentData] = useRecoilState(postDetail)
+  // const contentData = useSelector((state) => state.contents.content)
 
   const { id } = useParams()
+  //게시글 상세조회
+  const getContentDetail = async (payload) => {
+    try {
+      const res = await contentsApis.getContentDetailAX(payload)
 
+      setContentData(res.data.data)
+      return
+    } catch (error) {
+      return
+    }
+  }
   //GET 요청 디스패치
   useEffect(() => {
-    dispatch(__getContentDetail(id))
+    getContentDetail(id)
   }, [dispatch, id, contentData.isLiked])
 
   const [comment, setComment] = useState({})
@@ -86,7 +100,7 @@ const Detail = () => {
           </svg>
         </div>
         <div className="px-2">
-          <DetailPost />
+          <DetailPost data={contentData} />
         </div>
         <div className="fixed bottom-[80px] left-0 w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple">
           <div className="flex items-center h-14 w-full max-w-[420px] mx-auto rounded-[5px] px-[12px] shrink-0">

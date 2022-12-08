@@ -17,15 +17,20 @@ export const userInfo = atom({
 
 export const postList = atom({
   key: "postList",
-  default: [{}],
+  default: [],
 })
 
 export const searchList = atom({
   key: "searchList",
-  default: [{}],
+  default: [],
 })
 
 export const searchSizes = atom({
   key: "searchSizes",
   default: 0,
+})
+
+export const postDetail = atom({
+  key: "postDetail",
+  default: {},
 })

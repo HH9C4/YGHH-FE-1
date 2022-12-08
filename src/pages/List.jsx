@@ -17,11 +17,6 @@ import { postList } from "../components/state/store"
 import { useRecoilState } from "recoil"
 
 const List = () => {
-  // const posts = useSelector((state) => state.contents.contents)
-  // const { bookmark } = useSelector((state) => state.contents)
-
-  // const [posts, setPosts] = useState()
-
   const [posts, setPosts] = useRecoilState(postList)
   const [bookMarked, setBookMarked] = useState()
 

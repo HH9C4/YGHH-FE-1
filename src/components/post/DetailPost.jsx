@@ -1,10 +1,6 @@
 import React, { useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  __getContentDetail,
-  __deleteContent,
-} from "../../redux/modules/contentsSlice"
+import { useNavigate } from "react-router-dom"
+
 import Likes from "./Likes"
 import EditToggle from "../elements/EditToggle"
 
@@ -12,23 +8,8 @@ import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const DetailPost = () => {
+const DetailPost = ({ data }) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const data = useSelector((state) => state.contents.content)
-  // 게시글 삭제 버튼
-  const onPostDelete = (postId) => {
-    const obj = {
-      postId: postId,
-      gu: data.gu,
-    }
-    dispatch(__deleteContent(obj))
-  }
-
-  //삭제 버튼 작성자 확인
-  const checkOwner = {
-    nickName: localStorage.getItem("nickName"),
-  }
 
   const settings = {
     dots: true,
@@ -87,7 +68,7 @@ const DetailPost = () => {
           <div className="flex justify-between items-end">
             <div className="mt-6 flex items-center">
               <Likes
-                data={data.postId}
+                postId={data.postId}
                 level={level}
                 isLiked={data.isLiked}
                 count={data.likeCount}

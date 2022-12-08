@@ -1,7 +1,5 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit"
 import { contentsApis, commentApis, membersApis } from "../../api/instance"
-import { current } from "@reduxjs/toolkit"
-import { act } from "react-dom/test-utils"
 
 // //게시글 작성
 // export const __insertContent = createAsyncThunk(
@@ -353,10 +351,10 @@ export const contentsSlice = createSlice({
     //   // state.contents[indexID].isLiked = action.payload.data.isLiked
     //   // state.contents[indexID].likeCount = action.payload.data.likeCount
     // },
-    [__deactivateLike.rejected]: (state, action) => {
-      state.isLoading = false
-      state.error = action.payload
-    },
+    // [__deactivateLike.rejected]: (state, action) => {
+    //   state.isLoading = false
+    //   state.error = action.payload
+    // },
     // 댓글 좋아요 활성화
     [__activateCommentLike.pending]: (state) => {
       state.isLoading = true
