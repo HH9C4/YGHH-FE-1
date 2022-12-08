@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 const AlarmAlert = ({ newNotice, setNewNotice }) => {
     const navigate = useNavigate()
+    const userLocation = localStorage.getItem('location')
     useEffect(() => {
         if (newNotice.alarmType !== undefined) {
             setTimeout(() => { setNewNotice({}) }, 4000);
         }
     }, [newNotice])
-
 
     const clickMove = () => {
         if (newNotice.alarmType === "eventNewChat") {
@@ -30,10 +30,9 @@ const AlarmAlert = ({ newNotice, setNewNotice }) => {
     return (
         <div key={Math.random()}>
             {
-                newNotice.message !== undefined ? (
+                newNotice.message !== undefined && userLocation !== "chat" ? (
                     <div className='absolute left-[18px] top-[70px] w-[324px] z-30
                     bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-[4px] flex items-center px-[40px] py-[22px]  '>
-                        {/* 💬 <b>{newNotice.title}</b>님이 댓글을 입력하셨습니다. */}
                         <div className='absolute w-[8px] h-[8px] bg-bbred z-30 rounded-full 
                        top-[28px] left-4 animate-ping'></div>
                         <p
