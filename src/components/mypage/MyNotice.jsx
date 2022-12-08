@@ -1,23 +1,29 @@
-import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { __getMyNotice } from "../../redux/modules/mySlice"
+import React, { useEffect, useState } from "react"
+import { contentsApis } from "../../api/instance"
 import MyCmt from "./MyCmt"
-// import { useParams } from "react-router-dom"
 import length0 from "../../assets/img/length0.png"
 const Mynotice = () => {
-  const cmts = useSelector((store) => store.my.cmts)
-  const dispatch = useDispatch()
+  const [cmts, setCmts] = useState()
+
+  const getMyNotice = async () => {
+    try {
+      const res = await contentsApis.mypageNoticeAX()
+      return setCmts(res.data.data)
+    } catch (error) {
+      return
+    }
+  }
 
   useEffect(() => {
-    dispatch(__getMyNotice())
-  }, [dispatch])
+    getMyNotice()
+  }, [])
   return (
     <>
       {cmts &&
         cmts.map((cmt) => {
           return (
             <div key={String(cmt.postId) + String(cmt.commentId)}>
-              <MyCmt cmt={cmt} />
+              <MyCmt cmts={cmts} setCmts={setCmts} cmt={cmt} />
             </div>
           )
         })}

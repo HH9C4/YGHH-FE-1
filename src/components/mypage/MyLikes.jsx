@@ -1,15 +1,22 @@
-import React, { useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { __getMyLikes } from "../../redux/modules/mySlice"
+import React, { useEffect, useState } from "react"
+
 import MyItem from "./MyItem"
+import { contentsApis } from "../../api/instance"
 import length0 from "../../assets/img/length0.png"
 const MyPosts = () => {
-  const posts = useSelector((store) => store.my.likes)
-  const dispatch = useDispatch()
-
+  const [posts, setPosts] = useState()
+  // 마이페이지 내가 좋아요한 게시글 조회
+  const getMyLikes = async () => {
+    try {
+      const res = await contentsApis.mypageLikedAX()
+      return setPosts(res.data.data)
+    } catch (error) {
+      return
+    }
+  }
   useEffect(() => {
-    dispatch(__getMyLikes())
-  }, [dispatch])
+    getMyLikes()
+  }, [])
 
   return (
     <>
