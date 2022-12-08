@@ -10,10 +10,9 @@ function Likes({ postId, level, isLiked, itemId, count }) {
 
   const onLike = () => {
     const obj = {
-      postId: postId,
+      postId: postId ? postId : itemId,
       level: level,
       isLiked: !isLiked,
-      itemId: itemId,
       count: count,
     }
     //게시글 좋아요 활성화
@@ -108,38 +107,62 @@ function Likes({ postId, level, isLiked, itemId, count }) {
     //댓글 좋아요 활성화
     const activateCommentLike = async (payload) => {
       const res = await contentsApis.likesAX(payload)
-      const id = payload.itemId
-      const { data } = res.data.data
+      const id = payload.postId
+      const { data } = res.data
 
-      const indexID = posts.commentList.findIndex((item) => {
+      const indexID = post.commentList.findIndex((item) => {
         if (item.commentId === id) {
           return true
         }
         return false
       })
       if (indexID >= 0) {
-        setPosts((posts.commentList[indexID].isLiked = data.isLiked))
-        setPosts((posts.commentList[indexID].likeCount = data.likeCount))
+        const cmt = {
+          ...post.commentList[indexID],
+          isLiked: data?.isLiked,
+          likeCount: data?.likeCount,
+        }
+        let cmts = [...post.commentList]
+        cmts[indexID] = cmt
+        const arr = [...cmts]
+        setPost({ ...post, commentList: arr })
       }
     }
 
     //댓글 좋아요 비활성화
     const deactivateCommentLike = async (payload) => {
       const res = await contentsApis.cancelLikesAX(payload)
-      const id = payload.itemId
-      const { data } = res.data.data
+      const id = payload.postId
+      const { data } = res.data
 
-      const indexID = posts.commentList.findIndex((item) => {
+      const indexID = post.commentList.findIndex((item) => {
         if (item.commentId === id) {
           return true
         }
         return false
       })
       if (indexID >= 0) {
-        setPosts((posts.commentList[indexID].isLiked = data.isLiked))
-        setPosts((posts.commentList[indexID].likeCount = data.likeCount))
+        const cmt = {
+          ...post.commentList[indexID],
+          isLiked: data?.isLiked,
+          likeCount: data?.likeCount,
+        }
+        let cmts = [...post.commentList]
+        cmts[indexID] = cmt
+        const arr = [...cmts]
+        setPost({ ...post, commentList: arr })
       }
     }
+
+    // post : {
+    //   ...post,
+    //   commetList : [
+    //     {isLiked: a,
+    //       likeCoutn: B,
+    //     },
+    //     {},
+    //   ]
+    // }
 
     //게시글 좋아요
     if (!isLiked && level === 1) {

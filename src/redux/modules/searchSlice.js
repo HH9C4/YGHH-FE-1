@@ -31,21 +31,21 @@ export const __getHome = createAsyncThunk(
   }
 )
 
-export const __getSearch = createAsyncThunk(
-  "contents/getSearch",
-  async (obj, thunkAPI) => {
-    try {
-      const res = await contentsApis.searchAX(obj)
-      const object = {
-        payload: obj,
-        data: res.data.data,
-      }
-      return thunkAPI.fulfillWithValue(object)
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error)
-    }
-  }
-)
+// export const __getSearch = createAsyncThunk(
+//   "contents/getSearch",
+//   async (obj, thunkAPI) => {
+//     try {
+//       const res = await contentsApis.searchAX(obj)
+//       const object = {
+//         payload: obj,
+//         data: res.data.data,
+//       }
+//       return thunkAPI.fulfillWithValue(object)
+//     } catch (error) {
+//       return thunkAPI.rejectWithValue(error)
+//     }
+//   }
+// )
 
 export const __getHotTag = createAsyncThunk(
   "contents/getHotTag",
@@ -120,28 +120,28 @@ export const searchSlice = createSlice({
       state.isSuccess = false
       state.error = action.payload
     },
-    //검색
-    [__getSearch.pending]: (state) => {
-      state.isLoading = true
-    },
-    [__getSearch.fulfilled]: (state, action) => {
-      state.isLoading = false
-      state.isSuccess = false
-      const data = action.payload.data.postList
-      if (action.payload.payload.page === 0) {
-        state.search.splice(0)
-        // state.search.push(...action.payload.data.postList)
-        state.search.push(...data)
-      } else {
-        state.search.push(...data)
-      }
-      state.size = action.payload.data.sizeOfList
-    },
-    [__getSearch.rejected]: (state, action) => {
-      state.isLoading = false
-      state.isSuccess = false
-      state.error = action.payload
-    },
+    // //검색
+    // [__getSearch.pending]: (state) => {
+    //   state.isLoading = true
+    // },
+    // [__getSearch.fulfilled]: (state, action) => {
+    //   state.isLoading = false
+    //   state.isSuccess = false
+    //   const data = action.payload.data.postList
+    //   if (action.payload.payload.page === 0) {
+    //     state.search.splice(0)
+    //     // state.search.push(...action.payload.data.postList)
+    //     state.search.push(...data)
+    //   } else {
+    //     state.search.push(...data)
+    //   }
+    //   state.size = action.payload.data.sizeOfList
+    // },
+    // [__getSearch.rejected]: (state, action) => {
+    //   state.isLoading = false
+    //   state.isSuccess = false
+    //   state.error = action.payload
+    // },
     //핫태그 페이지
     [__getHotTag.pending]: (state) => {
       state.isLoading = true

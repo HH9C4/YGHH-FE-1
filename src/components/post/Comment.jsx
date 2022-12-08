@@ -3,16 +3,35 @@ import { useDispatch, useSelector } from "react-redux"
 import { __deleteComment } from "../../redux/modules/contentsSlice"
 import { useParams } from "react-router-dom"
 import Likes from "./Likes"
+import { commentApis } from "../../api/instance"
 
+import { useRecoilState } from "recoil"
+import { postDetail } from "../state/store"
 const Comment = () => {
   const dispatch = useDispatch()
   const { id } = useParams()
-  const data = useSelector((state) => state.contents.content)
+
+  const [data, setData] = useRecoilState(postDetail)
+  // const data = useSelector((state) => state.contents.content)
   const nickName = localStorage.getItem("nickName")
+
+  const deleteComment = async (id) => {
+    try {
+      // const res = await commentApis.commentDeletePostAX(payload)
+      if (window.confirm("작성하신 댓글을 삭제하시겠습니까?")) {
+        const res = await commentApis.commentDeletePostAX(id)
+        const del = {
+          ...data,
+          commentList: data.commentList.filter((cmt) => cmt.commentId !== id),
+        }
+        setData(del)
+        return
+      }
+    } catch (error) {}
+  }
+
   const onDeleteButton = (id) => {
-    dispatch(__deleteComment(id))
-    // alert("삭제하시겠습니까?")
-    // window.location.replace(`/detail/${Id}`)
+    deleteComment(id)
   }
 
   //삭제 버튼 작성자 확인
@@ -48,9 +67,9 @@ const Comment = () => {
 
                 <div className="flex justify-center items-center">
                   <Likes
-                    data={item.commentId}
                     level={level}
                     isLiked={item.isLiked}
+                    count={item.likeCount}
                     itemId={item.commentId}
                   />
                   <p className="text-[12px] h-[14px] font-semibold ml-1">

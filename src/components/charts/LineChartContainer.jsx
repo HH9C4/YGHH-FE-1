@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 
-import Chart from "chart.js/auto"
 import { Line } from "react-chartjs-2"
 
 import { useSelector } from "react-redux"
@@ -231,24 +230,99 @@ const LineChartContainer = ({ hour }) => {
       "22",
       "23",
     ],
+
     datasets: [
       {
         type: "line",
         label: "오늘",
         backgroundColor: "#7F73FF",
+        borderColor: "#7F73FF",
+        borderWidth: "1",
+        pointRadius: 0,
+        pointHoverRadius: 5,
         data: today,
+        xAixsID: "x",
+        yAxisID: "y",
       },
       {
         type: "line",
         label: "지난주",
         backgroundColor: "#888888",
+        borderColor: "#888888",
+        borderWidth: "1",
+        pointRadius: 0,
+        pointHoverRadius: 1,
         data: last,
       },
     ],
   }
+
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        lables: {
+          font: {
+            size: 9,
+            family: "Pretendard",
+            lineHeight: "1.2",
+          },
+        },
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "지역별 인구밀집도 변동추이",
+      },
+    },
+    elements: {
+      line: {
+        borderCapStyle: "round",
+      },
+    },
+    scales: {
+      y: [
+        {
+          title: {
+            text: "인구밀도",
+            font: {
+              size: 10,
+            },
+            display: true,
+          },
+          grid: {
+            display: false,
+          },
+          axis: "y",
+          ticks: {
+            minRotation: 0,
+          },
+        },
+      ],
+      x: [
+        {
+          title: {
+            text: "시",
+            font: {
+              size: 10,
+            },
+            display: true,
+          },
+          grid: {
+            display: false,
+          },
+          axis: "x",
+          ticks: {
+            minRotation: 0,
+          },
+        },
+      ],
+    },
+  }
+
   return (
-    <div className="overflow-x-auto flex justify-center items-center bg-white rounded-md h-[184px] mt-[12px] py-[16px]">
-      <Line type="line" data={data} />
+    <div className="overflow-x-auto flex justify-center items-center rounded-md h-[184px] mt-[-10px] py-[16px]">
+      <Line type="line" data={data} options={options} />
     </div>
   )
 }
