@@ -3,11 +3,12 @@ import { useEffect } from "react"
 import Loading from "./Loading"
 import { membersApis } from "../../api/instance"
 
-const OAuth2LogoutHandler = () => {
-  //로그아웃 Thunk
-  const kakaoLogout = async (payload) => {
+const OAuthDeleteHandler = () => {
+  //연결끊기 Thunk
+  const kakaoDelete = async (payload) => {
     try {
-      const res = await membersApis.logoutAX(payload)
+      const res = await membersApis.kakaodeleteAX(payload)
+
       if (res.data.status === "200 OK") {
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
@@ -17,7 +18,6 @@ const OAuth2LogoutHandler = () => {
         localStorage.removeItem("email")
         localStorage.removeItem("gender")
         localStorage.removeItem("bookmarkList")
-
         window.location.replace("/")
       }
     } catch (error) {
@@ -26,10 +26,10 @@ const OAuth2LogoutHandler = () => {
   }
 
   useEffect(() => {
-    kakaoLogout()
+    kakaoDelete()
   }, [])
 
   return <Loading />
 }
 
-export default OAuth2LogoutHandler
+export default OAuthDeleteHandler

@@ -1,29 +1,53 @@
 import React, { useEffect, useRef, useState } from "react"
 import Layout from "../components/layout/Layout"
-import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { __naverLogout, __duplicateName } from "../redux/modules/memberSlice"
-import { __mypageModify } from "../redux/modules/contentsSlice"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
 import useInput from "../hooks/useInput"
-import { name } from "../redux/modules/memberSlice"
 import insta from "../assets/img/setting_insta.png"
 import mail from "../assets/img/setting_mail.png"
-import { contentsApis } from "../../api/instance"
+import { contentsApis, membersApis } from "../api/instance"
 
 const Setting = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const [memberNickNames, setMemberNickNames] = useState()
   const LOGOUTREDIRECT_URI =
     "https://boombiboombi.com/user/kakao/logout/callback"
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
 
-  const checkDuplicate = useSelector((state) => state.members.name)
+  const [checkDuplicate, setCheckDuplicate] = useState()
   const site = localStorage.getItem("site")
   const userNickname = localStorage.getItem("nickName")
   const profileImage = localStorage.getItem("profileImage")
 
+  //네이버 로그아웃
+  const naverLogout = async (payload) => {
+    try {
+      const res = await membersApis.logoutAX(payload)
+      if (res.data.status === "200 OK") {
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("Refresh_Token")
+        localStorage.removeItem("nickName")
+        window.location.replace("/")
+      }
+      return
+    } catch (error) {
+      return
+    }
+  }
+
+  //받아온 배열과 사용자 인풋 비교
+  const name = (userInput) => {
+    const result = memberNickNames.findIndex((item) => item === userInput)
+
+    if (result !== -1) {
+      setCheckDuplicate(false)
+    } else {
+      setCheckDuplicate(true)
+    }
+  }
+
+  // 수정 submit
   const mypageModify = async (payload) => {
     try {
       const res = await contentsApis.modifyAX(payload)
@@ -36,7 +60,16 @@ const Setting = () => {
       return
     }
   }
-
+  // 세팅페이지 진입 시 등록된 닉네임 배열 받아오기
+  const duplicateName = async () => {
+    try {
+      const res = await membersApis.duplicateName()
+      const nickNameList = res.data.data
+      return setMemberNickNames(nickNameList)
+    } catch (error) {
+      return
+    }
+  }
   //커스텀 훅 사용
   const [nicknameInput, setnicknameInput, nicknameInputHandle] = useInput({
     nickname: "",
@@ -74,16 +107,16 @@ const Setting = () => {
     if (site === "kakao") {
       window.location.href = KAKAO_LOGOUT_URL
     } else {
-      dispatch(__naverLogout())
+      naverLogout()
     }
   }
 
   useEffect(() => {
-    dispatch(__duplicateName())
+    duplicateName()
   }, [])
 
   useEffect(() => {
-    dispatch(name(nicknameInput.nickname))
+    name(nicknameInput.nickname)
   }, [nicknameInput.nickname])
 
   const setLocation = (l) => {
