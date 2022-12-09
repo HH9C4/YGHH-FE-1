@@ -1,16 +1,13 @@
 import React, { useState } from "react"
 import { useEffect } from "react"
-import { useDispatch } from "react-redux"
 import { contentsApis } from "../api/instance"
 import Layout from "../components/layout/Layout"
 import length0 from "../assets/img/length0.png"
 import { useNavigate } from "react-router-dom"
-import { setLocation } from "../redux/modules/memberSlice"
 const BookMark = () => {
   //페이지 안에서 전부 해결
   const [bookmarkData, setBookmarkData] = useState()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   // const bookmarkData = useSelector((state) => state.contents.bookmarks)
 
   //북마크 조회

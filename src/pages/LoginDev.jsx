@@ -1,8 +1,6 @@
 import axios from "axios"
 import React from "react"
-import { useDispatch } from "react-redux"
 import Layout from "../components/layout/Layout"
-import { __testLogin } from "../redux/modules/memberSlice"
 
 const LoginDev = () => {
   const onLogin = async () => {

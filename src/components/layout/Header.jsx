@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { EventSourcePolyfill } from "event-source-polyfill"
 import { notificationApis } from "../../api/instance"
 import navbarLogo from "../../assets/img/navbarLogo.svg"
 import AlarmAlert from "../features/AlarmAlert"
-import { setGu } from "../../redux/modules/memberSlice"
 const Header = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -14,9 +13,12 @@ const Header = () => {
   const nickName = localStorage.getItem("nickName")
   const profileImage = localStorage.getItem("profileImage")
 
+  const setGu = (gu) => {
+    localStorage.setItem("gu", gu)
+  }
   useEffect(() => {
     if (params.gu !== undefined && params.gu !== "undefined") {
-      dispatch(setGu(params.gu))
+      setGu(params.gu)
     }
   }, [params])
 

@@ -48,6 +48,7 @@ const useImgUpload = (
         maxSizeMB: imgMaxSize,
         maxWidthOrHeight: imgMaxWidthHeight,
         useWebWorker: true,
+        fileType: "image/webp",
       }
 
       if (isComp) {

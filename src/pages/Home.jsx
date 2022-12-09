@@ -4,14 +4,10 @@ import Layout from "../components/layout/Layout"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { useDispatch } from "react-redux"
-import { setLocation } from "../redux/modules/memberSlice"
 import SelectGuInfo from "../components/elements/SelectGuInfo"
 import { contentsApis } from "../api/instance"
 const Home = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  // const homeData = useSelector((state) => state.search.home)
   const [homeData, setHomeData] = useState()
   const getHome = async (payload) => {
     try {

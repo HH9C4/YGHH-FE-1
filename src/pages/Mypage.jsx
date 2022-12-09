@@ -5,11 +5,9 @@ import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from "react-router-dom"
-import { setLocation } from "../redux/modules/memberSlice"
 
 const Mypage = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   // 마이페이지 대시보드 정보 꺼내기
   const [tab, setTab] = useState(1)
   const userImg = localStorage.getItem("profileImage")
