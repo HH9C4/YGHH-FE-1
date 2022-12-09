@@ -34,10 +34,12 @@ const BookMark = () => {
       return
     }
   }
-
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
   useEffect(() => {
     returnBookmark()
-    dispatch(setLocation("book"))
+    setLocation("book")
     if (!window.scrollY) return
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({

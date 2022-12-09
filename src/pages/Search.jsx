@@ -31,9 +31,21 @@ const Search = () => {
     } else {
       setSearchs([...searchs, ...searchList])
     }
-
     return
   }
+
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+  useEffect(() => {
+    setLocation("search")
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
+  }, [])
 
   /**  서버에서 아이템을 가지고 오는 함수 */
   const getItems = useCallback(async () => {

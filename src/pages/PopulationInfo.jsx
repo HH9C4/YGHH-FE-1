@@ -6,20 +6,16 @@ import Layout from "../components/layout/Layout"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { setLocation } from "../redux/modules/memberSlice"
 import SelectGuInfo from "../components/elements/SelectGuInfo"
 import { contentsApis } from "../api/instance"
 
 const PopulationInfo = () => {
-  const dispatch = useDispatch()
   const params = useParams()
   const gu = params.gu
   const guNm = useSelector((state) => state.members.user.gu)
   const [select, setSelect] = useState(false)
   const [guInfo, setGuInfo] = useState()
   const [bookMarked, setBookMarked] = useState()
-
-  const userName = localStorage.getItem("nickName")
 
   const activateBookmark = async (payload) => {
     try {
@@ -40,32 +36,19 @@ const PopulationInfo = () => {
   }
 
   const getInfo = async (gu) => {
-    if (!userName) {
-      try {
-        const res = await contentsApis.infoAX(gu)
-        return setGuInfo(res.data.data)
-      } catch (error) {
-        alert(error.response.data.message)
-        if (localStorage.getItem("nickName") !== null || undefined) {
-          window.location.replace(`/list/${gu}/all/new`)
-        } else {
-          window.location.replace("/login")
-        }
-        return
+    try {
+      const res = await contentsApis.infoAX2(gu)
+      setGuInfo(res.data.data)
+      setBookMarked(res.data.data.isBookmarked)
+      return
+    } catch (error) {
+      alert(error.response.data.message)
+      if (localStorage.getItem("nickName") !== null || undefined) {
+        window.location.replace(`/list/${gu}/all/new`)
+      } else {
+        window.location.replace("/login")
       }
-    } else {
-      try {
-        const res = await contentsApis.infoAX2(gu)
-        return setGuInfo(res.data.data)
-      } catch (error) {
-        alert(error.response.data.message)
-        if (localStorage.getItem("nickName") !== null || undefined) {
-          window.location.replace(`/list/${gu}/all/new`)
-        } else {
-          window.location.replace("/login")
-        }
-        return
-      }
+      return
     }
   }
   const onSelect = () => {
@@ -95,8 +78,15 @@ const PopulationInfo = () => {
     getInfo(gu)
   }, [gu])
 
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+  const setGu = (g) => {
+    localStorage.setItem("gu", g)
+  }
   useEffect(() => {
-    dispatch(setLocation("info"))
+    setLocation("info")
+    setGu(params.gu)
     if (!window.scrollY) return
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({

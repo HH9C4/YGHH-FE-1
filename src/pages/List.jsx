@@ -7,7 +7,6 @@ import length0 from "../assets/img/length0.png"
 import Layout from "../components/layout/Layout"
 import EditBtn from "../components/elements/EditBtn"
 import { useInView } from "react-intersection-observer"
-import { setLocation } from "../redux/modules/memberSlice"
 import HotTag from "../components/elements/HotTag"
 import SelectGuInfo from "../components/elements/SelectGuInfo"
 import { postList } from "../components/state/store"
@@ -72,14 +71,21 @@ const List = () => {
     getContent(obj)
   }, [page, param])
 
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+  const setGu = (g) => {
+    localStorage.setItem("gu", g)
+  }
   useEffect(() => {
-    // if (!window.scrollY) return
-    // // 현재 위치가 이미 최상단일 경우 return
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: "smooth",
-    // })
-    dispatch(setLocation("list"))
+    setLocation("list")
+    setGu(param.gu)
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }, [])
 
   useEffect(() => {

@@ -16,6 +16,7 @@ import { json } from "react-router-dom"
 const Detail = () => {
   const dispatch = useDispatch("")
   const navigate = useNavigate()
+
   //셀렉터로 상세조회 데이터 전부 불러오기
   const [contentData, setContentData] = useRecoilState(postDetail)
   const chatList2 = useSelector((state) => state.chatting.chatList2)
@@ -48,10 +49,10 @@ const Detail = () => {
     } catch (error) {}
   }
 
-  //GET 요청 디스패치
+  //GET 요청
   useEffect(() => {
     getContentDetail(id)
-  }, [dispatch, id])
+  }, [id])
 
   const [comment, setComment] = useState({})
 
@@ -85,8 +86,15 @@ const Detail = () => {
     window.history.back()
   }
 
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+  const setGu = (g) => {
+    localStorage.setItem("gu", g)
+  }
   useEffect(() => {
-    dispatch(setLocation("list"))
+    setLocation("list")
+    setGu(contentData.gu)
     if (!window.scrollY) return
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({

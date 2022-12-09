@@ -1,11 +1,10 @@
-import axios from 'axios'
+import axios from "axios"
 import React from "react"
 import { useDispatch } from "react-redux"
-import Layout from '../components/layout/Layout'
+import Layout from "../components/layout/Layout"
 import { __testLogin } from "../redux/modules/memberSlice"
 
 const LoginDev = () => {
-  const dispatch = useDispatch()
   const onLogin = async () => {
     const res = await axios.get("https://boombiboombi.o-r.kr/user/tester")
     const Access_Token = res.headers.authorization
@@ -16,6 +15,8 @@ const LoginDev = () => {
     localStorage.setItem("ageRange", res.data.data.ageRange)
     localStorage.setItem("email", res.data.data.email)
     localStorage.setItem("gender", res.data.data.gender)
+    localStorage.setItem("location", null)
+    localStorage.setItem("gu", null)
     localStorage.setItem("site", "kakao")
     alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
     window.location.replace("/")
@@ -30,6 +31,8 @@ const LoginDev = () => {
     localStorage.setItem("ageRange", res.data.data.ageRange)
     localStorage.setItem("email", res.data.data.email)
     localStorage.setItem("gender", res.data.data.gender)
+    localStorage.setItem("location", null)
+    localStorage.setItem("gu", null)
     localStorage.setItem("site", "kakao")
     alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
     window.location.replace("/")
@@ -37,9 +40,19 @@ const LoginDev = () => {
 
   return (
     <Layout>
-      <div className='flex justify-evenly mt-[80px]'>
-        <div className='font-bold rounded-full px-[12px] bg-bbpurple text-white' onClick={onLogin}>Dev 로그인1</div>
-        <div className='font-bold rounded-full px-[12px] bg-bbpurple text-white' onClick={onLogin2}>Dev 로그인2</div>
+      <div className="flex justify-evenly mt-[80px]">
+        <div
+          className="font-bold rounded-full px-[12px] bg-bbpurple text-white"
+          onClick={onLogin}
+        >
+          Dev 로그인1
+        </div>
+        <div
+          className="font-bold rounded-full px-[12px] bg-bbpurple text-white"
+          onClick={onLogin2}
+        >
+          Dev 로그인2
+        </div>
       </div>
     </Layout>
   )

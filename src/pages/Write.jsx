@@ -8,7 +8,6 @@ const Write = () => {
   const navigate = useNavigate()
   const params = useParams()
   const state = useLocation()
-  const data = state.state
 
   return (
     <Layout>
@@ -35,7 +34,7 @@ const Write = () => {
         </h1>
       </div>
       {params.id !== undefined ? (
-        <UpdateFormContainer data={data} />
+        <UpdateFormContainer data={state.state} />
       ) : (
         <FormContainer />
       )}

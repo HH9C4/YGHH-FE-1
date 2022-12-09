@@ -2,11 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import Layout from "../components/layout/Layout"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import {
-  __naverLogout,
-  __duplicateName,
-  setLocation,
-} from "../redux/modules/memberSlice"
+import { __naverLogout, __duplicateName } from "../redux/modules/memberSlice"
 import { __mypageModify } from "../redux/modules/contentsSlice"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
@@ -14,6 +10,7 @@ import useInput from "../hooks/useInput"
 import { name } from "../redux/modules/memberSlice"
 import insta from "../assets/img/setting_insta.png"
 import mail from "../assets/img/setting_mail.png"
+import { contentsApis } from "../../api/instance"
 
 const Setting = () => {
   const navigate = useNavigate()
@@ -27,13 +24,26 @@ const Setting = () => {
   const userNickname = localStorage.getItem("nickName")
   const profileImage = localStorage.getItem("profileImage")
 
+  const mypageModify = async (payload) => {
+    try {
+      const res = await contentsApis.modifyAX(payload)
+      //나중에 리듀서로 리팩토링 예정
+      localStorage.setItem("profileImage", res.data.data.profileImage)
+      localStorage.setItem("nickName", res.data.data.accountName)
+      window.alert("프로필 수정이 완료되었습니다.")
+      window.location.replace("/mypage")
+    } catch (error) {
+      return
+    }
+  }
+
   //커스텀 훅 사용
   const [nicknameInput, setnicknameInput, nicknameInputHandle] = useInput({
     nickname: "",
   })
 
   //이미지 업로드 훅
-  const [files, fileUrls, uploadHandle] = useImgUpload(1, false, 0.3, 1000)
+  const [files, fileUrls, uploadHandle] = useImgUpload(1, false, 0.3, 200)
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
 
@@ -57,7 +67,7 @@ const Setting = () => {
       "nickname",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
-    dispatch(__mypageModify(formData))
+    mypageModify(formData)
   }
 
   const handleLogout = () => {
@@ -76,10 +86,17 @@ const Setting = () => {
     dispatch(name(nicknameInput.nickname))
   }, [nicknameInput.nickname])
 
-  useEffect(() => {}, [files])
-
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
   useEffect(() => {
     setLocation("my")
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }, [])
 
   return (
