@@ -5,7 +5,6 @@ import walkthorugh2 from "../assets/img/walkthrough2.svg"
 import walkthorugh3 from "../assets/img/walkthrough3.svg"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
 
 const WalkThrough = () => {
   const [currentPage, setCurrentPage] = useState(1)

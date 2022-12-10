@@ -4,6 +4,8 @@ import SockJS from "sockjs-client"
 import Layout from "../components/layout/Layout"
 import webstomp from "webstomp-client"
 import { chatApis } from "../api/instance"
+import { chatList } from "../components/state/store"
+import { useRecoilState } from "recoil"
 
 const ChatRoomPage = () => {
   const { id } = useParams()
@@ -11,23 +13,20 @@ const ChatRoomPage = () => {
   const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`)
   const ws = webstomp.over(sock)
   const userNickName = localStorage.getItem("nickName")
-  const [chatData, setChatData] = useState()
+  const [chatData, setChatData] = useRecoilState(chatList)
 
-  const ListReducer = (payload) => {
-setChatData(...chatData, chatList : ...chatList, payload)
-}
-// ListReducer: (state, action) => {
-//   state.chatList.chatList.push(action.payload)
-// },
+  // ListReducer: (state, action) => {
+  //   state.chatList.chatList.push(action.payload)
+  // },
 
   const getinitialChatList = async (payload) => {
-        try {
-            const response = await chatApis.getInitialChatList(payload)
-            return setChatData(response.data.data);
-        } catch (error) {
-            return 
-        }
+    try {
+      const response = await chatApis.getInitialChatList(payload)
+      return setChatData(response.data.data)
+    } catch (error) {
+      return
     }
+  }
 
   // ⭐️채팅방 입장
   useEffect(() => {
@@ -58,7 +57,7 @@ setChatData(...chatData, chatList : ...chatList, payload)
       ws.connect(headers, (frame) => {
         ws.subscribe(`/sub/${id}`, (response) => {
           let data = JSON.parse(response.body)
-          ListReducer(data)
+          setChatData({ ...chatData, chatList: [...chatData.chatList, data] })
         })
       })
     } catch (error) {}
@@ -124,7 +123,7 @@ setChatData(...chatData, chatList : ...chatList, payload)
 
   //채팅방 나가기
   const fetchRooms = async () => {
-    const response = await chatApis.leaveRoom(chatData.roomId)
+    const response = await chatApis.leaveRoom(chatData?.roomId)
     navigate("/chat")
   }
   //채팅방 나가기
@@ -136,7 +135,6 @@ setChatData(...chatData, chatList : ...chatList, payload)
   useEffect(() => {
     if (scrollRef) {
       scrollRef.current.scrollIntoView({
-        behavior: "smooth",
         block: "end",
         inline: "nearest",
       })
@@ -238,12 +236,14 @@ setChatData(...chatData, chatList : ...chatList, payload)
           </div>
         </div>
         <div sx={{ height: "80%", overflow: "scroll" }}>
-          {chatData.chatList !== undefined &&
-            chatData.chatList !== null &&
-            chatData.chatList.map((item, i) => {
+          {chatData !== (undefined || null) &&
+            chatData?.chatList?.map((item, i) => {
               // return localStorage.getItem("nickName") === item.sender ?
               return userNickName !== item.sender ? (
-                <div className="flex pb-[12px] mt-[12px] items-start">
+                <div
+                  key={chatData.yourName + Math.random()}
+                  className="flex pb-[12px] mt-[12px] items-start"
+                >
                   <img
                     className="rounded-full w-[40px] border-[0.5px] border-bbBB h-[40px] object-cover shrink-0"
                     alt="profileImg"

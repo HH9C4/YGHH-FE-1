@@ -1,5 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react"
-import { useSelector, useDispatch } from "react-redux"
+import React, { useState, useEffect, useCallback } from "react"
 import useInput from "../hooks/useInput"
 import Post from "../components/list/Post"
 import { contentsApis } from "../api/instance"
@@ -11,7 +10,6 @@ import { useRecoilState } from "recoil"
 // import { useParams } from "react-router-dom"
 
 const Search = () => {
-  const dispatch = useDispatch()
   const [sort, setSort] = useState("new")
   const [search, setSearch, searchHandle] = useInput()
   const navigate = useNavigate()
@@ -37,15 +35,6 @@ const Search = () => {
   const setLocation = (l) => {
     localStorage.setItem("location", l)
   }
-  useEffect(() => {
-    setLocation("search")
-    if (!window.scrollY) return
-    // 현재 위치가 이미 최상단일 경우 return
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    })
-  }, [])
 
   /**  서버에서 아이템을 가지고 오는 함수 */
   const getItems = useCallback(async () => {
@@ -66,11 +55,11 @@ const Search = () => {
 
   useEffect(() => {
     setPage(0)
+    setLocation("search")
     if (!window.scrollY) return
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     })
   }, [params])
 

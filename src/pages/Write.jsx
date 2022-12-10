@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
 import FormContainer from "../components/form/FormContainer"
 import UpdateFormContainer from "../components/form/UpdateFormContainer"
@@ -8,7 +8,21 @@ const Write = () => {
   const navigate = useNavigate()
   const params = useParams()
   const state = useLocation()
-
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+  const setGu = (g) => {
+    localStorage.setItem("gu", g)
+  }
+  useEffect(() => {
+    setLocation("list")
+    setGu(params.gu)
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+    })
+  }, [])
   return (
     <Layout>
       <div className="flex pt-6 ml-[25px] mb-8">

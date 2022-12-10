@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
 import SpotContainer from "../components/charts/SpotContainer"
 import Layout from "../components/layout/Layout"
@@ -91,7 +90,6 @@ const PopulationInfo = () => {
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     })
   }, [])
 

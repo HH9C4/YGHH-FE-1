@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { contentsApis } from "../../api/instance"
 
 const HotTag = ({ onHotTag, hotTag }) => {
   const navigate = useNavigate()
   const [hotTags, setHotTags] = useState()
-  const gu = useSelector((state) => state.members.user.gu)
+  const gu = localStorage.getItem("gu")
   const onSearch = (tag) => {
     navigate(`/search/1/${tag}/new`)
   }

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
 import { contentsApis } from "../../api/instance"
-import { useDispatch, useSelector } from "react-redux"
 
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import Post from "../components/list/Post"
 import { contentsApis } from "../api/instance"
@@ -17,7 +16,6 @@ const List = () => {
   const [bookMarked, setBookMarked] = useState()
 
   const param = useParams()
-  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [select, setSelect] = useState(false)
   const [page, setPage] = useState(0) //페이지수
@@ -84,7 +82,6 @@ const List = () => {
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     })
   }, [])
 

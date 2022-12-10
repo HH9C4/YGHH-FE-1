@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
 import { contentsApis, commentApis } from "../api/instance"
 import { postDetail } from "../components/state/store"
 import { useRecoilState } from "recoil"
@@ -8,7 +7,6 @@ import DetailPost from "../components/post/DetailPost"
 import Comment from "../components/post/Comment"
 import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
-import { useNavigate } from "react-router-dom"
 
 const Detail = () => {
   //셀렉터로 상세조회 데이터 전부 불러오기
@@ -91,7 +89,6 @@ const Detail = () => {
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     })
   }, [])
 

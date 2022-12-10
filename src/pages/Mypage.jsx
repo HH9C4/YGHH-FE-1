@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
@@ -26,7 +25,6 @@ const Mypage = () => {
     // 현재 위치가 이미 최상단일 경우 return
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
     })
   }, [])
 

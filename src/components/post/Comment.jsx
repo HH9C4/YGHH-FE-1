@@ -1,14 +1,25 @@
-import React from "react"
+import React, { useState } from "react"
 import Likes from "./Likes"
-import { commentApis } from "../../api/instance"
-import { useDispatch } from "react-redux"
-import { __CreateRoom } from "../../redux/modules/chatSlice"
+import { commentApis, chatApis } from "../../api/instance"
 import { useRecoilState } from "recoil"
 import { postDetail } from "../state/store"
+import { useNavigate } from "react-router-dom"
 const Comment = () => {
+  const navigate = useNavigate()
   const [data, setData] = useRecoilState(postDetail)
   const nickName = localStorage.getItem("nickName")
-  const dispatch = useDispatch()
+  const [chatList, setChatList] = useState()
+
+  const CreateRoom = async (payload) => {
+    try {
+      const response = await chatApis.CreateRoom(payload)
+      navigate(`/ChatRoomPage/${response.data.data.roomId}`)
+      return setChatList(response.data.data)
+    } catch (error) {
+      return
+    }
+  }
+
   const deleteComment = async (id) => {
     try {
       // const res = await commentApis.commentDeletePostAX(payload)
@@ -41,7 +52,7 @@ const Comment = () => {
     }
 
     if (nickName !== commenterName) {
-      dispatch(__CreateRoom(obj))
+      CreateRoom(obj)
     }
     // setTimeout(
     //   function () {

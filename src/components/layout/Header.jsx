@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { EventSourcePolyfill } from "event-source-polyfill"
 import { notificationApis } from "../../api/instance"
@@ -7,7 +6,6 @@ import navbarLogo from "../../assets/img/navbarLogo.svg"
 import AlarmAlert from "../features/AlarmAlert"
 const Header = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const params = useParams()
 
   const nickName = localStorage.getItem("nickName")
