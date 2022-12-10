@@ -49,7 +49,7 @@ const SelectGuInfo = () => {
             }
           >
             {gu}
-            {bookmarked.gu && bookmarked.gu.includes(gu) ? (
+            {/* {bookmarked.gu && bookmarked.gu.includes(gu) ? (
               <svg
                 className="absolute left-[10px] top-[-2px]"
                 width="18"
@@ -65,7 +65,7 @@ const SelectGuInfo = () => {
               </svg>
             ) : (
               ""
-            )}
+            )} */}
           </button>
         ))}
       </div>

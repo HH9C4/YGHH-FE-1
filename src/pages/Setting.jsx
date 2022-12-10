@@ -38,7 +38,7 @@ const Setting = () => {
 
   //받아온 배열과 사용자 인풋 비교
   const name = (userInput) => {
-    const result = memberNickNames.findIndex((item) => item === userInput)
+    const result = memberNickNames?.findIndex((item) => item === userInput)
 
     if (result !== -1) {
       setCheckDuplicate(false)
@@ -245,7 +245,10 @@ const Setting = () => {
             ) : (
               ""
             )}
-            {!checkDuplicate && userNickname !== nicknameInput.nickname ? (
+            {nicknameInput.nickname !== "" &&
+            checkDuplicate !== undefined &&
+            !checkDuplicate &&
+            userNickname !== nicknameInput?.nickname ? (
               <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
                 이미 사용중인 닉네임입니다
               </p>
@@ -316,7 +319,12 @@ const Setting = () => {
           <div className="flex flex-col  mt-[12px] rounded-[8px] bg-white w-[w-full] h-[128px]">
             <div className="flex w-full px-[24px] justify-between items-center h-[63.5px] border-b-[1px] border-b-bbBB">
               <p className=" text-[14px] font-medium">현재버전</p>
-              <p className=" text-[14px] font-medium">1.0.6 Ver</p>
+              <p className=" text-[14px] font-medium relative">
+                <span className="absolute left-[-32px] top-[3px] font-normal text-white rounded-md text-[7px] pb-[2px] px-[4px] bg-gradient-to-r from-bbpink to-bbgradientp">
+                  new
+                </span>
+                1.1.1 Ver
+              </p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
               <button
