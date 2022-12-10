@@ -1,22 +1,33 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { __deleteContent } from "../../redux/modules/contentsSlice"
+import { contentsApis } from "../../api/instance"
 
 const EditToggle = ({ data }) => {
+  const navigate = useNavigate()
   const [display, setDisplay] = useState(false)
   const onToggle = () => {
     setDisplay(!display)
   }
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+
+  const deleteContent = async (payload) => {
+    try {
+      if (window.confirm("게시글을 삭제하시겠습니까?")) {
+        const res = await contentsApis.deleteContentAX(payload)
+        navigate(`/list/${res.data.data}/all/new`)
+      }
+      return
+    } catch (error) {
+      return
+    }
+  }
+
   // 게시글 삭제 버튼
   const onPostDelete = (id, gu) => {
     const obj = {
       postId: id,
       gu: gu,
     }
-    dispatch(__deleteContent(obj))
+    deleteContent(obj)
   }
   return (
     <>

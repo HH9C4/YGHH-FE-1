@@ -20,6 +20,7 @@ const MyItem = ({ post }) => {
   }
   return (
     <div
+      key={post.postId}
       onClick={() => navigate(`/detail/${post.postId}`)}
       className="hover:cursor-pointer mt-[12px] w-full h-[80px] flex bg-white rounded-md px-[20px] py-[16px]"
     >

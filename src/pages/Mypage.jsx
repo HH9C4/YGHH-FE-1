@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
 import MyLikes from "../components/mypage/MyLikes"
 import MyNotice from "../components/mypage/MyNotice"
 import Mypost from "../components/mypage/Mypost"
 import Layout from "../components/layout/Layout"
 import { useNavigate } from "react-router-dom"
-import { setLocation } from "../redux/modules/memberSlice"
 
 const Mypage = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   // 마이페이지 대시보드 정보 꺼내기
   const [tab, setTab] = useState(1)
   const userImg = localStorage.getItem("profileImage")
@@ -19,8 +16,16 @@ const Mypage = () => {
   const gender =
     userGender === "female" ? "| 여성" : userGender === "male" ? "| 남성" : ""
 
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
   useEffect(() => {
-    dispatch(setLocation("my"))
+    setLocation("my")
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+    })
   }, [])
 
   //겟요청할때 받아올 정보 : 성별 / 연령대
@@ -38,19 +43,29 @@ const Mypage = () => {
           />
         </div>
         <div>
-          <div className="flex items-end">
+          <div className={userNm.length >= 5 ? "relative" : "flex items-end"}>
             <h3 className="text-b24 text-bb22 font-bold mr-2">{userNm}</h3>
-            <div className="text-b12 text-bb66 mb-0.5">
+            <div
+              className={
+                userNm.length >= 5
+                  ? "absolute text-b12 text-bb66 mb-0.5 left-[0] top-[36px]"
+                  : "text-b12 text-bb66 mb-0.5"
+              }
+            >
               {userAge !== "비공개" ? `${userAge.slice(0, 2)}대` : userAge}{" "}
               {gender}
             </div>
           </div>
-          <div className="text-xs text-bb22 flex">
+          <div className="text-b12 text-bb22 flex">
             <button
               onClick={() => navigate("/setting")}
-              className="flex items-center"
+              className={
+                userNm.length >= 5
+                  ? "ml-[72px] w-full flex items-center"
+                  : "flex items-center"
+              }
             >
-              설정
+              프로필 설정
               <svg
                 width="14"
                 height="14"
@@ -68,70 +83,39 @@ const Mypage = () => {
         </div>
       </div>
       <div className="ml-[25px] mr-[26px] ">
-        {tab === 1 ? (
-          <>
-            <ul className="flex justify-between items-center text-center text-sm text-bb22 mb-5">
-              <li className="border-b-2 font-bold border-bbpurple w-full h-12 leading-[3.5]">
-                알림
-              </li>
-              <li
-                onClick={() => setTab(2)}
-                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
-              >
-                내 게시물
-              </li>
-              <li
-                onClick={() => setTab(3)}
-                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
-              >
-                좋아요
-              </li>
-            </ul>
-            <MyNotice />
-          </>
-        ) : tab === 2 ? (
-          <>
-            <ul className="flex justify-between items-center text-center text-sm text-bb22 mb-5">
-              <li
-                onClick={() => setTab(1)}
-                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
-              >
-                알림
-              </li>
-              <li className="border-b-2 font-bold border-bbpurple w-full h-12 leading-[3.5]">
-                내 게시물
-              </li>
-              <li
-                onClick={() => setTab(3)}
-                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
-              >
-                좋아요
-              </li>
-            </ul>
-            <Mypost />
-          </>
-        ) : (
-          <>
-            <ul className="flex justify-between items-center text-center text-sm  text-bb22 mb-5">
-              <li
-                onClick={() => setTab(1)}
-                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
-              >
-                알림
-              </li>
-              <li
-                onClick={() => setTab(2)}
-                className="hover:cursor-pointer w-full h-12 leading-[3.5]"
-              >
-                내 게시물
-              </li>
-              <li className="border-b-2 font-bold border-bbpurple w-full h-12 leading-[3.5]">
-                좋아요
-              </li>
-            </ul>
-            <MyLikes />
-          </>
-        )}
+        <ul className="flex justify-between items-center text-center text-sm text-bb22 mb-5">
+          <li
+            onClick={tab !== 1 ? () => setTab(1) : ""}
+            className={
+              tab === 1
+                ? "border-b-2 font-bold border-bbpurple w-full h-12 leading-[3.5]"
+                : "hover:cursor-pointer w-full h-12 leading-[3.5]"
+            }
+          >
+            알림
+          </li>
+          <li
+            onClick={tab !== 2 ? () => setTab(2) : ""}
+            className={
+              tab === 2
+                ? "border-b-2 font-bold border-bbpurple w-full h-12 leading-[3.5]"
+                : "hover:cursor-pointer w-full h-12 leading-[3.5]"
+            }
+          >
+            내 게시물
+          </li>
+          <li
+            onClick={tab !== 3 ? () => setTab(3) : ""}
+            className={
+              tab === 3
+                ? "border-b-2 font-bold border-bbpurple w-full h-12 leading-[3.5]"
+                : "hover:cursor-pointer w-full h-12 leading-[3.5]"
+            }
+          >
+            좋아요
+          </li>
+        </ul>
+        {tab === 1 ? <MyNotice /> : tab === 2 ? <Mypost /> : <MyLikes />}
       </div>
     </Layout>
   )

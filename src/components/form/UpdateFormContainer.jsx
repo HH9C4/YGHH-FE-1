@@ -1,31 +1,55 @@
 import React, { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  __insertContent,
-  __updataContent,
-  __getContentDetail,
-  insertTags,
-  removeTags,
-} from "../../redux/modules/contentsSlice"
+import { contentsApis } from "../../api/instance"
+
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
-import { useLocation, useNavigate, useParams } from "react-router-dom"
-import Category from "../elements/Category"
-import { searchTags, __getGuTag } from "../../redux/modules/searchSlice"
+import { useNavigate, useParams } from "react-router-dom"
+import CategoryInput from "./CategoryInput"
+import ContentInput from "./ContentInput"
+import TagInput from "./TagInput"
+import TagSearch from "./TagSearch"
 
 const UpdateForm = ({ data }) => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const param = useParams()
   const id = data.postId
 
-  const searchTag = useSelector((state) => state.search.searchTags)
   //커스텀 훅 사용
   const [postInput, setPostInput, postInputHandle] = useInput({
     category: "",
     content: "",
   })
+
+  const [tagList, setTagList] = useState()
+  const [searchTag, setSearchTag] = useState()
+
+  // 인풋창과 일치하는 태그 리스트 반환
+  const searchTags = (payload) => {
+    if (tagList !== (undefined || null) && payload !== "") {
+      setSearchTag(tagList.filter((t) => t.includes(payload)))
+    } else if (payload === "") {
+      setSearchTag()
+    }
+  }
+
+  //게시글 작성 시 구에 등록된 태그 가져오기
+  const getGuTag = async (payload) => {
+    const res = await contentsApis.getGuTags(payload)
+    setTagList(res.data.data.tagList)
+  }
+
+  //게시글 수정
+  const updateContent = async (payload) => {
+    try {
+      const res = await contentsApis.updateContentAX(payload)
+      window.alert("게시글 수정이 완료되었습니다.")
+      navigate(`/detail/${payload.id}`)
+    } catch (error) {
+      // return thunkAPI.fulfillWithValue(obj);
+      return
+    }
+  }
 
   //태그
   const [tag, setTag] = useState("")
@@ -35,14 +59,11 @@ const UpdateForm = ({ data }) => {
   }
   const [tags, setTags] = useState([])
   const insertTags = (e) => {
-    console.log(e)
     setTags([...tags, e])
   }
   const removeTags = (e) => {
     setTags(tags.filter((t) => t !== e))
   }
-  // const tags = useSelector((state) => state.contents.tagList)
-
   const onKeyDown = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault()
@@ -55,13 +76,11 @@ const UpdateForm = ({ data }) => {
     }
   }
   const onButtonClick = (click) => {
-    console.log("click", click)
     if (click === undefined) {
       const filtered = tag.replace(
         /[^0-9a-zA-Zㄱ-힣.\u3000-\u303f\u3040-\u309f\u30a0-\u30ff\uff00-\uff9f\u4e00-\u9faf\u3400-\u4dbf ]/g,
         ""
       )
-      console.log("filtered", filtered)
       if (filtered !== "") {
         insertTags(filtered)
         setTag("")
@@ -73,8 +92,6 @@ const UpdateForm = ({ data }) => {
       setTag("")
     }
   }
-  const { isSuccess, error } = useSelector((state) => state)
-
   const [deleteUrl, setDeleteUrl] = useState([])
   const [editUrl, setEditUrl] = useState([...data.imageUrl])
   const beforeDelete = (e) => {
@@ -119,7 +136,7 @@ const UpdateForm = ({ data }) => {
       obj: formData,
       id: id,
     }
-    dispatch(__updataContent(editObj))
+    updateContent(editObj)
   }
 
   // useEffect(() => {
@@ -131,11 +148,11 @@ const UpdateForm = ({ data }) => {
   }, [files])
 
   useEffect(() => {
-    dispatch(searchTags(tag))
+    searchTags(tag)
   }, [tag])
 
   useEffect(() => {
-    dispatch(__getGuTag(param.gu))
+    getGuTag(param.gu)
     setTags([...data.tagList])
   }, [])
 
@@ -145,7 +162,7 @@ const UpdateForm = ({ data }) => {
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
-        <Category
+        <CategoryInput
           data={data}
           postInput={postInput}
           postInputHandle={postInputHandle}
@@ -248,90 +265,23 @@ const UpdateForm = ({ data }) => {
               )
             })}
           </div>
-          <textarea
-            className="outline-0 mt-3 w-full rounded-md h-[324px] text-start p-6 text-sm text-bb22 placeholder:text-bb88 overflow-y-auto break-all"
-            defaultValue={data.content}
-            // value={postInput.content || ""}
-            name="content"
-            onChange={postInputHandle}
-            placeholder="내용을 입력하세요"
+          <ContentInput
+            data={data}
+            postInput={postInput}
+            postInputHandle={postInputHandle}
           />
-          <div className="flex text-sm text-bb22 p-6 items-center h-14 mt-1 rounded-t-md w-full bg-white border-b border-bbBB">
-            <p>#</p>
-            <input
-              className="ml-0.5 outline-0 placeholder:text-bb88 text-sm w-full"
-              value={tag}
-              type="text"
-              maxLength="20"
-              onKeyUp={onKeyUp}
-              name="tag"
-              onChange={onTagChange}
-              placeholder="쉼표(,)로 태그를 추가할 수 있어요"
-            />
-            <div
-              onClick={() => onButtonClick()}
-              // onKeyUp={onKeyUp}
-              className="hover:cursor-pointer w-6 h-6 ml-[8px] rounded-full  bg-[#efefef] flex justify-center items-center"
-            >
-              <svg
-                width="12"
-                height="12"
-                viewBox="0 0 12 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11.1042 5.27085H6.72925V0.895854C6.72925 0.702467 6.65242 0.517 6.51568 0.380255C6.37893 0.24351 6.19347 0.166687 6.00008 0.166687C5.80669 0.166687 5.62123 0.24351 5.48448 0.380255C5.34774 0.517 5.27091 0.702467 5.27091 0.895854V5.27085H0.895915C0.702528 5.27085 0.517061 5.34768 0.380316 5.48442C0.243571 5.62117 0.166748 5.80663 0.166748 6.00002C0.166748 6.19341 0.243571 6.37887 0.380316 6.51562C0.517061 6.65236 0.702528 6.72919 0.895915 6.72919H5.27091V11.1042C5.27091 11.2976 5.34774 11.483 5.48448 11.6198C5.62123 11.7565 5.80669 11.8334 6.00008 11.8334C6.19347 11.8334 6.37893 11.7565 6.51568 11.6198C6.65242 11.483 6.72925 11.2976 6.72925 11.1042V6.72919H11.1042C11.2976 6.72919 11.4831 6.65236 11.6198 6.51562C11.7566 6.37887 11.8334 6.19341 11.8334 6.00002C11.8334 5.80663 11.7566 5.62117 11.6198 5.48442C11.4831 5.34768 11.2976 5.27085 11.1042 5.27085Z"
-                  fill="#222222"
-                />
-              </svg>
-            </div>
-          </div>
-          <ul className="relative rounded-b-md bg-white h-[240px] px-[24px] py-[16px]">
-            <div className="flex flex-wrap">
-              {tags.map &&
-                tags.map((tag) => {
-                  return (
-                    <div
-                      key={tag + Math.random()}
-                      name={tag}
-                      onClick={() => removeTags(tag)}
-                      className="hover:cursor-pointer text-[12px] text-bb22 bg-bbyellow mr-[8px] mb-[8px] px-[9px] py-[7px] rounded-md"
-                    >
-                      # {tag}
-                    </div>
-                  )
-                })}
-              {0 < tags.length && tags.length < 11 ? (
-                <p className="text-b11 text-bbpurple absolute bottom-[0px] left-0 py-[8px] px-[24px] bg-white w-full">
-                  ※ 태그를 클릭해서 등록한 태그를 삭제할 수 있어요.
-                </p>
-              ) : (
-                ""
-              )}
-            </div>
-            {searchTag && (
-              <div
-                className={
-                  searchTag.length !== 0
-                    ? "absolute top-0 left-0 w-full rounded-b-md bg-white h-[240px] overflow-auto"
-                    : "hidden"
-                }
-              >
-                {searchTag.map((search) => {
-                  return (
-                    <li
-                      onClick={() => onButtonClick(search)}
-                      key={search + Math.random()}
-                      className="hover:cursor-pointer last-of-type:rounded-b-md active:bg-[#fff6c9] flex p-6 items-center text-bb22 text-sm w-full h-14 bg-white"
-                    >
-                      # {search}
-                    </li>
-                  )
-                })}
-              </div>
-            )}
-          </ul>
+          <TagInput
+            tag={tag}
+            onKeyUp={onKeyUp}
+            onTagChange={onTagChange}
+            onButtonClick={onButtonClick}
+          />
+          <TagSearch
+            tags={tags}
+            searchTag={searchTag}
+            removeTags={removeTags}
+            onButtonClick={onButtonClick}
+          />
           <div className="flex justify-end">
             <button
               className="w-[128px] h-10 mt-3 rounded-full bg-gradient-to-r from-bbpink to-bbgradientp text-white text-sm font-medium"

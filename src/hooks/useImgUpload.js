@@ -48,6 +48,7 @@ const useImgUpload = (
         maxSizeMB: imgMaxSize,
         maxWidthOrHeight: imgMaxWidthHeight,
         useWebWorker: true,
+        fileType: "image/webp",
       }
 
       if (isComp) {
@@ -91,7 +92,6 @@ const useImgUpload = (
 
   //이미지 삭제 핸들러
   const deleteHandler = (e) => {
-    console.log(e)
     setImgFiles(imgFiles.filter((item) => item.name !== e.name))
     setImgUrls(imgUrls.filter((url) => url.url !== e.url))
   }

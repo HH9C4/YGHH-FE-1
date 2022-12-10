@@ -1,14 +1,28 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useLocation, useNavigate, useParams } from "react-router-dom"
-import Form from "../components/form/Form"
-import UpdateForm from "../components/form/UpdateForm"
+import FormContainer from "../components/form/FormContainer"
+import UpdateFormContainer from "../components/form/UpdateFormContainer"
 import Layout from "../components/layout/Layout"
 
 const Write = () => {
   const navigate = useNavigate()
   const params = useParams()
   const state = useLocation()
-  const data = state.state
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+  const setGu = (g) => {
+    localStorage.setItem("gu", g)
+  }
+  useEffect(() => {
+    setLocation("list")
+    setGu(params.gu)
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+    })
+  }, [])
   return (
     <Layout>
       <div className="flex pt-6 ml-[25px] mb-8">
@@ -33,7 +47,11 @@ const Write = () => {
           {params.id !== undefined ? "게시글 수정" : "새 게시물 작성"}
         </h1>
       </div>
-      {params.id !== undefined ? <UpdateForm data={data} /> : <Form />}
+      {params.id !== undefined ? (
+        <UpdateFormContainer data={state.state} />
+      ) : (
+        <FormContainer />
+      )}
     </Layout>
   )
 }

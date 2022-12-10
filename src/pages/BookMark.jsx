@@ -1,27 +1,60 @@
-import React from "react"
+import React, { useState } from "react"
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { contentsApis } from "../api/instance"
 import Layout from "../components/layout/Layout"
 import length0 from "../assets/img/length0.png"
-import {
-  __returnBookmark,
-  __deactivateBookmarkPage,
-} from "../redux/modules/contentsSlice"
 import { useNavigate } from "react-router-dom"
-import { setLocation } from "../redux/modules/memberSlice"
 const BookMark = () => {
   //페이지 안에서 전부 해결
+  const [bookmarkData, setBookmarkData] = useState()
+  const [bookmarkList, setBookmarkList] = useState([
+    localStorage.getItem("bookmarkList").replace(`"`, "").split(","),
+  ])
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const bookmarkData = useSelector((state) => state.contents.bookmarks)
+  // const bookmarkData = useSelector((state) => state.contents.bookmarks)
 
+  //북마크 조회
+  const returnBookmark = async (payload) => {
+    try {
+      const res = await contentsApis.returnBookMarkAX(payload)
+      setBookmarkData(res.data.data)
+      return
+    } catch (error) {
+      return
+    }
+  }
+
+  //북마크 페이지 비활성화
+  const deactivateBookmarkPage = async (payload) => {
+    try {
+      const res = await contentsApis.bookMarkOffAX(payload)
+      setBookmarkData(
+        bookmarkData.filter((item) => item.gu !== res.data.data.gu)
+      )
+      let bookArr = [...bookmarkList]
+      let filtered = bookArr.filter((item) => item !== res.data.data.gu)
+      setBookmarkList(filtered)
+      localStorage.setItem("bookmarkList", bookmarkList)
+      return
+    } catch (error) {
+      return
+    }
+  }
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
   useEffect(() => {
-    dispatch(__returnBookmark())
-    dispatch(setLocation("book"))
+    returnBookmark()
+    setLocation("book")
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+    })
   }, [])
 
   const bookMarkOff = (gu) => {
-    dispatch(__deactivateBookmarkPage(gu))
+    deactivateBookmarkPage(gu)
   }
   return (
     <Layout>
@@ -32,12 +65,17 @@ const BookMark = () => {
             {bookmarkData !== undefined && bookmarkData.length !== 0 ? (
               bookmarkData.map((item) => {
                 return (
-                  <div className="w-[48%] h-[160px] bg-white rounded-lg text-bb22">
+                  <div
+                    key={item.gu}
+                    className="w-[48%] h-[160px] bg-white rounded-lg text-bb22"
+                  >
                     <div className=" h-[63.5px] border-b-[1px] border-b-bbBB flex flex-row pl-6 mr-1 items-center">
                       <p className="text-base font-medium ">
-                        {item.gu !== "중구"
+                        {item.gu !== "중구" && item.gu !== "구로구"
                           ? item.gu.substring(0, item.gu.indexOf("구"))
-                          : item.gu}
+                          : item.gu !== "구로구"
+                          ? "중구"
+                          : "구로"}
                         붐비
                       </p>
                       <button onClick={() => bookMarkOff(item.gu)}>
@@ -103,10 +141,19 @@ const BookMark = () => {
                 )
               })
             ) : (
-              <div className="w-full text-bb88 font-medium text-center pt-[148px]">
-                <img className="w-[96px] mb-[8px] mx-auto" src={length0} />
-                <p className="text-b24 leading-[29px]">저런!</p>
-                <p className="text-b16 mt-[4px]">북마크한 지역이 없습니다.</p>
+              <div className="mx-auto h-[70vh] py-[18vh] text-bb88 font-medium">
+                <img
+                  className="w-[140px] mb-[8px] mx-auto my-auto"
+                  src={length0}
+                />
+                <p className="text-b24 text-center">앗!</p>
+                <p className="text-b16 text-center">북마크한 지역이 없어요.</p>
+                <p className="mx-auto font-normal text-b12 text-bb88 text-center bg-white rounded-md pb-[12px] px-[16px] pt-[14px] mt-[24px]">
+                  ※ 정보/커뮤니티페이지 상단
+                  <span className="text-bb66 font-medium"> 북마크 아이콘</span>
+                  을 <br />
+                  탭해서 북마크를 추가할 수 있습니다.
+                </p>
               </div>
             )}
           </div>

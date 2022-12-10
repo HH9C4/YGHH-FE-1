@@ -1,9 +1,9 @@
 import { data } from "autoprefixer"
 import React from "react"
 
-const Category = ({ data, postInput, postInputHandle }) => {
+const CategoryInput = ({ data, postInput, postInputHandle }) => {
   return (
-    <ul className=" pt-3 pb-8 flex items-center overflow-x-auto">
+    <ul className=" pt-3 pb-8 flex items-center overflow-x-auto scrollbar-hide">
       <li className="flex w-full relative items-center ">
         <input
           defaultChecked={data && data.category === "공유" ? "checked" : ""}
@@ -76,4 +76,4 @@ const Category = ({ data, postInput, postInputHandle }) => {
   )
 }
 
-export default Category
+export default CategoryInput

@@ -1,40 +1,82 @@
 import React, { useEffect, useRef, useState } from "react"
 import Layout from "../components/layout/Layout"
-import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import {
-  __naverLogout,
-  __duplicateName,
-  setLocation,
-} from "../redux/modules/memberSlice"
-import { __mypageModify } from "../redux/modules/contentsSlice"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
 import useInput from "../hooks/useInput"
-import { name } from "../redux/modules/memberSlice"
 import insta from "../assets/img/setting_insta.png"
 import mail from "../assets/img/setting_mail.png"
+import { contentsApis, membersApis } from "../api/instance"
 
 const Setting = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const [memberNickNames, setMemberNickNames] = useState()
   const LOGOUTREDIRECT_URI =
     "https://boombiboombi.com/user/kakao/logout/callback"
   const KAKAO_LOGOUT_URL = `https://kauth.kakao.com/oauth/logout?client_id=${REACT_APP_KAKAO_REST_API_KEY}&logout_redirect_uri=${LOGOUTREDIRECT_URI}`
 
-  const checkDuplicate = useSelector((state) => state.members.name)
+  const [checkDuplicate, setCheckDuplicate] = useState()
   const site = localStorage.getItem("site")
   const userNickname = localStorage.getItem("nickName")
   const profileImage = localStorage.getItem("profileImage")
 
+  //네이버 로그아웃
+  const naverLogout = async (payload) => {
+    try {
+      const res = await membersApis.logoutAX(payload)
+      if (res.data.status === "200 OK") {
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("Refresh_Token")
+        localStorage.removeItem("nickName")
+        window.location.replace("/")
+      }
+      return
+    } catch (error) {
+      return
+    }
+  }
+
+  //받아온 배열과 사용자 인풋 비교
+  const name = (userInput) => {
+    const result = memberNickNames?.findIndex((item) => item === userInput)
+
+    if (result !== -1) {
+      setCheckDuplicate(false)
+    } else {
+      setCheckDuplicate(true)
+    }
+  }
+
+  // 수정 submit
+  const mypageModify = async (payload) => {
+    try {
+      const res = await contentsApis.modifyAX(payload)
+      //나중에 리듀서로 리팩토링 예정
+      localStorage.setItem("profileImage", res.data.data.profileImage)
+      localStorage.setItem("nickName", res.data.data.accountName)
+      window.alert("프로필 수정이 완료되었습니다.")
+      window.location.replace("/mypage")
+    } catch (error) {
+      return
+    }
+  }
+  // 세팅페이지 진입 시 등록된 닉네임 배열 받아오기
+  const duplicateName = async () => {
+    try {
+      const res = await membersApis.duplicateName()
+      const nickNameList = res.data.data
+      return setMemberNickNames(nickNameList)
+    } catch (error) {
+      return
+    }
+  }
   //커스텀 훅 사용
   const [nicknameInput, setnicknameInput, nicknameInputHandle] = useInput({
     nickname: "",
   })
 
   //이미지 업로드 훅
-  const [files, fileUrls, uploadHandle] = useImgUpload(1, false, 0.3, 1000)
-  console.log("파일", files, "Url", fileUrls)
+  const [files, fileUrls, uploadHandle] = useImgUpload(1, false, 0.3, 200)
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
 
@@ -48,38 +90,45 @@ const Setting = () => {
         formData.append("image", file)
       })
     }
+
     let obj = {
-      nickname: nicknameInput.nickname,
+      nickname:
+        userNickname === nicknameInput.nickname ? "" : nicknameInput.nickname,
     }
 
     formData.append(
       "nickname",
       new Blob([JSON.stringify(obj)], { type: "application/json" })
     )
-
-    dispatch(__mypageModify(formData))
+    mypageModify(formData)
   }
 
   const handleLogout = () => {
     if (site === "kakao") {
       window.location.href = KAKAO_LOGOUT_URL
     } else {
-      dispatch(__naverLogout())
+      naverLogout()
     }
   }
 
   useEffect(() => {
-    dispatch(__duplicateName())
+    duplicateName()
   }, [])
 
   useEffect(() => {
-    dispatch(name(nicknameInput.nickname))
+    name(nicknameInput.nickname)
   }, [nicknameInput.nickname])
 
-  useEffect(() => {}, [files])
-
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
   useEffect(() => {
     setLocation("my")
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+    })
   }, [])
 
   return (
@@ -129,7 +178,7 @@ const Setting = () => {
                 <img
                   className="border-[0.5px] border-bbBB bg-white absolute rounded-full w-full h-full object-cover"
                   src={value.url ? value.url : ""}
-                  alt="image"
+                  alt="editImage"
                   key={Math.random()}
                 />
               )
@@ -196,7 +245,10 @@ const Setting = () => {
             ) : (
               ""
             )}
-            {!checkDuplicate ? (
+            {nicknameInput.nickname !== "" &&
+            checkDuplicate !== undefined &&
+            !checkDuplicate &&
+            userNickname !== nicknameInput?.nickname ? (
               <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
                 이미 사용중인 닉네임입니다
               </p>
@@ -267,7 +319,12 @@ const Setting = () => {
           <div className="flex flex-col  mt-[12px] rounded-[8px] bg-white w-[w-full] h-[128px]">
             <div className="flex w-full px-[24px] justify-between items-center h-[63.5px] border-b-[1px] border-b-bbBB">
               <p className=" text-[14px] font-medium">현재버전</p>
-              <p className=" text-[14px] font-medium">1.0.6 Ver</p>
+              <p className=" text-[14px] font-medium relative">
+                <span className="absolute left-[-32px] top-[3px] font-normal text-white rounded-md text-[7px] pb-[2px] px-[4px] bg-gradient-to-r from-bbpink to-bbgradientp">
+                  new
+                </span>
+                1.1.1 Ver
+              </p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
               <button
@@ -282,7 +339,7 @@ const Setting = () => {
           </div>
 
           <div
-            onClick={() => alert("현재 준비 중인 서비스입니다🥲")}
+            onClick={() => alert("현재 준비 중인 서비스입니다.")}
             className="hover:cursor-pointer flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]"
           >
             <p className="text-[14px] font-medium text-bbred">서비스 탈퇴</p>
