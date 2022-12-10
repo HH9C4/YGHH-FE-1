@@ -24,7 +24,6 @@ const Dock = () => {
     navigate("/login")
   }
   const onList = () => {
-    console.log(gu)
     if (
       gu === null ||
       gu === "null" ||
@@ -33,7 +32,6 @@ const Dock = () => {
     ) {
       alert("구가 선택되지 않았습니다.")
       setSelect(true)
-      console.log(select)
     } else if (!nickName) {
       toLogin()
     } else {
@@ -42,7 +40,6 @@ const Dock = () => {
   }
 
   const onInfo = () => {
-    console.log(gu)
     if (
       gu === null ||
       gu === "null" ||
