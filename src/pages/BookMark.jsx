@@ -7,9 +7,6 @@ import { useNavigate } from "react-router-dom"
 const BookMark = () => {
   //페이지 안에서 전부 해결
   const [bookmarkData, setBookmarkData] = useState()
-  const [bookmarkList, setBookmarkList] = useState([
-    localStorage.getItem("bookmarkList").replace(`"`, "").split(","),
-  ])
   const navigate = useNavigate()
   // const bookmarkData = useSelector((state) => state.contents.bookmarks)
 
@@ -31,10 +28,6 @@ const BookMark = () => {
       setBookmarkData(
         bookmarkData.filter((item) => item.gu !== res.data.data.gu)
       )
-      let bookArr = [...bookmarkList]
-      let filtered = bookArr.filter((item) => item !== res.data.data.gu)
-      setBookmarkList(filtered)
-      localStorage.setItem("bookmarkList", bookmarkList)
       return
     } catch (error) {
       return
