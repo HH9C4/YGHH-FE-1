@@ -58,7 +58,8 @@ const Header = () => {
             Authorization: localStorage.getItem("Authorization"),
             "Content-Type": "text/event-stream",
           },
-          heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
+          heartbeatTimeout: 30000,
+          // heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
           withCredentials: true,
         }
       )

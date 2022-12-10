@@ -25,10 +25,10 @@ const Write = () => {
   }, [])
   return (
     <Layout>
-      <div className="flex pt-6 ml-[25px] mb-8">
+      <div className="flex relative justify-center pt-6 ml-[25px] mb-8">
         <button
           onClick={() => navigate(-1)}
-          className="active:animate-ping mr-[88px]"
+          className="absolute left-0 active:animate-ping"
         >
           <svg
             width="24"
