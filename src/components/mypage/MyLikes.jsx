@@ -26,7 +26,8 @@ const MyPosts = () => {
         })}
       {posts && posts.length === 0 ? (
         <div className="text-center mt-[102px] text-bb88 font-medium">
-          <p className="text-b24 ">저런!</p>
+          <img className="w-[140px] mb-[8px] mx-auto" src={length0} />
+          <p className="text-b24 ">앗!</p>
           <p className="text-b16">아직 좋아요한 게시글이 없어요.</p>
         </div>
       ) : (

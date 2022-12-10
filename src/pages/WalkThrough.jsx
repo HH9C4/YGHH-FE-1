@@ -13,6 +13,7 @@ const WalkThrough = () => {
   })
   const nickname = localStorage.getItem("nickName")
   const navigate = useNavigate()
+
   function NextArrow(props) {
     const { style, onClick } = props
     const onNextPage = () => {

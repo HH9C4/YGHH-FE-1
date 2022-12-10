@@ -100,6 +100,15 @@ const Form = () => {
   //submit
   const onPost = (e) => {
     e.preventDefault()
+    if (postInput.category === "") {
+      alert("카테고리를 선택해주세요.")
+      return
+    }
+    if (postInput.content === "") {
+      alert("내용을 입력해주세요.")
+      return
+    }
+
     const formData = new FormData()
     //폼 데이터 관리
     if (files.length > 0) {

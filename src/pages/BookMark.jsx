@@ -132,10 +132,19 @@ const BookMark = () => {
                 )
               })
             ) : (
-              <div className="w-full text-bb88 font-medium text-center pt-[148px]">
-                <img className="w-[96px] mb-[8px] mx-auto" src={length0} />
-                <p className="text-b24 leading-[29px]">저런!</p>
-                <p className="text-b16 mt-[4px]">북마크한 지역이 없습니다.</p>
+              <div className="mx-auto h-[70vh] py-[18vh] text-bb88 font-medium">
+                <img
+                  className="w-[140px] mb-[8px] mx-auto my-auto"
+                  src={length0}
+                />
+                <p className="text-b24 text-center">앗!</p>
+                <p className="text-b16 text-center">북마크한 지역이 없어요.</p>
+                <p className="mx-auto font-normal text-b12 text-bb88 text-center bg-white rounded-md pb-[12px] px-[16px] pt-[14px] mt-[24px]">
+                  ※ 정보/커뮤니티페이지 상단
+                  <span className="text-bb66 font-medium"> 북마크 아이콘</span>
+                  을 <br />
+                  탭해서 북마크를 추가할 수 있습니다.
+                </p>
               </div>
             )}
           </div>

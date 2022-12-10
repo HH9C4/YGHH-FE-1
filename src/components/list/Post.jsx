@@ -12,12 +12,11 @@ const Post = ({ posts }) => {
   const settings = {
     dots: true,
     dotsClass: "post",
-    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeen: 200,
   }
 

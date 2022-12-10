@@ -4,13 +4,13 @@ import Post from "../components/list/Post"
 import { contentsApis } from "../api/instance"
 import { useNavigate, useParams } from "react-router-dom"
 import Layout from "../components/layout/Layout"
+import length0 from "../assets/img/length0.png"
 import { useInView } from "react-intersection-observer"
 import { searchList, searchSizes } from "../components/state/store"
 import { useRecoilState } from "recoil"
 // import { useParams } from "react-router-dom"
 
 const Search = () => {
-  const [sort, setSort] = useState("new")
   const [search, setSearch, searchHandle] = useInput()
   const navigate = useNavigate()
   const params = useParams()
@@ -48,7 +48,7 @@ const Search = () => {
 
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
-    if (inView && !loading) {
+    if (searchs.length !== 0 && inView && !loading) {
       setPage((prevState) => prevState + 1)
     }
   }, [inView, loading])
@@ -71,8 +71,12 @@ const Search = () => {
   }
 
   const onSearch = (e) => {
-    e.preventDefault()
-    navigate(`/search/0/${search.keyword}/${params.sort}`)
+    if (search.keyword !== "") {
+      e.preventDefault()
+      navigate(`/search/0/${search.keyword}/${params.sort}`)
+    } else {
+      alert("검색어를 입력해주세요.")
+    }
   }
   function onSort(id) {
     navigate(`/search/0/${params.searchWord}/${id}`)
@@ -114,7 +118,7 @@ const Search = () => {
             </button>
           </form>
 
-          {params.searchWord !== undefined && searchs.length !== 0 ? (
+          {params.searchWord !== undefined && searchSize !== -1 ? (
             <div>
               <p className="flex items-end text-bbpurple text-lg font-bold mt-10">
                 {params.searchWord}({searchSize})
@@ -148,6 +152,15 @@ const Search = () => {
             ""
           )}
           <Post posts={searchs} />
+          {searchSize === 0 ? (
+            <div className="text-center mt-[102px] text-bb88 font-medium">
+              <img className="w-[140px] mb-[8px] mx-auto" src={length0} />
+              <p className="text-b24 ">앗!</p>
+              <p className="text-b16">검색 결과가 없어요.</p>
+            </div>
+          ) : (
+            ""
+          )}
           <div ref={ref}></div>
         </div>
       </Layout>

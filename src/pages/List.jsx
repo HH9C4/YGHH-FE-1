@@ -87,7 +87,7 @@ const List = () => {
 
   useEffect(() => {
     // 사용자가 마지막 요소를 보고 있고, 로딩 중이 아니라면
-    if (inView && !loading) {
+    if (posts.length !== 0 && inView && !loading) {
       setPage((prevState) => prevState + 1)
     }
   }, [inView, loading])
@@ -336,7 +336,7 @@ const List = () => {
 
           {posts && posts.length === 0 ? (
             <div className="text-center mt-[102px] text-bb88 font-medium">
-              <img className="w-[96px] mb-[8px] mx-auto" src={length0} />
+              <img className="w-[140px] mb-[8px] mx-auto" src={length0} />
               <p className="text-b24 ">앗!</p>
               <p className="text-b16">아직 게시글이 없어요.</p>
             </div>

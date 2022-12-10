@@ -4,8 +4,6 @@ import SockJS from "sockjs-client"
 import Layout from "../components/layout/Layout"
 import webstomp from "webstomp-client"
 import { chatApis } from "../api/instance"
-import { chatList } from "../components/state/store"
-import { useRecoilState } from "recoil"
 
 const ChatRoomPage = () => {
   const { id } = useParams()
@@ -13,7 +11,7 @@ const ChatRoomPage = () => {
   const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`)
   const ws = webstomp.over(sock)
   const userNickName = localStorage.getItem("nickName")
-  const [chatData, setChatData] = useRecoilState(chatList)
+  const [chatData, setChatData] = useState([])
 
   // ListReducer: (state, action) => {
   //   state.chatList.chatList.push(action.payload)
@@ -22,7 +20,8 @@ const ChatRoomPage = () => {
   const getinitialChatList = async (payload) => {
     try {
       const response = await chatApis.getInitialChatList(payload)
-      return setChatData(response.data.data)
+      setChatData(response.data.data)
+      return
     } catch (error) {
       return
     }
@@ -57,7 +56,8 @@ const ChatRoomPage = () => {
       ws.connect(headers, (frame) => {
         ws.subscribe(`/sub/${id}`, (response) => {
           let data = JSON.parse(response.body)
-          setChatData({ ...chatData, chatList: [...chatData.chatList, data] })
+          // let arr = [...chatArr].push(data)
+          getinitialChatList(id)
         })
       })
     } catch (error) {}
@@ -97,7 +97,7 @@ const ChatRoomPage = () => {
 
   const onSubmitHandler = (event) => {
     if (chatBody === "" || chatBody === " ") {
-      return alert("내용 입력 좀 .")
+      return alert("내용을 입력하세요.")
     }
     waitForConnection(ws, function () {
       ws.send(
@@ -237,6 +237,8 @@ const ChatRoomPage = () => {
         </div>
         <div sx={{ height: "80%", overflow: "scroll" }}>
           {chatData !== (undefined || null) &&
+            chatData.chatList?.length !== 0 &&
+            // chatArr?.map((item) => {
             chatData?.chatList?.map((item, i) => {
               // return localStorage.getItem("nickName") === item.sender ?
               return userNickName !== item.sender ? (
@@ -272,7 +274,10 @@ const ChatRoomPage = () => {
                   </div>
                 </div>
               ) : (
-                <div className="flex items-center justify-end">
+                <div
+                  key={chatData.myName + Math.random()}
+                  className="flex items-center justify-end"
+                >
                   <div className="relative flex items-center">
                     <svg
                       className="absolute top-[14px] right-[43px]"

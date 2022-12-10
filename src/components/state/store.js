@@ -12,7 +12,7 @@ export const searchList = atom({
 
 export const searchSizes = atom({
   key: "searchSizes",
-  default: 0,
+  default: -1,
 })
 
 export const postDetail = atom({
