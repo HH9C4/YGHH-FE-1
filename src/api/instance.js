@@ -35,8 +35,8 @@ hInstance.interceptors.response.use(
     return response
   },
   async function (error) {
-    const originalConfig = error.config
-    if (error.response.data.status === "303 SEE_OTHER") {
+    const originalConfig = error?.config
+    if (error?.response?.data?.status === "303 SEE_OTHER") {
       if (!isTokenRefresh) {
         isTokenRefresh = true
         try {
@@ -49,12 +49,13 @@ hInstance.interceptors.response.use(
             },
           })
 
-          const Access_Token = data.headers.authorization
+          const Access_Token = data?.headers.authorization
           localStorage.setItem("Authorization", Access_Token)
 
           window.location.reload()
           axios(originalConfig)
         } catch (error) {
+          console.log("인스턴스 에러", error);
           localStorage.removeItem("Authorization")
           localStorage.removeItem("Refresh_Token")
           localStorage.removeItem("nickName")
@@ -162,6 +163,9 @@ export const contentsApis = {
 
   //컨텐츠 삭제
   deleteContentAX: (data) => hInstance.delete(`/api/posts/${data.postId}`),
+
+  //신고하기
+  reportContentAX: (data) => hInstance.post(`/api/report`, data),
 
   //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)

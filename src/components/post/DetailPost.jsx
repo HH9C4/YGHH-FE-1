@@ -38,7 +38,7 @@ const DetailPost = ({ data }) => {
                 className="border-[0.5px] border-bbBB w-8 h-8 rounded-full object-cover"
               ></img>
               <div className="z-20">
-                <UserToggle data={data}></UserToggle>
+                <UserToggle data={data} level={level}></UserToggle>
               </div>
               <div className="ml-2 text-sm text-bb22 font-bold">
                 {data.accountName}

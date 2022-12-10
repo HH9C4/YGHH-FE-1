@@ -3,7 +3,7 @@ import { contentsApis } from "../../api/instance"
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
 import { useParams } from "react-router-dom"
-import Category from "../elements/Category"
+import CategoryInput from "./CategoryInput"
 import TagSearch from "./TagSearch"
 import TagInput from "./TagInput"
 import ContentInput from "./ContentInput"
@@ -123,7 +123,7 @@ const Form = () => {
     insertContent(formData)
   }
 
-  useEffect(() => {}, [files])
+  useEffect(() => { }, [files])
 
   useEffect(() => {
     searchTags(tag)
@@ -138,7 +138,7 @@ const Form = () => {
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
-        <Category postInput={postInput} postInputHandle={postInputHandle} />
+        <CategoryInput postInput={postInput} postInputHandle={postInputHandle} />
         <div className="pr-[26px]">
           <ImgInput
             uploadHandle={uploadHandle}

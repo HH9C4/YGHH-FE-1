@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
 import { useNavigate, useParams } from "react-router-dom"
-import Category from "../elements/Category"
+import CategoryInput from "./CategoryInput"
 import ContentInput from "./ContentInput"
 import TagInput from "./TagInput"
 import TagSearch from "./TagSearch"
@@ -163,7 +163,7 @@ const UpdateForm = ({ data }) => {
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
-        <Category
+        <CategoryInput
           data={data}
           postInput={postInput}
           postInputHandle={postInputHandle}

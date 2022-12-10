@@ -36,7 +36,7 @@ const WalkThrough = () => {
             >
               {activeSlide.activeSlide2 === 0 ? (
                 <svg
-                  className="absolute top-[-90px]"
+                  className="absolute top-[-90px] cursor-pointer"
                   width="40"
                   height="8"
                   viewBox="0 0 40 8"
@@ -49,7 +49,7 @@ const WalkThrough = () => {
                 </svg>
               ) : (
                 <svg
-                  className="absolute top-[-90px]"
+                  className="absolute top-[-90px] cursor-pointer"
                   width="40"
                   height="8"
                   viewBox="0 0 40 8"
@@ -72,11 +72,12 @@ const WalkThrough = () => {
         ) : (
           <div className="relative ">
             <div
+              onClick={() => navigate("/home")}
               className="h-[48px] w-[324px] absolute top-[110px]  
-                            bg-bbpurple text-center flex justify-center rounded-[90px]"
+                            bg-bbpurple text-center flex justify-center rounded-[90px] cursor-pointer"
             >
               <svg
-                className="absolute top-[-90px]"
+                className="absolute top-[-90px] cursor-pointer"
                 width="40"
                 height="8"
                 viewBox="0 0 40 8"
@@ -88,7 +89,6 @@ const WalkThrough = () => {
                 <circle cx="36" cy="4" r="4" fill="#7F73FF" />
               </svg>
               <button
-                onClick={() => navigate("/home")}
                 className="text-white text-b14 font-medium leading-[17px] items-center"
               >
                 시작하기

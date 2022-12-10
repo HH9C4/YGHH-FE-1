@@ -11,6 +11,10 @@ const ChatRoomPage = () => {
     const { id } = useParams()
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [display, setDisplay] = useState(false)
+    const onToggle = () => {
+        setDisplay(!display)
+    }
     const chatData = useSelector((state) => state.chatting.chatList)
     const [readStatus, setReadStatus] = useState(false)
     const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`)
@@ -21,9 +25,7 @@ const ChatRoomPage = () => {
     // ⭐️채팅방 입장
     useEffect(() => {
         //페이지가 마운트 될 때마다 띄어준 후 연결한 뒤 나갔을때 끊어준다.
-        // dispatch(__getinitialChatList({ chatList2.roomId }));
         wsConnectSubscribe()
-        // dispatch(__getinitialChatList(1));
         localStorage.setItem("location", "chat")
         dispatch(__getinitialChatList(id))
         return () => {
@@ -31,7 +33,6 @@ const ChatRoomPage = () => {
         }
     }, [id])
 
-    //소켓이 끊겼을때 감지해서 페이지를 이탈했을때 스토어를 리셋 array splice
     const [chatBody, setChatBody] = useState("")
     const content = {
         sender: localStorage.getItem("nickName"),
@@ -42,17 +43,21 @@ const ChatRoomPage = () => {
         Authorization: localStorage.getItem("Authorization"),
     }
 
-    //🧏통신 시도
+
+    // 웹소켓 연결, 구독
     function wsConnectSubscribe() {
         try {
             ws.connect(headers, (frame) => {
                 ws.subscribe(`/sub/${id}`, (response) => {
                     let data = JSON.parse(response.body)
+                    console.log("커넥트", data);
                     dispatch(ListReducer(data))
                 })
             })
         } catch (error) { }
     }
+
+    //웹소켓이 연결될 때 까지 실행하는 함수
     function waitForConnection(ws, callback) {
         setTimeout(
             function () {
@@ -68,6 +73,8 @@ const ChatRoomPage = () => {
         )
     } //stomp 메시지 에러 waitForConnection함수로 해결
 
+
+    // 연결해제, 구독해제
     const onbeforeunload = () => {
         try {
             ws.disconnect(
@@ -118,17 +125,21 @@ const ChatRoomPage = () => {
         const response = await chatApis.leaveRoom(chatData.roomId)
         navigate("/chat")
     }
-    //채팅방 나가기
     const leaveChat = () => {
-        fetchRooms()
+
+        const result = window.confirm("채팅방을 나가시겠습니까?")
+        if (result) {
+            fetchRooms()
+        }
     }
 
     // 채팅창 치면 가장 하단으로 스크롤
     useEffect(() => {
         if (scrollRef) {
             scrollRef.current.scrollIntoView({
+                false: false,
                 behavior: "smooth",
-                block: "end",
+                // block: "end",
                 inline: "nearest",
             })
         }
@@ -191,10 +202,8 @@ const ChatRoomPage = () => {
                                 </clipPath>
                             </defs>
                         </svg>
-
-                        {/* 신고하기 */}
                         <svg
-                            onClick={leaveChat}
+                            onClick={onToggle}
                             width="18"
                             height="18"
                             viewBox="0 0 18 18"
@@ -226,6 +235,18 @@ const ChatRoomPage = () => {
                                 strokeLinejoin="round"
                             />
                         </svg>
+                        {display ? (
+                            <div className="h-[36px] w-[70px] rounded-md absolute mt-[24px] left-[59] bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] flex items-center">
+                                <button
+                                    className="h-[48px] text-center w-full text-b14 text-bb22"
+                                    onClick={leaveChat}
+                                >
+                                    방 나가기
+                                </button>
+                            </div>
+                        ) : (
+                            ""
+                        )}
                     </div>
                 </div>
                 <div sx={{ height: "80%", overflow: "scroll" }}>
@@ -256,14 +277,14 @@ const ChatRoomPage = () => {
                                             <path d="M0 0H9V9L0 0Z" fill="white" />
                                         </svg>
                                         <div className="max-w-[185px] overflow-hidden py-[7px] bg-white rounded-lg ml-[9px] px-[10px]">
-                                            <p className="break-all leading-[1] mt-[2px] text-bb22 text-b12 font-medium">
+                                            <p className="break-all leading-[1] my-[1px] text-bb22 text-b12 font-medium">
                                                 {item.message}
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             ) : (
-                                <div className="flex items-center justify-end">
+                                <div className="flex items-center mt-[12px] justify-end">
                                     <div className="relative flex items-center">
                                         <svg
                                             className="absolute top-[14px] right-[43px]"
@@ -289,15 +310,15 @@ const ChatRoomPage = () => {
                                 </div>
                             )
                         })}
-                    <div ref={scrollRef}></div>
                 </div>
+
 
                 <div className="fixed bottom-[80px] px-[20px] py-[8px] left-0 w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple">
                     <div className="flex items-center  w-full max-w-[420px] mx-auto rounded-[5px]  shrink-0">
                         <input
                             className="placeholder:text-[14px] rounded-md placeholder:font-medium leading-10 text-[14px] text-bb22
         outline-0 pl-2 h-10 w-full  "
-                            placeholder="댓글을 입력해주세요."
+                            placeholder="메시지를 입력해주세요."
                             value={chatBody}
                             onKeyPress={appKeyPress}
                             onChange={inputHandler}
@@ -320,6 +341,7 @@ const ChatRoomPage = () => {
                     ></input> */}
                 {/* <button onSubmit={appKeyPress} onClick={onSubmitHandler}>전송</button> */}
             </div>
+            <div ref={scrollRef}></div>
         </Layout>
     )
 }

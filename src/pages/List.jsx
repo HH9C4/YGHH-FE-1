@@ -117,7 +117,7 @@ const List = () => {
       }}
     >
       <Layout>
-        <div className="pt-8 ml-[25px] mr-[26px]">
+        <div className="pt-8 mx-[26px]">
           <div>
             <div className=" font-normal text-sm">지금</div>
             <div className="flex flex-row justify-between items-center">
@@ -126,8 +126,8 @@ const List = () => {
                   {param.gu !== "중구" && param.gu !== "구로구"
                     ? param.gu.substring(0, param.gu.indexOf("구"))
                     : param.gu !== "구로구"
-                    ? "중구"
-                    : "구로"}
+                      ? "중구"
+                      : "구로"}
                   붐비
                 </h1>
                 {/* 북마크 토글러 함수 실행 */}

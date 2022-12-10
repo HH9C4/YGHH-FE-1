@@ -24,7 +24,7 @@ const MyCmt = ({ cmt }) => {
       >
         <div style={{ display: cmt.checked ? "none" : "block" }}>
           <div
-            className="relative mt-[26px] bg-bbred w-[8px] h-[8px] rounded-full mr-5 mt-0.5"
+            className="relative mt-[26px] bg-bbred w-[8px] h-[8px] rounded-full mr-5"
             style={{
               display: tab ? "none" : "block",
             }}
