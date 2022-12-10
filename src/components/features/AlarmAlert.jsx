@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 const AlarmAlert = ({ newNotice, setNewNotice }) => {
     const navigate = useNavigate()
+    const userLocation = localStorage.getItem('location')
     useEffect(() => {
         if (newNotice.alarmType !== undefined) {
-            setTimeout(() => { setNewNotice({}) }, 4000);
+            setTimeout(() => { setNewNotice({}) }, 3000);
         }
     }, [newNotice])
-
 
     const clickMove = () => {
         if (newNotice.alarmType === "eventNewChat") {
@@ -30,12 +30,14 @@ const AlarmAlert = ({ newNotice, setNewNotice }) => {
     return (
         <div key={Math.random()}>
             {
-                newNotice.message !== undefined ? (
-                    <div className='absolute left-[18px] top-[70px] w-[324px] z-30
-                    bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-[4px] flex items-center px-[40px] py-[22px]  '>
-                        {/* 💬 <b>{newNotice.title}</b>님이 댓글을 입력하셨습니다. */}
-                        <div className='absolute w-[8px] h-[8px] bg-bbred z-30 rounded-full 
-                       top-[28px] left-4 animate-ping'></div>
+                newNotice.message !== undefined && userLocation !== "chat" ? (
+                    <div className='absolute left-0 top-[76px] w-full mx-auto z-30
+                    bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-[4px] flex items-start px-[24px] py-[22px]  '>
+                        <div
+                            className="relative mt-[4px] bg-bbred w-[8px] h-[8px] rounded-full mr-[8px]"
+                        >
+                            <div className="absolute top-[1px] left-[1px] bg-bbred w-[6px] h-[6px] rounded-full animate-ping"></div>
+                        </div>
                         <p
                             onClick={() => clickMove()}
                             className='text-b11 font-medium text-bb66 break-all'>

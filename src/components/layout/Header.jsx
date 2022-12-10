@@ -107,93 +107,101 @@ const Header = () => {
   }, [isLogin])
 
   return (
-    <div className="flex items-center fixed top-0 px-6 w-full bg-bbLpurple border-b-[0.5px] border-bbBB h-[52px]">
-      <div className="max-w-[420px] mx-auto w-full flex justify-between items-center">
-        <img
-          className="hover:cursor-pointer"
-          onClick={() => navigate("/home")}
-          src={navbarLogo}
-        ></img>
-        <div className="flex items-center">
-          {nickName !== (undefined || null) ? (
-            <dl
-              onClick={() => navigate("/mypage")}
-              className="flex justify-end items-center cursor-pointer"
-            >
-              <dt>
-                <img
-                  className="border-[0.5px] border-bbBB m-3 object-cover rounded-full w-[18px] h-[18px]"
-                  src={profileImage}
-                />
-              </dt>
+    <>
+      <div className="flex items-center fixed top-0 px-6 w-full bg-bbLpurple border-b-[0.5px] border-bbBB h-[52px] z-20">
+        <div className="relative max-w-[420px] mx-auto w-full flex justify-between items-center">
+          <div className="flex w-full justify-between items-center">
+            <img
+              alt="navbarLogo"
+              className="hover:cursor-pointer"
+              onClick={() => navigate("/home")}
+              src={navbarLogo}
+            ></img>
+            <div className="flex items-center">
+              {nickName !== (undefined || null) ? (
+                <dl
+                  onClick={() => navigate("/mypage")}
+                  className="flex justify-end items-center cursor-pointer"
+                >
+                  <dt>
+                    <img
+                      alt="profileImage"
+                      className="border-[0.5px] border-bbBB m-3 object-cover rounded-full w-[18px] h-[18px]"
+                      src={profileImage}
+                    />
+                  </dt>
 
-              <dd className="text-xs text-bb22 after:ml-1">
-                <span className="font-medium">{nickName}</span>님
-              </dd>
-            </dl>
-          ) : (
-            <button
-              onClick={() => navigate("/login")}
-              className="hover:cursor-pointer text-xs text-bb22 font-medium cursor-pointer"
-            >
-              로그인
-            </button>
-          )}
-          <svg
-            onClick={() => navigate("/chat")}
-            className="mx-[8px] cursor-pointer"
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g clipPath="url(#clip0_801_894)">
-              <path
-                d="M8.88337 3C5.08604 3 2 5.68451 2 9C2 10.3308 2.50478 11.5468 3.33078 12.5449L2.90631 14.4379C2.826 14.782 3.22753 15.0803 3.61759 14.9771L5.90057 14.4034C6.80688 14.782 7.80497 15 8.87189 15C12.6692 15 15.7553 12.3155 15.7553 9C15.7553 5.68451 12.6692 3 8.87189 3H8.88337Z"
-                stroke="black"
-                strokeWidth="1.5"
-                strokeLinejoin="round"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_801_894">
-                <rect width="18" height="18" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+                  <dd className="text-xs text-bb22 after:ml-1">
+                    <span className="font-medium">{nickName}</span>님
+                  </dd>
+                </dl>
+              ) : (
+                <button
+                  onClick={() => navigate("/login")}
+                  className="hover:cursor-pointer text-xs text-bb22 font-medium cursor-pointer"
+                >
+                  로그인
+                </button>
+              )}
+              {isLogin && (
+                <svg
+                  onClick={() => navigate("/chat")}
+                  className="mx-[8px] cursor-pointer"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g clipPath="url(#clip0_801_894)">
+                    <path
+                      d="M8.88337 3C5.08604 3 2 5.68451 2 9C2 10.3308 2.50478 11.5468 3.33078 12.5449L2.90631 14.4379C2.826 14.782 3.22753 15.0803 3.61759 14.9771L5.90057 14.4034C6.80688 14.782 7.80497 15 8.87189 15C12.6692 15 15.7553 12.3155 15.7553 9C15.7553 5.68451 12.6692 3 8.87189 3H8.88337Z"
+                      stroke="black"
+                      strokeWidth="1.5"
+                      strokeLinejoin="round"
+                    />
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_801_894">
+                      <rect width="18" height="18" fill="white" />
+                    </clipPath>
+                  </defs>
+                </svg>
+              )}
 
-          <svg
-            onClick={() => navigate("/search/0/undefined/new")}
-            className="hover:cursor-pointer"
-            width="18"
-            height="18"
-            viewBox="0 0 18 18"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              clipPath="url(#bxdvyg8zna)"
-              stroke="#000"
-              strokeWidth="1.5"
-              strokeMiterlimit="10"
-            >
-              <path d="M8.047 13.635c3.003 0 5.438-2.468 5.438-5.512 0-3.045-2.434-5.513-5.438-5.513-3.003 0-5.437 2.468-5.437 5.513 0 3.044 2.434 5.512 5.437 5.512z" />
-              <path d="M15.39 15.39 12 11.955" strokeLinejoin="round" />
-            </g>
-            <defs>
-              <clipPath id="bxdvyg8zna">
-                <path fill="#fff" d="M0 0h18v18H0z" />
-              </clipPath>
-            </defs>
-          </svg>
+              <svg
+                onClick={() => navigate("/search/0/undefined/new")}
+                className="hover:cursor-pointer ml-1"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  clipPath="url(#bxdvyg8zna)"
+                  stroke="#000"
+                  strokeWidth="1.5"
+                  strokeMiterlimit="10"
+                >
+                  <path d="M8.047 13.635c3.003 0 5.438-2.468 5.438-5.512 0-3.045-2.434-5.513-5.438-5.513-3.003 0-5.437 2.468-5.437 5.513 0 3.044 2.434 5.512 5.437 5.512z" />
+                  <path d="M15.39 15.39 12 11.955" strokeLinejoin="round" />
+                </g>
+                <defs>
+                  <clipPath id="bxdvyg8zna">
+                    <path fill="#fff" d="M0 0h18v18H0z" />
+                  </clipPath>
+                </defs>
+              </svg>
+            </div>
+          </div>
+          <AlarmAlert
+            newNotice={newNotice}
+            setNewNotice={setNewNotice}
+          ></AlarmAlert>
         </div>
       </div>
-      <AlarmAlert
-        newNotice={newNotice}
-        setNewNotice={setNewNotice}
-      ></AlarmAlert>
-    </div>
+    </>
   )
 }
 

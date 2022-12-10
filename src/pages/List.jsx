@@ -120,7 +120,7 @@ const List = () => {
       }}
     >
       <Layout>
-        <div className="pt-8 ml-[25px] mr-[26px]">
+        <div className="pt-8 mx-[26px]">
           <div>
             <div className=" font-normal text-sm">지금</div>
             <div className="flex flex-row justify-between items-center">
@@ -210,16 +210,16 @@ const List = () => {
             </div>
           </div>
         </div>
-        <div className="overflow-x-auto ">
-          <div className="flex felx-nowrap h-12 mt-6 mb-4 pl-6">
+        <div className="overflow-x-auto scrollbar-hide">
+          <div className="flex felx-nowrap h-[48px] mt-6 mb-4 pl-6">
             {param.category === "all" ? (
-              <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
+              <button className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 전체
               </button>
             ) : (
               <button
                 onClick={() => navigate(`/list/${param.gu}/all/${param.sort}`)}
-                className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
+                className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 전체
               </button>
@@ -231,43 +231,43 @@ const List = () => {
             ) : (
               <button
                 onClick={() => navigate(`/list/${param.gu}/공유/${param.sort}`)}
-                className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
+                className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 공유
               </button>
             )}
             {param.category === "질문" ? (
-              <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
+              <button className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 질문
               </button>
             ) : (
               <button
                 onClick={() => navigate(`/list/${param.gu}/질문/${param.sort}`)}
-                className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
+                className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 질문
               </button>
             )}
             {param.category === "맛집" ? (
-              <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
+              <button className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 맛집
               </button>
             ) : (
               <button
                 onClick={() => navigate(`/list/${param.gu}/맛집/${param.sort}`)}
-                className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
+                className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 맛집
               </button>
             )}
             {param.category === "일상" ? (
-              <button className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
+              <button className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 일상
               </button>
             ) : (
               <button
                 onClick={() => navigate(`/list/${param.gu}/일상/${param.sort}`)}
-                className="shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
+                className=" shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-[14px] font-medium bg-white text-bb22 active:bg-bbpurple active:text-white w-20 h-10 rounded-full mr-3"
               >
                 일상
               </button>

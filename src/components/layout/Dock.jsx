@@ -25,7 +25,12 @@ const Dock = () => {
   }
   const onList = () => {
     console.log(gu)
-    if (gu === (null || "null" || undefined)) {
+    if (
+      gu === null ||
+      gu === "null" ||
+      gu === undefined ||
+      gu === "undefined"
+    ) {
       alert("구가 선택되지 않았습니다.")
       setSelect(true)
       console.log(select)
@@ -38,7 +43,12 @@ const Dock = () => {
 
   const onInfo = () => {
     console.log(gu)
-    if (gu === (null || "null" || undefined)) {
+    if (
+      gu === null ||
+      gu === "null" ||
+      gu === undefined ||
+      gu === "undefined"
+    ) {
       alert("구가 선택되지 않았습니다.")
       setSelect(true)
     } else if (!nickName) {
@@ -59,7 +69,7 @@ const Dock = () => {
             <div className="max-w-[420px] mx-auto pl-[25px] pr-[26px]">
               <div className="w-full text-right mt-[24px]">
                 <button
-                  className="origin-center rotate-45 transition-transform duration-300 mx-auto mt-[4px]"
+                  className="rotate-45 transition-transform duration-300 mx-auto mt-[52px]"
                   onClick={() => setSelect(false)}
                 >
                   <svg

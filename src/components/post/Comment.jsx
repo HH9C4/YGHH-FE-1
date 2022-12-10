@@ -4,6 +4,7 @@ import { commentApis, chatApis } from "../../api/instance"
 import { useRecoilState } from "recoil"
 import { postDetail } from "../state/store"
 import { useNavigate } from "react-router-dom"
+import UserToggle from "../elements/UserToggle"
 const Comment = () => {
   const navigate = useNavigate()
   const [data, setData] = useRecoilState(postDetail)
@@ -44,7 +45,6 @@ const Comment = () => {
     nickName: nickName,
   }
   //댓글 삭제 요청을 위한 level 변수 생성
-  const level = 2
 
   const onClickChatting = (commenterName) => {
     const obj = {
@@ -63,6 +63,8 @@ const Comment = () => {
     //   300,
     // );
   }
+
+  const level = 2
 
   return (
     <>
@@ -83,6 +85,20 @@ const Comment = () => {
                     className="w-[20px] h-[20px] border-[0.5px] border-bbBB rounded-full"
                     src={item.profileImage}
                   />
+                  {nickName !== item.accountName && (
+                    <>
+                      {/* <p className="mx-2">|</p>
+                    <button
+                      className="font-medium text-bb22"
+                      onClick={() => onClickChatting(item.accountName)}
+                    >
+                      채팅하기
+                    </button> */}
+                      <div className="z-20">
+                        <UserToggle data={item} level={level}></UserToggle>
+                      </div>
+                    </>
+                  )}
                   <p className=" text-[12px] pl-[3px] text-left font-bold ">
                     {item.accountName}
                   </p>
@@ -107,18 +123,6 @@ const Comment = () => {
                 <p>{item.createdAt}</p>
                 <p className="mx-2">|</p>
                 <p className="">{data.gu}</p>
-
-                {nickName !== item.accountName && (
-                  <>
-                    <p className="mx-2">|</p>
-                    <button
-                      className="font-medium text-bb22"
-                      onClick={() => onClickChatting(item.accountName)}
-                    >
-                      채팅하기
-                    </button>
-                  </>
-                )}
                 {checkOwner.nickName === item.accountName ? (
                   <>
                     <p className="mx-2 text-bb66">|</p>

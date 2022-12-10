@@ -11,6 +11,11 @@ const ChatRoomPage = () => {
   const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`)
   const ws = webstomp.over(sock)
   const userNickName = localStorage.getItem("nickName")
+  const [display, setDisplay] = useState(false)
+  const onToggle = () => {
+    setDisplay(!display)
+  }
+
   const [chatData, setChatData] = useState([])
 
   // ListReducer: (state, action) => {
@@ -33,13 +38,13 @@ const ChatRoomPage = () => {
     // dispatch(__getinitialChatList({ chatList2.roomId }));
     wsConnectSubscribe()
     // dispatch(__getinitialChatList(1));
+    localStorage.setItem("location", "chat")
     getinitialChatList(id)
     return () => {
       onbeforeunload()
     }
   }, [id])
 
-  //소켓이 끊겼을때 감지해서 페이지를 이탈했을때 스토어를 리셋 array splice
   const [chatBody, setChatBody] = useState("")
   const content = {
     sender: localStorage.getItem("nickName"),
@@ -77,10 +82,12 @@ const ChatRoomPage = () => {
     )
   } //stomp 메시지 에러 waitForConnection함수로 해결
 
+  // 연결해제, 구독해제
   const onbeforeunload = () => {
     try {
       ws.disconnect(
         () => {
+          localStorage.setItem("location", "")
           ws.unsubscribe("sub-0")
           clearTimeout(waitForConnection)
         },
@@ -123,19 +130,31 @@ const ChatRoomPage = () => {
 
   //채팅방 나가기
   const fetchRooms = async () => {
-    const response = await chatApis.leaveRoom(chatData?.roomId)
+    const response = await chatApis.leaveRoom(chatData.roomId)
     navigate("/chat")
   }
-  //채팅방 나가기
   const leaveChat = () => {
-    fetchRooms()
+    const result = window.confirm("채팅방을 나가시겠습니까?")
+    if (result) {
+      fetchRooms()
+    }
+  }
+
+  const onTop = () => {
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      behavior: "smooth",
+      top: 0,
+    })
   }
 
   // 채팅창 치면 가장 하단으로 스크롤
   useEffect(() => {
     if (scrollRef) {
       scrollRef.current.scrollIntoView({
-        block: "end",
+        false: false,
+        // block: "end",
         inline: "nearest",
       })
     }
@@ -143,11 +162,11 @@ const ChatRoomPage = () => {
 
   return (
     <Layout>
-      <div className="w-full pt-6 pl-[25px] pr-[26px] pb-[108px]">
-        <div className="w-full relative flex justify-between items-center">
+      <div className="w-full relative max-w-[420px] pt-6 pl-[25px] pr-[26px] pb-[108px]">
+        <div className="bg-bbLpurple h-[60px] z-30 mx-auto w-full max-w-[420px] sticky flex justify-between items-center left-0 top-[52px]">
           <button
             onClick={() => navigate("/chat")}
-            className="w-[55px] active:animate-ping"
+            className="w-[40px] active:animate-ping"
           >
             <svg
               width="7"
@@ -172,80 +191,36 @@ const ChatRoomPage = () => {
               />
             </svg>
           </button>
-          <h1 className="text-bb22 font-bold text-[20px]">채팅</h1>
-          <div className="flex ">
+          <button onClick={onTop} className="w-full">
+            <h1 className="text-bb22 font-bold text-b16">
+              {chatData.yourName}
+            </h1>
+          </button>
+          <button
+            className="w-[40px] rotate-45 mx-auto mt-[12px]"
+            onClick={leaveChat}
+          >
             <svg
-              className="mr-[21px]"
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
+              width="32"
+              height="32"
+              viewBox="0 0 32 32"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <g clipPath="url(#clip0_718_2869)">
-                <path
-                  d="M8.04748 14.1975C4.73998 14.1975 2.04749 11.475 2.04749 8.12249C2.04749 4.76999 4.73998 2.04749 8.04748 2.04749C11.355 2.04749 14.0475 4.76999 14.0475 8.12249C14.0475 11.475 11.355 14.1975 8.04748 14.1975ZM8.04748 3.17249C5.35498 3.17249 3.17249 5.39249 3.17249 8.12249C3.17249 10.8525 5.36248 13.0725 8.04748 13.0725C10.7325 13.0725 12.9225 10.8525 12.9225 8.12249C12.9225 5.39249 10.7325 3.17249 8.04748 3.17249Z"
-                  fill="#222222"
-                />
-                <path
-                  d="M15.39 15.9525C15.2475 15.9525 15.0975 15.9 14.9925 15.7875L11.6025 12.3525C11.385 12.135 11.385 11.775 11.6025 11.5575C11.82 11.34 12.18 11.34 12.3975 11.5575L15.7875 14.9925C16.005 15.21 16.005 15.57 15.7875 15.7875C15.675 15.8925 15.5325 15.9525 15.39 15.9525Z"
-                  fill="#222222"
-                />
-              </g>
-              <defs>
-                <clipPath id="clip0_718_2869">
-                  <rect width="18" height="18" fill="white" />
-                </clipPath>
-              </defs>
-            </svg>
-
-            {/* 신고하기 */}
-            <svg
-              onClick={leaveChat}
-              width="18"
-              height="18"
-              viewBox="0 0 18 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="1.5"
-                y1="3.5"
-                x2="16.5"
-                y2="3.5"
-                stroke="#222222"
-                strokeLinejoin="round"
-              />
-              <line
-                x1="1.5"
-                y1="9.5"
-                x2="16.5"
-                y2="9.5"
-                stroke="#222222"
-                strokeLinejoin="round"
-              />
-              <line
-                x1="1.5"
-                y1="15.5"
-                x2="16.5"
-                y2="15.5"
-                stroke="#222222"
-                strokeLinejoin="round"
+              <path
+                d="M19 11H13V5C13 4.73478 12.8946 4.48043 12.7071 4.29289C12.5196 4.10536 12.2652 4 12 4C11.7348 4 11.4804 4.10536 11.2929 4.29289C11.1054 4.48043 11 4.73478 11 5V11H5C4.73478 11 4.48043 11.1054 4.29289 11.2929C4.10536 11.4804 4 11.7348 4 12C4 12.2652 4.10536 12.5196 4.29289 12.7071C4.48043 12.8946 4.73478 13 5 13H11V19C11 19.2652 11.1054 19.5196 11.2929 19.7071C11.4804 19.8946 11.7348 20 12 20C12.2652 20 12.5196 19.8946 12.7071 19.7071C12.8946 19.5196 13 19.2652 13 19V13H19C19.2652 13 19.5196 12.8946 19.7071 12.7071C19.8946 12.5196 20 12.2652 20 12C20 11.7348 19.8946 11.4804 19.7071 11.2929C19.5196 11.1054 19.2652 11 19 11Z"
+                fill="#222222"
               />
             </svg>
-          </div>
+          </button>
         </div>
         <div sx={{ height: "80%", overflow: "scroll" }}>
-          {chatData !== (undefined || null) &&
-            chatData.chatList?.length !== 0 &&
-            // chatArr?.map((item) => {
-            chatData?.chatList?.map((item, i) => {
+          {chatData.chatList !== undefined &&
+            chatData.chatList !== null &&
+            chatData.chatList.map((item, i) => {
               // return localStorage.getItem("nickName") === item.sender ?
               return userNickName !== item.sender ? (
-                <div
-                  key={chatData.yourName + Math.random()}
-                  className="flex pb-[12px] mt-[12px] items-start"
-                >
+                <div className="flex pb-[12px] mt-[12px] items-start">
                   <img
                     className="rounded-full w-[40px] border-[0.5px] border-bbBB h-[40px] object-cover shrink-0"
                     alt="profileImg"
@@ -267,17 +242,14 @@ const ChatRoomPage = () => {
                       <path d="M0 0H9V9L0 0Z" fill="white" />
                     </svg>
                     <div className="max-w-[185px] overflow-hidden py-[7px] bg-white rounded-lg ml-[9px] px-[10px]">
-                      <p className="break-all leading-[1] mt-[2px] text-bb22 text-b12 font-medium">
+                      <p className="break-all leading-[1] my-[1px] text-bb22 text-b12 font-medium">
                         {item.message}
                       </p>
                     </div>
                   </div>
                 </div>
               ) : (
-                <div
-                  key={chatData.myName + Math.random()}
-                  className="flex items-center justify-end"
-                >
+                <div className="flex items-center mt-[12px] justify-end">
                   <div className="relative flex items-center">
                     <svg
                       className="absolute top-[14px] right-[43px]"
@@ -303,7 +275,6 @@ const ChatRoomPage = () => {
                 </div>
               )
             })}
-          <div ref={scrollRef}></div>
         </div>
 
         <div className="fixed bottom-[80px] px-[20px] py-[8px] left-0 w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple">
@@ -311,7 +282,7 @@ const ChatRoomPage = () => {
             <input
               className="placeholder:text-[14px] rounded-md placeholder:font-medium leading-10 text-[14px] text-bb22
         outline-0 pl-2 h-10 w-full  "
-              placeholder="댓글을 입력해주세요."
+              placeholder="메시지를 입력해주세요."
               value={chatBody}
               onKeyPress={appKeyPress}
               onChange={inputHandler}
@@ -334,6 +305,7 @@ const ChatRoomPage = () => {
                     ></input> */}
         {/* <button onSubmit={appKeyPress} onClick={onSubmitHandler}>전송</button> */}
       </div>
+      <div ref={scrollRef}></div>
     </Layout>
   )
 }
