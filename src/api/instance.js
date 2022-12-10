@@ -35,8 +35,8 @@ hInstance.interceptors.response.use(
     return response
   },
   async function (error) {
-    const originalConfig = error.config
-    if (error.response.data.status === "303 SEE_OTHER") {
+    const originalConfig = error?.config
+    if (error?.response?.data?.status === "303 SEE_OTHER") {
       if (!isTokenRefresh) {
         isTokenRefresh = true
         try {
@@ -49,7 +49,7 @@ hInstance.interceptors.response.use(
             },
           })
 
-          const Access_Token = data.headers.authorization
+          const Access_Token = data?.headers.authorization
           localStorage.setItem("Authorization", Access_Token)
 
           window.location.reload()
@@ -67,7 +67,7 @@ hInstance.interceptors.response.use(
       localStorage.removeItem("Authorization")
       localStorage.removeItem("Refresh_Token")
       localStorage.removeItem("nickName")
-      alert("로그인이 만료되었습니다. 다시 로그인 해주세요.")
+      alert("로그인이 필요한 페이지입니다. 다시 로그인 해주세요.")
       window.location.replace("/login")
     }
     return Promise.reject(error)
@@ -86,6 +86,33 @@ export const kakaoinstance = axios.create({
   },
   withCredentials: true,
 })
+
+//채팅 API
+export const chatApis = {
+  //수락버튼
+  // complete: (complete) => hInstance.put(`/room/${complete}`),
+
+  //채팅방 나가기
+  leaveRoom: (roomID) => hInstance.put(`/room/${roomID}`),
+
+  //채팅방 생성
+  CreateRoom: (createRoom) => hInstance.post(`/room`, createRoom),
+
+  //채팅방 목록 조회
+  getRoomList: () => hInstance.get(`/myrooms`),
+
+  //채팅방 입장
+  getInitialChatList: (roomID) => hInstance.get(`/room/${roomID}`),
+
+  //채팅방 입장
+  getInitialChatList2: (roomID) => hInstance.get(`/room/${roomID}`),
+}
+
+//실시간 알림 API
+export const notificationApis = {
+  //수락버튼
+  getNotificationAX: (complete) => hInstance.put(`/room/${complete}`),
+}
 
 export const membersApis = {
   //로컬용 테스트로그인
@@ -135,6 +162,9 @@ export const contentsApis = {
 
   //컨텐츠 삭제
   deleteContentAX: (data) => hInstance.delete(`/api/posts/${data.postId}`),
+
+  //신고하기
+  reportContentAX: (data) => hInstance.post(`/api/report`, data),
 
   //게시글 전체 조회(Hot/인기순)(contentInfo안에 ✅gu / ✅hot이 객체로 들어감)
   //게시글 전체 조회(New/최신순)(contentInfo안에 ✅gu / 🙏sort가 객체로 들어감)
@@ -204,19 +234,20 @@ export const contentsApis = {
 
   //좋아요
   likesAX: (postInfo) =>
-    hInstance.put(
-      `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
-    ),
+    hInstance.put(`/api/likes?level=${postInfo.level}&id=${postInfo.postId}`),
 
   //좋아요 취소
 
   cancelLikesAX: (postInfo) =>
-    hInstance.put(
-      `/api/likes?level=${postInfo.level}&id=${postInfo.contentId}`
-    ),
+    hInstance.put(`/api/likes?level=${postInfo.level}&id=${postInfo.postId}`),
 
   // 지역구별 정보
   infoAX: (gu) =>
+    nhInstance.get(`/api/guinfo`, {
+      params: { gu: gu },
+    }),
+
+  infoAX2: (gu) =>
     hInstance.get(`/api/guinfo`, {
       params: { gu: gu },
     }),
@@ -224,5 +255,3 @@ export const contentsApis = {
   // 홈 정보
   homeInfoAX: () => hInstance.get(`api/maininfo`),
 }
-
-export default { hInstance, nhInstance }

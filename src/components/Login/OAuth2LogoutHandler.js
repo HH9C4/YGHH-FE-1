@@ -1,14 +1,32 @@
 import React from "react"
-import { useDispatch } from "react-redux"
 import { useEffect } from "react"
 import Loading from "./Loading"
-import { __kakaoLogout } from "../../redux/modules/memberSlice"
+import { membersApis } from "../../api/instance"
 
 const OAuth2LogoutHandler = () => {
-  const dispatch = useDispatch()
+  //로그아웃 Thunk
+  const kakaoLogout = async (payload) => {
+    try {
+      const res = await membersApis.logoutAX(payload)
+      if (res.data.status === "200 OK") {
+        localStorage.removeItem("Authorization")
+        localStorage.removeItem("Refresh_Token")
+        localStorage.removeItem("nickName")
+        localStorage.removeItem("profileImage")
+        localStorage.removeItem("ageRange")
+        localStorage.removeItem("email")
+        localStorage.removeItem("gender")
+        localStorage.removeItem("bookmarkList")
 
-  useEffect(async () => {
-    await dispatch(__kakaoLogout())
+        window.location.replace("/")
+      }
+    } catch (error) {
+      return
+    }
+  }
+
+  useEffect(() => {
+    kakaoLogout()
   }, [])
 
   return <Loading />

@@ -10,6 +10,7 @@ module.exports = {
         require("@tailwindcss/typography"),
         require("tailwindcss-children"),
         require("@tailwindcss/line-clamp"),
+        require("tailwind-scrollbar-hide"),
       ],
     },
   },

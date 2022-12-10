@@ -1,19 +1,22 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Layout from "../components/layout/Layout"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-import { useDispatch } from "react-redux"
-import { __getHome } from "../redux/modules/searchSlice"
-import { useSelector } from "react-redux"
-import { setLocation } from "../redux/modules/memberSlice"
 import SelectGuInfo from "../components/elements/SelectGuInfo"
-
+import { contentsApis } from "../api/instance"
 const Home = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const homeData = useSelector((state) => state.search.home)
+  const [homeData, setHomeData] = useState()
+  const getHome = async (payload) => {
+    try {
+      const res = await contentsApis.homeInfoAX()
+      return setHomeData(res.data.data)
+    } catch (error) {
+      return
+    }
+  }
 
   const topSettings = {
     dots: false,
@@ -38,11 +41,20 @@ const Home = () => {
     autoplaySpeed: 3000,
   }
   useEffect(() => {
-    dispatch(__getHome())
+    getHome()
   }, [])
 
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+
   useEffect(() => {
-    dispatch(setLocation("home"))
+    setLocation("home")
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+    })
   }, [])
 
   return (
@@ -52,12 +64,11 @@ const Home = () => {
         className="w-full pl-[25px] pr-[26px] pt-[32px]"
       >
         <Slider {...topSettings}>
-          {homeData.jamTopList !== undefined &&
-            homeData.jamTopList?.map((item) => {
+          {homeData?.jamTopList !== undefined &&
+            homeData?.jamTopList?.map((item) => {
               return (
-                <>
+                <div key={Math.random() * 10}>
                   <div
-                    key={Math.random() * 10}
                     onClick={() => navigate(`/info/${item.guNm}`)}
                     className="flex justify-between items-center mb-[8px] h-[48px] px-[12px] bg-white rounded-md "
                   >
@@ -109,13 +120,13 @@ const Home = () => {
                       </a>
                     </div>
                   </div>
-                </>
+                </div>
               )
             })}
         </Slider>
         <Slider {...bottomSettings}>
-          {homeData.popChangeList !== undefined &&
-            homeData.popChangeList?.map((item) => {
+          {homeData?.popChangeList !== undefined &&
+            homeData?.popChangeList?.map((item) => {
               return (
                 <div
                   key={Math.random() * 10}

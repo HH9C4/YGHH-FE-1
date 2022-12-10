@@ -1,29 +1,48 @@
 import React, { useState } from "react"
 import { useParams } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  __insertComment,
-  __getContentDetail,
-} from "../redux/modules/contentsSlice"
+import { contentsApis, commentApis } from "../api/instance"
+import { postDetail } from "../components/state/store"
+import { useRecoilState } from "recoil"
 import DetailPost from "../components/post/DetailPost"
 import Comment from "../components/post/Comment"
 import { useEffect } from "react"
 import Layout from "../components/layout/Layout"
-import { useNavigate } from "react-router-dom"
-import { setLocation } from "../redux/modules/memberSlice"
 
 const Detail = () => {
-  const dispatch = useDispatch("")
-  const navigate = useNavigate()
   //셀렉터로 상세조회 데이터 전부 불러오기
-  const contentData = useSelector((state) => state.contents.content)
+  const [contentData, setContentData] = useRecoilState(postDetail)
 
   const { id } = useParams()
+  //게시글 상세조회
+  const getContentDetail = async (payload) => {
+    try {
+      const res = await contentsApis.getContentDetailAX(payload)
 
-  //GET 요청 디스패치
+      setContentData(res.data.data)
+      return
+    } catch (error) {
+      return
+    }
+  }
+
+  //댓글 작성
+  const insertComment = async (payload) => {
+    try {
+      const res = await commentApis.commentAddAX(payload)
+      if (res.data.status === "201 CREATED") {
+        const cmt = res.data.data
+        setContentData({
+          ...contentData,
+          commentList: [...contentData.commentList, cmt],
+        })
+      }
+    } catch (error) {}
+  }
+
+  //GET 요청
   useEffect(() => {
-    dispatch(__getContentDetail(id))
-  }, [dispatch, id, contentData.isLiked])
+    getContentDetail(id)
+  }, [id])
 
   const [comment, setComment] = useState({})
 
@@ -47,7 +66,7 @@ const Detail = () => {
     if (comment.comment.trim() === "") {
       return alert("댓글을 입력하여 주십시오.")
     }
-    dispatch(__insertComment(obj))
+    insertComment(obj)
     setComment({
       comment: "",
     })
@@ -57,14 +76,26 @@ const Detail = () => {
     window.history.back()
   }
 
+  const setLocation = (l) => {
+    localStorage.setItem("location", l)
+  }
+  const setGu = (g) => {
+    localStorage.setItem("gu", g)
+  }
   useEffect(() => {
-    dispatch(setLocation("list"))
+    setLocation("list")
+    setGu(contentData.gu)
+    if (!window.scrollY) return
+    // 현재 위치가 이미 최상단일 경우 return
+    window.scrollTo({
+      top: 0,
+    })
   }, [])
 
   return (
     <Layout>
       <div className="w-full pt-[32px] pb-[100px]">
-        <div className="ml-[25px] mr-[26px] flex items-center mb-[32px]">
+        <div className="ml-[25px] mr-[26px] flex items-center mb-[32px] cursor-pointer">
           <svg
             onClick={goback}
             width="24"
@@ -80,10 +111,10 @@ const Detail = () => {
           </svg>
         </div>
         <div className="px-2">
-          <DetailPost></DetailPost>
+          <DetailPost data={contentData} />
         </div>
         <div className="fixed bottom-[80px] left-0 w-full shadow-[0_0_10px_0_rgba(0,0,0,0.1)] bg-bbLpurple">
-          <div className="flex items-center h-14 w-full max-w-[420px] mx-auto rounded-[5px] px-[12px] shrink-0">
+          <form className="flex items-center h-14 w-full max-w-[420px] mx-auto rounded-[5px] px-[12px] shrink-0">
             <input
               className="placeholder:text-[14px] rounded-md placeholder:font-medium leading-10 text-[14px] text-bb22
         outline-0 pl-2 h-10 w-full ml-5 "
@@ -100,11 +131,11 @@ const Detail = () => {
             >
               게시
             </button>
-          </div>
+          </form>
         </div>
         {/* 코멘트 컴포넌트 호출 및 셀렉터 값 Props로 넘기기 */}
         <div className="px-8">
-          <Comment></Comment>
+          <Comment />
         </div>
       </div>
     </Layout>

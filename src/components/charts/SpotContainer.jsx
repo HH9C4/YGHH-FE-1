@@ -11,7 +11,6 @@ const SpotContainer = ({ spot, settings, Slider }) => {
   return (
     <>
       <article
-        key={spot.area_nm}
         className={
           select
             ? "first-of-type:rounded-t-md last-of-type:rounded-b-md ml-[25px] mr-[26px] bg-white border-[0.5px] border-bbpurple"
@@ -46,7 +45,13 @@ const SpotContainer = ({ spot, settings, Slider }) => {
             />
           </svg>
         </button>
-        <div className="" style={{ display: select ? "block" : "none" }}>
+        <div
+          className={
+            select
+              ? "max-h-[564px] transition-all duration-300"
+              : "max-h-0 hidden transition-all duration-300"
+          }
+        >
           <div>
             <p className="flex justify-end font-medium pt-[16px] pr-[24px] text-bb66 text-[12px]">
               {spot.ppltn_time}

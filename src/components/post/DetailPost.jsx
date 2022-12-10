@@ -1,34 +1,16 @@
 import React, { useEffect } from "react"
-import { useParams, useNavigate } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  __getContentDetail,
-  __deleteContent,
-} from "../../redux/modules/contentsSlice"
+import { useNavigate } from "react-router-dom"
+
 import Likes from "./Likes"
 import EditToggle from "../elements/EditToggle"
+import UserToggle from "../elements/UserToggle"
 
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 
-const DetailPost = () => {
+const DetailPost = ({ data }) => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const data = useSelector((state) => state.contents.content)
-  // 게시글 삭제 버튼
-  const onPostDelete = (postId) => {
-    const obj = {
-      postId: postId,
-      gu: data.gu,
-    }
-    dispatch(__deleteContent(obj))
-  }
-
-  //삭제 버튼 작성자 확인
-  const checkOwner = {
-    nickName: localStorage.getItem("nickName"),
-  }
 
   const settings = {
     dots: true,
@@ -42,8 +24,6 @@ const DetailPost = () => {
     autoplaySpeen: 200,
   }
 
-  useEffect(() => {}, [])
-
   const level = 1
 
   return (
@@ -53,9 +33,13 @@ const DetailPost = () => {
           <div className="flex justify-between items-center">
             <div className="flex items-center">
               <img
+                alt="profileImg"
                 src={data.profileImage}
                 className="border-[0.5px] border-bbBB w-8 h-8 rounded-full object-cover"
               ></img>
+              <div className="z-20">
+                <UserToggle data={data} level={level}></UserToggle>
+              </div>
               <div className="ml-2 text-sm text-bb22 font-bold">
                 {data.accountName}
               </div>
@@ -70,6 +54,7 @@ const DetailPost = () => {
                 {data.imageUrl.map((img) => {
                   return (
                     <img
+                      alt="postImg"
                       className="border-[0.5px] border-bbBB mt-[12px] shrink-0 w-full h-[300px] object-cover"
                       key={img}
                       onClick={() => navigate(`/detail/${data.postId}`)}
@@ -87,7 +72,7 @@ const DetailPost = () => {
           <div className="flex justify-between items-end">
             <div className="mt-6 flex items-center">
               <Likes
-                data={data.postId}
+                postId={data.postId}
                 level={level}
                 isLiked={data.isLiked}
                 count={data.likeCount}

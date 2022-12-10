@@ -1,12 +1,10 @@
 import React, { useEffect } from "react"
 import Slider from "react-slick"
-import Layout from "../components/layout/Layout"
 import walkthorugh1 from "../assets/img/walkthrough1.svg"
 import walkthorugh2 from "../assets/img/walkthrough2.svg"
 import walkthorugh3 from "../assets/img/walkthrough3.svg"
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
 
 const WalkThrough = () => {
   const [currentPage, setCurrentPage] = useState(1)
@@ -15,6 +13,7 @@ const WalkThrough = () => {
   })
   const nickname = localStorage.getItem("nickName")
   const navigate = useNavigate()
+
   function NextArrow(props) {
     const { style, onClick } = props
     const onNextPage = () => {
@@ -37,7 +36,7 @@ const WalkThrough = () => {
             >
               {activeSlide.activeSlide2 === 0 ? (
                 <svg
-                  className="absolute top-[-90px]"
+                  className="absolute top-[-90px] cursor-pointer"
                   width="40"
                   height="8"
                   viewBox="0 0 40 8"
@@ -50,7 +49,7 @@ const WalkThrough = () => {
                 </svg>
               ) : (
                 <svg
-                  className="absolute top-[-90px]"
+                  className="absolute top-[-90px] cursor-pointer"
                   width="40"
                   height="8"
                   viewBox="0 0 40 8"
@@ -73,11 +72,12 @@ const WalkThrough = () => {
         ) : (
           <div className="relative ">
             <div
+              onClick={() => navigate("/home")}
               className="h-[48px] w-[324px] absolute top-[110px]  
-                            bg-bbpurple text-center flex justify-center rounded-[90px]"
+                            bg-bbpurple text-center flex justify-center rounded-[90px] cursor-pointer"
             >
               <svg
-                className="absolute top-[-90px]"
+                className="absolute top-[-90px] cursor-pointer"
                 width="40"
                 height="8"
                 viewBox="0 0 40 8"
@@ -89,7 +89,6 @@ const WalkThrough = () => {
                 <circle cx="36" cy="4" r="4" fill="#7F73FF" />
               </svg>
               <button
-                onClick={() => navigate("/home")}
                 className="text-white text-b14 font-medium leading-[17px] items-center"
               >
                 시작하기
@@ -159,7 +158,7 @@ const WalkThrough = () => {
   }
 
   return (
-    <div className="bg-bbLpurple w-full min-w-[100vw] h-full min-h-[100vh] overflow-scroll font-sans">
+    <div className="bg-bbLpurple w-full min-w-[100vw] h-full min-h-[100vh] overflow-scroll scrollbar-hide font-sans">
       <div className="bg-bbLpurple pb-[96px]  max-w-[420px] h-full min-h-[100vh] mx-auto">
         <div
           onClick={() => navigate("/home")}

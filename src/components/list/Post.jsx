@@ -1,23 +1,23 @@
 import React from "react"
 import { useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
+
 import Likes from "../post/Likes"
 import EditToggle from "../elements/EditToggle"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
+import UserToggle from "../elements/UserToggle"
 
 const Post = ({ posts }) => {
   const navigate = useNavigate()
   const settings = {
     dots: true,
     dotsClass: "post",
-    arrows: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeen: 200,
   }
 
@@ -25,8 +25,8 @@ const Post = ({ posts }) => {
 
   return (
     <>
-      {posts !== undefined &&
-        posts.map((data) => {
+      {posts &&
+        posts?.map((data) => {
           return (
             <div className="w-full" key={String(data.postId) + Math.random()}>
               <div className="bg-white p-6 mb-6 rounded-md shadow-[0_0_10px_0_rgba(0,0,0,0.1)]">
@@ -37,6 +37,9 @@ const Post = ({ posts }) => {
                         src={data.profileImage}
                         className="border-[0.5px] border-bbBB w-8 h-8 rounded-full object-cover"
                       ></img>
+                      <div className="z-20">
+                        <UserToggle data={data} level={level}></UserToggle>
+                      </div>
                       <div className="ml-2 text-sm text-bb22 font-bold">
                         {data.accountName}
                       </div>
@@ -72,7 +75,7 @@ const Post = ({ posts }) => {
                   <div className="mt-6 flex items-center justify-between">
                     <div className="flex items-center">
                       <Likes
-                        data={data.postId}
+                        postId={data.postId}
                         level={level}
                         isLiked={data.isLiked}
                         count={data.likeCount}
@@ -93,7 +96,7 @@ const Post = ({ posts }) => {
                   </div>
                   <div className="flex flex-wrap">
                     {data.tagList !== (undefined || null) &&
-                      data.tagList.map((postTag) => {
+                      data?.tagList?.map((postTag) => {
                         return (
                           <button
                             key={postTag}

@@ -16,13 +16,13 @@ const TopBtn = () => {
   }
   return (
     <button
-      className="fixed bottom-[156px] right-[30px] bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full w-[56px] h-[56px] active:bg-[#efefef]"
+      className="fixed bottom-[156px] right-[30px] bg-white shadow-[0_0_10px_0_rgba(0,0,0,0.1)] rounded-full w-[40px] h-[40px] active:bg-[#efefef]"
       onClick={handleTop}
     >
       <svg
         className="mx-auto"
-        width="32"
-        height="32"
+        width="23"
+        height="23"
         viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
