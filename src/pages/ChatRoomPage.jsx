@@ -1,21 +1,33 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
-import { __getinitialChatList, ListReducer } from "../redux/modules/chatSlice"
 import SockJS from "sockjs-client"
 import Layout from "../components/layout/Layout"
 import webstomp from "webstomp-client"
-import { leaveRoom, chatApis } from "../api/instance"
+import { chatApis } from "../api/instance"
 
 const ChatRoomPage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const chatData = useSelector((state) => state.chatting.chatList)
-  const [readStatus, setReadStatus] = useState(false)
   const sock = new SockJS(`https://boombiboombi.o-r.kr/ws`)
   const ws = webstomp.over(sock)
   const userNickName = localStorage.getItem("nickName")
+  const [chatData, setChatData] = useState()
+
+  const ListReducer = (payload) => {
+setChatData(...chatData, chatList : ...chatList, payload)
+}
+// ListReducer: (state, action) => {
+//   state.chatList.chatList.push(action.payload)
+// },
+
+  const getinitialChatList = async (payload) => {
+        try {
+            const response = await chatApis.getInitialChatList(payload)
+            return setChatData(response.data.data);
+        } catch (error) {
+            return 
+        }
+    }
 
   // ⭐️채팅방 입장
   useEffect(() => {
@@ -23,7 +35,7 @@ const ChatRoomPage = () => {
     // dispatch(__getinitialChatList({ chatList2.roomId }));
     wsConnectSubscribe()
     // dispatch(__getinitialChatList(1));
-    dispatch(__getinitialChatList(id))
+    getinitialChatList(id)
     return () => {
       onbeforeunload()
     }
@@ -46,7 +58,7 @@ const ChatRoomPage = () => {
       ws.connect(headers, (frame) => {
         ws.subscribe(`/sub/${id}`, (response) => {
           let data = JSON.parse(response.body)
-          dispatch(ListReducer(data))
+          ListReducer(data)
         })
       })
     } catch (error) {}

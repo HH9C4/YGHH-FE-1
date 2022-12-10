@@ -12,7 +12,7 @@ import { contentsApis } from "../api/instance"
 const PopulationInfo = () => {
   const params = useParams()
   const gu = params.gu
-  const guNm = useSelector((state) => state.members.user.gu)
+  const guNm = localStorage.getItem("gu")
   const [select, setSelect] = useState(false)
   const [guInfo, setGuInfo] = useState()
   const [bookMarked, setBookMarked] = useState()

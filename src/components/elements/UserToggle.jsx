@@ -1,21 +1,31 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { __CreateRoom } from "../../redux/modules/chatSlice"
+import { chatApis } from "../../api/instance"
 const UserToggle = ({ data }) => {
   const [display, setDisplay] = useState(false)
   const onToggle = () => {
     setDisplay(!display)
   }
+  const [chatList, setChatList] = useState()
+
+  const CreateRoom = async (payload) => {
+    try {
+      const response = await chatApis.CreateRoom(payload)
+      navigate(`/ChatRoomPage/${response.data.data.roomId}`)
+      return setChatList(response.data.data)
+    } catch (error) {
+      return
+    }
+  }
+
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const onClickChatting = () => {
     const obj = {
       otherUserNickname: data.accountName,
     }
     const username = localStorage.getItem("nickName")
     if (username !== data.accountName) {
-      dispatch(__CreateRoom(obj))
+      CreateRoom(obj)
     }
   }
 

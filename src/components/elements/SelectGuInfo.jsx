@@ -1,9 +1,8 @@
 import React, { useState } from "react"
-import { useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
 
 const SelectGuInfo = () => {
-  const location = useSelector((state) => state.members.user.location)
+  const location = localStorage.getItem("location")
 
   const bookmarkList = localStorage.getItem("bookmarkList")
   const [bookmarked, setBookmarked] = useState({

@@ -1,10 +1,7 @@
-import React, { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate, useParams, useLocation } from "react-router-dom"
-import {
-  __getinitialChatList2,
-  __getRoomList,
-} from "../redux/modules/chatSlice"
+import React, { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { useNavigate, useParams } from "react-router-dom"
+
 import { chatApis } from "../api/instance"
 import Layout from "../components/layout/Layout"
 import useInput from "../hooks/useInput"
@@ -12,7 +9,6 @@ import useInput from "../hooks/useInput"
 const ChatList = () => {
   const { id } = useParams()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const [search, setSearch, searchHandle] = useInput()
   const [rooms, setRooms] = useState([])
   const [room, setRoom] = useState()
