@@ -15,10 +15,10 @@ import FindAddress from "../pages/FindAddress"
 import PopulationInfo from "../pages/PopulationInfo"
 import LoginDev from "../pages/LoginDev"
 import Setting from "../pages/Setting"
-import WalkThrough from '../pages/WalkThrough'
-import ChatRoomPage from '../pages/ChatRoomPage'
-import ChatList from '../pages/ChatList'
-import ReportContainer from "../components/form/ReportContainer"
+import WalkThrough from "../pages/WalkThrough"
+import ChatRoomPage from "../pages/ChatRoomPage"
+import ChatList from "../pages/ChatList"
+import Report from "../pages/Report"
 const Router = () => {
   return (
     <BrowserRouter>
@@ -39,7 +39,7 @@ const Router = () => {
         <Route path="/setting" element={<Setting />} />
         <Route path="/chat" element={<ChatList />} />
         <Route path="/chatRoomPage/:id" element={<ChatRoomPage />} />
-        <Route path="/report" element={<ReportContainer />} />
+        <Route path="/report" element={<Report />} />
 
         {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
         {/* 카카오 */}
