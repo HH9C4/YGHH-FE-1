@@ -192,7 +192,13 @@ const ChatRoomPage = () => {
             </svg>
           </button>
           <button onClick={onTop} className="w-full">
-            <h1 className="text-bb22 font-bold text-b16">
+            <h1
+              className={
+                chatData?.yourName.length >= 16
+                  ? "text-bb22 font-bold text-b14"
+                  : "text-bb22 font-bold text-b16"
+              }
+            >
               {chatData.yourName}
             </h1>
           </button>

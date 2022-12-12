@@ -36,20 +36,26 @@ const Mypage = () => {
     <Layout>
       {/* <button onClick={deleteAccount}>카카오 탈퇴</button> */}
       <div className="flex items-end pt-8 ml-[25px] mr-[26px] mb-10">
-        <div>
+        <div className="shrink-0 border-[0.5px] border-bbBB rounded-full mr-[24px]">
           <img
-            className="border-[0.5px] border-bbBB w-20 h-20 object-cover rounded-full mr-6"
+            className="w-[80px] h-[80px]  object-cover rounded-full"
             src={userImg}
           />
         </div>
         <div>
-          <div className={userNm.length >= 5 ? "relative" : "flex items-end"}>
-            <h3 className="text-b24 text-bb22 font-bold mr-2">{userNm}</h3>
+          <div className="relative flex items-end">
+            <h3
+              className={
+                userNm.length >= 15
+                  ? "text-b20 text-bb22 font-bold mr-2"
+                  : "text-b24 text-bb22 font-bold mr-2 leading-[1.8rem]"
+              }
+            >
+              {userNm}
+            </h3>
             <div
               className={
-                userNm.length >= 5
-                  ? "absolute text-b12 text-bb66 mb-0.5 left-[0] top-[36px]"
-                  : "text-b12 text-bb66 mb-0.5"
+                userNm.length >= 5 ? "hidden" : "text-b12 text-bb66 mb-0.5"
               }
             >
               {userAge !== "비공개" ? `${userAge.slice(0, 2)}대` : userAge}{" "}
@@ -57,13 +63,17 @@ const Mypage = () => {
             </div>
           </div>
           <div className="text-b12 text-bb22 flex">
+            <div
+              className={
+                userNm.length >= 5 ? "text-b12 text-bb66 mr-[4px]" : "hidden"
+              }
+            >
+              {userAge !== "비공개" ? `${userAge.slice(0, 2)}대` : userAge}{" "}
+              {gender}
+            </div>
             <button
               onClick={() => navigate("/setting")}
-              className={
-                userNm.length >= 5
-                  ? "ml-[72px] w-full flex items-center"
-                  : "flex items-center"
-              }
+              className="flex items-center"
             >
               프로필 설정
               <svg

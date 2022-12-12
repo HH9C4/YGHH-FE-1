@@ -128,11 +128,17 @@ const ChatList = () => {
                   ></img>
 
                   <div className="ml-[12px] flex flex-col mt-[4px]">
-                    <p className="text-[12px] text-bb22 font-bold">
+                    <p
+                      className={
+                        item?.roomName.length >= 16
+                          ? "text-[10.5px] text-bb22 font-bold"
+                          : "text-[12px] text-bb22 font-bold"
+                      }
+                    >
                       {item.roomName}
                     </p>
                     <div className="overflow-hidden h-[32px] ">
-                      <p className="break-all leading-[1] mt-[2px] text-[11px] font-medium">
+                      <p className="break-all leading-[1] mt-[2px] text-[11px] font-normal text-bb22">
                         {item.lastMessage}
                       </p>
                     </div>
