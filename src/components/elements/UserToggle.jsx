@@ -68,6 +68,9 @@ const UserToggle = ({ data, level }) => {
           )}
         </div>
       ) : (
+        ""
+      )}
+      {localStorage.getItem("nickName") !== data?.accountName && level === 2 ? (
         <div className="flex hover:cursor-pointer relative">
           <button
             onClick={onToggle}
@@ -93,6 +96,8 @@ const UserToggle = ({ data, level }) => {
             ""
           )}
         </div>
+      ) : (
+        ""
       )}
     </>
   )

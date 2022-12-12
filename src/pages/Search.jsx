@@ -8,12 +8,18 @@ import length0 from "../assets/img/length0.png"
 import { useInView } from "react-intersection-observer"
 import { searchList, searchSizes } from "../components/state/store"
 import { useRecoilState } from "recoil"
+import SearchFormContainer from "../components/form/SearchFormContainer"
 // import { useParams } from "react-router-dom"
 
 const Search = () => {
   const [search, setSearch, searchHandle] = useInput()
   const navigate = useNavigate()
   const params = useParams()
+  const [tab, setTag] = useState(false)
+  const onTab = () => {
+    setTag(!tab)
+  }
+
   const [page, setPage] = useState(0) //페이지수
   const [loading, setLoading] = useState(false)
   const [ref, inView] = useInView()
@@ -73,13 +79,13 @@ const Search = () => {
   const onSearch = (e) => {
     if (search.keyword !== "") {
       e.preventDefault()
-      navigate(`/search/0/${search.keyword}/${params.sort}`)
+      navigate(`/search/${params.type}/${search.keyword}/${params.sort}`)
     } else {
       alert("검색어를 입력해주세요.")
     }
   }
   function onSort(id) {
-    navigate(`/search/0/${params.searchWord}/${id}`)
+    navigate(`/search/${params.type}/${params.searchWord}/${id}`)
   }
 
   return (
@@ -87,44 +93,91 @@ const Search = () => {
       {/* <div>안녕하세요</div> */}
       <Layout>
         <div className="pl-[26px] pr-[25px] pt-[32px]">
-          <h1 className="text-[20px] font-bold pb-[12px] mr-1">검색</h1>
-          <form className="w-full h-[48px] flex items-center bg-white rounded-[5px]">
-            <input
-              className="w-full pl-[16px] pt[12px] placeholder:text-b14 text-b14 text-bb22 outline-0 mr-1"
-              name="keyword"
-              defaultValue={
-                params.searchWord !== (undefined || "undefined")
-                  ? params.searchWord
-                  : search.keyword
-              }
-              value={search.keyword}
-              onChange={searchHandle}
-              placeholder="검색어를 입력해주세요."
-            ></input>
-            <button onClick={onSearch}>
+          <div className="flex relative items-start">
+            <h1 className="text-[20px] font-bold pb-[12px] mr-1">검색</h1>
+            <button onClick={onTab} className="ml-[2px] mt-[7px]">
               <svg
-                className="mr-[19px] cursor-pointer"
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
-                <path
-                  d="m20.71 19.29-3.4-3.39A7.92 7.92 0 0 0 19 11a8 8 0 1 0-8 8 7.92 7.92 0 0 0 4.9-1.69l3.39 3.4a1.002 1.002 0 0 0 1.639-.325 1 1 0 0 0-.219-1.095zM5 11a6 6 0 1 1 12 0 6 6 0 0 1-12 0z"
-                  fill="#231F20"
+                <circle
+                  cx="8"
+                  cy="8"
+                  r="7.25"
+                  stroke="#666666"
+                  stroke-width="1.5"
                 />
+                <g clip-path="url(#clip0_894_2043)">
+                  <path
+                    d="M8 8.5C7.605 8.5 7.28625 8.1875 7.28625 7.80125C7.28625 7.415 7.60625 7.1025 8 7.1025C8.86625 7.1025 9.57125 6.49625 9.57125 5.75125C9.57125 5.00625 8.86625 4.4 8 4.4C7.13375 4.4 6.42875 5.00625 6.42875 5.75125C6.42875 6.1375 6.10875 6.45 5.715 6.45C5.32125 6.45 5 6.13625 5 5.75C5 4.23375 6.34625 3 8 3C9.65375 3 11 4.23375 11 5.75C11 7.26625 9.65375 8.5 8 8.5Z"
+                    fill="#666666"
+                  />
+                  <path
+                    d="M8.03125 10.125C7.6175 10.125 7.28125 9.8 7.28125 9.39875V7.85C7.28125 7.44875 7.6175 7.12375 8.03125 7.12375C8.445 7.12375 8.78125 7.44875 8.78125 7.85V9.39875C8.78125 9.8 8.445 10.125 8.03125 10.125Z"
+                    fill="#666666"
+                  />
+                  <path
+                    d="M8.03125 13C8.58353 13 9.03125 12.5523 9.03125 12C9.03125 11.4477 8.58353 11 8.03125 11C7.47897 11 7.03125 11.4477 7.03125 12C7.03125 12.5523 7.47897 13 8.03125 13Z"
+                    fill="#666666"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_894_2043">
+                    <rect
+                      width="6"
+                      height="10"
+                      fill="white"
+                      transform="translate(5 3)"
+                    />
+                  </clipPath>
+                </defs>
               </svg>
             </button>
-          </form>
+            <div
+              className={
+                tab
+                  ? "flex items-center absolute top-[-16px] left-[54px]"
+                  : "hidden"
+              }
+            >
+              <svg
+                className="ml-[8px]"
+                width="8"
+                height="10"
+                viewBox="0 0 8 10"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M8 10V0L0 5L8 10Z" fill="white" />
+              </svg>
+              <div
+                onClick={onTab}
+                className="rounded-md bg-white px-[12px] py-[4px] text-b11 text-bb66"
+              >
+                <p>일반 : 콘텐츠와 태그 내용을 한번에 검색해요</p>
+                <p>태그 : 태그만 검색해요</p>
+                <p>작성자 : 닉네임으로 검색해요</p>
+              </div>
+            </div>
+          </div>
+          <SearchFormContainer
+            search={search}
+            setSearch={setSearch}
+            searchHandle={searchHandle}
+            params={params}
+            onSearch={onSearch}
+          />
 
-          {params.searchWord !== undefined && searchSize !== -1 ? (
+          {params.searchWord !== "undefined" && searchSize !== -1 ? (
             <div>
-              <p className="flex items-end text-bbpurple text-lg font-bold mt-10">
-                {params.searchWord}({searchSize})
+              <p className="flex items-end text-bb22 text-b18 font-bold mt-[40px]">
+                {params.searchWord} ({searchSize})
               </p>
 
-              <div className="mt-[12px] mb-[16px] text-b14">
+              <div className="mt-[8px] mb-[16px] text-b14">
                 <button
                   className={
                     params.sort === "new"
