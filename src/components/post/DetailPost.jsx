@@ -8,7 +8,6 @@ import UserToggle from "../elements/UserToggle"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
-
 const DetailPost = ({ data }) => {
   const navigate = useNavigate()
 
@@ -38,7 +37,7 @@ const DetailPost = ({ data }) => {
                 className="border-[0.5px] border-bbBB w-8 h-8 rounded-full object-cover"
               ></img>
               <div className="z-20">
-                <UserToggle data={data} level={level}></UserToggle>
+                <UserToggle data={data} level={level} />
               </div>
               <div className="ml-2 text-sm text-bb22 font-bold">
                 {data.accountName}
