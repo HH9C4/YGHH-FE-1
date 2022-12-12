@@ -22,38 +22,6 @@ const ReportContainer = () => {
   })
   const [contentData, setContentData] = useState()
 
-  // const onPost = () => {
-  //     try {
-  //         if (data.level === 1 && postInput.category === 3) {
-  //             alert("신고대상이 아닙니다.")
-  //             return
-  //         }
-  //         if (data.level === 2 && postInput.category === 2) {
-  //             alert("신고대상이 아닙니다.")
-  //             return
-  //         }
-  //         if (postInput.content === '') {
-  //             alert("신고사유를 입력해주세요.")
-  //             return
-  //         }
-  //         const obj = {
-  //             level: postInput.category !== "" ? postInput.category : data.level,
-  //             reportedId: postInput.category === "1" ? contentData.data.accountName
-  //                 : (postInput.category === "2" ? contentData.data.postId : data.data.commentId),
-  //             content: postInput.content,
-  //         }
-  //         const res = contentsApis.reportContentAX(obj)
-  //         // navigate(-1)
-  //         console.log("응답값", res);
-  //     } catch (error) {
-  //         console.log(error);
-  //         // if (error.response.data.message === "이미 신고하셨습니다.") {
-  //         //     alert("이미 신고를 했습니다")
-  //         // }
-  //         // navigate(-1)
-  //     }
-  // }
-
   const onPost = async () => {
     if (data.level === 1 && postInput.category === 3) {
       alert("신고대상이 아닙니다.")
@@ -73,8 +41,8 @@ const ReportContainer = () => {
         postInput.category === "1"
           ? contentData.data.accountName
           : postInput.category === "2"
-          ? contentData.data.postId
-          : data.data.commentId,
+            ? contentData.data.postId
+            : data.data.commentId,
       content: postInput.content,
     }
 
@@ -107,7 +75,7 @@ const ReportContainer = () => {
         {contentData?.data !== undefined &&
           contentData?.level === 1 &&
           (contentData?.data.content !== undefined &&
-          postInput.category === "1" ? (
+            postInput.category === "1" ? (
             contentData?.data.accountName
           ) : postInput.category === ("2" || "") ? (
             contentData?.data.content
@@ -119,7 +87,7 @@ const ReportContainer = () => {
         {contentData?.data !== undefined &&
           contentData?.level === 2 &&
           (contentData?.data.comment !== undefined &&
-          postInput.category === "1" ? (
+            postInput.category === "1" ? (
             contentData?.data.accountName
           ) : postInput.category === "2" ? (
             <span className="text-bb88">신고대상이 아닙니다.</span>

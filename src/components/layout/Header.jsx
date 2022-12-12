@@ -4,6 +4,8 @@ import { EventSourcePolyfill } from "event-source-polyfill"
 import { notificationApis } from "../../api/instance"
 import navbarLogo from "../../assets/img/navbarLogo.svg"
 import AlarmAlert from "../features/AlarmAlert"
+import { sse } from "../state/store"
+import { useRecoilState } from "recoil"
 const Header = () => {
   const navigate = useNavigate()
   const params = useParams()
@@ -20,36 +22,19 @@ const Header = () => {
     }
   }, [params])
 
+  //sse handle
+  const [newNotice, setNewNotice] = useRecoilState(sse)
   //sse연결 여부
   const [listening, setListening] = useState(false)
-
   //리스폰 담을 스테이트
   const [gotMessage, setGotMessage] = useState(false)
 
   //로그인 여부
   const isLogin = localStorage.getItem("Authorization") !== null
-
-  //알림 불러오기(종 모양 아이콘)
-  useEffect(() => {
-    if (gotMessage) {
-      notificationApis.getNotificationAX().then((res) => {
-        if (res.data.status === 200 && res.data.data !== null) {
-          const resList = res.data.data
-          setGotMessage(false)
-        }
-      })
-    }
-  }, [gotMessage])
-
-  //알림 server state
-
-  //sse handle
-  const [newNotice, setNewNotice] = useState({})
-
   let eventSource = undefined
-
+  const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
   useEffect(() => {
-    if (!listening && isLogin) {
+    if (!isSSE && isLogin) {
       //SSE 연결
       eventSource = new EventSourcePolyfill(
         `${process.env.REACT_APP_API_URL}/connect`,
@@ -57,9 +42,9 @@ const Header = () => {
           headers: {
             Authorization: localStorage.getItem("Authorization"),
             "Content-Type": "text/event-stream",
+            "Connection": "Keep-Alive",
           },
-          heartbeatTimeout: 30000,
-          // heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
+          heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
           withCredentials: true,
         }
       )
@@ -67,6 +52,7 @@ const Header = () => {
       //sse 최초 연결되었을 때
       eventSource.onopen = (event) => {
         if (event.status === 200) {
+          localStorage.setItem("sse", "connect")
           setListening(true)
         }
       }
@@ -84,6 +70,7 @@ const Header = () => {
         }
         if (isJson(event.data)) {
           //알림 리스트 (재요청하는 파트)
+          setListening(!listening)
           setGotMessage(true)
           //실시간 알림 데이터
           const obj = JSON.parse(event.data)
@@ -94,7 +81,8 @@ const Header = () => {
       eventSource.onerror = (event) => {
         if (eventSource !== undefined) {
           eventSource.close()
-          setListening(false)
+          localStorage.setItem('sse', null)
+          window.location.reload()
         }
       }
     }
