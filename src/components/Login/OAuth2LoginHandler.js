@@ -1,10 +1,15 @@
-import React from "react"
-import { useEffect } from "react"
+import React, { useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 import Loading from "./Loading"
 import { membersApis } from "../../api/instance"
 
 const OAuth2LoginHandler = () => {
+
+  // const [newNotice, setNewNotice] = useRecoilState(notificationSSE)
+
   //카카오 로그인
+  const navigate = useNavigate()
+  let object = ""
   const kakaoLogin = async (payload) => {
     try {
       const res = await membersApis.kakaologinAX(payload)
@@ -22,6 +27,7 @@ const OAuth2LoginHandler = () => {
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
       window.location.replace("/")
+      navigate('/home', object)
     } catch (error) {
       return
     }
