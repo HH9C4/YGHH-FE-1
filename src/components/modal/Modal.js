@@ -1,7 +1,5 @@
 //Modal.js
-
 import React from "react"
-import styled from "styled-components"
 import SelectGu from "../features/SelectGu"
 
 const Modal = (props) => {

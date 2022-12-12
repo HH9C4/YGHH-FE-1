@@ -88,10 +88,10 @@ const Home = () => {
                                 item.ranking === 1
                                   ? "#FFD76E"
                                   : item.ranking === 2
-                                  ? "#bbb"
-                                  : item.ranking === 3
-                                  ? "#dbab46"
-                                  : "",
+                                    ? "#bbb"
+                                    : item.ranking === 3
+                                      ? "#dbab46"
+                                      : "",
                             }}
                             className="absolute bottom-[3px] left-[3px] w-[14px] h-[14px] rounded-full
                        animate-ping"
@@ -102,10 +102,10 @@ const Home = () => {
                                 item.ranking === 1
                                   ? "#FFBF17"
                                   : item.ranking === 2
-                                  ? "#bfbfbf"
-                                  : item.ranking === 3
-                                  ? "#db9400"
-                                  : "",
+                                    ? "#bfbfbf"
+                                    : item.ranking === 3
+                                      ? "#db9400"
+                                      : "",
                             }}
                             className="absolute bottom-[2px] left-[2px] w-[16px] h-[16px] rounded-full
                         "
@@ -162,12 +162,12 @@ const Home = () => {
                               item.areaCongestLvl === "매우 붐빔"
                                 ? "#ff3535"
                                 : item.areaCongestLvl === "붐빔"
-                                ? "#FF8A00"
-                                : item.areaCongestLvl === "보통"
-                                ? "#FFD600"
-                                : item.areaCongestLvl === "여유"
-                                ? "#00B953"
-                                : "",
+                                  ? "#FF8A00"
+                                  : item.areaCongestLvl === "보통"
+                                    ? "#FFD600"
+                                    : item.areaCongestLvl === "여유"
+                                      ? "#00B953"
+                                      : "",
                           }}
                           className="w-[20px] h-[20px] rounded-full"
                         ></div>
@@ -186,11 +186,11 @@ const Home = () => {
                             : item.plusMinus} */}
 
                           {Number(item.plusMinus) >= 1000 ||
-                          Number(item.plusMinus) <= -1000
+                            Number(item.plusMinus) <= -1000
                             ? `${String(item.plusMinus)?.substring(
-                                0,
-                                String(item.plusMinus)?.length - 3
-                              )}.${String(item.plusMinus).slice(-3, -2)}K`
+                              0,
+                              String(item.plusMinus)?.length - 3
+                            )}.${String(item.plusMinus).slice(-3, -2)}K`
                             : item.plusMinus}
                         </p>
                       </div>
