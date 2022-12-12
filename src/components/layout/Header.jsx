@@ -32,7 +32,9 @@ const Header = () => {
   //로그인 여부
   const isLogin = localStorage.getItem("Authorization") !== null
   let eventSource = undefined
+
   const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
+
   useEffect(() => {
     if (!isSSE && isLogin) {
       //SSE 연결
@@ -44,7 +46,7 @@ const Header = () => {
             "Content-Type": "text/event-stream",
             "Connection": "Keep-Alive",
           },
-          heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
+          heartbeatTimeout: 3000000, //sse 연결 시간 (30분)
           withCredentials: true,
         }
       )
@@ -82,7 +84,6 @@ const Header = () => {
         if (eventSource !== undefined) {
           eventSource.close()
           localStorage.setItem('sse', null)
-          window.location.reload()
         }
       }
     }
