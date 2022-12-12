@@ -44,7 +44,8 @@ const Header = () => {
             "Content-Type": "text/event-stream",
             "Connection": "Keep-Alive",
           },
-          heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
+          // heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
+          heartbeatTimeout: 3000000, //sse 연결 시간 (토큰 유지 24시간)
           withCredentials: true,
         }
       )
@@ -82,7 +83,6 @@ const Header = () => {
         if (eventSource !== undefined) {
           eventSource.close()
           localStorage.setItem('sse', null)
-          window.location.reload()
         }
       }
     }
