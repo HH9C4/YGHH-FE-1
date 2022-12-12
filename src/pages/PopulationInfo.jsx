@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import SpotContainer from "../components/charts/SpotContainer"
 import Layout from "../components/layout/Layout"
 import Slider from "react-slick"
@@ -10,6 +10,7 @@ import { contentsApis } from "../api/instance"
 
 const PopulationInfo = () => {
   const params = useParams()
+  const navigate = useNavigate()
   const gu = params.gu
   const guNm = localStorage.getItem("gu")
   const [select, setSelect] = useState(false)
@@ -43,9 +44,9 @@ const PopulationInfo = () => {
     } catch (error) {
       alert(error.response.data.message)
       if (localStorage.getItem("nickName") !== null || undefined) {
-        window.location.replace(`/list/${gu}/all/new`)
+        navigate(`/list/${gu}/all/new`)
       } else {
-        window.location.replace("/login")
+        navigate("/login")
       }
       return
     }

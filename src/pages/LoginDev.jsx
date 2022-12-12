@@ -1,8 +1,10 @@
 import axios from "axios"
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import Layout from "../components/layout/Layout"
 
 const LoginDev = () => {
+  const navigate = useNavigate()
   const onLogin = async () => {
     const res = await axios.get("https://boombiboombi.o-r.kr/user/tester")
     const Access_Token = res.headers.authorization
@@ -17,7 +19,7 @@ const LoginDev = () => {
     localStorage.setItem("gu", null)
     localStorage.setItem("site", "kakao")
     alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
-    window.location.replace("/")
+    navigate("/")
   }
   const onLogin2 = async () => {
     const res = await axios.get("https://boombiboombi.o-r.kr/user/tester2")
@@ -33,7 +35,7 @@ const LoginDev = () => {
     localStorage.setItem("gu", null)
     localStorage.setItem("site", "kakao")
     alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
-    window.location.replace("/")
+    navigate("/")
   }
 
   return (
