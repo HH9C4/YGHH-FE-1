@@ -48,7 +48,6 @@ const useImgUpload = (
         maxSizeMB: imgMaxSize,
         maxWidthOrHeight: imgMaxWidthHeight,
         useWebWorker: true,
-        fileType: "image/webp",
       }
 
       if (isComp) {
@@ -60,7 +59,10 @@ const useImgUpload = (
             setImgFiles((imgs) => [
               ...imgs,
               new File([res], res.name, {
-                type: "image/" + res.name.split(".")[1],
+                type:
+                  "image/" + res.name.split(".")[1] === ("svg" || "gif")
+                    ? res.name.split(".")[1]
+                    : "webp",
               }),
             ])
 
