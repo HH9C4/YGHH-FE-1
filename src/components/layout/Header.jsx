@@ -32,7 +32,9 @@ const Header = () => {
   //로그인 여부
   const isLogin = localStorage.getItem("Authorization") !== null
   let eventSource = undefined
+
   const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
+
   useEffect(() => {
     if (!isSSE && isLogin) {
       //SSE 연결
