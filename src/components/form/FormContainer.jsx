@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { contentsApis } from "../../api/instance"
 import useInput from "../../hooks/useInput"
 import useImgUpload from "../../hooks/useImgUpload"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import CategoryInput from "./CategoryInput"
 import TagSearch from "./TagSearch"
 import TagInput from "./TagInput"
@@ -10,6 +10,7 @@ import ContentInput from "./ContentInput"
 import ImgInput from "./ImgInput"
 
 const Form = () => {
+  const navigate = useNavigate()
   const [tagList, setTagList] = useState()
   const [searchTag, setSearchTag] = useState()
 
@@ -31,7 +32,7 @@ const Form = () => {
   const insertContent = async (payload) => {
     const res = await contentsApis.insertContentAX(payload)
     window.alert("게시글이 등록되었습니다.")
-    window.location.replace(`/list/${res.data.data.gu}/all/new`)
+    navigate(`/list/${res.data.data.gu}/all/new`)
     return
   }
 
@@ -132,7 +133,7 @@ const Form = () => {
     insertContent(formData)
   }
 
-  useEffect(() => { }, [files])
+  useEffect(() => {}, [files])
 
   useEffect(() => {
     searchTags(tag)
@@ -147,7 +148,10 @@ const Form = () => {
         <p className="text-sm text-bb22 font-medium">
           카테고리를 선택해주세요.
         </p>
-        <CategoryInput postInput={postInput} postInputHandle={postInputHandle} />
+        <CategoryInput
+          postInput={postInput}
+          postInputHandle={postInputHandle}
+        />
         <div className="pr-[26px]">
           <ImgInput
             uploadHandle={uploadHandle}

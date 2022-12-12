@@ -1,6 +1,13 @@
-import React from "react"
+import React, { useState } from "react"
+import { useEffect } from "react"
 
 const ImgInput = ({ uploadHandle, imgRef, fileUrls, imgDelete }) => {
+  const [imgArr, setImgArr] = useState()
+  useEffect(() => {
+    let urlArr = [...fileUrls].reverse()
+    setImgArr(urlArr)
+  }, [fileUrls])
+
   return (
     <>
       <p className="text-sm text-bb22 font-medium">
@@ -41,9 +48,9 @@ const ImgInput = ({ uploadHandle, imgRef, fileUrls, imgDelete }) => {
           </svg>
         </label>
         {fileUrls.length !== 0 &&
-          fileUrls.reverse().map((value) => {
+          imgArr?.map((value) => {
             return (
-              <div key={value} className="relative shrink-0">
+              <div key={value + Math.random()} className="relative shrink-0">
                 <img
                   className="border-[0.5px] border-bbBB w-[100px] h-[100px] rounded-md my-3 mr-3 object-cover"
                   src={value.url ? value.url : ""}

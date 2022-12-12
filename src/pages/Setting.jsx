@@ -28,7 +28,7 @@ const Setting = () => {
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
         localStorage.removeItem("nickName")
-        window.location.replace("/")
+        navigate("/")
       }
       return
     } catch (error) {
@@ -55,7 +55,7 @@ const Setting = () => {
       localStorage.setItem("profileImage", res.data.data.profileImage)
       localStorage.setItem("nickName", res.data.data.accountName)
       window.alert("프로필 수정이 완료되었습니다.")
-      window.location.replace("/mypage")
+      navigate("/mypage")
     } catch (error) {
       return
     }

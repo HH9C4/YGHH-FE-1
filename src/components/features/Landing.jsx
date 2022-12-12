@@ -1,8 +1,9 @@
 import React from "react"
+import { useNavigate } from "react-router-dom"
 import Layout from "../layout/Layout"
 
 const Landing = ({ data, onClose }) => {
-
+  const navigate = useNavigate()
 
   const gu = data.split(" ", 2)
 
@@ -22,14 +23,14 @@ const Landing = ({ data, onClose }) => {
           재검색하기
         </button>
         <button
-          onClick={() => window.location.replace(`/info/${gu[1]}`)}
+          onClick={() => navigate(`/info/${gu[1]}`)}
           className="mx-[26px] mt-[56px]  text-[14px] w-[330px] h-[48px] rounded-[100px] 
           font-medium bg-white  shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] "
         >
           선택한 지역 정보 바로가기
         </button>
         <button
-          onClick={() => window.location.replace(`/list/${gu[1]}/all/new`)}
+          onClick={() => navigate(`/list/${gu[1]}/all/new`)}
           className="mx-[26px] mt-[12px] text-[14px] w-[330px] h-[48px] rounded-[100px] 
           font-medium bg-white  shadow-[0_5px_10px_0_rgba(0,0,0,0.1)] "
         >

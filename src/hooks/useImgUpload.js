@@ -10,7 +10,7 @@ const useImgUpload = (
   limitCount = 10,
   isComp = true,
   imgMaxSize = 0.2,
-  imgMaxWidthHeight = 1280,
+  imgMaxWidthHeight = 420,
   reset = true
 ) => {
   //이미지 파일 & 프리뷰URL useState
@@ -83,7 +83,7 @@ const useImgUpload = (
         const reader = new FileReader() // FileReader API로 이미지 인식
         reader.onload = () => {
           // 사진 올리고 나서 처리하는 event
-          setImgUrls((imgUrls) => [...imgUrls, { url: reader.result }])
+          setImgUrls((imgUrls) => [{ url: reader.result }, ...imgUrls])
         }
         reader.readAsDataURL(file) //reader에게 file을 먼저 읽힘
       }
