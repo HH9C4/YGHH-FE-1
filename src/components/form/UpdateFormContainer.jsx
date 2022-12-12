@@ -93,7 +93,7 @@ const UpdateForm = ({ data }) => {
     }
   }
   const [deleteUrl, setDeleteUrl] = useState([])
-  const [editUrl, setEditUrl] = useState([...data.imageUrl])
+  const [editUrl, setEditUrl] = useState([...data.imageUrl].reverse())
   const beforeDelete = (e) => {
     setDeleteUrl([...deleteUrl, e])
     setEditUrl(editUrl.filter((url) => url !== e))
@@ -110,7 +110,12 @@ const UpdateForm = ({ data }) => {
 
   //이미지 업로드 인풋돔 선택 훅
   const imgRef = useRef()
-
+  //이미지 업로드 훅 데이터 신규 state 관리
+  const [imgArr, setImgArr] = useState()
+  useEffect(() => {
+    let urlArr = [...fileUrls].reverse()
+    setImgArr(urlArr)
+  }, [fileUrls])
   //submit
   const onEdit = (e) => {
     e.preventDefault()
@@ -206,7 +211,7 @@ const UpdateForm = ({ data }) => {
               </svg>
             </label>
 
-            {fileUrls.reverse().map((value) => {
+            {imgArr?.map((value) => {
               return (
                 <div className="relative shrink-0 ">
                   <img
@@ -236,7 +241,7 @@ const UpdateForm = ({ data }) => {
                 </div>
               )
             })}
-            {editUrl.reverse().map((img) => {
+            {editUrl.map((img) => {
               return (
                 <div key={img} className="relative shrink-0 ">
                   <img
