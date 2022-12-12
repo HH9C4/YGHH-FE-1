@@ -22,7 +22,7 @@ const WalkThrough = () => {
     }
     useEffect(() => {
       if (nickname !== null || undefined) {
-        window.location.replace("/home")
+        navigate("/home")
       }
     }, [])
     return (
@@ -88,9 +88,7 @@ const WalkThrough = () => {
                 <circle cx="20" cy="4" r="4" fill="#BBBBBB" />
                 <circle cx="36" cy="4" r="4" fill="#7F73FF" />
               </svg>
-              <button
-                className="text-white text-b14 font-medium leading-[17px] items-center"
-              >
+              <button className="text-white text-b14 font-medium leading-[17px] items-center">
                 시작하기
               </button>
             </div>
