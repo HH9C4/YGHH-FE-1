@@ -323,7 +323,7 @@ const Setting = () => {
                 <span className="absolute left-[-32px] top-[3px] font-normal text-white rounded-md text-[7px] pb-[2px] px-[4px] bg-gradient-to-r from-bbpink to-bbgradientp">
                   new
                 </span>
-                1.1.1 Ver
+                1.1.3 Ver
               </p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
