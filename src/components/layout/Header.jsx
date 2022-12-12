@@ -22,12 +22,8 @@ const Header = () => {
     }
   }, [params])
 
-
-  //알림 server state
-
   //sse handle
   const [newNotice, setNewNotice] = useRecoilState(sse)
-  // const [newNotice, setNewNotice] = useState({})
   //sse연결 여부
   const [listening, setListening] = useState(false)
   //리스폰 담을 스테이트
@@ -38,7 +34,6 @@ const Header = () => {
   let eventSource = undefined
   const isSSE = localStorage.getItem("sse") === "connect" ? true : false;
   useEffect(() => {
-    // const status = listening;
     if (!isSSE && isLogin) {
       //SSE 연결
       eventSource = new EventSourcePolyfill(
@@ -49,7 +44,6 @@ const Header = () => {
             "Content-Type": "text/event-stream",
             "Connection": "Keep-Alive",
           },
-          // heartbeatTimeout: 30000,
           heartbeatTimeout: 86400000, //sse 연결 시간 (토큰 유지 24시간)
           withCredentials: true,
         }
@@ -58,12 +52,10 @@ const Header = () => {
       //sse 최초 연결되었을 때
       eventSource.onopen = (event) => {
         if (event.status === 200) {
-          console.log("연결");
           localStorage.setItem("sse", "connect")
           setListening(true)
         }
       }
-      console.log("함수탐?");
 
       //서버에서 뭔가 날릴 때마다
       eventSource.onmessage = (event) => {
@@ -76,16 +68,13 @@ const Header = () => {
             return false
           }
         }
-        console.log("재요청");
         if (isJson(event.data)) {
           //알림 리스트 (재요청하는 파트)
           setListening(!listening)
           setGotMessage(true)
           //실시간 알림 데이터
           const obj = JSON.parse(event.data)
-          console.log("받아온값 obj", obj);
           setNewNotice(obj)
-          console.log("받아온값 newNotice", newNotice);
         }
       }
       //sse 에러
@@ -94,7 +83,6 @@ const Header = () => {
           eventSource.close()
           localStorage.setItem('sse', null)
           window.location.reload()
-          console.log("에러");
         }
       }
     }

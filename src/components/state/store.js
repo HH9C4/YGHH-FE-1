@@ -26,11 +26,6 @@ export const chatList = atom({
 
 })
 
-export const notification = atom({
-  key: "notification",
-  default: {},
-
-})
 export const sse = atom({
   key: "sse",
   default: {},
