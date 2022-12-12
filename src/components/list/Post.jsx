@@ -40,7 +40,13 @@ const Post = ({ posts }) => {
                       <div className="z-20">
                         <UserToggle data={data} level={level}></UserToggle>
                       </div>
-                      <div className="ml-2 text-sm text-bb22 font-bold">
+                      <div
+                        className={
+                          data.accountName.length >= 16
+                            ? "ml-2 text-[10.5px] text-bb22 font-bold"
+                            : "ml-2 text-b14 text-bb22 font-bold"
+                        }
+                      >
                         {data.accountName}
                       </div>
                     </div>
@@ -89,6 +95,7 @@ const Post = ({ posts }) => {
                     </div>
                   </div>
                   <div
+                    style={{ wordWrap: "break-word" }}
                     className="hover:cursor-pointer break-all text-sm text-bb22 mt-6 mb-4"
                     onClick={() => navigate(`/detail/${data.postId}`)}
                   >

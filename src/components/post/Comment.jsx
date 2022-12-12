@@ -99,7 +99,13 @@ const Comment = () => {
                       </div>
                     </>
                   )}
-                  <p className=" text-[12px] pl-[3px] text-left font-bold ">
+                  <p
+                    className={
+                      data.accountName?.length >= 16
+                        ? "text-[10px] pl-[3px] text-left font-bold"
+                        : "text-[12px] pl-[3px] text-left font-bold"
+                    }
+                  >
                     {item.accountName}
                   </p>
                 </div>
@@ -116,7 +122,10 @@ const Comment = () => {
                   </p>
                 </div>
               </div>
-              <div className="break-all mb-[8px] text-[12px]">
+              <div
+                style={{ wordWrap: "break-word" }}
+                className="break-all w-full text-clip mb-[8px] text-[12px]"
+              >
                 {item.comment}
               </div>
               <div className="text-[11px] text-bb66 flex">

@@ -133,7 +133,12 @@ const Header = () => {
                   </dt>
 
                   <dd className="text-xs text-bb22 after:ml-1">
-                    <span className="font-medium">{nickName}</span>님
+                    <span className="font-medium">
+                      {nickName?.length <= 5
+                        ? nickName
+                        : `${nickName.slice(0, 5)}...`}
+                    </span>
+                    님
                   </dd>
                 </dl>
               ) : (

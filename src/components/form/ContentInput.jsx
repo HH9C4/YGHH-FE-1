@@ -7,7 +7,7 @@ const ContentInput = ({ data, postInput, postInputHandle }) => {
       defaultValue={data ? data.content : postInput.content}
       // value={postInput.content || ""}
       name="content"
-      maxLength="300"
+      maxLength="250"
       onChange={postInputHandle}
       placeholder="내용을 입력하세요"
     />
