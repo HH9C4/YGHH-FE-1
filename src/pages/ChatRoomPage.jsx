@@ -65,7 +65,7 @@ const ChatRoomPage = () => {
           getinitialChatList(id)
         })
       })
-    } catch (error) {}
+    } catch (error) { }
   }
   function waitForConnection(ws, callback) {
     setTimeout(
@@ -94,7 +94,7 @@ const ChatRoomPage = () => {
 
         { Access_Token: localStorage.getItem("Authorization") }
       )
-    } catch (e) {}
+    } catch (e) { }
   }
 
   //채팅 메시지 여러개로 나오는것 구독해제로 해결
@@ -194,12 +194,12 @@ const ChatRoomPage = () => {
           <button onClick={onTop} className="w-full">
             <h1
               className={
-                chatData?.yourName.length >= 16
+                chatData?.yourName?.length >= 16
                   ? "text-bb22 font-bold text-b14"
                   : "text-bb22 font-bold text-b16"
               }
             >
-              {chatData.yourName}
+              {chatData?.yourName}
             </h1>
           </button>
           <button
