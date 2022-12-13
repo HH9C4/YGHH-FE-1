@@ -48,7 +48,7 @@ const SpotContainer = ({ spot, settings, Slider }) => {
         <div
           className={
             select
-              ? "max-h-[564px] transition-all duration-300"
+              ? "max-h-[656px] transition-all duration-300"
               : "max-h-0 hidden transition-all duration-300"
           }
         >

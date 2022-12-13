@@ -319,7 +319,7 @@ const LineChartContainer = ({ hour }) => {
   }
 
   return (
-    <div className="overflow-x-auto flex justify-center items-center rounded-md h-[184px] mt-[-10px] py-[16px]">
+    <div className="overflow-x-auto flex justify-center items-center rounded-md mt-[-16px] py-[16px]">
       <Line type="line" data={data} options={options} />
     </div>
   )
