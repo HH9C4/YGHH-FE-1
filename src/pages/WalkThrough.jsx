@@ -20,11 +20,11 @@ const WalkThrough = () => {
       onClick()
       handleNextSlide()
     }
-    useEffect(() => {
-      if (nickname !== null || undefined) {
-        navigate("/home")
-      }
-    }, [])
+    // useEffect(() => {
+    //   if (nickname !== null || undefined) {
+    //     navigate("/home")
+    //   }
+    // }, [])
     return (
       <>
         {" "}
@@ -73,7 +73,7 @@ const WalkThrough = () => {
           <div className="relative ">
             <div
               onClick={() => navigate("/home")}
-              className="h-[48px] w-[324px] absolute top-[110px]  
+              className="h-[48px] w-[324px] absolute top-[110px]
                             bg-bbpurple text-center flex justify-center rounded-[90px] cursor-pointer"
             >
               <svg
@@ -132,8 +132,8 @@ const WalkThrough = () => {
     dotsClass: "test-css",
     afterChange: (current) => setActiveSlide({ activeSlide2: current }),
     // afterChange: current => this.setCurrentPage(current),
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    // nextArrow: <NextArrow />,
+    // prevArrow: <PrevArrow />,
     appendDots: (dots) => (
       <div
         style={{

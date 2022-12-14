@@ -17,7 +17,7 @@ const OAuth2LogoutHandler = () => {
         localStorage.removeItem("email")
         localStorage.removeItem("gender")
         localStorage.removeItem("bookmarkList")
-
+        localStorage.removeItem("sse")
         window.location.replace("/")
       }
     } catch (error) {
