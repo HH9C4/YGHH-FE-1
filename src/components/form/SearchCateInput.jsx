@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom"
 
 const SearchCateInput = ({ params, search, searchHandle }) => {
   const navigate = useNavigate()
-  console.log(params.type)
 
   useEffect(() => {
     navigate(`/search/${search.type}/${params.searchWord}/${params.sort}`)

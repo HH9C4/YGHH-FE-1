@@ -59,7 +59,7 @@ const WalkThrough = () => {
                 </svg>
               )}
               <button
-                className="text-white text-b14  font-medium leading-[17px] items-center"
+                className="text-white text-b14 font-medium leading-[17px] items-center"
                 style={{ ...style }}
               >
                 다음으로

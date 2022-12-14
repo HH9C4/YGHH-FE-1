@@ -7,7 +7,6 @@ const LoginDev = () => {
   const navigate = useNavigate()
   const onLogin = async () => {
     const res = await axios.get("https://boombiboombi.o-r.kr/user/tester")
-    log(res);
     const Access_Token = res.headers.authorization
     localStorage.setItem("Authorization", Access_Token)
     localStorage.setItem("Refresh_Token", res.headers.refresh)
@@ -21,7 +20,7 @@ const LoginDev = () => {
     localStorage.setItem("site", "kakao")
     localStorage.setItem("othersite", "naver")
     alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
-    navigate("/setting")
+    navigate("/home")
   }
   const onLogin2 = async () => {
     const res = await axios.get("https://boombiboombi.o-r.kr/user/tester2")
