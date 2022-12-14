@@ -283,7 +283,3 @@
 ## 폴더/파일 구조
 
 <br/>
-
-## 실행 화면
-
-![image](https://user-images.githubusercontent.com/90454621/199663564-c59165aa-2645-471c-91c1-c9a29186d909.png)
