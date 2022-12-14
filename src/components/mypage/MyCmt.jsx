@@ -37,7 +37,10 @@ const MyCmt = ({ cmt }) => {
             {cmt.content}에 새 댓글이 달렸습니다.
           </div>
 
-          <div className="mb-[24px] pr-[20px] text-bb22 text-xs break-all mt-1">
+          <div
+            style={{ wordWrap: "break-word" }}
+            className="mb-[24px] pr-[20px] text-bb22 text-xs break-all mt-1"
+          >
             <span className="font-bold mr-1">{cmt.accountName}</span>
             {cmt.comment}
           </div>
