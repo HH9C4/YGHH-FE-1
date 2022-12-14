@@ -75,17 +75,17 @@ hInstance.interceptors.response.use(
 )
 ///////////////////////////////// 인터셉터 끝
 
-//카카오 탈퇴 인스턴스
-export const kakaoinstance = axios.create({
-  baseURL: "https://kapi.kakao.com",
-  headers: {
-    Authorization:
-      localStorage.getItem("Authorization") === undefined
-        ? ""
-        : localStorage.getItem("Authorization"),
-  },
-  withCredentials: true,
-})
+// //카카오 탈퇴 인스턴스
+// export const kakaoinstance = axios.create({
+//   baseURL: "https://kapi.kakao.com",
+//   headers: {
+//     Authorization:
+//       localStorage.getItem("Authorization") === undefined
+//         ? ""
+//         : localStorage.getItem("Authorization"),
+//   },
+//   withCredentials: true,
+// })
 
 //채팅 API
 export const chatApis = {
@@ -127,8 +127,8 @@ export const membersApis = {
   //로그아웃 서버통신
   logoutAX: () => hInstance.delete(`/api/logout`),
 
-  //카카오 연결끊기
-  kakaodeleteAX: () => kakaoinstance.post(`/v1/user/unlink`),
+  //회원탈퇴
+  deleteAccountAX: () => hInstance.get(`/api/signout`),
 
   //네이버 로그인
   naverloginAX: (loginData) =>

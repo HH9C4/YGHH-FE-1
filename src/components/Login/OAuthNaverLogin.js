@@ -17,10 +17,12 @@ const OAuthNaverLogin = () => {
       localStorage.setItem("location", null)
       localStorage.setItem("gu", null)
       localStorage.setItem("site", "naver")
-
+      if (res.data.data.naverUser) {
+        localStorage.setItem("othersite", res.data.data.kakaoUser)
+      }
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
-      window.location.replace("/")
+      // window.location.replace("/")
     } catch (error) {
       return
     }

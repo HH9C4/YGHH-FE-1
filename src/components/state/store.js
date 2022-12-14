@@ -23,4 +23,11 @@ export const postDetail = atom({
 export const chatList = atom({
   key: "chatList",
   default: {},
+
+})
+
+export const sse = atom({
+  key: "sse",
+  default: {},
+
 })
