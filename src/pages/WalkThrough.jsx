@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import Slider from 'react-slick'
+import Slider from "react-slick"
 import walkthrough1 from "../assets/img/walkthrough1.svg"
 import walkthrough2 from "../assets/img/walkthrough2.svg"
 import walkthrough3 from "../assets/img/walkthrough3.svg"
@@ -20,7 +20,6 @@ const WalkThrough = () => {
       onClick()
       handleNextSlide()
     }
-
 
     return (
       <>
@@ -70,7 +69,7 @@ const WalkThrough = () => {
           <div className="relative ">
             <div
               onClick={() => navigate("/home")}
-              className="h-[48px] w-[324px] absolute top-[110px]  
+              className="h-[48px] w-[324px] absolute top-[110px]
                             bg-bbpurple text-center flex justify-center rounded-[90px] cursor-pointer"
             >
               <svg

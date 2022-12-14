@@ -50,7 +50,10 @@ const MyItem = ({ post }) => {
             {post.category}
           </div>
         </div>
-        <p className="flex line-clamp-2 h-[50px] leading-[0.85rem] overflow-hidden break-all mt-[4px] text-b11 text-bb22">
+        <p
+          style={{ wordWrap: "break-word" }}
+          className="flex line-clamp-2 h-[50px] leading-[0.85rem] overflow-hidden break-all mt-[4px] text-b11 text-bb22"
+        >
           {post.content}
         </p>
       </div>
