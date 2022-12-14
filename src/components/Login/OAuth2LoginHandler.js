@@ -24,6 +24,9 @@ const OAuth2LoginHandler = () => {
       localStorage.setItem("location", null)
       localStorage.setItem("gu", null)
       localStorage.setItem("site", "kakao")
+      if (res.data.data.kakaoUser) {
+        localStorage.setItem("othersite", res.data.data.naverUser)
+      }
       // // 토큰 받았고 로그인됐으니 메인으로 화면 전환시켜줌
       alert(`${localStorage.getItem("nickName")}님 환영합니다!`)
       window.location.replace("/")
