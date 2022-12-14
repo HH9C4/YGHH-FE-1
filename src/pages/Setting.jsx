@@ -22,8 +22,7 @@ const Setting = () => {
   const profileImage = localStorage.getItem("profileImage")
   const userSite = localStorage.getItem("site")
   const userOtherSite = localStorage.getItem("othersite")
-  console.log(userOtherSite)
-
+  
   //네이버 로그아웃
   const naverLogout = async (payload) => {
     try {
@@ -32,6 +31,7 @@ const Setting = () => {
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
         localStorage.removeItem("nickName")
+        localStorage.removeItem('sse')
         navigate("/")
       }
       return
