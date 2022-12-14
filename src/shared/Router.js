@@ -1,5 +1,6 @@
-import React from "react"
+import React, { Suspense, lazy } from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Splash from '../components/elements/Splash';
 import Detail from "../pages/Detail"
 import List from "../pages/List"
 import Login from "../pages/Login"
@@ -19,9 +20,32 @@ import WalkThrough from "../pages/WalkThrough"
 import ChatRoomPage from "../pages/ChatRoomPage"
 import ChatList from "../pages/ChatList"
 import Report from "../pages/Report"
+
+
+// const Detail = lazy(() => import("../pages/Detail"))
+// const Login = lazy(() => import("../pages/Login"))
+// const Home = lazy(() => import("../pages/Home"))
+// const List = lazy(() => import("../pages/List"))
+// const Mypage = lazy(() => import("../pages/Mypage"))
+// const Search = lazy(() => import("../pages/Search"))
+// const Write = lazy(() => import("../pages/Write"))
+// const BookMark = lazy(() => import("../pages/BookMark"))
+// const FindAddress = lazy(() => import("../pages/FindAddress"))
+// const PopulationInfo = lazy(() => import("../pages/PopulationInfo"))
+// const LoginDev = lazy(() => import("../pages/LoginDev"))
+// const Setting = lazy(() => import("../pages/Setting"))
+// const WalkThrough = lazy(() => import("../pages/WalkThrough"))
+// const ChatRoomPage = lazy(() => import("../pages/ChatRoomPage"))
+// const ChatList = lazy(() => import("../pages/ChatList"))
+// const Report = lazy(() => import("../pages/Report"))
 const Router = () => {
+
   return (
     <BrowserRouter>
+      {/* <Routes>
+        <Route path="/" element={<WalkThrough />} />
+      </Routes> */}
+      {/* <Suspense fallback={<Splash />}> */}
       <Routes>
         <Route path="/" element={<WalkThrough />} />
         <Route path="/home" element={<Home />} />
@@ -40,17 +64,14 @@ const Router = () => {
         <Route path="/chat" element={<ChatList />} />
         <Route path="/chatRoomPage/:id" element={<ChatRoomPage />} />
         <Route path="/report" element={<Report />} />
-
-        {/* Redirect uri로 이동하기 전에 인가 코드를 redirect 해주는 주소 */}
-        {/* 카카오 */}
         <Route path="/user/kakao/callback" element={<OAuth2LoginHandler />} />
         <Route
           path="/user/kakao/logout/callback"
           element={<OAuth2LogoutHandler />}
         />
-        {/* 네이버 */}
         <Route path="/user/naver/callback" element={<OAuthNaverLogin />} />
       </Routes>
+      {/* </Suspense> */}
     </BrowserRouter>
   )
 }
