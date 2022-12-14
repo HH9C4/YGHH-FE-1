@@ -7,7 +7,7 @@ const LoginDev = () => {
   const navigate = useNavigate()
   const onLogin = async () => {
     const res = await axios.get("https://boombiboombi.o-r.kr/user/tester")
-    console.log(res);
+    log(res);
     const Access_Token = res.headers.authorization
     localStorage.setItem("Authorization", Access_Token)
     localStorage.setItem("Refresh_Token", res.headers.refresh)
@@ -25,7 +25,6 @@ const LoginDev = () => {
   }
   const onLogin2 = async () => {
     const res = await axios.get("https://boombiboombi.o-r.kr/user/tester2")
-    console.log(res);
     const Access_Token = res.headers.authorization
     localStorage.setItem("Authorization", Access_Token)
     localStorage.setItem("Refresh_Token", res.headers.refresh)
