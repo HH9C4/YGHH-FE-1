@@ -31,7 +31,7 @@ const Setting = () => {
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
         localStorage.removeItem("nickName")
-        localStorage.setItem('sse', null)
+        localStorage.removeItem('sse')
         navigate("/")
       }
       return
