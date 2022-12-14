@@ -225,7 +225,7 @@ const List = () => {
               </button>
             )}
             {param.category === "공유" ? (
-              <button className="md:shrink-0 shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
+              <button className="shrink-0 md:shrink shadow-[0_0_10px_0_rgba(0,0,0,0.1)] text-sm font-medium bg-bbpurple text-white w-20 h-10 rounded-full mr-3">
                 공유
               </button>
             ) : (
