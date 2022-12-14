@@ -9,7 +9,9 @@ const SearchCateInput = ({ params, search, searchHandle }) => {
     <ul className="mx-auto flex justify-start items-center text-b14 text-bb22 font-medium">
       <li className="flex">
         <input
-          onClick={navigate(`/search/0/${params.searchWord}/${params.sort}`)}
+          onClick={() =>
+            navigate(`/search/0/${params.searchWord}/${params.sort}`)
+          }
           defaultChecked={
             params?.type && (params.type === "0" ? "checked" : "")
           }
@@ -29,7 +31,9 @@ const SearchCateInput = ({ params, search, searchHandle }) => {
       </li>
       <li className="flex">
         <input
-          onClick={navigate(`/search/1/${params.searchWord}/${params.sort}`)}
+          onClick={() =>
+            navigate(`/search/1/${params.searchWord}/${params.sort}`)
+          }
           defaultChecked={
             params?.type && (params.type === "1" ? "checked" : "")
           }
@@ -49,7 +53,9 @@ const SearchCateInput = ({ params, search, searchHandle }) => {
       </li>
       <li className="flex">
         <input
-          onClick={navigate(`/search/2/${params.searchWord}/${params.sort}`)}
+          onClick={() =>
+            navigate(`/search/2/${params.searchWord}/${params.sort}`)
+          }
           defaultChecked={
             params?.type && (params.type === "2" ? "checked" : "")
           }
