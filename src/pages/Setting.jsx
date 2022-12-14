@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react"
 import Layout from "../components/layout/Layout"
-import axios from "axios"
+import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { REACT_APP_KAKAO_REST_API_KEY } from "../api/loginKeys"
 import useImgUpload from "../hooks/useImgUpload"
@@ -20,9 +20,8 @@ const Setting = () => {
   const site = localStorage.getItem("site")
   const userNickname = localStorage.getItem("nickName")
   const profileImage = localStorage.getItem("profileImage")
-  const userSite = localStorage.getItem("site")
   const userOtherSite = localStorage.getItem("othersite")
-  
+
   //네이버 로그아웃
   const naverLogout = async (payload) => {
     try {
@@ -120,36 +119,53 @@ const Setting = () => {
   }
 
   const deleteAccount = async () => {
-    //지금 사이트와 반대의 이름을 넣어주는거.
-    //예를 들어 사이트가 네이버면 너 카카오도 연결되어 있는데 탈퇴하는거 맞아 ?
-    if (userOtherSite !== null) {
-      if (
-        window.confirm(
-          `현재 ${userOtherSite} 계정도 연동되어 있습니다, 탈퇴 하시겠습니까?`
-        )
-      ) {
-        await membersApis.deleteAccountAX()
-        localStorage.removeItem("Authorization")
-        localStorage.removeItem("Refresh_Token")
-        localStorage.removeItem("nickName")
-        localStorage.removeItem("profileImage")
-        localStorage.removeItem("ageRange")
-        localStorage.removeItem("email")
-        localStorage.removeItem("gender")
-        localStorage.removeItem("location")
-        localStorage.removeItem("gu")
-        localStorage.removeItem("site")
-        localStorage.removeItem("sse")
-        localStorage.removeItem("othersite")
-        alert("그동안 붐비붐비를 이용해주셔서 감사합니다.")
-        navigate("/")
-        return
+    if (userOtherSite === true) {
+      if (site === "kakao") {
+        if (window.confirm(`현재 네이버 계정도 연동되어 있습니다, 탈퇴 하시겠습니까?`)) {
+          await membersApis.deleteAccountAX()
+          localStorage.removeItem("Authorization")
+          localStorage.removeItem("Refresh_Token")
+          localStorage.removeItem("nickName")
+          localStorage.removeItem("profileImage")
+          localStorage.removeItem("ageRange")
+          localStorage.removeItem("email")
+          localStorage.removeItem("gender")
+          localStorage.removeItem("location")
+          localStorage.removeItem("gu")
+          localStorage.removeItem("site")
+          localStorage.removeItem("sse")
+          localStorage.removeItem("othersite")
+          alert("그동안 붐비붐비를 이용해주셔서 감사합니다.")
+          navigate("/")
+          return
+        } else {
+          return
+        }
       } else {
-        return
+        if (window.confirm(`현재 카카오 계정도 연동되어 있습니다, 탈퇴 하시겠습니까?`)) {
+          await membersApis.deleteAccountAX()
+          localStorage.removeItem("Authorization")
+          localStorage.removeItem("Refresh_Token")
+          localStorage.removeItem("nickName")
+          localStorage.removeItem("profileImage")
+          localStorage.removeItem("ageRange")
+          localStorage.removeItem("email")
+          localStorage.removeItem("gender")
+          localStorage.removeItem("location")
+          localStorage.removeItem("gu")
+          localStorage.removeItem("site")
+          localStorage.removeItem("sse")
+          localStorage.removeItem("othersite")
+          alert("그동안 붐비붐비를 이용해주셔서 감사합니다.")
+          navigate("/")
+          return
+        } else {
+          return
+        }
       }
     }
-    if (userOtherSite === null) {
-      if (window.confirm("정말 탈퇴하시겠습니까?")) {
+    if (userOtherSite === false) {
+      if (window.confirm('정말 탈퇴하시겠습니까?')) {
         await membersApis.deleteAccountAX()
         localStorage.removeItem("Authorization")
         localStorage.removeItem("Refresh_Token")
@@ -300,9 +316,9 @@ const Setting = () => {
               ""
             )}
             {nicknameInput.nickname !== "" &&
-            checkDuplicate !== undefined &&
-            !checkDuplicate &&
-            userNickname !== nicknameInput?.nickname ? (
+              checkDuplicate !== undefined &&
+              !checkDuplicate &&
+              userNickname !== nicknameInput?.nickname ? (
               <p className="w-full absolute mt-[8px] text-[11px] font-medium text-[#ff3535]">
                 이미 사용중인 닉네임입니다
               </p>
@@ -377,7 +393,7 @@ const Setting = () => {
                 <span className="absolute left-[-32px] top-[3px] font-normal text-white rounded-md text-[7px] pb-[2px] px-[4px] bg-gradient-to-r from-bbpink to-bbgradientp">
                   new
                 </span>
-                1.1.5 Ver
+                1.1.3 Ver
               </p>
             </div>
             <div className="flex w-full px-[24px] items-center h-[63.5px]">
@@ -396,9 +412,8 @@ const Setting = () => {
             onClick={deleteAccount}
             className="hover:cursor-pointer flex px-[24px] items-center mt-[12px] rounded-[8px] bg-white w-[w-full] h-[56px]"
           >
-            <button className="text-[14px] font-medium text-bbred">
-              서비스 탈퇴
-            </button>
+            <button
+              className="text-[14px] font-medium text-bbred">서비스 탈퇴</button>
           </div>
         </div>
       </div>
@@ -406,13 +421,13 @@ const Setting = () => {
         <div className="flex">
           <a href="https://instagram.com/boombiboombi.official">
             <img
-              alt="instagramLogo"
-              className="hover:cursor-pointer mr-[12px]"
-              src={insta}
-            />
+              alt='instagramLogo'
+              className="hover:cursor-pointer mr-[12px]" src={insta} />
           </a>
           <a href="mailto:boombiboombi.official@gmail.com">
-            <img alt="gmailLogo" className="hover:cursor-pointer" src={mail} />
+            <img
+              alt='gmailLogo'
+              className="hover:cursor-pointer" src={mail} />
           </a>
         </div>
         <p className="mt-[12px] text-bb22 text-b11 font-medium leading-[1.55]">
@@ -423,6 +438,7 @@ const Setting = () => {
       </div>
     </Layout>
   )
+
 }
 
 export default Setting
