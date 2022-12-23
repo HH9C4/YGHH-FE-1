@@ -5,6 +5,8 @@
 
 ## [ 서울시 도시 데이터 공공 API 기반 정보제공형 커뮤니티 ](https://www.boombiboombi.com/)
 
+![image](https://user-images.githubusercontent.com/99253403/209310631-8eb9064f-5c14-4bbd-9b7e-6d8f33b275b3.png)
+
 </div>
 
 
